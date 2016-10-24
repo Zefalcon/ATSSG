@@ -1,5 +1,15 @@
 package ATSSG;
 
-public class AttackButton extends Button {
+import javax.swing.Icon;
 
+public class AttackButton extends CommandButton {
+
+	//Methods
+	public AttackButton(Icon icon, String hoverText) {
+		super(icon, hoverText);
+	}
+	
+	public void clicked() {
+		
+	}
 }

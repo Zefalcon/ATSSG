@@ -7,4 +7,13 @@ public class UnitButton extends Button {
 	protected Icon visual;
 	protected Unit reference;
 
+	//Methods
+	public UnitButton(Icon icon, Unit reference) {
+		super(icon);
+		this.reference = reference;
+	}
+	
+	public void clicked() {
+		
+	}
 }

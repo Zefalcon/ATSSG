@@ -1,5 +1,15 @@
 package ATSSG;
 
-public class HarvestButton extends Button {
+import javax.swing.Icon;
 
+public class HarvestButton extends CommandButton {
+
+	//Methods
+	public HarvestButton(Icon icon, String hoverText) {
+		super(icon, hoverText);
+	}
+	
+	public void clicked() {
+		
+	}
 }

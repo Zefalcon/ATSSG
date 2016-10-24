@@ -1,5 +1,15 @@
 package ATSSG;
 
-public class PatrolButton extends Button {
+import javax.swing.Icon;
 
+public class PatrolButton extends CommandButton {
+
+	//Methods
+	public PatrolButton(Icon icon, String hoverText) {
+		super(icon, hoverText);
+	}
+	
+	public void clicked() {
+		
+	}
 }

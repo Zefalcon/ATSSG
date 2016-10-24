@@ -1,14 +1,16 @@
 package ATSSG;
 import javax.swing.Icon;
 
-public class Button {
+public abstract class Button {
 	
 	//Variables
 	protected Icon icon;
 	
 	//Methods
-	public void clicked(){
-		
+	public Button(Icon icon) {
+		this.icon = icon;
 	}
+	
+	public abstract void clicked();
 
 }
