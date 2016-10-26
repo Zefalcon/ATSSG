@@ -37,5 +37,8 @@ public abstract class Entity {
 	public void executeAction(){
 		
 	}
+	
+	public Cell getContainingCell() {return containingCell;}
+	public Player getOwner() {return owner;}
 
 }

@@ -24,5 +24,7 @@ public class Unit extends Entity {
 	public void move(Cell destination){
 		
 	}
+	
+	public UnitType getType() {return type;}
 
 }

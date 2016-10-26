@@ -10,7 +10,7 @@ public enum UnitType {
 	public String description;
 	public Icon image;
 	public int maxHP;
-	public Map<TerrainType, Double> passableTerrain;
+	public Map<TerrainType, Double> passableTerrain; 
 	public int maxMoves;
 	public AttackType aType;
 	public int aRange;
