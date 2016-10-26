@@ -1,4 +1,5 @@
 package ATSSG;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.io.File;
 
@@ -6,8 +7,7 @@ public class GameMap {
 	
 	//Variables
 	protected Collection<Cell> all_cells;
-	protected Collection<Player> human_players;
-	protected Collection<Player> ai_players;
+	protected Collection<Player> players;
 	protected Collection<Entity> entities;
 	
 	//Constructor
@@ -23,6 +23,10 @@ public class GameMap {
 	public Cell getCell(int x, int y){
 		//Returns cell at given coordinates
 		return null;
+	}
+	
+	public Collection<Player> getPlayers() {
+		return new ArrayList<Player>(players);
 	}
 
 }

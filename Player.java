@@ -19,5 +19,9 @@ public class Player {
 	public void executeAll(){
 		
 	}
+	
+	public Collection<Entity> getEntities() {
+		return all_entities;
+	}
 
 }

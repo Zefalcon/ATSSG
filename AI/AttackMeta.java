@@ -2,13 +2,14 @@ package ATSSG.AI;
 
 import ATSSG.Action;
 import ATSSG.AttackAction;
+import ATSSG.Entity;
 import ATSSG.Unit;
 
 public class AttackMeta extends MetaAction {
 	Unit attacker;
-	Unit target;
+	Entity target;
 
-	public AttackMeta(Unit attacker, Unit target) {
+	public AttackMeta(Unit attacker, Entity target) {
 		this.attacker = attacker;
 		this.target = target;
 	}

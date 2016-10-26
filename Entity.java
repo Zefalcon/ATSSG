@@ -7,7 +7,7 @@ public abstract class Entity {
 	protected Player owner;
 	protected Cell containingCell;
 	protected Script currentScript;
-	protected Action currentAction;
+	protected Action currentAction = null;
 	
 	//Methods
 	public void tickTurn(){
@@ -23,7 +23,7 @@ public abstract class Entity {
 	}
 	
 	public boolean actionQueued(){
-		return false;
+		return currentAction != null;
 	}
 	
 	public boolean busy(){
@@ -36,6 +36,10 @@ public abstract class Entity {
 	
 	public void executeAction(){
 		
+	}
+	
+	public void setAction(Action act) {
+		currentAction = act;
 	}
 	
 	public Cell getContainingCell() {return containingCell;}
