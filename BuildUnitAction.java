@@ -1,12 +1,12 @@
 package ATSSG;
 
-public class BuildUnitAction extends Action {
+public class BuildUnitAction extends BuildingAction {
 	
 	//Variables
 	protected UnitType toBuild;
 	
 	//Constructor
-	public BuildUnitAction(int numTurns, Entity perf, UnitType unit){
+	public BuildUnitAction(int numTurns, Building perf, UnitType unit){
 		turnsToComplete = numTurns;
 		performer = perf;
 		toBuild = unit;
@@ -15,11 +15,16 @@ public class BuildUnitAction extends Action {
 	//Methods
 	public boolean execute(){
 		//Executes build(toBuild) of performer
-		return false;
+		if(performer.build(toBuild)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public void setUnitType(UnitType toSet){
-		
+		toBuild = toSet;
 	}
 
 }

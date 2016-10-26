@@ -1,12 +1,12 @@
 package ATSSG;
 
-public class MoveAction extends Action {
+public class MoveAction extends UnitAction {
 	
 	//Variables
 	protected Cell destination;
 	
 	//Constructor
-	public MoveAction(int numTurns, Entity perf, Cell end){
+	public MoveAction(int numTurns, Unit perf, Cell end){
 		turnsToComplete = numTurns;
 		performer = perf;
 		destination = end;
@@ -15,11 +15,16 @@ public class MoveAction extends Action {
 	//Methods
 	public boolean execute(){
 		//Executes move(destination) of performer
-		return false;
+		if(performer.move(destination)){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public void setEndPoint(Cell end){
-		
+		destination = end;
 	}
 
 }
