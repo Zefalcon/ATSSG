@@ -19,10 +19,11 @@ public abstract class Player {
 	public void kill(){
 		for (Object entity: all_entities.toArray()) {
 			((Entity) entity).kill();
-			all_entities.remove(entity);
 		}
 		resources = null;
+		if (containing_map != null) containing_map.removePlayer(this);
 		containing_map = null;
+		all_entities = null;
 	}
 	
 	public abstract void executeAll();
@@ -44,8 +45,12 @@ public abstract class Player {
 	}
 	
 	public void removeEntity(Entity e) {
-		all_entities.remove(e);
-		containing_map.removeEntity(e);
+		if (all_entities != null) all_entities.remove(e);
+		if (containing_map !=null) containing_map.removeEntity(e);
+	}
+	
+	public void addEntity(Entity e) {
+		all_entities.add(e);
 	}
 
 }

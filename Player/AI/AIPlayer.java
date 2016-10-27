@@ -72,6 +72,10 @@ public class AIPlayer extends Player {
 	
 	@Override
 	public void executeAll(){
+		if (all_entities == null || all_entities.isEmpty()) {
+			this.kill();
+			return;
+		}
 		planAllActions();
 		for (Entity e: plannedActions.keySet()) {
 			e.setAction(plannedActions.get(e).nextAction());
