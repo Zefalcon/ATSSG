@@ -56,11 +56,11 @@ public abstract class Entity {
 	
 	public void kill(){
 		hitPoints = 0;
-		containingCell.removeEntity(this);
+		if (containingCell != null) containingCell.removeEntity(this);
 		containingCell = null;
 		currentScript = null;
 		currentAction = null;
-		owner.removeEntity(this);
+		if (owner != null) owner.removeEntity(this);
 		owner = null;
 	}
 	
