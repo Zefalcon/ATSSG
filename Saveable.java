@@ -5,8 +5,6 @@ public interface Saveable {
 	//Methods
 	public byte[] Save();
 	
-	public static Saveable Load(byte[] input){
-		return null;
-	}
+	public Saveable Load(byte[] input);
 
 }
