@@ -45,6 +45,7 @@ public abstract class Player {
 	
 	public void removeEntity(Entity e) {
 		all_entities.remove(e);
+		containing_map.removeEntity(e);
 	}
 
 }

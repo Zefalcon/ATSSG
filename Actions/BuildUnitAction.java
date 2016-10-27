@@ -1,23 +1,26 @@
 package ATSSG.Actions;
 import ATSSG.Building;
 import ATSSG.UnitType;
+import ATSSG.Cell;
 
 public class BuildUnitAction extends BuildingAction {
 	
 	//Variables
 	protected UnitType toBuild;
+	protected Cell location;
 	
 	//Constructor
-	public BuildUnitAction(int numTurns, Building perf, UnitType unit){
+	public BuildUnitAction(int numTurns, Building perf, UnitType unit, Cell toPlace){
 		turnsToComplete = numTurns;
 		performer = perf;
 		toBuild = unit;
+		location = toPlace;
 	}
 	
 	//Methods
 	public boolean execute(){
-		//Executes build(toBuild) of performer
-		if(performer.build(toBuild)){
+		//Executes build(toBuild, location) of performer
+		if(performer.build(toBuild, location)){
 			return true;
 		}
 		else{
@@ -28,5 +31,6 @@ public class BuildUnitAction extends BuildingAction {
 	public void setUnitType(UnitType toSet){
 		toBuild = toSet;
 	}
+	public void setLocation(Cell toPlace) { location = toPlace; }
 
 }

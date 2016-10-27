@@ -69,4 +69,10 @@ public class GameMap {
 		return entities;
 	}
 
+	public void removeEntity(Entity toRemove){
+		if(entities.contains(toRemove)){
+			entities.remove(toRemove);
+		}
+	}
+
 }

@@ -17,15 +17,36 @@ public abstract class Entity {
 	
 	//Methods
 	public void tickTurn(){
-		
+		if(currentAction!=null){
+			executeAction();
+		}
+		else if(currentScript!=null){
+			executeScript();
+		}
+		else{
+			//Do nothing
+		}
+	}
+
+	public void doDamage(int damage){
+		hitPoints-=damage;
+		if(hitPoints<=0){
+			kill();
+		}
 	}
 	
 	public void kill(){
-		
+		hitPoints = 0;
+		containingCell.removeEntity(this);
+		containingCell = null;
+		currentScript = null;
+		currentAction = null;
+		owner.removeEntity(this);
+		owner = null;
 	}
 	
 	public boolean scripted(){
-		return false;
+		return currentScript!=null;
 	}
 	
 	public boolean actionQueued(){
@@ -33,15 +54,17 @@ public abstract class Entity {
 	}
 	
 	public boolean busy(){
+		//TODO
 		return false;
 	}
 	
 	public void executeScript(){
-		
+		//TODO
 	}
 	
 	public void executeAction(){
-		
+		currentAction.execute();
+		currentAction=null;
 	}
 	
 	public void setAction(Action act) {
@@ -49,6 +72,7 @@ public abstract class Entity {
 	}
 	
 	public Cell getContainingCell() {return containingCell;}
+	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
 
 }

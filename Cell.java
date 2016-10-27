@@ -68,6 +68,20 @@ public class Cell {
 
 	public TerrainType getTerrainType() {return terrainType;}
 	public Collection<Entity> getOccupyingEntities() { return occupyingEntities;}
+	public boolean addOccupyingEntity(Entity toAdd) {
+		occupyingEntities.add(toAdd);
+		return true; //May want to change later to ensure no more than one building/unit can be in the same cell.
+	}
+	public void removeEntity(Entity toRemove){
+		if(occupyingEntities.contains(toRemove)){
+			occupyingEntities.remove(toRemove);
+		}
+	}
+
+	public static int distance(Cell a, Cell b){
+		//Returns distance between two given cells.  Diagonals count as 1
+		return Math.max(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY()));
+	}
 	public int getX() {return x;}
 	public int getY() {return y;}
 }

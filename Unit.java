@@ -11,19 +11,31 @@ public class Unit extends Entity {
 		type = t;
 	}
 	//Methods
-	public Collection<Entity> validTargets(){
-		return null;
+	public boolean canAttack(Entity target){
+		return Cell.distance(getContainingCell(), target.getContainingCell()) < type.aRange;
 	}
-	
+
 	public boolean attack(Entity target){
-		return false;
+		//If within range, hit
+		if(canAttack(target)){
+			target.doDamage((type.aDamage));
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
-	
-	public Collection<Cell> validLocations(){
-		return null;
+
+	public boolean canMoveTo(Cell destination){
+		return Cell.distance(getContainingCell(), destination) <= type.maxMoves;
 	}
 	
 	public boolean move(Cell destination){
+		if(canMoveTo(destination)){
+			getContainingCell().removeEntity(this);
+			destination.addOccupyingEntity(this);
+			setContainingCell(destination);
+		}
 		return false;
 	}
 	
@@ -34,11 +46,11 @@ public class Unit extends Entity {
 	}
 
 	public boolean deposit(Building drop){
-		return false;
+		return false; //Only harvesters can drop stuff
 	}
 
 	public boolean harvest(ResourceItem resource){
-		return false;
+		return false; //Only harvesters can harvest stuff
 	}
 
 }
