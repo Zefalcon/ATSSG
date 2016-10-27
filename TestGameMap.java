@@ -22,8 +22,8 @@ public class TestGameMap {
 		assertEquals(testMap.getCell(5, 5).getY(), 5);
 		assertEquals(testMap.getCell(0, 0).getAdjacent().size(), 3);
 		assertEquals(testMap.getCell(0, 1).getAdjacent().size(), 5);
-		assertEquals(testMap.getCell(10, 10).getAdjacent().size(), 3);
-		assertEquals(testMap.getCell(10, 8).getAdjacent().size(), 5);
+		assertEquals(testMap.getCell(9, 9).getAdjacent().size(), 3);
+		assertEquals(testMap.getCell(9, 7).getAdjacent().size(), 5);
 		assertEquals(testMap.getCell(5, 5).getAdjacent().size(), 8);
 	}
 	

@@ -32,7 +32,7 @@ public class Cell {
 			cell_list.add(top_left);
 		}
 		Cell top_center = m.getCell(x, y - 1);
-		if(top_left != null){
+		if(top_center != null){
 			cell_list.add(top_center);
 		}
 		Cell top_right = m.getCell(x + 1, y - 1);
@@ -54,7 +54,7 @@ public class Cell {
 			cell_list.add(bottom_left);
 		}
 		Cell bottom_center = m.getCell(x, y + 1);
-		if(bottom_left != null){
+		if(bottom_center != null){
 			cell_list.add(bottom_center);
 		}
 		Cell bottom_right = m.getCell(x + 1, y + 1);

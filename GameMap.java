@@ -55,10 +55,10 @@ public class GameMap {
 	
 	//Methods
 	public Cell getCell(int x, int y){
-		if(x < 0 || x > all_cells.length){
+		if(x < 0 || x >= all_cells.length){
 			return null;
 		}
-		if(y < 0 || y > all_cells[1].length){
+		if(y < 0 || y >= all_cells[1].length){
 			return null;
 		}
 		return all_cells[x][y];
