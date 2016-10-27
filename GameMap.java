@@ -5,7 +5,9 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 
-import AI.AIPlayer;
+import ATSSG.Player.HumanPlayer;
+import ATSSG.Player.Player;
+import ATSSG.Player.AI.AIPlayer;
 
 import java.io.File;
 
@@ -28,7 +30,7 @@ public class GameMap {
 		Collection<Entity> human_ents = new LinkedList<Entity>();
 		
 		players = new LinkedList<Player>();
-		players.add(new Player());
+		players.add(new HumanPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this));
 		players.add(new AIPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this));
 		
 		for(int i = 3; i < 8; i++){

@@ -1,5 +1,7 @@
 package ATSSG;
 
+import ATSSG.Player.Player;
+
 public abstract class Entity {
 	
 	//Variables

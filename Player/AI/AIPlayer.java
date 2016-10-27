@@ -1,4 +1,4 @@
-package ATSSG.AI;
+package ATSSG.Player.AI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,9 +10,9 @@ import ATSSG.Action;
 import ATSSG.Cell;
 import ATSSG.Entity;
 import ATSSG.GameMap;
-import ATSSG.Player;
 import ATSSG.RCommodityType;
 import ATSSG.Unit;
+import ATSSG.Player.Player;
 
 public class AIPlayer extends Player {
 	
@@ -57,12 +57,19 @@ public class AIPlayer extends Player {
 		plannedActions.put(unit, new AttackMeta(unit, target));
 	}
 	
+	@Override
 	public void executeAll(){
 		planAllActions();
 		for (Entity e: plannedActions.keySet()) {
 			e.setAction(plannedActions.get(e).nextAction());
 			e.executeAction();
 		}
+	}
+	
+	@Override
+	public void kill(){
+		super.kill();
+		plannedActions = null;
 	}
 
 }

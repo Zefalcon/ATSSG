@@ -1,4 +1,4 @@
-package ATSSG.AI;
+package ATSSG.Player.AI;
 
 import ATSSG.Action;
 import ATSSG.AttackAction;

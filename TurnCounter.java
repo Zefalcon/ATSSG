@@ -1,6 +1,8 @@
 package ATSSG;
 import java.util.Queue;
 
+import ATSSG.Player.Player;
+
 public class TurnCounter {
 	
 	//Variables

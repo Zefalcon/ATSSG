@@ -1,4 +1,4 @@
-package ATSSG.AI;
+package ATSSG.Player.AI;
 
 import java.util.ArrayList;
 import java.util.List;
