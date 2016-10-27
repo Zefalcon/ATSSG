@@ -14,6 +14,7 @@ public class MoveMeta extends MetaAction {
 	protected Unit actor;
 	protected Cell dest;
 	protected List<Cell> path;
+	public static final int MAXPLAN = 20;
 	
 	public MoveMeta(Cell destination, Unit actor) {
 		this.actor = actor;
@@ -26,8 +27,8 @@ public class MoveMeta extends MetaAction {
 		toCheck.add(new RecordCell(actor.getContainingCell(), 0, dest, new ArrayList<Cell>()));
 		while (!toCheck.isEmpty()) {
 			RecordCell current = toCheck.remove();
-			if (current.equals(dest)) {
-				
+			if (current.equals(dest) || current.getPath().size() >= MAXPLAN) {
+				return current.getPath();
 			}
 			for (Cell possMove : current.getCell().getAdjacent()) {
 				List<Cell> newPath = new ArrayList<Cell>(current.getPath());
