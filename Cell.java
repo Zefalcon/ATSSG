@@ -68,6 +68,8 @@ public class Cell {
 
 	public TerrainType getTerrainType() {return terrainType;}
 	public Collection<Entity> getOccupyingEntities() { return occupyingEntities;}
+	public GameMap getGameMap(){ return containingMap;}
+	public ResourceItem getResourceItem(){return occupyingResource;}
 	public boolean addOccupyingEntity(Entity toAdd) {
 		occupyingEntities.add(toAdd);
 		return true; //May want to change later to ensure no more than one building/unit can be in the same cell.
