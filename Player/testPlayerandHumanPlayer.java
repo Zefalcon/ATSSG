@@ -28,7 +28,7 @@ public class testPlayerandHumanPlayer {
 
 	@Test
 	public void testAddEntity() {
-		Unit u = new Unit(UnitType.Soldier);
+		Unit u = new Unit(UnitType.Soldier, null, null);
 		Player p = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null);
 		p.addEntity(u);
 		assert(p.getEntities().contains(u));
@@ -36,7 +36,7 @@ public class testPlayerandHumanPlayer {
 
 	@Test
 	public void testRemoveEntity() {
-		Entity u = new Unit(UnitType.Soldier);
+		Entity u = new Unit(UnitType.Soldier, null, null);
 		List<Entity> units = new ArrayList<Entity>();
 		units.add(u);
 		Player p = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), units, null);

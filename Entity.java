@@ -2,11 +2,11 @@ package ATSSG;
 
 import ATSSG.Player.Player;
 import ATSSG.Script.Script;
+import ATSSG.Script.ScriptButton;
 import ATSSG.Actions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.Collection;
 
 public abstract class Entity {
@@ -29,7 +29,7 @@ public abstract class Entity {
 		containingCell = currentCell;
 		currentScript = null;
 		currentAction = null;
-		allowedCommands = new ArrayList<>();
+		allowedCommands = new ArrayList<Button>();
 		allowedCommands.add(new IdleButton(null, "Idle"));
 		allowedCommands.add(new ScriptButton(null));
 	}

@@ -84,10 +84,4 @@ public class GameMap {
 		}
 	}
 
-	public void removePlayer(Player toRemove){
-		if(players.contains(toRemove)){
-			players.remove(toRemove);
-		}
-	}
-
 }
