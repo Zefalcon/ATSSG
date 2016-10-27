@@ -1,4 +1,4 @@
-package ATSSG;
+package ATSSG.Actions;
 
 public abstract class BuildingAction {
 

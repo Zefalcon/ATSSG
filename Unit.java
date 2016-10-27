@@ -13,18 +13,30 @@ public class Unit extends Entity {
 		return null;
 	}
 	
-	public void attack(Entity target){
-		
+	public boolean attack(Entity target){
+		return false;
 	}
 	
 	public Collection<Cell> validLocations(){
 		return null;
 	}
 	
-	public void move(Cell destination){
-		
+	public boolean move(Cell destination){
+		return false;
 	}
 	
 	public UnitType getType() {return type;}
+
+	public boolean build(BuildingType type){
+		return false; //Units cannot build unless they are builder units
+	}
+
+	public boolean deposit(Building drop){
+		return false;
+	}
+
+	public boolean harvest(ResourceItem resource){
+		return false;
+	}
 
 }

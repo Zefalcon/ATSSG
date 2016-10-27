@@ -1,4 +1,4 @@
-package ATSSG;
+package ATSSG.Actions;
 
 public abstract class UnitAction {
 
@@ -13,4 +13,5 @@ public abstract class UnitAction {
 	public Unit getPerformer(){
 		return performer;
 	}
+
 }

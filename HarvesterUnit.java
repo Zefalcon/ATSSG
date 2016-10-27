@@ -1,24 +1,37 @@
 package ATSSG;
 import java.util.Collection;
 
-public interface HarvesterUnit {
+public class HarvesterUnit extends Unit {
 	
-	//Same issue with variables as BuilderUnit
-	//HUnitType hType
-	//RCommodityType cargoType
-	//int cargoAmount
-	//int depositProgress
-	//ResourceItem depositTarget
+	HUnitType hType
+	RCommodityType cargoType
+	int cargoAmount
+	int depositProgress
+	ResourceItem depositTarget
 	
 	//Methods
-	public boolean canHarvest(ResourceItem resource);
+	public boolean canHarvest(ResourceItem resource){
+		return false;
+	}
 	
-	public Collection<ResourceItem> validHarvestTargets();
+	public Collection<ResourceItem> validHarvestTargets(){
+		return null;
+	}
 	
-	public boolean canDeposit(Building drop);
+	public boolean canDeposit(Building drop){
+		return false;
+	}
 	
-	public Collection<Building> validDepositTargets();
+	public Collection<Building> validDepositTargets(){
+		return null;
+	}
 	
-	public void deposit(Building drop);
+	public boolean deposit(Building drop){
+		return false;
+	}
+
+	public boolean harvest(ResourceItem resource){
+		return false;
+	}
 
 }
