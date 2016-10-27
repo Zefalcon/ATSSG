@@ -42,5 +42,9 @@ public abstract class Player {
 	public GameMap getContaining_map() {
 		return containing_map;
 	}
+	
+	public void removeEntity(Entity e) {
+		all_entities.remove(e);
+	}
 
 }

@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import ATSSG.Actions.Action;
-import ATSSG.Cell;
 import ATSSG.Entity;
 import ATSSG.GameMap;
 import ATSSG.RCommodityType;
@@ -18,6 +16,10 @@ public class AIPlayer extends Player {
 	
 	//Variables
 	protected Map<Entity, MetaAction> plannedActions;
+	public Map<Entity, MetaAction> getPlannedActions() {
+		return plannedActions;
+	}
+
 	protected Map<Integer, Boolean> featuresUsed;
 	
 	public AIPlayer(Map<RCommodityType, Integer> startingResources, Collection<Entity> starting_entities, GameMap map) {
@@ -44,10 +46,17 @@ public class AIPlayer extends Player {
 	}
 	
 	protected void planAction(Entity entity, List<Entity> enemies) {
-		if (plannedActions.containsKey(entity)) return;
+		if (plannedActions.containsKey(entity)) {
+			if (plannedActions.get(entity).isDone()) {
+				plannedActions.remove(entity);
+			} else {
+				return;
+			}
+		}
 		if (Unit.class.isInstance(entity)) { //TODO: replace with varied choices for more features
 			planAttack((Unit) entity, enemies);
-			return;
+		} else {
+			plannedActions.put(entity, new IdleMeta());
 		}
 	}
 	

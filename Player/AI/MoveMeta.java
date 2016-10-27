@@ -82,6 +82,11 @@ public class MoveMeta extends MetaAction {
 		if (pathInvalid()) return null;
 		return new MoveAction(1, actor, path.remove(0)); // TODO: replace with code that can take multiple turns
 	}
+
+	@Override
+	public Boolean isDone() {
+		return actor.getContainingCell() == dest;
+	}
 }
 
 class RecordCell implements Comparable {

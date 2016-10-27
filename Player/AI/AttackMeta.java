@@ -9,6 +9,14 @@ public class AttackMeta extends MetaAction {
 	Unit attacker;
 	Entity target;
 
+	public Unit getAttacker() {
+		return attacker;
+	}
+
+	public Entity getTarget() {
+		return target;
+	}
+
 	public AttackMeta(Unit attacker, Entity target) {
 		this.attacker = attacker;
 		this.target = target;
@@ -21,4 +29,8 @@ public class AttackMeta extends MetaAction {
 		return new MoveMeta(target.getContainingCell(), attacker).nextAction();
 	}
 
+	@Override
+	public Boolean isDone() {
+		return target.getHitPoints() <= 0;
+	}
 }

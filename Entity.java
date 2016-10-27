@@ -7,6 +7,9 @@ public abstract class Entity {
 	
 	//Variables
 	protected int hitPoints;
+	public int getHitPoints() {
+		return hitPoints;
+	}
 	protected Player owner;
 	protected Cell containingCell;
 	protected Script currentScript;

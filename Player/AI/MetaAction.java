@@ -5,4 +5,5 @@ import ATSSG.Entity;
 
 public abstract class MetaAction {	
 	public abstract Action nextAction();
+	public abstract Boolean isDone();
 }
