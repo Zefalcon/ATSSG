@@ -1,7 +1,7 @@
 package ATSSG.Player.AI;
 
-import ATSSG.Action;
-import ATSSG.AttackAction;
+import ATSSG.Actions.Action;
+import ATSSG.Actions.AttackAction;
 import ATSSG.Entity;
 import ATSSG.Unit;
 

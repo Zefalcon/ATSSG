@@ -3,11 +3,11 @@ import java.util.Collection;
 
 public class HarvesterUnit extends Unit {
 	
-	HUnitType hType
-	RCommodityType cargoType
-	int cargoAmount
-	int depositProgress
-	ResourceItem depositTarget
+	HUnitType hType;
+	RCommodityType cargoType;
+	int cargoAmount;
+	int depositProgress;
+	ResourceItem depositTarget;
 	
 	//Methods
 	public boolean canHarvest(ResourceItem resource){

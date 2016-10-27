@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import ATSSG.Action;
+import ATSSG.Actions.Action;
 import ATSSG.Cell;
 import ATSSG.Entity;
-import ATSSG.MoveAction;
+import ATSSG.Actions.MoveAction;
 import ATSSG.Unit;
 
 public class MoveMeta extends MetaAction {

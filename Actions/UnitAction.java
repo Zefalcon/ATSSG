@@ -1,6 +1,7 @@
 package ATSSG.Actions;
+import ATSSG.Unit;
 
-public abstract class UnitAction {
+public abstract class UnitAction extends Action{
 
 	//Variables
 	protected Unit performer;

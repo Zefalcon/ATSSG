@@ -2,8 +2,8 @@ package ATSSG;
 
 public class BuilderUnit extends Unit {
 	
-	int constructionProgress
-	BuildingType constructionGoal
+	int constructionProgress;
+	BuildingType constructionGoal;
 	
 	//Methods
 	public boolean canBuild(BuildingType type){

@@ -20,8 +20,8 @@ public class Building extends Entity {
 		return null;
 	}
 	
-	public void build(UnitType type){
-		
+	public boolean build(UnitType type){
+		return false;
 	}
 
 }

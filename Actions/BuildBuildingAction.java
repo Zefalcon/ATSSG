@@ -1,4 +1,6 @@
 package ATSSG.Actions;
+import ATSSG.BuildingType;
+import ATSSG.Unit;
 
 public class BuildBuildingAction extends UnitAction {
 	
@@ -7,7 +9,7 @@ public class BuildBuildingAction extends UnitAction {
 	
 	//Constructor
 	public BuildBuildingAction(int numTurns, Unit perf, BuildingType building){
-		perfomer = perf;
+		performer = perf;
 		turnsToComplete = numTurns;
 		toBuild = building;
 	}

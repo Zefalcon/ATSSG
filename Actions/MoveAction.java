@@ -1,4 +1,6 @@
 package ATSSG.Actions;
+import ATSSG.Unit;
+import ATSSG.Cell;
 
 public class MoveAction extends UnitAction {
 	

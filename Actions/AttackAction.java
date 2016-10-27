@@ -1,4 +1,6 @@
 package ATSSG.Actions;
+import ATSSG.Entity;
+import ATSSG.Unit;
 
 public class AttackAction extends UnitAction {
 	

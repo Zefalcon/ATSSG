@@ -1,13 +1,14 @@
 package ATSSG.Actions;
+import ATSSG.Building;
 
-public abstract class BuildingAction {
+public abstract class BuildingAction extends Action {
 
 	//Variables
 	protected Building performer;
 
 	//Methods
 	public void setPerformer(Building performer){
-		performer = perf;
+		performer = performer;
 	}
 
 	public Building getPerformer(){

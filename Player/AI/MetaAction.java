@@ -1,6 +1,6 @@
 package ATSSG.Player.AI;
 
-import ATSSG.Action;
+import ATSSG.Actions.Action;
 import ATSSG.Entity;
 
 public abstract class MetaAction {	
