@@ -61,6 +61,10 @@ public class AIPlayer extends Player {
 	}
 	
 	protected void planAttack(Unit unit, List<Entity> enemies) {
+		if (enemies == null || enemies.isEmpty()) {
+			plannedActions.put(unit, new IdleMeta());
+			return;
+		}
 		//TODO: replace with intelligent choice
 		Entity target = enemies.get(new Random().nextInt(enemies.size()));
 		plannedActions.put(unit, new AttackMeta(unit, target));
@@ -79,6 +83,14 @@ public class AIPlayer extends Player {
 	public void kill(){
 		super.kill();
 		plannedActions = null;
+	}
+	
+	@Override
+	public void removeEntity(Entity e) {
+		if (plannedActions.containsKey(e)) {
+			plannedActions.remove(e);
+		}
+		super.removeEntity(e);
 	}
 
 }
