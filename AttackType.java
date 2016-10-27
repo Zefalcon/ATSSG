@@ -1,11 +1,19 @@
 package ATSSG;
+import java.util.Hashtable;
 import java.util.Map;
 
 public enum AttackType {
 	
-	TYPES;
+	STABBING("stabbing", new Hashtable<AttackType, Double>());
+	
+	
 	
 	public String name;
 	public Map<AttackType, Double> advantageMultiplier;
+	
+	private AttackType(String n, Map<AttackType, Double> m){
+		name = n;
+		advantageMultiplier = m;
+	}
 
 }

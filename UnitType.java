@@ -4,7 +4,7 @@ import java.util.Map;
 
 public enum UnitType {
 	
-	TYPES;
+	Soldier("Solder", "Soldier.", null, 5, null, 3, AttackType.STABBING, 1, 1);
 	
 	public String name;
 	public String description;
@@ -15,5 +15,17 @@ public enum UnitType {
 	public AttackType aType;
 	public int aRange;
 	public int aDamage;
+	
+	private UnitType(String n, String d, Icon i, int mHP, Map<TerrainType, Double> pT, int mM, AttackType aT, int aR, int aD){
+		name = n;
+		description = d;
+		image = i;
+		maxHP = mHP;
+		passableTerrain = pT;
+		maxMoves = mM;
+		aType = aT;
+		aRange = aR;
+		aDamage = aD;
+	}
 
 }

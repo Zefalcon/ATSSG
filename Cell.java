@@ -1,4 +1,5 @@
 package ATSSG;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Cell {
@@ -11,11 +12,58 @@ public class Cell {
 	protected int x, y; //location, may want to turn into an inner class or something
 	
 	//Constructors
+	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
+		this.x = x_in;
+		this.y = y_in;
+		this.terrainType = t;
+		this.occupyingResource = r;
+		this.containingMap = m;
+		
+		this.occupyingEntities = new ArrayList<Entity>(8);
+	}
 	
 	//Methods
 	public Collection<Cell> getAdjacent(){
-		//Returns the 8 surrounding cells
-		return null;
+		ArrayList<Cell> cell_list = new ArrayList<Cell>(8);
+		GameMap m = this.containingMap;
+		
+		Cell top_left = m.getCell(x - 1, y - 1);
+		if(top_left != null){
+			cell_list.add(top_left);
+		}
+		Cell top_center = m.getCell(x, y - 1);
+		if(top_left != null){
+			cell_list.add(top_center);
+		}
+		Cell top_right = m.getCell(x + 1, y - 1);
+		if(top_right != null){
+			cell_list.add(top_right);
+		}
+		
+		Cell center_left = m.getCell(x - 1, y);
+		if(center_left != null){
+			cell_list.add(center_left);
+		}
+		Cell center_right = m.getCell(x + 1, y);
+		if(center_right != null){
+			cell_list.add(center_right);
+		}
+		
+		Cell bottom_left = m.getCell(x - 1, y + 1);
+		if(bottom_left != null){
+			cell_list.add(bottom_left);
+		}
+		Cell bottom_center = m.getCell(x, y + 1);
+		if(bottom_left != null){
+			cell_list.add(bottom_center);
+		}
+		Cell bottom_right = m.getCell(x + 1, y + 1);
+		if(bottom_right != null){
+			cell_list.add(bottom_right);
+		}
+		
+		return cell_list;
+		
 	}
 
 	public TerrainType getTerrainType() {return terrainType;}
