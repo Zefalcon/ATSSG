@@ -1,5 +1,6 @@
 package ATSSG;
 import java.util.Collection;
+import ATSSG.Player.Player;
 
 public class BuilderUnit extends Unit {
 	
@@ -7,8 +8,8 @@ public class BuilderUnit extends Unit {
 	BuildingType constructionGoal;
 	Collection<BuildingType> buildable;
 	
-	public BuilderUnit(BUnitType t){
-		super(t.baseUnit);
+	public BuilderUnit(BUnitType t, Player player, Cell location){
+		super(t.baseUnit, player, location);
 	}
 	
 	//Methods
@@ -33,7 +34,7 @@ public class BuilderUnit extends Unit {
 	
 	public boolean build(BuildingType type){
 		if(canBuild(type) && validConstructionSquare(type)){
-			return getContainingCell().addOccupyingEntity(new Building(type));
+			return getContainingCell().addOccupyingEntity(new Building(type, owner, getContainingCell()));
 		}
 		else{
 			return false;

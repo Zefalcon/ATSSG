@@ -1,5 +1,6 @@
 package ATSSG;
 import java.util.Collection;
+import ATSSG.Player.Player;
 
 public class Unit extends Entity {
 	
@@ -7,8 +8,12 @@ public class Unit extends Entity {
 	protected UnitType type;
 	
 	//Constructors
-	public Unit(UnitType t){
+	public Unit(UnitType t, Player player, Cell current){
+		super(t.maxHP, player, current);
 		type = t;
+		allowedCommands.add(new AttackButton(null, "Attack"));
+		allowedCommands.add(new MoveButton(null, "Move To"));
+		allowedCommands.add(new PatrolButton(null, "Patrol"));
 	}
 	//Methods
 	public boolean canAttack(Entity target){

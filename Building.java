@@ -2,6 +2,7 @@ package ATSSG;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import ATSSG.Player.Player;
 
 public class Building extends Entity {
 	
@@ -13,8 +14,10 @@ public class Building extends Entity {
 	protected Collection<UnitType> buildable;
 	
 	//Constructors
-	public Building(BuildingType type){
+	public Building(BuildingType type, Player player, Cell location){
+		super(type.maxHP, player, location);
 		this.type = type;
+		allowedCommands.add(new ConstructButton(null, "Construct"));
 	}
 	
 	//Methods
@@ -46,7 +49,7 @@ public class Building extends Entity {
 	
 	public boolean build(UnitType type, Cell location){
 		if(canBuild(type) && validConstructionSquares(type).contains(location)){
-			return location.addOccupyingEntity(new Unit(type));
+			return location.addOccupyingEntity(new Unit(type, owner, location));
 		}
 		else{
 			return false;

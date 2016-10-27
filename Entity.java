@@ -1,7 +1,13 @@
 package ATSSG;
 
 import ATSSG.Player.Player;
+import ATSSG.Script.Script;
 import ATSSG.Actions.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import java.util.Collection;
 
 public abstract class Entity {
 	
@@ -12,8 +18,21 @@ public abstract class Entity {
 	}
 	protected Player owner;
 	protected Cell containingCell;
-	protected Script currentScript;
+	protected Script currentScript = null;
 	protected Action currentAction = null;
+	protected Collection<Button> allowedCommands;
+
+	//Constructor
+	public Entity(int hp, Player player, Cell currentCell){
+		hitPoints = hp;
+		owner = player;
+		containingCell = currentCell;
+		currentScript = null;
+		currentAction = null;
+		allowedCommands = new ArrayList<>();
+		allowedCommands.add(new IdleButton(null, "Idle"));
+		allowedCommands.add(new ScriptButton(null));
+	}
 	
 	//Methods
 	public void tickTurn(){
@@ -74,5 +93,6 @@ public abstract class Entity {
 	public Cell getContainingCell() {return containingCell;}
 	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
+
 
 }

@@ -1,5 +1,6 @@
 package ATSSG;
 import java.util.Collection;
+import ATSSG.Player.Player;
 
 public class HarvesterUnit extends Unit {
 	
@@ -8,8 +9,8 @@ public class HarvesterUnit extends Unit {
 	int cargoAmount;
 	int depositProgress;
 	ResourceItem depositTarget;
-	public HarvesterUnit(HUnitType h){
-		super(h.baseUnit);
+	public HarvesterUnit(HUnitType h, Player player, Cell location){
+		super(h.baseUnit, player, location);
 	}
 	
 	//Methods

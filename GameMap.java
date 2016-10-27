@@ -30,17 +30,20 @@ public class GameMap {
 		Collection<Entity> human_ents = new LinkedList<Entity>();
 		
 		players = new LinkedList<Player>();
-		players.add(new HumanPlayer(new Hashtable<RCommodityType, Integer>(), human_ents, this));
-		players.add(new AIPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this));
-		
+		Player human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), human_ents, this);
+		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this);
+		players.add(human);
+		players.add(ai);
+
+
 		for(int i = 3; i < 8; i++){
-			Unit s = new Unit(UnitType.Soldier);
+			Unit s = new Unit(UnitType.Soldier, human, all_cells[3][i]);
 			AI_ents.add(s);
 			all_cells[3][i].getOccupyingEntities().add(s);
 		}
 		
 		for(int i = 3; i < 8; i++){
-			Unit s = new Unit(UnitType.Soldier);
+			Unit s = new Unit(UnitType.Soldier, ai, all_cells[7][i]);
 			human_ents.add(s);
 			all_cells[7][i].getOccupyingEntities().add(s);
 		}
@@ -72,6 +75,12 @@ public class GameMap {
 	public void removeEntity(Entity toRemove){
 		if(entities.contains(toRemove)){
 			entities.remove(toRemove);
+		}
+	}
+
+	public void removePlayer(Player toRemove){
+		if(players.contains(toRemove)){
+			players.remove(toRemove);
 		}
 	}
 
