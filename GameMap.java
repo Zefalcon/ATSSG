@@ -30,17 +30,17 @@ public class GameMap {
 		Collection<Entity> human_ents = new LinkedList<Entity>();
 		
 		players = new LinkedList<Player>();
-		players.add(new HumanPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this));
+		players.add(new HumanPlayer(new Hashtable<RCommodityType, Integer>(), human_ents, this));
 		players.add(new AIPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this));
 		
 		for(int i = 3; i < 8; i++){
-			Entity s = new Entity();
+			Unit s = new Unit(UnitType.Soldier);
 			AI_ents.add(s);
 			all_cells[3][i].getOccupyingEntities().add(s);
 		}
 		
 		for(int i = 3; i < 8; i++){
-			Entity s = new Entity();
+			Unit s = new Unit(UnitType.Soldier);
 			human_ents.add(s);
 			all_cells[7][i].getOccupyingEntities().add(s);
 		}

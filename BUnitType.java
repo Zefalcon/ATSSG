@@ -7,5 +7,6 @@ public enum BUnitType {
 	
 	public Map<BuildingType, Integer> constructionTimes;
 	public Map<BuildingType, Map<RCommodityType, Integer>> constructionCosts;
+	public UnitType baseUnit;
 
 }

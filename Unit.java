@@ -7,7 +7,9 @@ public class Unit extends Entity {
 	protected UnitType type;
 	
 	//Constructors
-	
+	public Unit(UnitType t){
+		type = t;
+	}
 	//Methods
 	public Collection<Entity> validTargets(){
 		return null;

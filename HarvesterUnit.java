@@ -8,6 +8,9 @@ public class HarvesterUnit extends Unit {
 	int cargoAmount;
 	int depositProgress;
 	ResourceItem depositTarget;
+	public HarvesterUnit(HUnitType h){
+		super(h.baseUnit);
+	}
 	
 	//Methods
 	public boolean canHarvest(ResourceItem resource){
