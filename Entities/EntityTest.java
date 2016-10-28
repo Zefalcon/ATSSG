@@ -1,0 +1,38 @@
+package ATSSG.Entities;
+
+import ATSSG.Cell;
+import ATSSG.GameMap;
+import ATSSG.Player.HumanPlayer;
+import ATSSG.Player.Player;
+import ATSSG.UnitType;
+import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
+
+/**
+ * Created by zefal on 10/27/2016.
+ */
+public class EntityTest {
+    @Test
+    public void doDamage() throws Exception {
+        GameMap map = new GameMap();
+        Player player = new HumanPlayer(null,new ArrayList<Entity>(),map);
+        Cell cell = new Cell(null,null,map,0,0);
+        Entity e = new Unit(UnitType.Soldier,player,cell);
+        e.doDamage(3);
+        assertEquals(2, e.getHitPoints());
+    }
+
+    @Test
+    public void kill() throws Exception {
+        GameMap map = new GameMap();
+        Player player = new HumanPlayer(null,new ArrayList<Entity>(),map);
+        Cell cell = new Cell(null,null,map,0,0);
+        Entity e = new Unit(UnitType.Soldier,player,cell);
+        e.doDamage(30);
+        assertFalse(player.getEntities().contains(e));
+    }
+
+}

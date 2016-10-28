@@ -1,5 +1,5 @@
 package ATSSG.Actions;
-import ATSSG.Building;
+import ATSSG.Entities.Building;
 import ATSSG.UnitType;
 import ATSSG.Cell;
 

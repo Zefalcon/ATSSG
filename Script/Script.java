@@ -1,7 +1,7 @@
 package ATSSG.Script;
 import java.util.Collection;
 
-import ATSSG.Entity;
+import ATSSG.Entities.Entity;
 
 public class Script {
 	

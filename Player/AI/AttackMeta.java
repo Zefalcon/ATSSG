@@ -2,8 +2,8 @@ package ATSSG.Player.AI;
 
 import ATSSG.Actions.Action;
 import ATSSG.Actions.AttackAction;
-import ATSSG.Entity;
-import ATSSG.Unit;
+import ATSSG.Entities.Entity;
+import ATSSG.Entities.Unit;
 
 public class AttackMeta extends MetaAction {
 	Unit attacker;

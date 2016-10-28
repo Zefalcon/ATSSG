@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.Map;
 
+import ATSSG.Entities.Entity;
+import ATSSG.Entities.Unit;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIPlayer;
@@ -47,6 +48,9 @@ public class GameMap {
 			human_ents.add(s);
 			all_cells[7][i].getOccupyingEntities().add(s);
 		}
+		entities = new ArrayList<Entity>();
+		entities.addAll(human_ents);
+		entities.addAll(AI_ents);
 	}
 	
 	public GameMap(File toLoad){

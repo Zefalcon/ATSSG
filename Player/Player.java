@@ -2,7 +2,7 @@ package ATSSG.Player;
 import java.util.Map;
 import java.util.Collection;
 
-import ATSSG.Entity;
+import ATSSG.Entities.Entity;
 import ATSSG.GameMap;
 import ATSSG.RCommodityType;
 

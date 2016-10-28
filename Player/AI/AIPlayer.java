@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import ATSSG.Entity;
+import ATSSG.Entities.Entity;
 import ATSSG.GameMap;
 import ATSSG.RCommodityType;
-import ATSSG.Unit;
+import ATSSG.Entities.Unit;
 import ATSSG.Player.Player;
 
 public class AIPlayer extends Player {

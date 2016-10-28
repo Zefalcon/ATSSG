@@ -1,4 +1,6 @@
 package ATSSG;
+import ATSSG.Entities.Entity;
+
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -3,17 +3,15 @@ package ATSSG.Player;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.junit.Test;
 
-import ATSSG.Entity;
+import ATSSG.Entities.Entity;
 import ATSSG.RCommodityType;
-import ATSSG.Unit;
+import ATSSG.Entities.Unit;
 import ATSSG.UnitType;
-import ATSSG.Player.AI.AIPlayer;
 
 public class testPlayerandHumanPlayer {
 
