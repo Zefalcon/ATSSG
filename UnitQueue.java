@@ -1,4 +1,6 @@
 package ATSSG;
+import ATSSG.Entities.Unit;
+
 import java.util.Collection;
 
 public class UnitQueue extends UIContainer<UnitButton> {

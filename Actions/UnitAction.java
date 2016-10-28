@@ -1,5 +1,5 @@
 package ATSSG.Actions;
-import ATSSG.Unit;
+import ATSSG.Entities.Unit;
 
 public abstract class UnitAction extends Action{
 

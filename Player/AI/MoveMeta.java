@@ -6,9 +6,9 @@ import java.util.PriorityQueue;
 
 import ATSSG.Actions.Action;
 import ATSSG.Cell;
-import ATSSG.Entity;
+import ATSSG.Entities.Entity;
 import ATSSG.Actions.MoveAction;
-import ATSSG.Unit;
+import ATSSG.Entities.Unit;
 
 public class MoveMeta extends MetaAction {
 	protected Unit actor;

@@ -8,6 +8,8 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import ATSSG.*;
+import ATSSG.Entities.Entity;
+import ATSSG.Entities.Unit;
 import ATSSG.Player.*;
 import org.junit.Test;
 

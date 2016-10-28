@@ -1,5 +1,5 @@
 package ATSSG.Actions;
-import ATSSG.Building;
+import ATSSG.Entities.Building;
 
 public abstract class BuildingAction extends Action {
 

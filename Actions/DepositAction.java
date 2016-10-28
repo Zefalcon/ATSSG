@@ -1,6 +1,6 @@
 package ATSSG.Actions;
-import ATSSG.Building;
-import ATSSG.Unit;
+import ATSSG.Entities.Building;
+import ATSSG.Entities.Unit;
 
 public class DepositAction extends UnitAction {
 	

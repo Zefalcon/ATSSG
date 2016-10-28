@@ -1,6 +1,6 @@
 package ATSSG.Actions;
 import ATSSG.ResourceItem;
-import ATSSG.Unit;
+import ATSSG.Entities.Unit;
 
 public class HarvestAction extends UnitAction {
 	

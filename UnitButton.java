@@ -1,4 +1,6 @@
 package ATSSG;
+import ATSSG.Entities.Unit;
+
 import javax.swing.Icon;
 
 public class UnitButton extends Button {
