@@ -4,7 +4,7 @@ import java.util.Map;
 
 public enum UnitType {
 	
-	Soldier("Solder", "Soldier.", null, 5, null, 1, AttackType.STABBING, 1, 1);
+	Soldier("Solder", "Soldier.", null, 5, null, 1, AttackType.STABBING, 1, 500);//flag instakill shortcut code.
 	
 	public String name;
 	public String description;

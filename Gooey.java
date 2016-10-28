@@ -99,10 +99,11 @@ public class Gooey {
 		//commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, mainMap);
 		
 		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, cCardX, cCardY, cCardWidth, cCardHeight);
+		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers
 		
 		etButton = new JWindow();
-		etButton.add(new EndTurnButton(null, owner, computers).getGooey(), 0);
-		etButton.setBounds(etbX, etbY, buttonWidth, buttonHeight);
+		etButton.add(new EndTurnButton(owner, computers, mainMap).getGooey(), 0);
+		etButton.setBounds(etbX + 50, etbY, buttonWidth, buttonHeight); //flag the +50 is a workaround to mainmap redraws covering the button
 		etButton.setVisible(true);
 	}
 	

@@ -3,7 +3,7 @@ package ATSSG;
 import javax.swing.Icon;
 
 import ATSSG.Player.Player;
-import ATSSG.Entities.Entity;
+import ATSSG.Entities.Entity; //Inconsistent with other cmdbuttons
 
 public class ConstructButton extends CommandButton {
 

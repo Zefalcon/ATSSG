@@ -27,15 +27,6 @@ public class CommandCard extends UIContainer<CommandButton> {
 			for(CommandButton b : content) {
 				b.setHolder(holder);
 				view.add(b.getGooey());
-			}
-			
-			
-			
-			Iterator<CommandButton> i = content.iterator();
-			Button trav;
-			while (i.hasNext()) {
-				trav = i.next();
-				view.add(trav.getGooey());
 				numButtons++;
 			}
 		}

@@ -14,10 +14,11 @@ public abstract class CommandButton extends Button {
 	
 	//Methods
 	public CommandButton(Icon icon, String hoverText, Entity entity, Player owner) {
-		super(icon, owner);
+		super(null, owner);
 		this.hoverText = hoverText;
 		this.entity = entity;
 		holder = null;
+		this.gooeyButton = new GooeyJButton(icon, entity.getContainingCell());
 	}
 	
 	public void setHolder(MainMap holder) {

@@ -4,10 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
-import java.util.Iterator;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JWindow;
 
 import ATSSG.Actions.AttackAction;
@@ -34,6 +31,8 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected CommandType heldCommand;
 	
+	protected Entity heldEntity;
+	
 	protected Entity selectedEntity;
 	
 	protected CommandCard cCard;
@@ -46,25 +45,35 @@ public class MainMap extends UIContainer<Cell> {
 		super(null, xLoc, yLoc, width, height, displayLevel, owner);
 		this.gm = gm;
 		this.cCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, this);
+		selectedEntity = null;
 		view = new JWindow();
 		view.setLayout(new GridLayout(10, 10));
 		
-		interactable = gm.getCells();
+		interactable = gm.getCells(); //reapply this update on turn ends
 		int mapWidth = interactable.length;
 		int mapHeight = interactable[0].length;
 		for (int i = 0; i < mapHeight; i++) {
+			System.out.println("x: " + i);
 			for (int j = 0; j < mapWidth; j++) {
-				interactable[i][j].setActionListener( new ActionListener() {
+				System.out.println("y: " + j);
+				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Object o = e.getSource();
-						Cell clickedCell = ((Cell) o);
+						Cell clickedCell = ((GooeyJButton) o).getCell();
+						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
+						if (occupiers.isEmpty()) {
+							selectedEntity = null;
+						} else {
+							selectedEntity = occupiers.iterator().next();
+						}
 						if (heldCommand == CommandType.MOVE) {
-							selectedEntity.setAction(new MoveAction(1, (Unit) selectedEntity, clickedCell)); //Unchecked Class Cast Flag
+							System.out.println("Move Command Recognized");
+							heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell)); //Unchecked Class Cast Flag
 							clearHeld();
 						} else if (heldCommand == CommandType.ATTACK) {
 							Entity enemy = clickedCell.getEnemy(owner);
 							if (enemy != null) {
-								selectedEntity.setAction(new AttackAction(1, (Unit) selectedEntity, enemy));
+								heldEntity.setAction(new AttackAction(1, (Unit) heldEntity, enemy));
 							}
 							clearHeld();
 						} else {
@@ -72,9 +81,18 @@ public class MainMap extends UIContainer<Cell> {
 							//Display info on DetailCard - which includes selectable entities in a grid - thus UnitButton is what refreshes the Command Card
 							//highlight selected Cell
 							//discriminate between left and right clicks?
-							selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
-							cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardWidth,
-									cCardHeight, 0, owner, MainMap.this);
+							
+							/*if (clickedCell != null && ! clickedCell.getOccupyingEntities().isEmpty()) {
+								selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
+							}*/
+							
+							if (selectedEntity == null) {
+								cCard = new CommandCard(null, cCardX, cCardY, cCardWidth,
+														cCardHeight, 0, owner, MainMap.this); //make this blank cmdcard a field later
+							} else {
+								cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardWidth,
+														cCardHeight, 0, owner, MainMap.this);
+							}
 						}
 					}
 				});
@@ -98,15 +116,28 @@ public class MainMap extends UIContainer<Cell> {
 	//Notably, with proper external support this method, by not placing any restriction on 
 	//viewableArea, supports zooming
 	protected void updateView(int xStart, int xEnd, int yStart, int yEnd) {
+		view = new JWindow();
+		view.setLayout(new GridLayout(10, 10));
+		int x = xStart;
 		while (yStart < yEnd) {
-			while (xStart < xEnd) {
-				interactable[xStart][yStart].updateView();
+			while (x < xEnd) {
+				interactable[x][yStart].updateView();
+				view.add(interactable[x][yStart].getView());
+				x++;
 			}
+			x = xStart;
+			yStart++;
 		}
+		view.setBounds(xLoc, yLoc, width, height);
+		view.setVisible(true);
 	}
 	
 	public void setHeldCommand(CommandType heldCommand) {
 		this.heldCommand = heldCommand;
+	}
+	
+	public void setHeldEntity(Entity heldEntity) {
+		this.heldEntity = heldEntity;
 	}
 	
 	public void setSelectedEntity(Entity selectedEntity) {
@@ -114,6 +145,7 @@ public class MainMap extends UIContainer<Cell> {
 	}
 	
 	public void clearHeld() {
-		heldCommand = null;
+		setHeldCommand(null);
+		setHeldEntity(null);
 	}
 }

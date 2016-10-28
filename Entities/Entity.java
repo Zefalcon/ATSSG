@@ -89,8 +89,10 @@ public abstract class Entity {
 	}
 	
 	public void executeAction(){
-		currentAction.execute();
-		currentAction=null;
+		if (currentAction != null) {
+			currentAction.execute();
+			currentAction=null;
+		}
 	}
 	
 	public void setAction(Action act) {

@@ -15,8 +15,8 @@ public class Unit extends Entity {
 		super(t.maxHP, player, current);
 		type = t;
 		allowedCommands.add(new IdleButton(null, "Idle",this,player));
-		allowedCommands.add(new AttackButton(null, "Attack", this,player));
-		allowedCommands.add(new MoveButton(null, "Move To", this, player));
+		allowedCommands.add(new AttackButton(this, player));
+		allowedCommands.add(new MoveButton(this, player));
 		allowedCommands.add(new PatrolButton(null, "Patrol", this, player));
 	}
 	//Methods
@@ -36,7 +36,7 @@ public class Unit extends Entity {
 	}
 
 	public boolean canMoveTo(Cell destination){
-		return Cell.distance(getContainingCell(), destination) <= type.maxMoves;
+		return Cell.distance(getContainingCell(), destination) <= type.maxMoves && destination.getOccupyingEntities().isEmpty();
 	}
 	
 	public boolean move(Cell destination){
@@ -44,6 +44,7 @@ public class Unit extends Entity {
 			getContainingCell().removeEntity(this);
 			destination.addOccupyingEntity(this);
 			setContainingCell(destination);
+			return true;
 		}
 		return false;
 	}

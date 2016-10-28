@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -17,7 +18,8 @@ public class Cell implements Comparable<Cell> {
 	protected Collection<Entity> occupyingEntities;
 	protected GameMap containingMap;
 	protected int x, y; //location, may want to turn into an inner class or something
-	protected JButton view;
+	protected GooeyJButton view;
+	protected ActionListener actlis;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
@@ -28,22 +30,28 @@ public class Cell implements Comparable<Cell> {
 		this.containingMap = m;
 		
 		this.occupyingEntities = new ArrayList<Entity>(8);
-		
+		this.view = new GooeyJButton(null, this);
 	}
 	
 	//Methods
 	public void updateView() {
 		ImageIcon icon;
-		if (getOccupyingEntities() == null) {
-			icon = new ImageIcon("Art/DemoTerrain.png");
+		if (getOccupyingEntities().isEmpty()) {
+			icon = new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoTerrain.png");
 		} else {
-			icon = new ImageIcon("Art/DemoUnit.png");
+			icon = new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoUnit.png");
 		}
-		view = new JButton(icon);
+		this.view = new GooeyJButton(icon, this);
+		restoreActLis();
 	}
 	
 	public void setActionListener(ActionListener l) {
-		view.addActionListener(l);
+		this.actlis = l;
+		restoreActLis();
+	}
+	
+	public void restoreActLis() {
+		view.addActionListener(actlis);
 	}
 	
 	public JButton getView() {
@@ -109,9 +117,11 @@ public class Cell implements Comparable<Cell> {
 		return true; //May want to change later to ensure no more than one building/unit can be in the same cell.
 	}
 	public void removeEntity(Entity toRemove){
-		if(occupyingEntities.contains(toRemove)){
+		/*if(occupyingEntities.contains(toRemove)){
 			occupyingEntities.remove(toRemove);
-		}
+		}*/
+		//flag single-entity only
+		occupyingEntities = new ArrayList<Entity>(8);
 	}
 	public Entity getEnemy(Player p){
         if(occupyingEntities.isEmpty()){

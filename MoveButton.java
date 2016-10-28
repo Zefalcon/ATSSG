@@ -3,10 +3,9 @@ package ATSSG;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import ATSSG.Player.Player;
-import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 
 public class MoveButton extends CommandButton {
@@ -16,8 +15,9 @@ public class MoveButton extends CommandButton {
 	//Perhaps these buttons require an int field that lets an Iterator order them.
 	
 	//Methods
-	public MoveButton(Icon icon, String hoverText, final Unit unit, Player owner) {
-		super(icon, hoverText, unit, owner);
+	public MoveButton(final Unit unit, Player owner) {
+		super(new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoMove.png"),
+				"Move Command Hover Text", unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not left click do nothing
@@ -31,7 +31,7 @@ public class MoveButton extends CommandButton {
 				
 				//clicktype check
 				holder.setHeldCommand(CommandType.MOVE);
-				holder.setSelectedEntity(unit);
+				holder.setHeldEntity(unit);
 			}
 		});
 	}

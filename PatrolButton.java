@@ -3,7 +3,6 @@ package ATSSG;
 import javax.swing.Icon;
 
 import ATSSG.Player.Player;
-import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 
 public class PatrolButton extends CommandButton {
