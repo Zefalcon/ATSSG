@@ -2,6 +2,8 @@ package ATSSG;
 import java.awt.Container;
 import java.util.Collection;
 
+import ATSSG.Player.Player;
+
 public class UIContainer<T> {
 	
 	//Variables
