@@ -15,7 +15,7 @@ public class MoveButton extends CommandButton {
 	//Perhaps these buttons require an int field that lets an Iterator order them.
 	
 	//Methods
-	public MoveButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
+	public MoveButton(Icon icon, String hoverText, Unit unit, Player owner) {
 		super(icon, hoverText, unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

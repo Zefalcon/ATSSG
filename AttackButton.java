@@ -11,7 +11,7 @@ import ATSSG.Entities.Entity;
 public class AttackButton extends CommandButton {
 
 	//Methods
-	public AttackButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
+	public AttackButton(Icon icon, String hoverText, Unit unit, Player owner) {
 		super(icon, hoverText, unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
