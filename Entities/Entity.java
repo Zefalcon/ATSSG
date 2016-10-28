@@ -10,7 +10,6 @@ import ATSSG.Actions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collection;
 
 public abstract class Entity {
 	
@@ -33,7 +32,6 @@ public abstract class Entity {
 		currentScript = null;
 		currentAction = null;
 		allowedCommands = new ArrayList<Button>();
-		allowedCommands.add(new IdleButton(null, "Idle"));
 		allowedCommands.add(new ScriptButton(null));
 		player.addEntity(this);
 		currentCell.addOccupyingEntity(this);
@@ -61,11 +59,15 @@ public abstract class Entity {
 	
 	public void kill(){
 		hitPoints = 0;
-		containingCell.removeEntity(this);
+		if(containingCell != null){
+			containingCell.removeEntity(this);
+		}
 		containingCell = null;
 		currentScript = null;
 		currentAction = null;
-		owner.removeEntity(this);
+		if(owner != null){
+			owner.removeEntity(this);
+		}
 		owner = null;
 	}
 	
