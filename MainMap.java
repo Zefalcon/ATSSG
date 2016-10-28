@@ -24,10 +24,10 @@ public class MainMap extends UIContainer<Cell> {
 	protected GameMap gm;
 	
 	//This field stores all Cells in the game, with listeners to prevent recalculations
-	protected Collection<ListenerCell> interactable;
+	protected Cell[][] interactable;
 	
 	//While this one stores the subset of the above collection that is onscreen
-	protected Collection<ListenerCell> viewableArea;
+	//protected Cell[][] viewableArea;
 	
 	//The Actual GUI object
 	protected JWindow view;
@@ -47,74 +47,62 @@ public class MainMap extends UIContainer<Cell> {
 		this.gm = gm;
 		this.cCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, this);
 		view = new JWindow();
-		view.setBounds(xLoc, yLoc, width, height);
+		view.setLayout(new GridLayout(10, 10));
 		
-		Iterator<Cell> itr = gm.getCells().iterator();
-		for (Cell cell = itr.next(); itr.hasNext(); cell = itr.next()) { //Does this skip the first Cell? There doesn't seem to be an iterator.first() method...
-			interactable.add(new ListenerCell(cell, new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					Object o = e.getSource();
-					ListenerCell clickedCell = ((ListenerCell) o);
-					if (heldCommand == CommandType.MOVE) {
-						selectedEntity.setAction(new MoveAction(1, (Unit) selectedEntity, clickedCell)); //Unchecked Class Cast Flag
-						clearHeld();
-					} else if (heldCommand == CommandType.ATTACK) {
-						Entity enemy = clickedCell.getEnemy(owner);
-						if (enemy != null) {
-							selectedEntity.setAction(new AttackAction(1, (Unit) selectedEntity, enemy));
+		interactable = gm.getCells();
+		int mapWidth = interactable.length;
+		int mapHeight = interactable[0].length;
+		for (int i = 0; i < mapHeight; i++) {
+			for (int j = 0; j < mapWidth; j++) {
+				interactable[i][j].setActionListener( new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Object o = e.getSource();
+						Cell clickedCell = ((Cell) o);
+						if (heldCommand == CommandType.MOVE) {
+							selectedEntity.setAction(new MoveAction(1, (Unit) selectedEntity, clickedCell)); //Unchecked Class Cast Flag
+							clearHeld();
+						} else if (heldCommand == CommandType.ATTACK) {
+							Entity enemy = clickedCell.getEnemy(owner);
+							if (enemy != null) {
+								selectedEntity.setAction(new AttackAction(1, (Unit) selectedEntity, enemy));
+							}
+							clearHeld();
+						} else {
+							//Do stuff
+							//Display info on DetailCard - which includes selectable entities in a grid - thus UnitButton is what refreshes the Command Card
+							//highlight selected Cell
+							//discriminate between left and right clicks?
+							selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
+							cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardWidth,
+									cCardHeight, 0, owner, MainMap.this);
 						}
-						clearHeld();
-					} else {
-						//Do stuff
-						//Display info on DetailCard - which includes selectable entities in a grid - thus UnitButton is what refreshes the Command Card
-						//highlight selected Cell
-						//discriminate between left and right clicks?
-						selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
-						cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardWidth,
-								cCardHeight, 0, owner, MainMap.this);
 					}
-				}
-			}));
+				});
+				view.add(interactable[i][j].getView()); //Shortcut code that assumes viewableArea = World
+			}
 		}
-		
+
+		view.setBounds(xLoc, yLoc, width, height);
+		view.setVisible(true);
 		/////////////////////////////////
 		//Maybe for build one we don't care about moving the camera - make the whole map fit on one screen
 		/////////////////////////////////
 		
-		viewableArea = interactable;
+		//viewableArea = interactable;
 		
 		
-		//initializeView(/*owner.getStartX(), owner.getStartY()*/0,0);
-		//note that I can't actually do this and I'll have to yoink the initializeView code into the constructor eventually
-		
-		Iterator<ListenerCell> i = viewableArea.iterator();
-		ListenerCell lc;
-		while (i.hasNext()) {
-			lc = i.next();
-			view.add(lc.getView());
-		}
 	}
 	
 	//Methods
 	
-	protected void initializeView(int x, int y) {
-		view.setLayout(new GridLayout(16, 32)); //FLAG on arbitrary numbers
-		//view.add things
-		//double loop in x, y adding ListenerCells
-		updateView(gm.getCells());
-		
-		
-		view.setVisible(true);
-	}
-	
 	//Notably, with proper external support this method, by not placing any restriction on 
 	//viewableArea, supports zooming
-	//It will require that all Cells have identifying coordinates
-	protected void updateView(Collection<Cell> viewableCells) {
-		//identify contained Cells, pull relevant ListenerCells from interactable to viewableArea
-		//view.setLayout(new GridLayout(numX, numY))
-		//set up an iterator
-		//add each ListenerCell in viewableArea to view
+	protected void updateView(int xStart, int xEnd, int yStart, int yEnd) {
+		while (yStart < yEnd) {
+			while (xStart < xEnd) {
+				interactable[xStart][yStart].updateView();
+			}
+		}
 	}
 	
 	public void setHeldCommand(CommandType heldCommand) {
@@ -127,47 +115,5 @@ public class MainMap extends UIContainer<Cell> {
 	
 	public void clearHeld() {
 		heldCommand = null;
-	}
-	
-	//Internal Class adding a listener to a Cell
-	public class ListenerCell extends Cell implements Comparable<ListenerCell> {
-		
-		protected int ordering;
-		protected JButton view;
-		protected Cell parent;
-		
-		public ListenerCell(Cell cell, ActionListener l) {
-			super(cell.getTerrainType(), cell.getResourceItem(), cell.getGameMap(), cell.getX(), cell.getY());
-			ordering = 10000 * xLoc + yLoc; //Arbitrary scaling number flag
-			parent = cell;
-			ImageIcon icon;
-			if (cell.getOccupyingEntities() == null) {
-				icon = new ImageIcon("Art/DemoTerrain.png");
-			} else {
-				icon = new ImageIcon("Art/DemoUnit.png");
-			}
-			view = new JButton(icon);
-			view.addActionListener(l);
-		}
-		
-		public int getOrdering() {
-			return ordering;
-		}
-		
-		public JButton getView() {
-			return view;
-		}
-		
-		//Note that this makes ListenerCell inconsistent with equals
-		@Override
-		public int compareTo(ListenerCell target) {
-			if (target.getOrdering() < this.getOrdering()) {
-				return 1;
-			} else if (target.getOrdering() > this.getOrdering()) {
-				return -1;
-			} else {
-				return 0;
-			}
-		}
 	}
 }

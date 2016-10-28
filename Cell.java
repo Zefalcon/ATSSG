@@ -2,10 +2,14 @@ package ATSSG;
 import ATSSG.Entities.Entity;
 import ATSSG.Player.Player;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Cell {
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class Cell implements Comparable<Cell> {
 	
 	//Variables
 	protected TerrainType terrainType;
@@ -13,6 +17,7 @@ public class Cell {
 	protected Collection<Entity> occupyingEntities;
 	protected GameMap containingMap;
 	protected int x, y; //location, may want to turn into an inner class or something
+	protected JButton view;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
@@ -23,9 +28,35 @@ public class Cell {
 		this.containingMap = m;
 		
 		this.occupyingEntities = new ArrayList<Entity>(8);
+		
 	}
 	
 	//Methods
+	public void updateView() {
+		ImageIcon icon;
+		if (getOccupyingEntities() == null) {
+			icon = new ImageIcon("Art/DemoTerrain.png");
+		} else {
+			icon = new ImageIcon("Art/DemoUnit.png");
+		}
+		view = new JButton(icon);
+	}
+	
+	public void setActionListener(ActionListener l) {
+		view.addActionListener(l);
+	}
+	
+	public JButton getView() {
+		return view;
+	}
+	
+	//Note that this makes Cell inconsistent with equals.
+	@Override
+	public int compareTo(Cell target) {
+		int number = (10000 * target.getY() + target.getX())-(10000 * this.getY() + this.getX());
+		return number / Math.abs(number);
+	}
+	
 	public Collection<Cell> getAdjacent(){
 		ArrayList<Cell> cell_list = new ArrayList<Cell>(8);
 		GameMap m = this.containingMap;
