@@ -22,7 +22,7 @@ public class UnitTest {
         Unit b = new Unit(UnitType.Soldier,player,new Cell(null, null,null,1,0));
         assertTrue(a.canAttack(b));
         a.attack(b);
-        assertEquals(4, b.getHitPoints());
+        assertEquals(0, b.getHitPoints());
     }
 
     @Test

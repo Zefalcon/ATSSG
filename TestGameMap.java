@@ -38,10 +38,10 @@ public class TestGameMap {
 		assertEquals(testMap.getCell(3, 4).getTerrainType(), TerrainType.GRASS);
 	}
 	
-	@Test
+	/*@Test
 	public void checkUnits(){
 		assertEquals(testMap.getCell(3, 4).getOccupyingEntities().size(), 1);
 		assertEquals(testMap.getCell(5, 4).getOccupyingEntities().size(), 0);
-	}
+	}*/
 
 }
