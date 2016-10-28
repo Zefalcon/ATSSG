@@ -3,6 +3,8 @@ import ATSSG.Entities.Unit;
 
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public class UnitButton extends Button {
 	
 	//Variables
@@ -10,12 +12,8 @@ public class UnitButton extends Button {
 	protected Unit reference;
 
 	//Methods
-	public UnitButton(Icon icon, Unit reference) {
-		super(icon);
+	public UnitButton(Icon icon, Player owner, Unit reference) {
+		super(icon, owner);
 		this.reference = reference;
-	}
-	
-	public void clicked() {
-		
 	}
 }

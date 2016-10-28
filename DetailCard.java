@@ -2,6 +2,8 @@ package ATSSG;
 import java.util.Collection;
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public class DetailCard extends UIContainer<Cell> {
 	
 	//Variables
@@ -9,9 +11,9 @@ public class DetailCard extends UIContainer<Cell> {
 	protected Collection<Collection<String>> selDescript;
 	
 	//Constructors
-	public DetailCard(Collection<Cell> location, Layout card, int xLoc, int yLoc,
-			int width, int height, int displayLevel) {
-		super(location, card, xLoc, yLoc, width, height, displayLevel);
+	public DetailCard(Collection<Cell> location, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner) {
+		super(location, xLoc, yLoc, width, height, displayLevel, owner);
 		setSelData(location);
 	}
 	

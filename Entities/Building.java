@@ -20,7 +20,7 @@ public class Building extends Entity {
 		super(type.maxHP, player, location);
 		this.type = type;
 		buildable = new ArrayList<UnitType>();
-		allowedCommands.add(new ConstructButton(null, "Construct"));
+		//allowedCommands.add(new ConstructButton(null, "Construct"));
 	}
 	
 	//Methods

@@ -69,16 +69,12 @@ public class MoveMeta extends MetaAction {
 		return actor.getType().passableTerrain.containsKey(c.getTerrainType()) && !enemy;
 	}
 	
-	public boolean complete() {
-		return actor.getContainingCell().getX() == dest.getX() && actor.getContainingCell().getY() == dest.getY();
-	}
-	
 	public boolean pathInvalid() {
 		return path == null || path.isEmpty() || !isPassable(path.get(0));
 	}
 	
 	public Action nextAction() {
-		if (complete()) return null;
+		if (isDone()) return null;
 		if (pathInvalid()) path = planPath();
 		if (pathInvalid()) return null;
 		return new MoveAction(1, actor, path.remove(0)); // TODO: replace with code that can take multiple turns
@@ -86,7 +82,7 @@ public class MoveMeta extends MetaAction {
 
 	@Override
 	public Boolean isDone() {
-		return actor.getContainingCell() == dest;
+		return actor.getContainingCell().getX() == dest.getX() && actor.getContainingCell().getY() == dest.getY();
 	}
 }
 

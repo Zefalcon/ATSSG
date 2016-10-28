@@ -8,7 +8,7 @@ public abstract class BuildingAction extends Action {
 
 	//Methods
 	public void setPerformer(Building performer){
-		performer = performer;
+		this.performer = performer;
 	}
 
 	public Building getPerformer(){

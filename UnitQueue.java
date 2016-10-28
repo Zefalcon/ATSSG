@@ -3,6 +3,8 @@ import ATSSG.Entities.Unit;
 
 import java.util.Collection;
 
+import ATSSG.Player.Player;
+
 public class UnitQueue extends UIContainer<UnitButton> {
 	
 	//Variables
@@ -10,9 +12,9 @@ public class UnitQueue extends UIContainer<UnitButton> {
 	protected Collection<UnitButton> displayedUnits;
 	
 	//Constructos
-	public UnitQueue(Collection<UnitButton> units, Layout card, int xLoc, int yLoc,
-			int width, int height, int displayLevel) {
-		super(units, card, xLoc, yLoc, width, height, displayLevel);
+	public UnitQueue(Collection<UnitButton> units, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner) {
+		super(units, xLoc, yLoc, width, height, displayLevel, owner);
 		fillDisplayedUnits();
 	}
 	

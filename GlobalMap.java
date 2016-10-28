@@ -2,17 +2,14 @@ package ATSSG;
 
 import java.util.Collection;
 
-public class GlobalMap extends Overlay implements UIMap {
+import ATSSG.Player.Player;
+
+public class GlobalMap extends Overlay {
 	
 	Collection<Cell> tiles;
 	
-	public GlobalMap(Collection<Object> content, Layout card, int xLoc, int yLoc,
-			int width, int height, int displayLevel) {
-		super(content, card, xLoc, yLoc, width, height, displayLevel);
+	public GlobalMap(Collection<Object> content, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner) {
+		super(content, xLoc, yLoc, width, height, displayLevel, owner);
 	}
-	
-	public void clicked(Cell ofInterest, ClickType ct){
-		
-	}
-
 }
