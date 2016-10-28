@@ -7,6 +7,7 @@ import javax.swing.Icon;
 
 import ATSSG.Player.Player;
 import ATSSG.Entities.Entity;
+import ATSSG.Entities.Unit;
 
 public class MoveButton extends CommandButton {
 
@@ -15,7 +16,7 @@ public class MoveButton extends CommandButton {
 	//Perhaps these buttons require an int field that lets an Iterator order them.
 	
 	//Methods
-	public MoveButton(Icon icon, String hoverText, Unit unit, Player owner) {
+	public MoveButton(Icon icon, String hoverText, final Unit unit, Player owner) {
 		super(icon, hoverText, unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

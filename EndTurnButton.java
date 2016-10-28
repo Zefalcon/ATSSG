@@ -15,7 +15,7 @@ public class EndTurnButton extends Button {
 	
 	//Constructors
 	
-	public EndTurnButton(Icon icon, Player owner, Collection<Player> computers) {
+	public EndTurnButton(Icon icon, final Player owner, final Collection<Player> computers) {
 		super(icon, owner);
 		boolean prompted = false;
 		gooeyButton.addActionListener(new ActionListener() {

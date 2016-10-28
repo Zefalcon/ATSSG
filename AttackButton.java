@@ -7,11 +7,12 @@ import javax.swing.Icon;
 
 import ATSSG.Player.Player;
 import ATSSG.Entities.Entity;
+import ATSSG.Entities.Unit;
 
 public class AttackButton extends CommandButton {
 
 	//Methods
-	public AttackButton(Icon icon, String hoverText, Unit unit, Player owner) {
+	public AttackButton(Icon icon, String hoverText, final Entity unit, Player owner) {
 		super(icon, hoverText, unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
