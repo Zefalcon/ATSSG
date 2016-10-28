@@ -100,6 +100,7 @@ public abstract class Entity {
 	public Cell getContainingCell() {return containingCell;}
 	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
+	public Collection<Button> getAllowedCommands(){return allowedCommands;}
 
 
 }
