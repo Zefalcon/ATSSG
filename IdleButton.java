@@ -7,7 +7,7 @@ import ATSSG.Player.Player;
 public class IdleButton extends CommandButton {
 
 	//Methods
-	public IdleButton(Icon icon, String hoverText, Unit unit, Player owner, CommandCard holder) {
+	public IdleButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
 		super(icon, hoverText, unit, owner, holder);
 	}
 	

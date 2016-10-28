@@ -22,14 +22,14 @@ public class EndTurnButton extends Button {
 			public void actionPerformed(ActionEvent e) {
 				//necessary to check type of action?
 				//if (no prompts are open && the unit queue is empty && ! prompted)
-					owner.executeTurn();
+					owner.executeAll();
 					//iterator on computer players
 					if (computers != null) {
 						Iterator<Player> k = computers.iterator();
 						Player ai;
 						while (k.hasNext()) {
 							ai = k.next();
-							ai.executeTurn();
+							ai.executeAll();
 						}
 					}
 				//else generate an Are You Sure? prompt and set prompted = true

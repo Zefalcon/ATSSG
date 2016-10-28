@@ -7,7 +7,7 @@ import ATSSG.Player.Player;
 public class HarvestButton extends CommandButton {
 
 	//Methods
-	public HarvestButton(Icon icon, String hoverText, Unit unit, Player owner, CommandCard holder) {
+	public HarvestButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
 		super(icon, hoverText, unit, owner, holder);
 	}
 	

@@ -1,10 +1,12 @@
 package ATSSG;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JWindow;
 
 import ATSSG.Player.Player;
+import ATSSG.Player.AI.AIPlayer;
 
 public class Gooey {
 
@@ -38,12 +40,17 @@ public class Gooey {
 	
 	//Constructors
 	
-	public Gooey(int screenHeight, int screenWidth, int numResources, Collection<Cell> world, Player owner,
-			Collection<Player> computers) {
+	public Gooey(int screenHeight, int screenWidth, int numResources, Collection<Cell> world, Player owner, GameMap gm) {
 		//0,0 is the top left corner.
 		//Reused Variables
 		int buttonWidth = screenWidth / 8;
 		int buttonHeight = screenHeight / 16;
+		Collection<Player> computers = new ArrayList<Player>();
+		for (Player p : gm.getPlayers()) { //flag disgustingly efficient looking for loop syntax
+			if (p instanceof AIPlayer) {
+				computers.add(p);
+			}
+		}
 		//MiniMap is a square in the bottom left
 		int miniY = 2 * screenHeight / 3;
 		int miniX = 0;

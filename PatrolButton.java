@@ -7,7 +7,7 @@ import ATSSG.Player.Player;
 public class PatrolButton extends CommandButton {
 
 	//Methods
-	public PatrolButton(Icon icon, String hoverText, Unit unit, Player owner, CommandCard holder) {
+	public PatrolButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
 		super(icon, hoverText, unit, owner, holder);
 	}
 	

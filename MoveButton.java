@@ -14,7 +14,7 @@ public class MoveButton extends CommandButton {
 	//Perhaps these buttons require an int field that lets an Iterator order them.
 	
 	//Methods
-	public MoveButton(Icon icon, String hoverText, Unit unit, Player owner, CommandCard holder) {
+	public MoveButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
 		super(icon, hoverText, unit, owner, holder);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -28,8 +28,8 @@ public class MoveButton extends CommandButton {
 				//That is also where shift-queueing actions support would go
 				
 				//clicktype check
-				holder.getParent().setHeldCommand(CommandType.MOVE);
-				holder.getParent().setHeldEntity(unit);
+				holder.setHeldCommand(CommandType.MOVE);
+				holder.setSelectedEntity(unit);
 			}
 		});
 	}
