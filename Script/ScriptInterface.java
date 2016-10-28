@@ -2,8 +2,8 @@ package ATSSG.Script;
 import java.util.Collection;
 
 import ATSSG.Button;
-import ATSSG.Layout;
 import ATSSG.Overlay;
+import ATSSG.Player.Player;
 
 public class ScriptInterface extends Overlay {
 	
@@ -13,8 +13,14 @@ public class ScriptInterface extends Overlay {
 	protected Collection<?> assemblyZone;
 
 	//Methods
-	public ScriptInterface(Collection<Object> content, Layout card, int xLoc, int yLoc,
+	/*public ScriptInterface(Collection<Object> content, Layout card, int xLoc, int yLoc,
 			int width, int height, int displayLevel) {
 		super(content, card, xLoc, yLoc, width, height, displayLevel);
+	}*/
+	
+	//Temporary
+	public ScriptInterface(Collection<Object> content, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner) {
+		super(content, xLoc, yLoc, width, height, displayLevel, owner);
 	}
 }
