@@ -6,6 +6,8 @@ import java.util.Iterator;
 import javax.swing.JButton;
 import javax.swing.JWindow;
 
+import ATSSG.Player.Player;
+
 public class CommandCard extends UIContainer<Button> {
 	
 	//Variables

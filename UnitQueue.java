@@ -9,7 +9,7 @@ public class UnitQueue extends UIContainer<UnitButton> {
 	protected Collection<UnitButton> units;
 	protected Collection<UnitButton> displayedUnits;
 	
-	//Constructors
+	//Constructos
 	public UnitQueue(Collection<UnitButton> units, int xLoc, int yLoc,
 			int width, int height, int displayLevel, Player owner) {
 		super(units, xLoc, yLoc, width, height, displayLevel, owner);

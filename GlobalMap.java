@@ -2,6 +2,8 @@ package ATSSG;
 
 import java.util.Collection;
 
+import ATSSG.Player.Player;
+
 public class GlobalMap extends Overlay {
 	
 	Collection<Cell> tiles;

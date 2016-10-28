@@ -1,6 +1,8 @@
 package ATSSG;
 import java.util.Collection;
 
+import ATSSG.Player.Player;
+
 public class Menu extends Overlay {
 	
 	//Variables

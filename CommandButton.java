@@ -2,6 +2,8 @@ package ATSSG;
 
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public abstract class CommandButton extends Button {
 	
 	//Variables

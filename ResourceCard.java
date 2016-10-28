@@ -2,6 +2,8 @@ package ATSSG;
 import java.util.Collection;
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public class ResourceCard extends UIContainer<Integer>{
 	
 	//Variables
