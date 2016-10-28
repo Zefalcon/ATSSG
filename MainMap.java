@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JWindow;
 
@@ -74,7 +74,7 @@ public class MainMap extends UIContainer<Cell> {
 								cCardHeight, 0, owner, MainMap.this);
 					}
 				}
-			}, null));
+			}));
 		}
 		
 		/////////////////////////////////
@@ -136,10 +136,16 @@ public class MainMap extends UIContainer<Cell> {
 		protected JButton view;
 		protected Cell parent;
 		
-		public ListenerCell(Cell cell, ActionListener l, Icon icon) { //Icon should not be a pass-in it should be determinable from contents
+		public ListenerCell(Cell cell, ActionListener l) {
 			super(cell.getTerrainType(), cell.getResourceItem(), cell.getGameMap(), cell.getX(), cell.getY());
 			ordering = 10000 * xLoc + yLoc; //Arbitrary scaling number flag
 			parent = cell;
+			ImageIcon icon;
+			if (cell.getOccupyingEntities() == null) {
+				icon = new ImageIcon("Art/DemoTerrain.png");
+			} else {
+				icon = new ImageIcon("Art/DemoUnit.png");
+			}
 			view = new JButton(icon);
 			view.addActionListener(l);
 		}
