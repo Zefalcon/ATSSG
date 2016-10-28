@@ -1,5 +1,6 @@
 package ATSSG;
 import ATSSG.Entities.Entity;
+import ATSSG.Player.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -81,6 +82,15 @@ public class Cell {
 			occupyingEntities.remove(toRemove);
 		}
 	}
+	public Entity getEnemy(Player p){
+        if(occupyingEntities.isEmpty()){
+            return null;
+        }
+        if(occupyingEntities.iterator().next().getOwner().equals(p)){
+            return null;
+        }
+        return occupyingEntities.iterator().next();
+    }
 
 	public static int distance(Cell a, Cell b){
 		//Returns distance between two given cells.  Diagonals count as 1

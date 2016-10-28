@@ -96,9 +96,9 @@ public class Gooey {
 		
 		//Building the UI
 		
-		commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner);
+		//commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, mainMap);
 		
-		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, commandCard);
+		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, cCardX, cCardY, cCardWidth, cCardHeight);
 		
 		etButton = new JWindow();
 		etButton.add(new EndTurnButton(null, owner, computers).getGooey(), 0);

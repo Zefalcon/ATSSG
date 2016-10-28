@@ -12,6 +12,8 @@ import javax.swing.JWindow;
 
 import ATSSG.Actions.AttackAction;
 import ATSSG.Actions.MoveAction;
+import ATSSG.Entities.Entity;
+import ATSSG.Entities.Unit;
 import ATSSG.Player.Player;
 
 public class MainMap extends UIContainer<Cell> {
@@ -40,10 +42,10 @@ public class MainMap extends UIContainer<Cell> {
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
 	public MainMap(GameMap gm, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner, CommandCard cCard) {
+			int width, int height, int displayLevel, Player owner, int cCardX, int cCardY, int cCardWidth, int cCardHeight) {
 		super(null, xLoc, yLoc, width, height, displayLevel, owner);
 		this.gm = gm;
-		this.cCard = cCard;
+		this.cCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, this);
 		view = new JWindow();
 		view.setBounds(xLoc, yLoc, width, height);
 		
@@ -68,8 +70,8 @@ public class MainMap extends UIContainer<Cell> {
 						//highlight selected Cell
 						//discriminate between left and right clicks?
 						selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
-						cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCard.getX(), cCard.getY(), cCard.getWidth(),
-								cCard.getHeight(), cCard.getDisplayLevel(), cCard.getOwner());
+						cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardWidth,
+								cCardHeight, 0, owner, MainMap.this);
 					}
 				}
 			}, null));

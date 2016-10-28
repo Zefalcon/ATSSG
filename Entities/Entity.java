@@ -2,6 +2,7 @@ package ATSSG.Entities;
 
 import ATSSG.Button;
 import ATSSG.Cell;
+import ATSSG.CommandButton;
 import ATSSG.IdleButton;
 import ATSSG.Player.Player;
 import ATSSG.Script.Script;
@@ -22,7 +23,7 @@ public abstract class Entity {
 	protected Cell containingCell;
 	protected Script currentScript = null;
 	protected Action currentAction = null;
-	protected Collection<Button> allowedCommands;
+	protected Collection<CommandButton> allowedCommands;
 
 	//Constructor
 	public Entity(int hp, Player player, Cell currentCell){
@@ -31,8 +32,7 @@ public abstract class Entity {
 		containingCell = currentCell;
 		currentScript = null;
 		currentAction = null;
-		allowedCommands = new ArrayList<Button>();
-		allowedCommands.add(new ScriptButton(null,player));
+		allowedCommands = new ArrayList<CommandButton>();
 		player.addEntity(this);
 		currentCell.addOccupyingEntity(this);
 	}
@@ -100,7 +100,7 @@ public abstract class Entity {
 	public Cell getContainingCell() {return containingCell;}
 	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
-	public Collection<Button> getAllowedCommands(){return allowedCommands;}
+	public Collection<CommandButton> getAllowedCommands(){return allowedCommands;}
 
 
 }
