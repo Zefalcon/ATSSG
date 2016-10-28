@@ -32,7 +32,7 @@ public abstract class Entity {
 		currentScript = null;
 		currentAction = null;
 		allowedCommands = new ArrayList<Button>();
-		allowedCommands.add(new ScriptButton(null));
+		allowedCommands.add(new ScriptButton(null,player));
 		player.addEntity(this);
 		currentCell.addOccupyingEntity(this);
 	}

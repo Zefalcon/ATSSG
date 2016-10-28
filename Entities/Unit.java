@@ -14,10 +14,10 @@ public class Unit extends Entity {
 	public Unit(UnitType t, Player player, Cell current){
 		super(t.maxHP, player, current);
 		type = t;
-		allowedCommands.add(new IdleButton(null, "Idle",this,player,null));
-		allowedCommands.add(new AttackButton(null, "Attack", this,player,null));
-		allowedCommands.add(new MoveButton(null, "Move To", this, player, null));
-		allowedCommands.add(new PatrolButton(null, "Patrol", this, player, null));
+		allowedCommands.add(new IdleButton(null, "Idle",this,player));
+		allowedCommands.add(new AttackButton(null, "Attack", this,player));
+		allowedCommands.add(new MoveButton(null, "Move To", this, player));
+		allowedCommands.add(new PatrolButton(null, "Patrol", this, player));
 	}
 	//Methods
 	public boolean canAttack(Entity target){
