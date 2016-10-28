@@ -3,6 +3,7 @@ package ATSSG;
 import javax.swing.Icon;
 
 import ATSSG.Player.Player;
+import ATSSG.Entities.Entity;
 
 public abstract class CommandButton extends Button {
 	
@@ -12,11 +13,15 @@ public abstract class CommandButton extends Button {
 	protected MainMap holder;
 	
 	//Methods
-	public CommandButton(Icon icon, String hoverText, Entity entity, Player owner, MainMap holder) {
+	public CommandButton(Icon icon, String hoverText, Entity entity, Player owner) {
 		super(icon, owner);
 		this.hoverText = hoverText;
 		this.entity = entity;
-		this.holder = holder; //flag - may cause terrible problems when building the entire project, see Unit's collection of buttons
+		holder = null;
+	}
+	
+	public void setHolder(MainMap holder) {
+		this.holder = holder;
 	}
 	
 	public void isHovered(){

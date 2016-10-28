@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 
 import ATSSG.Player.Player;
+import ATSSG.Entities.Entity;
 
 public class MoveButton extends CommandButton {
 
@@ -15,7 +16,7 @@ public class MoveButton extends CommandButton {
 	
 	//Methods
 	public MoveButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
-		super(icon, hoverText, unit, owner, holder);
+		super(icon, hoverText, unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not left click do nothing

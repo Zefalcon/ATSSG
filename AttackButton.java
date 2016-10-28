@@ -6,12 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 
 import ATSSG.Player.Player;
+import ATSSG.Entities.Entity;
 
 public class AttackButton extends CommandButton {
 
 	//Methods
 	public AttackButton(Icon icon, String hoverText, Unit unit, Player owner, MainMap holder) {
-		super(icon, hoverText, unit, owner, holder);
+		super(icon, hoverText, unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not left click do nothing

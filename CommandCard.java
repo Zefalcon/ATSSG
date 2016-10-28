@@ -8,7 +8,7 @@ import javax.swing.JWindow;
 
 import ATSSG.Player.Player;
 
-public class CommandCard extends UIContainer<Button> {
+public class CommandCard extends UIContainer<CommandButton> {
 	
 	//Variables
 	
@@ -17,14 +17,21 @@ public class CommandCard extends UIContainer<Button> {
 
 	//Constructors
 	
-	public CommandCard(Collection<Button> content, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner) {
+	public CommandCard(Collection<CommandButton> content, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner, MainMap holder) {
 		super(content, xLoc, yLoc, width, height, displayLevel, owner);
 		view = new JWindow();
 		view.setLayout(new GridLayout(4,4));
 		int numButtons = 0;
 		if (content != null) {
-			Iterator<Button> i = content.iterator();
+			for(CommandButton b : content) {
+				b.setHolder(holder);
+				view.add(b.getGooey());
+			}
+			
+			
+			
+			Iterator<CommandButton> i = content.iterator();
 			Button trav;
 			while (i.hasNext()) {
 				trav = i.next();
