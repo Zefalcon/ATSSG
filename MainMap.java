@@ -19,7 +19,7 @@ public class MainMap extends UIContainer<Cell> {
 	//Fields
 	
 	//This field stores the conversion of the Collection into an array
-	protected Cell[][] cells;
+	protected GameMap gm;
 	
 	//This field stores all Cells in the game, with listeners to prevent recalculations
 	protected Collection<ListenerCell> interactable;
@@ -39,14 +39,15 @@ public class MainMap extends UIContainer<Cell> {
 	//Constructors
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
-	public MainMap(Collection<Cell> content, int xLoc, int yLoc,
+	public MainMap(GameMap gm, int xLoc, int yLoc,
 			int width, int height, int displayLevel, Player owner, CommandCard cCard) {
-		super(content, xLoc, yLoc, width, height, displayLevel, owner);
+		super(null, xLoc, yLoc, width, height, displayLevel, owner);
+		this.gm = gm;
 		this.cCard = cCard;
 		view = new JWindow();
 		view.setBounds(xLoc, yLoc, width, height);
 		
-		Iterator<Cell> itr = content.iterator();
+		Iterator<Cell> itr = gm.getCells().iterator();
 		for (Cell cell = itr.next(); itr.hasNext(); cell = itr.next()) { //Does this skip the first Cell? There doesn't seem to be an iterator.first() method...
 			interactable.add(new ListenerCell(cell, new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -98,7 +99,7 @@ public class MainMap extends UIContainer<Cell> {
 		view.setLayout(new GridLayout(16, 32)); //FLAG on arbitrary numbers
 		//view.add things
 		//double loop in x, y adding ListenerCells
-		updateView(content);
+		updateView(gm.getCells());
 		
 		
 		view.setVisible(true);

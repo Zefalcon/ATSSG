@@ -40,7 +40,7 @@ public class Gooey {
 	
 	//Constructors
 	
-	public Gooey(int screenHeight, int screenWidth, int numResources, Collection<Cell> world, Player owner, GameMap gm) {
+	public Gooey(int screenHeight, int screenWidth, int numResources, Player owner, GameMap gm) {
 		//0,0 is the top left corner.
 		//Reused Variables
 		int buttonWidth = screenWidth / 8;
@@ -98,7 +98,7 @@ public class Gooey {
 		
 		commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner);
 		
-		mainMap = new MainMap(world, mainX, mainY, mainWidth, mainHeight, 0, owner, commandCard);
+		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, commandCard);
 		
 		etButton = new JWindow();
 		etButton.add(new EndTurnButton(null, owner, computers).getGooey(), 0);

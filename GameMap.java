@@ -83,5 +83,15 @@ public class GameMap {
 			players.remove(toRemove);
 		}
 	}
+	
+	public Collection<Cell> getCells() {
+		ArrayList<Cell> cells = new ArrayList<Cell>();
+		for (int x=0; x<all_cells.length; x++) {
+			for (int y=0; y<all_cells[x].length; y++) {
+				cells.add(all_cells[x][y]);
+			}
+		}
+		return cells;
+	}
 
 }
