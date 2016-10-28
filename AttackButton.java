@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public class AttackButton extends CommandButton {
 
 	//Methods

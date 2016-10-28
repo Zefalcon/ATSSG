@@ -10,6 +10,10 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JWindow;
 
+import ATSSG.Actions.AttackAction;
+import ATSSG.Actions.MoveAction;
+import ATSSG.Player.Player;
+
 public class MainMap extends UIContainer<Cell> {
 	
 	//Fields

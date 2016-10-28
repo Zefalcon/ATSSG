@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.swing.JWindow;
 
+import ATSSG.Player.Player;
+
 public class Gooey {
 
 	//Fields

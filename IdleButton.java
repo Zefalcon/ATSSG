@@ -2,6 +2,8 @@ package ATSSG;
 
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public class IdleButton extends CommandButton {
 
 	//Methods

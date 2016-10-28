@@ -7,6 +7,8 @@ import java.util.Iterator;
 
 import javax.swing.Icon;
 
+import ATSSG.Player.Player;
+
 public class EndTurnButton extends Button {
 
 	//Fields
