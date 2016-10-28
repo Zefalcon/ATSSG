@@ -41,7 +41,7 @@ public class MainMap extends UIContainer<Cell> {
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
 	public MainMap(GameMap gm, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner, int cCardX, int cCardY, int cCardWidth, int cCardHeight) {
+			int width, int height, int displayLevel, final Player owner, final int cCardX, final int cCardY, final int cCardWidth, final int cCardHeight) {
 		super(null, xLoc, yLoc, width, height, displayLevel, owner);
 		this.gm = gm;
 		this.cCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, this);

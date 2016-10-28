@@ -2,6 +2,7 @@ package ATSSG;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 
@@ -16,7 +17,7 @@ public class MoveButton extends CommandButton {
 	
 	//Methods
 	public MoveButton(final Unit unit, Player owner) {
-		super(new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoMove.png"),
+		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMove.png").toString()),
 				"Move Command Hover Text", unit, owner);
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -2,6 +2,7 @@ package ATSSG;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -15,8 +16,8 @@ public class EndTurnButton extends Button {
 	
 	//Constructors
 	
-	public EndTurnButton(Player owner, Collection<Player> computers, MainMap holder) {
-		super(new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoEndTurn.png"), owner);
+	public EndTurnButton(final Player owner, Collection<Player> computers, final MainMap holder) {
+		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoEndTurn.png").toString()), owner);
 		//boolean prompted = false;
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

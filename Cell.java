@@ -3,6 +3,7 @@ import ATSSG.Entities.Entity;
 import ATSSG.Player.Player;
 
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -37,9 +38,9 @@ public class Cell implements Comparable<Cell> {
 	public void updateView() {
 		ImageIcon icon;
 		if (getOccupyingEntities().isEmpty()) {
-			icon = new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoTerrain.png");
+			icon = new ImageIcon(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString());
 		} else {
-			icon = new ImageIcon("D:/James/Documents/Eclipse/Workspace/ATSSG/src/ATSSG/Art/DemoUnit.png");
+			icon = new ImageIcon(Paths.get("src/ATSSG/Art/DemoUnit.png").toString());
 		}
 		this.view = new GooeyJButton(icon, this);
 		restoreActLis();
@@ -59,7 +60,6 @@ public class Cell implements Comparable<Cell> {
 	}
 	
 	//Note that this makes Cell inconsistent with equals.
-	@Override
 	public int compareTo(Cell target) {
 		int number = (10000 * target.getY() + target.getX())-(10000 * this.getY() + this.getX());
 		return number / Math.abs(number);
