@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ATSSG.Unit;
 import ATSSG.UnitType;
+import ATSSG.Entities.Unit;
 
 public class testAttackMeta {
 
