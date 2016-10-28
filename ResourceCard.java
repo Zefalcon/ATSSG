@@ -9,9 +9,9 @@ public class ResourceCard extends UIContainer<Integer>{
 	protected Collection<Icon> pics;
 	
 	//Constructors
-	public ResourceCard(Collection<Integer> quantities, Layout card, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Collection<Icon> pics) {
-		super(quantities, card, xLoc, yLoc, width, height, displayLevel);
+	public ResourceCard(Collection<Integer> quantities, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner, Collection<Icon> pics) {
+		super(quantities, xLoc, yLoc, width, height, displayLevel, owner);
 		this.pics = pics;
 	}
 	

@@ -4,8 +4,8 @@ import javax.swing.Icon;
 
 public class MenuButton extends Button {
 
-	public MenuButton(Icon icon) {
-		super(icon);
+	public MenuButton(Icon icon, Player owner) {
+		super(icon, owner);
 	}
 	
 	public void clicked() {

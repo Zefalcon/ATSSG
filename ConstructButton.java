@@ -5,8 +5,8 @@ import javax.swing.Icon;
 public class ConstructButton extends CommandButton {
 
 	//Methods
-	public ConstructButton(Icon icon, String hoverText) {
-		super(icon, hoverText);
+	public ConstructButton(Icon icon, String hoverText, Unit unit, Player owner, CommandCard holder) {
+		super(icon, hoverText, unit, owner, holder);
 	}
 	
 	public void clicked() {

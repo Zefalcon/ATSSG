@@ -1,16 +1,25 @@
 package ATSSG;
+
 import javax.swing.Icon;
+import javax.swing.JButton;
 
 public abstract class Button {
 	
 	//Variables
-	protected Icon icon;
 	
-	//Methods
-	public Button(Icon icon) {
-		this.icon = icon;
+	JButton gooeyButton;
+	Player owner;
+	
+	//Constructors
+	
+	public Button(Icon icon, Player owner) {
+		this.owner = owner;
+		gooeyButton = new JButton(icon);
 	}
 	
-	public abstract void clicked();
-
+	//Methods
+	
+	public JButton getGooey() {
+		return gooeyButton;
+	}
 }

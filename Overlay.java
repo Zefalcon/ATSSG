@@ -8,9 +8,9 @@ public abstract class Overlay extends UIContainer<Object>{
 	protected boolean visible;
 	
 	//Methods
-	public Overlay(Collection<Object> content, Layout card, int xLoc, int yLoc,
-			int width, int height, int displayLevel) {
-		super(content, card, xLoc, yLoc, width, height, displayLevel);
+	public Overlay(Collection<Object> content, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner) {
+		super(content, xLoc, yLoc, width, height, displayLevel, owner);
 		visible = false;
 	}
 	

@@ -9,8 +9,8 @@ public class Prompt extends Overlay {
 	protected Button goTo;
 
 	//Methods
-	public Prompt(Collection<Object> content, Layout card, int xLoc, int yLoc,
-			int width, int height, int displayLevel) {
-		super(content, card, xLoc, yLoc, width, height, displayLevel);
+	public Prompt(Collection<Object> content, int xLoc, int yLoc,
+			int width, int height, int displayLevel, Player owner) {
+		super(content,  xLoc, yLoc, width, height, displayLevel, owner);
 	}
 }

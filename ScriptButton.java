@@ -2,10 +2,10 @@ package ATSSG;
 
 import javax.swing.Icon;
 
-public class MapButton extends Button {
+public class ScriptButton extends Button {
 
 	//Methods
-	public MapButton(Icon icon, Player owner) {
+	public ScriptButton(Icon icon, Player owner) {
 		super(icon, owner);
 	}
 	
