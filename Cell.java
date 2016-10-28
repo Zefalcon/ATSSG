@@ -135,7 +135,12 @@ public class Cell implements Comparable<Cell> {
 
 	public static int distance(Cell a, Cell b){
 		//Returns distance between two given cells.  Diagonals count as 1
-		return Math.max(Math.abs(a.getX()-b.getX()), Math.abs(a.getY()-b.getY()));
+		if (a==null || b== null) {
+			System.out.println("The two cells are "+a+" "+b);
+		}
+		int xDif = a.getX()-b.getX();
+		int yDif = a.getY()-b.getY();
+		return Math.max(Math.abs(xDif), Math.abs(yDif));
 	}
 	public int getX() {return x;}
 	public int getY() {return y;}

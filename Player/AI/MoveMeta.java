@@ -27,7 +27,7 @@ public class MoveMeta extends MetaAction {
 		toCheck.add(new RecordCell(actor.getContainingCell(), 0, dest, new ArrayList<Cell>()));
 		while (!toCheck.isEmpty()) {
 			RecordCell current = toCheck.remove();
-			if (current.equals(dest) || current.getPath().size() >= MAXPLAN) {
+			if (current.getCell().equals(dest) || current.getPath().size() >= MAXPLAN) {
 				return current.getPath();
 			}
 			for (Cell possMove : current.getCell().getAdjacent()) {
@@ -35,16 +35,20 @@ public class MoveMeta extends MetaAction {
 				newPath.add(possMove);
 				//TODO: change values for high cost terrain				
 				RecordCell child = new RecordCell(possMove, current.getCost()+1, dest, newPath);
+				if (possMove == dest) {
+					return child.getPath();
+				}
 				if(isPassable(possMove)) {
 					boolean toAdd = true;
 					//Verify not repeat
 					for (RecordCell c: toCheck) {
 						if (c.equals(possMove)) {
-							if (child.compareTo(c) > 0) {
+							toAdd = false;
+							/*if (child.compareTo(c) > 0) {
 								toCheck.remove(c);
 							} else {
 								toAdd = false;
-							}
+							}*/
 							break;
 						}
 					}
@@ -66,7 +70,7 @@ public class MoveMeta extends MetaAction {
 			}
 		}
 		//Currently Assuming only in list if passable
-		return actor.getType().passableTerrain.containsKey(c.getTerrainType()) && !enemy;
+		return !enemy;
 	}
 	
 	public boolean pathInvalid() {
@@ -96,7 +100,9 @@ class RecordCell implements Comparable {
 		this.path = path;
 		current = cell;
 		this.cost = cost;
-		this.estimate = cost + 2*Math.max(Math.abs(dest.getX()-cell.getX()), Math.abs(dest.getY()-cell.getY()));
+		int xDif = Math.abs(dest.getX()-cell.getX());
+		int yDif = Math.abs(dest.getY()-cell.getY());
+		this.estimate = cost + Math.max(xDif, yDif) + xDif + yDif;
 	}
 	
 	public boolean equals(RecordCell other) {

@@ -24,6 +24,8 @@ public class AttackMeta extends MetaAction {
 	
 	@Override
 	public Action nextAction() {
+		System.out.println("Trying to attack "+ target);
+		if (target.getHitPoints() == 0) return null;
 		if (attacker.canAttack(target)) return new AttackAction(1, attacker, target);
 		//TODO: reuse previous moves on unmoving target
 		return new MoveMeta(target.getContainingCell(), attacker).nextAction();

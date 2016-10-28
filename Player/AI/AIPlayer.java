@@ -72,6 +72,7 @@ public class AIPlayer extends Player {
 	
 	@Override
 	public void executeAll(){
+		System.out.println("AI is planning");
 		if (all_entities == null || all_entities.isEmpty()) {
 			this.kill();
 			return;

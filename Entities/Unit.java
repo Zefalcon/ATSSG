@@ -21,6 +21,7 @@ public class Unit extends Entity {
 	}
 	//Methods
 	public boolean canAttack(Entity target){
+		if (target.getHitPoints() == 0) return false;
 		return Cell.distance(getContainingCell(), target.getContainingCell()) <= type.aRange;
 	}
 

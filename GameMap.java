@@ -39,13 +39,13 @@ public class GameMap {
 
 		for(int i = 3; i < 8; i++){
 			Unit s = new Unit(UnitType.Soldier, human, all_cells[3][i]);
-			AI_ents.add(s);
+			human_ents.add(s);
 			all_cells[3][i].getOccupyingEntities().add(s);
 		}
 		
 		for(int i = 3; i < 8; i++){
 			Unit s = new Unit(UnitType.Soldier, ai, all_cells[7][i]);
-			//human_ents.add(s);
+			AI_ents.add(s);
 			all_cells[7][i].getOccupyingEntities().add(s);
 		}
 		entities = new ArrayList<Entity>();
