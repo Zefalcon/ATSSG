@@ -54,29 +54,29 @@ public class Gooey {
 		//MiniMap is a square in the bottom left
 		int miniY = 2 * screenHeight / 3;
 		int miniX = 0;
-		int miniWidth = screenHeight - miniY;
-		int miniHeight = miniWidth;
+		int miniW = screenHeight - miniY;
+		int miniH = miniW;
 		//MapButton sits atop the miniMap
 		int mbY = miniY - buttonHeight;
 		int mbX = 0;
 		//CommandCard is a square in the bottom right
 		int cCardY = 3 * screenHeight / 4;
-		int cCardWidth = screenHeight / 4;
-		int cCardX = screenWidth - cCardWidth;
-		int cCardHeight = cCardWidth;
+		int cCardW = screenHeight / 4;
+		int cCardX = screenWidth - cCardW;
+		int cCardH = cCardW;
 		//ScriptButton sits atop the CommandCard
 		int sbY = cCardY - buttonHeight;
 		int sbX = screenWidth - buttonWidth;
 		//UnitQueue sits next to the CommandCard
 		int uqY = cCardY;
-		int uqX = miniWidth + (15 * (cCardY - miniWidth) / 16);
+		int uqX = miniW + (15 * (cCardY - miniW) / 16);
 		int uqWidth = cCardX - uqX;
-		int uqHeight = cCardHeight;
+		int uqHeight = cCardH;
 		//DetailCard fills the space between MiniMap and UnitQueue
-		int detailY = cCardY;
-		int detailX = screenWidth - miniY;
-		int detailWidth = cCardX - miniY;
-		int detailHeight = cCardHeight;
+		int dCardY = cCardY;
+		int dCardX = miniW;
+		int dCardW = cCardX - miniW;
+		int dCardH = cCardH;
 		//EndTurnButton occupies a small space in the top right
 		int etbY = 0;
 		int etbX = screenWidth - buttonWidth;
@@ -98,12 +98,13 @@ public class Gooey {
 		
 		//commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, mainMap);
 		
-		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, cCardX, cCardY, cCardWidth, cCardHeight);
+		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, cCardX, cCardY, cCardW, cCardH, 
+				dCardX, dCardY, dCardW, dCardH);
 		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers
 		
 		etButton = new JWindow();
 		etButton.add(new EndTurnButton(owner, computers, mainMap).getGooey(), 0);
-		etButton.setBounds(etbX + 50, etbY, buttonWidth, buttonHeight); //flag the +50 is a workaround to mainmap redraws covering the button
+		etButton.setBounds(/*etbX*/screenWidth, etbY, buttonWidth, buttonHeight); //flag the +50 is a workaround to mainmap redraws covering the button
 		etButton.setVisible(true);
 	}
 	

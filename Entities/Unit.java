@@ -14,6 +14,8 @@ public class Unit extends Entity {
 	public Unit(UnitType t, Player player, Cell current){
 		super(t.maxHP, player, current);
 		type = t;
+		image = t.getImage();
+		button = new UnitButton(image, player, this);
 		allowedCommands.add(new IdleButton(null, "Idle",this,player));
 		allowedCommands.add(new AttackButton(this, player));
 		allowedCommands.add(new MoveButton(this, player));
@@ -51,6 +53,7 @@ public class Unit extends Entity {
 	}
 	
 	public UnitType getType() {return type;}
+	public UnitButton getButton() {return button;}
 
 	public boolean build(BuildingType type){
 		return false; //Units cannot build unless they are builder units

@@ -3,6 +3,7 @@ package ATSSG;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JWindow;
@@ -37,14 +38,18 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected CommandCard cCard;
 	
+	protected DetailCard dCard;
+	
 	//Constructors
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
-	public MainMap(GameMap gm, int xLoc, int yLoc,
-			int width, int height, int displayLevel, final Player owner, final int cCardX, final int cCardY, final int cCardWidth, final int cCardHeight) {
+	public MainMap(GameMap gm, final int xLoc, final int yLoc, final int width, final int height, int displayLevel,
+			final Player owner, final int cCardX, final int cCardY, final int cCardW, final int cCardH, 
+			final int dCardX, final int dCardY, final int dCardW, final int dCardH) {
 		super(null, xLoc, yLoc, width, height, displayLevel, owner);
 		this.gm = gm;
-		this.cCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, this);
+		this.cCard = new CommandCard(null, cCardX, cCardY, cCardW, cCardH, 0, owner, this);
+		this.dCard = new DetailCard(null, dCardX, dCardY, dCardW, dCardH, 0, owner, this);
 		selectedEntity = null;
 		view = new JWindow();
 		view.setLayout(new GridLayout(10, 10));
@@ -53,9 +58,7 @@ public class MainMap extends UIContainer<Cell> {
 		int mapWidth = interactable.length;
 		int mapHeight = interactable[0].length;
 		for (int i = 0; i < mapHeight; i++) {
-			System.out.println("x: " + i);
 			for (int j = 0; j < mapWidth; j++) {
-				System.out.println("y: " + j);
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Object o = e.getSource();
@@ -88,13 +91,14 @@ public class MainMap extends UIContainer<Cell> {
 							/*if (clickedCell != null && ! clickedCell.getOccupyingEntities().isEmpty()) {
 								selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
 							}*/
-							
+							ArrayList<Cell> al = new ArrayList<Cell>(); //flag: this is a hack, revisit if implementing multicell
+							al.add(clickedCell); //flag continued: selection, which will involve clickedCell being a Collection and
+							dCard.update(al); //flag continued: render obsolete two of these lines.
 							if (selectedEntity == null) {
-								cCard = new CommandCard(null, cCardX, cCardY, cCardWidth,
-														cCardHeight, 0, owner, MainMap.this); //make this blank cmdcard a field later
+								cCard = new CommandCard(null, cCardX, cCardY, cCardW, cCardH, 0, owner, MainMap.this);
 							} else {
-								cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardWidth,
-														cCardHeight, 0, owner, MainMap.this);
+								cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardW,
+														cCardH, 0, owner, MainMap.this);
 							}
 						}
 					}

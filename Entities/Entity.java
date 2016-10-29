@@ -4,6 +4,7 @@ import ATSSG.Button;
 import ATSSG.Cell;
 import ATSSG.CommandButton;
 import ATSSG.IdleButton;
+import ATSSG.UnitButton;
 import ATSSG.Player.Player;
 import ATSSG.Script.Script;
 import ATSSG.Script.ScriptButton;
@@ -11,6 +12,8 @@ import ATSSG.Actions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.swing.Icon;
 
 public abstract class Entity {
 	
@@ -24,6 +27,8 @@ public abstract class Entity {
 	protected Script currentScript = null;
 	protected Action currentAction = null;
 	protected Collection<CommandButton> allowedCommands;
+	protected Icon image;
+	protected UnitButton button;
 
 	//Constructor
 	public Entity(int hp, Player player, Cell currentCell){
@@ -32,6 +37,8 @@ public abstract class Entity {
 		containingCell = currentCell;
 		currentScript = null;
 		currentAction = null;
+		image = null;
+		button = null;
 		allowedCommands = new ArrayList<CommandButton>();
 		if (player != null) player.addEntity(this);
 		if (currentCell != null) currentCell.addOccupyingEntity(this);
@@ -103,6 +110,7 @@ public abstract class Entity {
 	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
 	public Collection<CommandButton> getAllowedCommands(){return allowedCommands;}
-
+	public Icon getImage() {return image;}
+	public UnitButton getButton() {return button;}
 
 }

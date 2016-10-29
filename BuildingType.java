@@ -25,4 +25,7 @@ public enum BuildingType {
 		constructionCosts = costs;
 	}
 
+	public Icon getImage() {
+		return image;
+	}
 }

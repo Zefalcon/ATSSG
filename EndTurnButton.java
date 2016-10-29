@@ -34,7 +34,7 @@ public class EndTurnButton extends Button {
 						}
 					}
 					holder.updateView(0, 10, 0, 10); //flag arbitrary numbers
-				//else generate an Are You Sure? prompt and set prompted = true
+					//else generate an Are You Sure? prompt and set prompted = true
 			}
 		});
 	}

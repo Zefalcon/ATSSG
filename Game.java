@@ -14,7 +14,7 @@ public class Game {
 				break;
 			}
 		}
-		Gooey g = new Gooey(400, 400, 0, human, map);
+		Gooey g = new Gooey(600, 800, 0, human, map);
 
 	}
 

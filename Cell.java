@@ -3,12 +3,10 @@ import ATSSG.Entities.Entity;
 import ATSSG.Player.Player;
 
 import java.awt.event.ActionListener;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Cell implements Comparable<Cell> {
@@ -36,11 +34,11 @@ public class Cell implements Comparable<Cell> {
 	
 	//Methods
 	public void updateView() {
-		ImageIcon icon;
+		Icon icon;
 		if (getOccupyingEntities().isEmpty()) {
-			icon = new ImageIcon(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString());
+			icon = getTerrainType().getImage();
 		} else {
-			icon = new ImageIcon(Paths.get("src/ATSSG/Art/DemoUnit.png").toString());
+			icon = getOccupyingEntities().iterator().next().getImage();
 		}
 		this.view = new GooeyJButton(icon, this);
 		restoreActLis();

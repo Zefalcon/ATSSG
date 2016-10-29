@@ -1,10 +1,14 @@
 package ATSSG;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import java.nio.file.Paths;
 import java.util.Map;
 
 public enum UnitType {
 	
-	Soldier("Solder", "Soldier.", null, 5, null, 1, AttackType.STABBING, 1, 500);//flag instakill shortcut code.
+	Soldier("Solder", "Soldier.", new ImageIcon(Paths.get("src/ATSSG/Art/DemoUnit.png").toString()), 5,
+			null, 1, AttackType.STABBING, 1, 500);//flag instakill shortcut code.
 	
 	public String name;
 	public String description;
@@ -26,6 +30,10 @@ public enum UnitType {
 		aType = aT;
 		aRange = aR;
 		aDamage = aD;
+	}
+	
+	public Icon getImage() {
+		return image;
 	}
 
 }
