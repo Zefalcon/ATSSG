@@ -65,6 +65,9 @@ public class MainMap extends UIContainer<Cell> {
 							selectedEntity = null;
 						} else {
 							selectedEntity = occupiers.iterator().next();
+							if (selectedEntity.getOwner() != owner) {
+								selectedEntity = null;
+							}
 						}
 						if (heldCommand == CommandType.MOVE) {
 							System.out.println("Move Command Recognized");
