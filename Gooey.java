@@ -61,8 +61,8 @@ public class Gooey {
 		int mbX = 0;
 		//CommandCard is a square in the bottom right
 		int cCardY = 3 * screenHeight / 4;
-		int cCardX = screenWidth - cCardY;
 		int cCardWidth = screenHeight / 4;
+		int cCardX = screenWidth - cCardWidth;
 		int cCardHeight = cCardWidth;
 		//ScriptButton sits atop the CommandCard
 		int sbY = cCardY - buttonHeight;
