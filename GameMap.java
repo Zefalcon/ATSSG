@@ -17,7 +17,6 @@ public class GameMap {
 	//Variables
 	protected Cell[][] all_cells;
 	protected Collection<Player> players;
-	protected Collection<Entity> entities;
 	
 	//Constructor
 	public GameMap(){
@@ -27,15 +26,14 @@ public class GameMap {
 				all_cells[x][y] = new Cell(TerrainType.GRASS, null, this, x, y);
 			}
 		}
-		Collection<Entity> AI_ents = new LinkedList<Entity>();
-		Collection<Entity> human_ents = new LinkedList<Entity>();
+		Collection<Entity> AI_ents = new ArrayList<Entity>();
+		Collection<Entity> human_ents = new ArrayList<Entity>();
 		
 		players = new LinkedList<Player>();
 		Player human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), human_ents, this);
 		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this);
 		players.add(human);
 		players.add(ai);
-
 
 		for(int i = 3; i < 8; i++){
 			Unit s = new Unit(UnitType.Soldier, human, all_cells[3][i]);
@@ -48,9 +46,6 @@ public class GameMap {
 			AI_ents.add(s);
 			all_cells[7][i].getOccupyingEntities().add(s);
 		}
-		entities = new ArrayList<Entity>();
-		entities.addAll(human_ents);
-		entities.addAll(AI_ents);
 	}
 	
 	public GameMap(File toLoad){
@@ -73,13 +68,11 @@ public class GameMap {
 	}
 	
 	public Collection<Entity> getEntities(){
-		return entities;
-	}
-
-	public void removeEntity(Entity toRemove){
-		if(entities.contains(toRemove)){
-			entities.remove(toRemove);
+		Collection<Entity> all_entities = new ArrayList<Entity>();
+		for (Player p : players) {
+			all_entities.addAll(p.getEntities());
 		}
+		return all_entities;
 	}
 
 	public void removePlayer(Player toRemove){

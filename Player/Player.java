@@ -10,26 +10,26 @@ public abstract class Player {
 	
 	//Variables
 	protected Map<RCommodityType, Integer> resources;
-	protected Collection<Entity> all_entities;
+	protected Collection<Entity> owned_entities;
 	protected GameMap containing_map;
 	
 	//Constructors
 
 	//Methods
 	public void kill(){
-		for (Object entity: all_entities.toArray()) {
+		for (Object entity: owned_entities.toArray()) {
 			((Entity) entity).kill();
 		}
 		resources = null;
 		if (containing_map != null) containing_map.removePlayer(this);
 		containing_map = null;
-		all_entities = null;
+		owned_entities = null;
 	}
 	
 	public abstract void executeAll();
 	
 	public Collection<Entity> getEntities() {
-		return all_entities;
+		return owned_entities;
 	}
 	
 	public Map<RCommodityType, Integer> getResources() {
@@ -45,12 +45,11 @@ public abstract class Player {
 	}
 	
 	public void removeEntity(Entity e) {
-		if (all_entities != null) all_entities.remove(e);
-		if (containing_map !=null) containing_map.removeEntity(e);
+		if (owned_entities != null && owned_entities.contains(e)) owned_entities.remove(e);
 	}
 	
 	public void addEntity(Entity e) {
-		all_entities.add(e);
+		owned_entities.add(e);
 	}
 
 }

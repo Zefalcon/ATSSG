@@ -24,7 +24,7 @@ public class AIPlayer extends Player {
 	
 	public AIPlayer(Map<RCommodityType, Integer> startingResources, Collection<Entity> starting_entities, GameMap map) {
 		resources = startingResources;
-		all_entities = starting_entities;
+		owned_entities = starting_entities;
 		containing_map = map;
 		plannedActions = new HashMap<Entity, MetaAction>();
 	}
@@ -40,7 +40,7 @@ public class AIPlayer extends Player {
 			if (p == this) continue;
 			enemies.addAll(p.getEntities());
 		}
-		for (Entity e: all_entities) {
+		for (Entity e: owned_entities) {
 			planAction(e, enemies);
 		}
 	}
@@ -73,7 +73,7 @@ public class AIPlayer extends Player {
 	@Override
 	public void executeAll(){
 		System.out.println("AI is planning");
-		if (all_entities == null || all_entities.isEmpty()) {
+		if (owned_entities == null || owned_entities.isEmpty()) {
 			this.kill();
 			return;
 		}
