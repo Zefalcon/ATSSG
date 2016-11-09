@@ -26,25 +26,19 @@ public class GameMap {
 				all_cells[x][y] = new Cell(TerrainType.GRASS, null, this, x, y);
 			}
 		}
-		Collection<Entity> AI_ents = new ArrayList<Entity>();
-		Collection<Entity> human_ents = new ArrayList<Entity>();
 		
 		players = new LinkedList<Player>();
-		Player human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), human_ents, this);
-		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), AI_ents, this);
+		Player human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), this);
+		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), this);
 		players.add(human);
 		players.add(ai);
 
 		for(int i = 3; i < 8; i++){
 			Unit s = new Unit(UnitType.Soldier, human, all_cells[3][i]);
-			human_ents.add(s);
-			all_cells[3][i].getOccupyingEntities().add(s);
 		}
 		
 		for(int i = 3; i < 8; i++){
 			Unit s = new Unit(UnitType.Soldier, ai, all_cells[7][i]);
-			AI_ents.add(s);
-			all_cells[7][i].getOccupyingEntities().add(s);
 		}
 	}
 	

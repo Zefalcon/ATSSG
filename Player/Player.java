@@ -17,13 +17,15 @@ public abstract class Player {
 
 	//Methods
 	public void kill(){
-		for (Object entity: owned_entities.toArray()) {
-			((Entity) entity).kill();
+		if (owned_entities != null) {
+			for (Object entity: owned_entities.toArray()) {
+				((Entity) entity).kill();
+			}
+			owned_entities = null;
 		}
 		resources = null;
 		if (containing_map != null) containing_map.removePlayer(this);
 		containing_map = null;
-		owned_entities = null;
 	}
 	
 	public abstract void executeAll();
