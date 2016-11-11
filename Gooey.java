@@ -178,12 +178,4 @@ public class Gooey {
 		mainMap.updateView(0, 10, 0, 10);
 		
 	}
-	
-	public void cCardUpdate(CommandCard commandCard) {
-		this.commandCard = commandCard;
-	}
-	
-	public void dCardUpdate() {
-		
-	}
 }

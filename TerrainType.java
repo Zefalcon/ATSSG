@@ -24,13 +24,4 @@ public enum TerrainType {
 	public String getName() {return name;}
 	public Icon getImage() {return image;}
 	public String getDescription() {return description;}
-	
-	public static TerrainType getTerrainType(int number) {
-		switch(number) {
-		case 1:
-			return GRASS;
-		default:
-			return GRASS; //FLAG: this is a disgusting hack to work around bad code in DetailCard.highestTerrains. Should return null;
-		}
-	}
 }

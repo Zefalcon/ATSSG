@@ -63,7 +63,6 @@ public class MainMap extends UIContainer<Cell> {
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
-						System.out.println("I am clicked: " + clickedCell.getX() + ", " + clickedCell.getY()); //Flag test code
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
 						System.out.println(occupiers.toString());
 						if (occupiers.isEmpty()) {
@@ -93,7 +92,7 @@ public class MainMap extends UIContainer<Cell> {
 							/*if (clickedCell != null && ! clickedCell.getOccupyingEntities().isEmpty()) {
 								selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
 							}*/
-							dCard.update(occupiers, clickedCell.getTerrainType()); //Flag this line is causing the UI hang on click
+							dCard.update(occupiers, clickedCell.getTerrainType());
 							if (selectedEntity == null) {
 								cCard.reset();
 							} else {
@@ -103,7 +102,6 @@ public class MainMap extends UIContainer<Cell> {
 									index++; //Flag not protected from being fed too many commandTypes
 								}
 							}
-							holder.cCardUpdate(cCard);
 						}
 					}
 				});
