@@ -1,9 +1,14 @@
 package ATSSG;
-
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.swing.JWindow;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIPlayer;
@@ -13,19 +18,19 @@ public class Gooey {
 	//Fields
 	protected Minimap minimap;
 	
-	protected MapButton mapButton;
+	protected JPanel mapButton;
 	
 	protected CommandCard commandCard;
 	
-	protected ScriptButton scriptButton;
+	protected JPanel scriptButton;
 	
-	protected UnitQueue unitQ;
+	protected UnitQueue unitQueue;
 	
 	protected DetailCard detailCard;
 	
-	protected JWindow etButton;
+	protected JPanel etButton;
 	
-	protected MenuButton menuButton;
+	protected JPanel menuButton;
 	
 	protected ResourceCard resourceCard;
 	
@@ -33,79 +38,132 @@ public class Gooey {
 	
 	protected Menu menu;
 	
-	protected ScriptInterface scripts;
+	protected ScriptInterface scriptInt;
 	
 	protected GlobalMap globalMap;
+	
+	protected JPanel panelPrime; //Flag hideous disorganization
+	
+	protected JFrame containerPrime;
+	
+	protected JPanel buttonRow;
+	
+	protected final int screenWidth, screenHeight;
 	
 	
 	//Constructors
 	
 	public Gooey(int screenHeight, int screenWidth, int numResources, Player owner, GameMap gm) {
 		//0,0 is the top left corner.
-		//Reused Variables
-		int buttonWidth = screenWidth / 8;
-		int buttonHeight = screenHeight / 16;
+		this.screenHeight = screenHeight;
+		this.screenWidth = screenWidth;
 		Collection<Player> computers = new ArrayList<Player>();
-		for (Player p : gm.getPlayers()) { //flag disgustingly efficient looking for loop syntax
+		for (Player p : gm.getPlayers()) {
 			if (p instanceof AIPlayer) {
 				computers.add(p);
 			}
 		}
 		//MiniMap is a square in the bottom left
-		int miniY = 2 * screenHeight / 3;
-		int miniX = 0;
-		int miniW = screenHeight - miniY;
+		int miniW = screenHeight / 3;
 		int miniH = miniW;
-		//MapButton sits atop the miniMap
-		int mbY = miniY - buttonHeight;
-		int mbX = 0;
 		//CommandCard is a square in the bottom right
-		int cCardY = 3 * screenHeight / 4;
 		int cCardW = screenHeight / 4;
-		int cCardX = screenWidth - cCardW;
 		int cCardH = cCardW;
-		//ScriptButton sits atop the CommandCard
-		int sbY = cCardY - buttonHeight;
-		int sbX = screenWidth - buttonWidth;
-		//UnitQueue sits next to the CommandCard
-		int uqY = cCardY;
-		int uqX = miniW + (15 * (cCardY - miniW) / 16);
-		int uqWidth = cCardX - uqX;
-		int uqHeight = cCardH;
+		//UnitQueue sits to the left of CommandCard
+		int uqH = cCardH;
+		int uqW = uqH / 3;
 		//DetailCard fills the space between MiniMap and UnitQueue
-		int dCardY = cCardY;
-		int dCardX = miniW;
-		int dCardW = cCardX - miniW;
+		int dCardW = screenWidth - cCardW - uqW - miniW;
 		int dCardH = cCardH;
-		//EndTurnButton occupies a small space in the top right
-		int etbY = 0;
-		int etbX = screenWidth - buttonWidth;
-		//MenuButton sits next to EndTurnButton
-		int menuY = 0;
-		int menuX = screenWidth - 2 * buttonWidth;
-		//ResourceCard occupies a similar space in the top left. It is not a button; it merely uses the same dimensions for aesthetics.
-		int rCardY = 0;
-		int rCardX = 0;
-		int rCardWidth = numResources * buttonWidth;
-		int rCardHeight = buttonHeight;
+		//MapButton, ResourceCard, ScriptButton, MenuButton, and EndTurnButton occupy a buttonRow above DetailCard->CommandCard
+		int brH = miniH - cCardH;
+		int brW = screenWidth - miniW;
+		int rcW = numResources * screenWidth / 8; //Flag the divisor is arbitrary and untested
+		int buttonWidth = (brW - rcW) / 4; //Flag Should customize size of buttons at some point.
 		//MainMap occupies all of the space left
-		int mainX = 0;
-		int mainY = 0;
-		int mainWidth = screenWidth;
-		int mainHeight = 3 * screenHeight / 4;
+		int mainW = screenWidth;
+		int mainH = 3 * screenHeight / 4;
 		
 		//Building the UI
 		
 		//commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, mainMap);
 		
-		mainMap = new MainMap(gm, mainX, mainY, mainWidth, mainHeight, 0, owner, cCardX, cCardY, cCardW, cCardH, 
-				dCardX, dCardY, dCardW, dCardH);
-		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers
 		
-		etButton = new JWindow();
-		etButton.add(new EndTurnButton(owner, computers, mainMap).getGooey(), 0);
-		etButton.setBounds(/*etbX*/screenWidth, etbY, buttonWidth, buttonHeight); //flag the +50 is a workaround to mainmap redraws covering the button
+		mainMap = new MainMap(gm, mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this);
+		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
+		
+		minimap = new Minimap(null, miniW, miniH, owner);
+		
+		mapButton = new JPanel();
+		mapButton.add(new MapButton(owner, globalMap).getGooey());
+		mapButton.setPreferredSize((new Dimension(buttonWidth, brH)));
+		mapButton.setVisible(true);
+		
+		resourceCard = new ResourceCard(null, null, rcW, brH, owner);
+		
+		scriptButton = new JPanel();
+		scriptButton.add(new ScriptButton(owner).getGooey());
+		scriptButton.setPreferredSize((new Dimension(buttonWidth, brH)));
+		scriptButton.setVisible(true);
+		
+		menuButton = new JPanel();
+		menuButton.add(new MenuButton(owner).getGooey());
+		menuButton.setPreferredSize((new Dimension(buttonWidth, brH)));
+		menuButton.setVisible(true);
+		
+		etButton = new JPanel();
+		etButton.add(new EndTurnButton(owner, computers, this).getGooey());
+		etButton.setPreferredSize((new Dimension(buttonWidth, brH)));
 		etButton.setVisible(true);
+		
+		detailCard = mainMap.getDCard();
+		
+		unitQueue = new UnitQueue(null, uqW, uqH, owner);
+		//unitQueue = mainMap.getUQ(); /TODO
+		
+		commandCard = mainMap.getCCard();
+		
+		//Assemble the row of buttons
+		
+		buttonRow = new JPanel();
+		buttonRow.add(etButton);//Flag hack: This should exist where it is commented out below but when it does it's offscreen
+		buttonRow.add(mapButton);
+		buttonRow.add(resourceCard.getView());
+		buttonRow.add(scriptButton);
+		buttonRow.add(menuButton);
+		//buttonRow.add(etButton);
+		buttonRow.setPreferredSize(new Dimension(brW, brH));
+		buttonRow.setVisible(true);
+		
+		//Assembling the UI
+		
+		panelPrime = new JPanel();
+		GridBagLayout gbl = new GridBagLayout();
+		panelPrime.setLayout(gbl);
+		panelPrime.setBounds(0, 0, screenWidth, screenHeight);
+		panelPrime.add(mainMap.getView());
+		gbl.setConstraints(mainMap.getView(), new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(minimap.getView());
+		gbl.setConstraints(minimap.getView(), new GridBagConstraints(0, 1, 1, 2, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(buttonRow);
+		gbl.setConstraints(buttonRow, new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(detailCard.getView());
+		gbl.setConstraints(detailCard.getView(), new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(unitQueue.getView());
+		gbl.setConstraints(unitQueue.getView(), new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHEAST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(commandCard.getView());
+		gbl.setConstraints(commandCard.getView(), new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHEAST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		
+		panelPrime.setBounds(0, 0, screenWidth, screenHeight);
+		panelPrime.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		panelPrime.setVisible(true);
+		
+		containerPrime = new JFrame();
+		containerPrime.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		containerPrime.setBounds(0, 0, screenWidth + 16, screenHeight + 89); //flag hacked numbers
+		containerPrime.add(panelPrime);
+		//containerPrime.setResizable(false);
+		containerPrime.setVisible(true);
 	}
 	
 	//Methods
@@ -114,4 +172,18 @@ public class Gooey {
 		//Prompt notification = new Prompt(PARAMETERS);
 	}
 	
+	public void turnEndUpdate() {
+		//MainMap, Minimap, GlobalMap, UnitQueue, ResourceCard, DetailCard, CommandCard need to be updated
+		//MainMap
+		mainMap.updateView(0, 10, 0, 10);
+		
+	}
+	
+	public void cCardUpdate(CommandCard commandCard) {
+		this.commandCard = commandCard;
+	}
+	
+	public void dCardUpdate() {
+		
+	}
 }

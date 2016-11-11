@@ -2,6 +2,8 @@ package ATSSG;
 
 import java.util.Collection;
 
+import javax.swing.JOptionPane;
+
 import ATSSG.Player.Player;
 
 public abstract class Overlay extends UIContainer<Object>{
@@ -10,10 +12,10 @@ public abstract class Overlay extends UIContainer<Object>{
 	protected boolean visible;
 	
 	//Methods
-	public Overlay(Collection<Object> content, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner) {
-		super(content, xLoc, yLoc, width, height, displayLevel, owner);
+	public Overlay(Collection<Object> content, int width, int height, Player owner) {
+		super(content, width, height, owner);
 		visible = false;
+		view = new JOptionPane();//JFrame has a setAlwaysOnTop method, test if OptionPane has that behavior natively
 	}
 	
 	public void alterSize(int width, int height){

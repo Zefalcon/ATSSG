@@ -1,6 +1,9 @@
 package ATSSG;
+
 import java.util.Collection;
 import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import ATSSG.Player.Player;
 
@@ -11,10 +14,13 @@ public class ResourceCard extends UIContainer<Integer>{
 	protected Collection<Icon> pics;
 	
 	//Constructors
-	public ResourceCard(Collection<Integer> quantities, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner, Collection<Icon> pics) {
-		super(quantities, xLoc, yLoc, width, height, displayLevel, owner);
+	public ResourceCard(Collection<Integer> quantities, Collection<Icon> pics, int width, int height, Player owner) {
+		super(quantities, width, height, owner);
 		this.pics = pics;
+		view = new JPanel();
+		view.add(new JLabel());
+		view.setPreferredSize(getSize());
+		view.setVisible(true);
 	}
 	
 	//Methods

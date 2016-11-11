@@ -16,7 +16,7 @@ public class EndTurnButton extends Button {
 	
 	//Constructors
 	
-	public EndTurnButton(final Player owner, final Collection<Player> computers, final MainMap holder) {
+	public EndTurnButton(final Player owner, final Collection<Player> computers, final Gooey holder) {
 		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoEndTurn.png").toString()), owner);
 		//boolean prompted = false;
 		gooeyButton.addActionListener(new ActionListener() {
@@ -33,7 +33,7 @@ public class EndTurnButton extends Button {
 							ai.executeAll();
 						}
 					}
-					holder.updateView(0, 10, 0, 10); //flag arbitrary numbers
+					holder.turnEndUpdate();
 				//else generate an Are You Sure? prompt and set prompted = true
 			}
 		});

@@ -11,8 +11,7 @@ public class ScriptInterface extends Overlay {
 	protected Collection<?> assemblyZone;
 
 	//Methods
-	public ScriptInterface(Collection<Object> content, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner) {
-		super(content, xLoc, yLoc, width, height, displayLevel, owner);
+	public ScriptInterface(Collection<Object> content, int width, int height, Player owner) {
+		super(content, width, height, owner);
 	}
 }

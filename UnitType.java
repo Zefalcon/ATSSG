@@ -7,6 +7,7 @@ import java.util.Map;
 
 public enum UnitType {
 	
+	Void("Void", "", new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel").toString()), 0, null, 0, null, 0, 0),
 	Soldier("Solder", "Soldier.", new ImageIcon(Paths.get("src/ATSSG/Art/DemoUnit.png").toString()), 5,
 			null, 1, AttackType.STABBING, 1, 500);//flag instakill shortcut code.
 	

@@ -9,8 +9,7 @@ public class Menu extends Overlay {
 	protected Collection<Button> menuButtons;
 
 	//Methods
-	public Menu(Collection<Object> content, int xLoc, int yLoc,
-			int width, int height, int displayLevel, Player owner) {
-		super(content, xLoc, yLoc, width, height, displayLevel, owner);
+	public Menu(Collection<Object> content, int width, int height, Player owner) {
+		super(content, width, height, owner);
 	}
 }

@@ -18,7 +18,6 @@ public class Cell implements Comparable<Cell> {
 	protected GameMap containingMap;
 	protected int x, y; //location, may want to turn into an inner class or something
 	protected GooeyJButton view;
-	protected ActionListener actlis;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
@@ -39,18 +38,15 @@ public class Cell implements Comparable<Cell> {
 			icon = getTerrainType().getImage();
 		} else {
 			icon = getOccupyingEntities().iterator().next().getImage();
+			//flag art proposition: if size = 1 do above, if size > 1 have a generic "army" image?
 		}
-		this.view = new GooeyJButton(icon, this);
-		restoreActLis();
+		this.view.setIcon(icon);
+		
 	}
 	
-	public void setActionListener(ActionListener l) {
-		this.actlis = l;
-		restoreActLis();
-	}
-	
-	public void restoreActLis() {
+	public void setActionListener(ActionListener actlis) {
 		view.addActionListener(actlis);
+		//Flag potential crash: a cell should never be fed multiple actionlisteners but if it was who know what would happen?
 	}
 	
 	public JButton getView() {

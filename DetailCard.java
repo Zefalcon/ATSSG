@@ -1,4 +1,5 @@
 package ATSSG;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,66 +11,55 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JWindow;
 
 import ATSSG.Entities.Entity;
 import ATSSG.Player.Player;
 
-public class DetailCard extends UIContainer<Cell> {
+public class DetailCard extends UIContainer<Entity> {
 	
 	//Variables
 	protected MainMap holder;
-	protected Collection<Entity> occupiers;
-	protected TerrainType[] terrains;
-	protected JWindow view;
+	protected TerrainType terrain;
 	protected JPanel terrView;
+	protected JLabel terrPic;
+	protected JLabel terrDescript;
 	protected JPanel entView;
-	protected GridLayout terrGrid;
+	protected Dimension terrSize;
+	protected Dimension entSize;
 	protected GridLayout entGrid;
-	protected ImageIcon blankIcon;
-	protected int entX;
-	protected int entY;
-	protected int entW;
-	protected int terrW;
 	
 	//Constructors
-	public DetailCard(Collection<Cell> location, final int xLoc, final int yLoc, final int width, final int height,
-			final int displayLevel, final Player owner, final MainMap holder) {
-		super(location, xLoc, yLoc, width, height, displayLevel, owner);
+	public DetailCard(Collection<Entity> occupiers, TerrainType terrain, final int width, final int height, 
+			final Player owner, final MainMap holder) {
+		super(occupiers, width, height, owner);
+		this.terrain = terrain;
 		this.holder = holder;
-		if (content == null) {occupiers = new ArrayList<Entity>(0);}
-		else {occupiers = new ArrayList<Entity>(content.size());}
-		blankIcon = new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString());
-		terrW = height;
-		int numTerr = 1; //flag arbitrary number
-		int gridS = (int) Math.ceil(Math.sqrt(numTerr));
-		entX = xLoc + terrW;
-		entY = yLoc;
-		entW = width - terrW;
-		terrGrid = new GridLayout(gridS, gridS);
-		entGrid = new GridLayout(2, 12); //flag arbitrary numbers
+		terrSize = new Dimension(height / 2, height);
+		entSize = new Dimension(width - height / 2, height);
+		if (content == null) {content = new ArrayList<Entity>(0);}
+		entGrid = new GridLayout(2, 12);
 		
 		terrView = new JPanel();
-		terrView.setLayout(terrGrid);
-		for (int a = 0; a < numTerr; a++) {
-			terrView.add(new JLabel(blankIcon));
-		}
+		terrView.setLayout(new GridLayout(2, 1));
+		terrView.setMaximumSize(terrSize); //Flag it was this line that when introduced put terrain descriptions offscreen
+		terrView.setMinimumSize(terrSize);
+		terrPic = new JLabel(TerrainType.VOID.getImage());
+		terrView.add(terrPic);
+		terrDescript = new JLabel(TerrainType.VOID.getDescription());
+		terrView.add(terrDescript);
 		
 		entView = new JPanel();
-		entView.setLayout(entGrid); 
-		for (int b = 0; b < 24; b++) { //see unitGrid flag
-			entView.add(new JLabel(blankIcon));
+		entView.setLayout(entGrid);
+		for (int b = 0; b < 24; b++) {
+			entView.add(new JLabel(UnitType.Void.getImage())); //Flag this is a generic button but eventually must be a UnitButton
 		}
+		entView.setMaximumSize(entSize);
+		entView.setMinimumSize(entSize);
 		
-		view = new JWindow();
-		view.setLayout(new GridLayout(1, 2));
+		view = new JPanel();
 		view.add(terrView);
 		view.add(entView);
-		terrView.setBounds(xLoc, yLoc, terrW, height);
-		entView.setBounds(entX, entY, entW, height);
-		view.setBounds(xLoc, yLoc, width, height);
-		
+		view.setPreferredSize(getSize());
 		terrView.setVisible(true);
 		entView.setVisible(true);
 		view.setVisible(true);
@@ -77,34 +67,32 @@ public class DetailCard extends UIContainer<Cell> {
 	
 	//Methods
 	
-	//This update is called by turn ending functionality, just in case the units you selected die horribly.
+	//This update is called by turn ending functionality, just in case the units you selected die horribly. Or a nuke changes the terrain. Whichever.
 	public void update() {
-		update(content);
+		update(content, terrain);
 	}
 	
-	public void update(Collection<Cell> selection) {
-		if (selection == null) {this.content = new ArrayList<Cell>(0);}
-		else {this.content = selection;}
-		occupiers.clear();
-		int[] terrainCounts = new int[5]; //Flag this array needs to be the size of the number of distinct terrain types.
-		for (Cell c : content) {
-			Collection<Entity> e = c.getOccupyingEntities();
-			for (Entity n : e) {
-				/*if (n.getOwner() == owner) {*/occupiers.add(n);//}
-			}
-			terrainCounts[c.getTerrainType().getNumber()]++;
-		}
-		terrains = highestTerrains(1, terrainCounts); //Flag the int argument will change with DetailCard philosophies
+	public void update(Collection<Entity> occupiers, TerrainType terrain) {
+		view.remove(terrView);
+		view.remove(entView);
 		
+		if (occupiers == null) {content = new ArrayList<Entity>(0);}
+		else {this.content = occupiers;}
+		this.terrain = terrain;
+		
+		terrPic.setIcon(terrain.getImage());
+		terrDescript.setText(terrain.getDescription());
 		terrView = new JPanel();
-		terrView.setLayout(terrGrid);
-		for(int f = 0; f < terrains.length; f++) {
-			terrView.add(terrains[f].getLabel());
-		}
-		
+		terrView.setLayout(new GridLayout(2, 1));
+		terrView.setMaximumSize(terrSize); //Flag it was this line that when introduced put terrain descriptions offscreen
+		terrView.setMinimumSize(terrSize);
+		terrView.add(terrPic);
+		terrView.add(terrDescript);
+		terrView.setVisible(true);
 		
 		entView = new JPanel();
 		entView.setLayout(entGrid);
+		int numEnts = 0;
 		for (Entity e : occupiers) {
 			JButton jb = e.getButton().getGooey();
 			jb.addActionListener(new ActionListener() {
@@ -116,50 +104,24 @@ public class DetailCard extends UIContainer<Cell> {
 				}
 			});
 			entView.add(jb);
+			numEnts++; //Flag possible abberance: DetailCard is not protected from cells with more units than it is meant to display
+		}
+		while (numEnts < 24) {
+			entView.add(new JLabel(/*UnitType.Void.getImage()*/new ImageIcon(Paths.get("src/ATSSG/Art/DemoMove.png").toString())));
+			numEnts++;
 		}
 		
 		//when you add a UnitButton, add an actionlistener to it. Since that actlis requires a reference to MainMap, 
 		//it cannot be created outside the UI hierarchy because no one likes hideously intercoupled structures
-		//Port this behavior to UnitQueue eventually.
+		//Copy this behavior to UnitQueue eventually.
 		
-		view = new JWindow();
-		view.setLayout(new GridLayout(1, 2));
 		view.add(terrView);
 		view.add(entView);
-		terrView.setBounds(xLoc, yLoc, terrW, height);
-		entView.setBounds(entX, entY, entW, height);
-		view.setBounds(xLoc, yLoc, width, height);
+		terrView.setPreferredSize(terrSize);
+		entView.setPreferredSize(entSize);
 		
 		terrView.setVisible(true);
 		entView.setVisible(true);
-		view.setVisible(true);
 		
-	}
-	
-	public TerrainType[] highestTerrains(int desired, int[] terrainCounts) {
-		int[] terrainIDs = new int[desired];
-		int[] tracker = new int[desired];
-		for (int i = 0; i < desired; i++) {
-			tracker[i] = -1;
-			terrainIDs[i] = -1;
-		}
-		boolean placed;
-		int supplicant;
-		for (int j = 0; j < terrainCounts.length; j++) {
-			placed = false;
-			supplicant = terrainCounts[j];
-			for (int k = 0; k < desired; k++) {
-				if (! placed && supplicant > tracker[k]) {
-					tracker[k] = supplicant;
-					terrainIDs[k] = j;
-					placed = true;
-				}
-			}
-		}
-		TerrainType[] result = new TerrainType[desired];
-		for (int m = 0; m < desired; m++) {
-			result[m] = TerrainType.getTerrainType(terrainIDs[m]);
-		}
-		return result;
 	}
 }

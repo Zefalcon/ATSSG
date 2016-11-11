@@ -1,12 +1,12 @@
 package ATSSG;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.swing.JWindow;
+import javax.swing.JPanel;
 
 import ATSSG.Actions.AttackAction;
 import ATSSG.Actions.MoveAction;
@@ -27,9 +27,6 @@ public class MainMap extends UIContainer<Cell> {
 	//While this one stores the subset of the above collection that is onscreen
 	//protected Cell[][] viewableArea;
 	
-	//The Actual GUI object
-	protected JWindow view;
-	
 	protected CommandType heldCommand;
 	
 	protected Entity heldEntity;
@@ -40,18 +37,20 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected DetailCard dCard;
 	
+	public Gooey holder;
+	
 	//Constructors
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
-	public MainMap(GameMap gm, final int xLoc, final int yLoc, final int width, final int height, int displayLevel,
-			final Player owner, final int cCardX, final int cCardY, final int cCardW, final int cCardH, 
-			final int dCardX, final int dCardY, final int dCardW, final int dCardH) {
-		super(null, xLoc, yLoc, width, height, displayLevel, owner);
+	public MainMap(GameMap gm, final int width, final int height, final Player owner, 
+			final int cCardW, final int cCardH, final int dCardW, final int dCardH, final Gooey holder) {
+		super(null, width, height, owner);
+		this.holder = holder;
 		this.gm = gm;
-		this.cCard = new CommandCard(null, cCardX, cCardY, cCardW, cCardH, 0, owner, this);
-		this.dCard = new DetailCard(null, dCardX, dCardY, dCardW, dCardH, 0, owner, this);
+		this.cCard = new CommandCard(null, cCardW, cCardH, owner, this);
+		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, owner, this);
 		selectedEntity = null;
-		view = new JWindow();
+		view = new JPanel();
 		view.setLayout(new GridLayout(10, 10));
 		
 		interactable = gm.getCells(); //reapply this update on turn ends
@@ -63,13 +62,16 @@ public class MainMap extends UIContainer<Cell> {
 					public void actionPerformed(ActionEvent e) {
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
+						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
+						System.out.println("I am clicked: " + clickedCell.getX() + ", " + clickedCell.getY()); //Flag test code
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
+						System.out.println(occupiers.toString());
 						if (occupiers.isEmpty()) {
 							selectedEntity = null;
 						} else {
-							selectedEntity = occupiers.iterator().next();
-							if (selectedEntity.getOwner() != owner) {
-								selectedEntity = null;
+							selectedEntity = occupiers.iterator().next(); //This checks the ownership of the first unit
+							if (selectedEntity.getOwner() != owner) { 	//It only works because units owned by different
+								selectedEntity = null;					//players cannot occupy the same space
 							}
 						}
 						if (heldCommand == CommandType.MOVE) {
@@ -91,23 +93,25 @@ public class MainMap extends UIContainer<Cell> {
 							/*if (clickedCell != null && ! clickedCell.getOccupyingEntities().isEmpty()) {
 								selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
 							}*/
-							ArrayList<Cell> al = new ArrayList<Cell>(); //flag: this is a hack, revisit if implementing multicell
-							al.add(clickedCell); //flag continued: selection, which will involve clickedCell being a Collection and
-							dCard.update(al); //flag continued: render obsolete two of these lines.
+							dCard.update(occupiers, clickedCell.getTerrainType()); //Flag this line is causing the UI hang on click
 							if (selectedEntity == null) {
-								cCard = new CommandCard(null, cCardX, cCardY, cCardW, cCardH, 0, owner, MainMap.this);
+								cCard.reset();
 							} else {
-								cCard = new CommandCard(selectedEntity.getAllowedCommands(), cCardX, cCardY, cCardW,
-														cCardH, 0, owner, MainMap.this);
+								int index = 0;
+								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
+									cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this));
+									index++; //Flag not protected from being fed too many commandTypes
+								}
 							}
+							holder.cCardUpdate(cCard);
 						}
 					}
 				});
 				view.add(interactable[i][j].getView()); //Shortcut code that assumes viewableArea = World
 			}
 		}
-
-		view.setBounds(xLoc, yLoc, width, height);
+		
+		view.setPreferredSize(new Dimension(width, height));
 		view.setVisible(true);
 		/////////////////////////////////
 		//Maybe for build one we don't care about moving the camera - make the whole map fit on one screen
@@ -123,20 +127,15 @@ public class MainMap extends UIContainer<Cell> {
 	//Notably, with proper external support this method, by not placing any restriction on 
 	//viewableArea, supports zooming
 	protected void updateView(int xStart, int xEnd, int yStart, int yEnd) {
-		view = new JWindow();
-		view.setLayout(new GridLayout(10, 10));
 		int x = xStart;
 		while (yStart < yEnd) {
 			while (x < xEnd) {
 				interactable[x][yStart].updateView();
-				view.add(interactable[x][yStart].getView());
 				x++;
 			}
 			x = xStart;
 			yStart++;
 		}
-		view.setBounds(xLoc, yLoc, width, height);
-		view.setVisible(true);
 	}
 	
 	public void setHeldCommand(CommandType heldCommand) {
@@ -155,4 +154,8 @@ public class MainMap extends UIContainer<Cell> {
 		setHeldCommand(null);
 		setHeldEntity(null);
 	}
+	
+	//getter methods to get references to Gooey
+	public CommandCard getCCard() {return cCard;}
+	public DetailCard getDCard() {return dCard;}
 }

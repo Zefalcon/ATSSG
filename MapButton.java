@@ -1,17 +1,29 @@
 package ATSSG;
 
-import javax.swing.Icon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.nio.file.Paths;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 import ATSSG.Player.Player;
 
 public class MapButton extends Button {
 
-	//Methods
-	public MapButton(Icon icon, Player owner) {
-		super(icon, owner);
-	}
+	//Fields
 	
-	public void clicked() {
-		
+	GlobalMap gmap;
+	
+	//Constructors
+	public MapButton(Player owner, GlobalMap gmap) {
+		super(null, owner);
+		this.gooeyButton = new JButton(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()));
+		gooeyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Spawn the global map overlay
+			}
+		});
+		this.gmap = gmap;
 	}
 }

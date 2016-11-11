@@ -16,10 +16,11 @@ public class Unit extends Entity {
 		type = t;
 		image = t.getImage();
 		button = new UnitButton(image, player, this);
-		allowedCommands.add(new IdleButton(null, "Idle",this,player));
-		allowedCommands.add(new AttackButton(this, player));
-		allowedCommands.add(new MoveButton(this, player));
-		allowedCommands.add(new PatrolButton(null, "Patrol", this, player));
+		allowedCommands.add(CommandType.IDLE);
+		allowedCommands.add(CommandType.MOVE); //Flag Possibly these allowedCommands collections should exist in the UnitType/BuildingType enums instead of Entity?
+		allowedCommands.add(CommandType.ATTACK);
+		//allowedCommands.add(new PatrolButton(null, "Patrol", this, player));
+		//It strikes me (JT) that we should not implement complex-ish multiturn basic commands since scripting
 	}
 	//Methods
 	public boolean canAttack(Entity target){

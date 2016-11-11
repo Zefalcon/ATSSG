@@ -1,6 +1,6 @@
 package ATSSG.Actions;
 
-public abstract class Action {
+public abstract class Action { //Flag we should totally make one or two ActionType enums instead of all these subclasses.
 	
 	//Variables
 	protected int turnsToComplete;

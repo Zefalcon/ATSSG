@@ -1,31 +1,29 @@
 package ATSSG;
+
 import java.nio.file.Paths;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public enum TerrainType {
 	
-	GRASS	("Grass", 1, "An open, grassy area.", new ImageIcon(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString()));
+	VOID	("Void", "No Selection.", new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString())),
+	GRASS	("Grass", "An open, grassy area.", new ImageIcon(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString()));
+	
 	
 	public String name;
-	public int number;
 	public String description;
 	public Icon image;
-	public JLabel label;
 	
-	TerrainType(String NAME, int NUMBER, String DESCRIPTION, Icon IMAGE){
+	TerrainType(String NAME, String DESCRIPTION, Icon IMAGE){
 		name = NAME;
-		number = NUMBER;
 		description = DESCRIPTION;
 		image = IMAGE;
-		label = new JLabel(IMAGE);
 	}
 
+	public String getName() {return name;}
 	public Icon getImage() {return image;}
-	public JLabel getLabel() {return label;}
-	public int getNumber() {return number;}
+	public String getDescription() {return description;}
 	
 	public static TerrainType getTerrainType(int number) {
 		switch(number) {
