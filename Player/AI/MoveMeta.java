@@ -102,7 +102,7 @@ class RecordCell implements Comparable {
 		this.cost = cost;
 		int xDif = Math.abs(dest.getX()-cell.getX());
 		int yDif = Math.abs(dest.getY()-cell.getY());
-		this.estimate = cost + Math.max(xDif, yDif) + xDif + yDif;
+		this.estimate = cost + 2*Math.max(xDif, yDif);
 	}
 	
 	public boolean equals(RecordCell other) {

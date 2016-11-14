@@ -16,7 +16,7 @@ import org.junit.Test;
 public class testAIPlayer {
 
 	public AIPlayer setUpAIPlayer() {
-		return new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null);
+		return new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null, new AIConfig());
 	}
 	
 	@Test

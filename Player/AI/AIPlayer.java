@@ -1,12 +1,13 @@
 package ATSSG.Player.AI;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import ATSSG.Entities.Entity;
+import ATSSG.Cell;
 import ATSSG.GameMap;
 import ATSSG.RCommodityType;
 import ATSSG.Entities.Unit;
@@ -21,12 +22,14 @@ public class AIPlayer extends Player {
 	}
 
 	protected Map<Integer, Boolean> featuresUsed;
+	protected AIConfig mode;
 	
-	public AIPlayer(Map<RCommodityType, Integer> startingResources, Collection<Entity> starting_entities, GameMap map) {
+	public AIPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map, AIConfig config) {
 		resources = startingResources;
 		owned_entities = starting_entities;
 		containing_map = map;
 		plannedActions = new HashMap<Entity, MetaAction>();
+		mode = config;
 	}
 	
 	//Methods
@@ -40,6 +43,7 @@ public class AIPlayer extends Player {
 			if (p == this) continue;
 			enemies.addAll(p.getEntities());
 		}
+		Collections.shuffle(owned_entities, new Random(System.nanoTime()));
 		for (Entity e: owned_entities) {
 			planAction(e, enemies);
 		}
@@ -65,8 +69,32 @@ public class AIPlayer extends Player {
 			plannedActions.put(unit, new IdleMeta());
 			return;
 		}
-		//TODO: replace with intelligent choice
-		Entity target = enemies.get(new Random().nextInt(enemies.size()));
+		Entity target = null;
+		switch(mode.target_style){
+			case CLOSEST:
+				Collections.shuffle(enemies, new Random(System.nanoTime()));
+				double lowest = Double.POSITIVE_INFINITY;
+				for (Entity enemy: enemies) {
+					int shared = 0;
+					if (mode.focus_bonus != 0) {
+						for (Entity other: plannedActions.keySet()) {
+							MetaAction act = plannedActions.get(other);
+							if (act instanceof AttackMeta && ((AttackMeta) act).getTarget() == enemy) {
+								shared++;
+							}
+						}
+					}
+					double distance = Cell.distance(unit.getContainingCell(), enemy.getContainingCell()) - shared*mode.focus_bonus;
+					if (distance < lowest) {
+						target = enemy;
+						lowest = distance;
+					}
+				}
+				break;
+			case RANDOM:
+			default:
+				target = enemies.get(new Random().nextInt(enemies.size()));
+		}
 		plannedActions.put(unit, new AttackMeta(unit, target));
 	}
 	

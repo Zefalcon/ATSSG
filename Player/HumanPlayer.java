@@ -1,6 +1,6 @@
 package ATSSG.Player;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import ATSSG.Entities.Entity;
@@ -9,7 +9,7 @@ import ATSSG.RCommodityType;
 
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(Map<RCommodityType, Integer> startingResources, Collection<Entity> starting_entities, GameMap map) {
+	public HumanPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map) {
 		resources = startingResources;
 		owned_entities = starting_entities;
 		containing_map = map;

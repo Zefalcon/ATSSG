@@ -8,6 +8,7 @@ import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
+import ATSSG.Player.AI.AIConfig;
 import ATSSG.Player.AI.AIPlayer;
 
 import java.io.File;
@@ -29,7 +30,8 @@ public class GameMap {
 		
 		players = new LinkedList<Player>();
 		Player human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), this);
-		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), this);
+		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), this, 
+				new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1));
 		players.add(human);
 		players.add(ai);
 

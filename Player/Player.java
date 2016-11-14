@@ -1,4 +1,5 @@
 package ATSSG.Player;
+import java.util.List;
 import java.util.Map;
 import java.util.Collection;
 
@@ -10,7 +11,7 @@ public abstract class Player {
 	
 	//Variables
 	protected Map<RCommodityType, Integer> resources;
-	protected Collection<Entity> owned_entities;
+	protected List<Entity> owned_entities;
 	protected GameMap containing_map;
 	
 	//Constructors
