@@ -17,7 +17,6 @@ public class CommandListener implements ActionListener {
 		this.mainMap = mainMap;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (cmd == CommandType.IDLE) {
 			//entity.setAction(new IdleAction());
