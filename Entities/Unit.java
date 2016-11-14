@@ -15,7 +15,7 @@ public class Unit extends Entity {
 		super(t.maxHP, player, current);
 		type = t;
 		image = t.getImage();
-		button = new UnitButton(image, player, this);
+		//button = new UnitButton(image, player, this);
 		allowedCommands.add(CommandType.IDLE);
 		allowedCommands.add(CommandType.MOVE); //Flag Possibly these allowedCommands collections should exist in the UnitType/BuildingType enums instead of Entity?
 		allowedCommands.add(CommandType.ATTACK);
@@ -54,7 +54,7 @@ public class Unit extends Entity {
 	}
 	
 	public UnitType getType() {return type;}
-	public UnitButton getButton() {return button;}
+	//public UnitButton getButton() {return button;}
 
 	public boolean build(BuildingType type){
 		return false; //Units cannot build unless they are builder units

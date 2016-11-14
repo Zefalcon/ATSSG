@@ -20,19 +20,21 @@ public class DetailCard extends UIContainer<Entity> {
 	//Variables
 	protected MainMap holder;
 	protected TerrainType terrain;
-	protected JPanel terrView;
-	protected JLabel terrPic;
-	protected JLabel terrDescript;
-	protected JPanel entView;
-	protected Dimension terrSize;
-	protected Dimension entSize;
-	protected GridLayout entGrid;
+	//protected JPanel terrView;
+	//protected JLabel terrPic;
+	//protected JLabel terrDescript;
+	//protected JPanel entView;
+	//protected Dimension terrSize;
+	//protected Dimension entSize;
+	//protected GridLayout entGrid;
+	
+	protected EntityCard entCard;
 	
 	//Constructors
 	public DetailCard(Collection<Entity> occupiers, TerrainType terrain, final int width, final int height, 
 			final Player owner, final MainMap holder) {
 		super(occupiers, width, height, owner);
-		this.terrain = terrain;
+		/*this.terrain = terrain;
 		this.holder = holder;
 		terrSize = new Dimension(height / 2, height);
 		entSize = new Dimension(width - height / 2, height);
@@ -41,8 +43,8 @@ public class DetailCard extends UIContainer<Entity> {
 		
 		terrView = new JPanel();
 		terrView.setLayout(new GridLayout(2, 1));
-		terrView.setMaximumSize(terrSize); //Flag it was this line that when introduced put terrain descriptions offscreen
-		terrView.setMinimumSize(terrSize);
+		//terrView.setMaximumSize(terrSize); //Flag it was this line that when introduced put terrain descriptions offscreen
+		//terrView.setMinimumSize(terrSize);
 		terrPic = new JLabel(TerrainType.VOID.getImage());
 		terrView.add(terrPic);
 		terrDescript = new JLabel(TerrainType.VOID.getDescription());
@@ -51,17 +53,19 @@ public class DetailCard extends UIContainer<Entity> {
 		entView = new JPanel();
 		entView.setLayout(entGrid);
 		for (int b = 0; b < 24; b++) {
-			entView.add(new JLabel(UnitType.Void.getImage())); //Flag this is a generic button but eventually must be a UnitButton
+			entView.add(new JLabel(UnitType.Soldier.getImage())); //Flag this is a generic button but eventually must be a UnitButton
 		}
 		entView.setMaximumSize(entSize);
-		entView.setMinimumSize(entSize);
+		entView.setMinimumSize(entSize);*/
 		
 		view = new JPanel();
-		view.add(terrView);
-		view.add(entView);
+		//view.add(terrView);
+		//view.add(entView);
 		view.setPreferredSize(getSize());
-		terrView.setVisible(true);
-		entView.setVisible(true);
+		entCard = new EntityCard(occupiers, 3 * width / 4, height, owner, holder);
+		view.add(entCard.getView()); //Flag test code
+		//terrView.setVisible(true);
+		//entView.setVisible(true);
 		view.setVisible(true);
 	}
 	
@@ -73,7 +77,7 @@ public class DetailCard extends UIContainer<Entity> {
 	}
 	
 	public void update(Collection<Entity> occupiers, TerrainType terrain) {
-		view.remove(terrView);
+		/*view.remove(terrView);
 		view.remove(entView);
 		
 		if (occupiers == null) {content = new ArrayList<Entity>(0);}
@@ -107,7 +111,7 @@ public class DetailCard extends UIContainer<Entity> {
 			numEnts++; //Flag possible abberance: DetailCard is not protected from cells with more units than it is meant to display
 		}
 		while (numEnts < 24) {
-			entView.add(new JLabel(/*UnitType.Void.getImage()*/new ImageIcon(Paths.get("src/ATSSG/Art/DemoMove.png").toString())));
+			entView.add(new JLabel(/*UnitType.Void.getImage()*//*|||new ImageIcon(Paths.get("src/ATSSG/Art/DemoMove.png").toString())));
 			numEnts++;
 		}
 		
@@ -121,7 +125,9 @@ public class DetailCard extends UIContainer<Entity> {
 		entView.setPreferredSize(entSize);
 		
 		terrView.setVisible(true);
-		entView.setVisible(true);
+		entView.setVisible(true);*/
+		content = occupiers;
+		entCard.update(content);
 		
 	}
 }
