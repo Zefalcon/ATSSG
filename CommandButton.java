@@ -29,9 +29,8 @@ public class CommandButton extends Button {
 	public void setParams(Icon icon, String cmdText, ActionListener actlis) {
 		this.cmdText = cmdText;
 		gooeyButton.setIcon(icon);
-		ActionListener[] gooeyLisses = gooeyButton.getActionListeners();
-		if (gooeyLisses.length > 0) {
-			gooeyButton.removeActionListener(gooeyLisses[0]);
+		for (ActionListener al : gooeyButton.getActionListeners()) {
+			gooeyButton.removeActionListener(al);
 		}
 		gooeyButton.addActionListener(actlis);
 	}
