@@ -17,21 +17,4 @@ public abstract class Overlay extends UIContainer<Object>{
 		visible = false;
 		view = new JOptionPane();//JFrame has a setAlwaysOnTop method, test if OptionPane has that behavior natively
 	}
-	
-	public void alterSize(int width, int height){
-		
-	}
-	
-	public void isDragged(){
-		
-	}
-	
-	public void isClosed(){
-		
-	}
-	
-	public void isOpened(){
-		
-	}
-
 }

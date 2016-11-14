@@ -1,4 +1,5 @@
 package ATSSG;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -86,8 +87,10 @@ public class Gooey {
 		
 		//Building the UI
 		
-		//commandCard = new CommandCard(null, cCardX, cCardY, cCardWidth, cCardHeight, 0, owner, mainMap);
+		JPanel paneSwitcher = new JPanel();
 		
+		ArrayList<MenuElement> menuButtons = new ArrayList<MenuElement>(6);
+		menu = new Menu(menuButtons, screenWidth, screenHeight, owner, paneSwitcher);
 		
 		mainMap = new MainMap(gm, mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this);
 		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
@@ -107,7 +110,7 @@ public class Gooey {
 		scriptButton.setVisible(true);
 		
 		menuButton = new JPanel();
-		menuButton.add(new MenuButton(owner).getGooey());
+		menuButton.add(new MenuButton(owner, paneSwitcher).getGooey());
 		menuButton.setPreferredSize((new Dimension(buttonWidth, brH)));
 		menuButton.setVisible(true);
 		
@@ -126,11 +129,12 @@ public class Gooey {
 		//Assemble the row of buttons
 		
 		buttonRow = new JPanel();
+		buttonRow.add(menuButton); //Flag see below flag
 		buttonRow.add(etButton);//Flag hack: This should exist where it is commented out below but when it does it's offscreen
 		buttonRow.add(mapButton);
 		buttonRow.add(resourceCard.getView());
 		buttonRow.add(scriptButton);
-		buttonRow.add(menuButton);
+		//buttonRow.add(menuButton);
 		//buttonRow.add(etButton);
 		buttonRow.setPreferredSize(new Dimension(brW, brH));
 		buttonRow.setVisible(true);
@@ -158,11 +162,17 @@ public class Gooey {
 		panelPrime.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		panelPrime.setVisible(true);
 		
+		paneSwitcher.setLayout(new CardLayout());
+		paneSwitcher.setPreferredSize(panelPrime.getSize());
+		paneSwitcher.add(menu.getView());
+		paneSwitcher.add(panelPrime);
+		paneSwitcher.setVisible(true);
+		
 		containerPrime = new JFrame();
 		containerPrime.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		containerPrime.setBounds(0, 0, screenWidth + 16, screenHeight + 89); //flag hacked numbers
-		containerPrime.add(panelPrime);
-		//containerPrime.setResizable(false);
+		containerPrime.add(paneSwitcher);
+		containerPrime.setResizable(false);
 		containerPrime.setVisible(true);
 	}
 	
