@@ -90,7 +90,7 @@ public class MoveMeta extends MetaAction {
 	}
 }
 
-class RecordCell implements Comparable {
+class RecordCell implements Comparable<RecordCell> {
 	protected Cell current;
 	protected List<Cell> path;
 	protected int cost;
@@ -114,7 +114,7 @@ class RecordCell implements Comparable {
 	public int getEstimate() {return estimate;}
 	public List<Cell> getPath() {return path;}
 
-	public int compareTo(Object arg0) {
-		return estimate - ((RecordCell) arg0).getEstimate();
+	public int compareTo(RecordCell arg0) {
+		return estimate - arg0.getEstimate();
 	}
 }

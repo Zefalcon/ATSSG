@@ -51,7 +51,7 @@ public class AIPlayer extends Player {
 	
 	protected void planAction(Entity entity, List<Entity> enemies) {
 		if (plannedActions.containsKey(entity)) {
-			if (plannedActions.get(entity).isDone()) {
+			if (plannedActions.get(entity).isDone() || (entity instanceof Unit && mode.target_style == AIConfig.AttackMode.CLOSEST)) {
 				plannedActions.remove(entity);
 			} else {
 				return;
