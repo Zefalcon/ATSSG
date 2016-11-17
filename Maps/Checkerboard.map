@@ -1,0 +1,26 @@
+"Rough Patch" : "A flat, open map for an AI and human player, with patches of rough terrain."
+---
+10 x 10 : 1
+---
+rg g g g g g g g g g
+g g g g g r g g g g
+g r g g g g g g g r
+g g g g g r g g g g
+r g g r g g g g g g
+g g g r g g r g g r
+g g g g g g r r g g
+g g g r g r g g g g
+g g g g g g g r g g
+r g g g g g g g g g
+---
+soldier - h @ 2, 2;
+soldier - h @ 3, 2;
+soldier - h @ 4, 2;
+soldier - h @ 5, 2;
+soldier - h @ 6, 2;
+
+soldier - 1 @ 2, 6;
+soldier - 1 @ 3, 6;
+soldier - 1 @ 4, 6;
+soldier - 1 @ 5, 6;
+soldier - 1 @ 6, 6;
