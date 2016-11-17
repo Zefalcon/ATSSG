@@ -2,6 +2,7 @@ package ATSSG.Player.AI;
 
 import static org.junit.Assert.*;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -11,12 +12,16 @@ import ATSSG.*;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Player.*;
+
 import org.junit.Test;
 
 public class testAIPlayer {
 
 	public AIPlayer setUpAIPlayer() {
-		return new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null, new AIConfig());
+		return new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1, 1), null, new AIConfig());
+	}
+	public Player setUpEnemy() {
+		return new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null);
 	}
 	
 	@Test
@@ -30,7 +35,7 @@ public class testAIPlayer {
 	public void testForceReplan() {
 		AIPlayer testPlayer = setUpAIPlayer();
 		Unit u = new Unit(UnitType.Soldier, testPlayer, new Cell(TerrainType.GRASS, null, null, 0, 0));
-		Entity enemy1 = new Unit(UnitType.Soldier, new HumanPlayer(null, null, null), new Cell(TerrainType.GRASS, null, null, 1, 1));
+		Entity enemy1 = new Unit(UnitType.Soldier, setUpEnemy(), new Cell(TerrainType.GRASS, null, null, 1, 1));
 		testPlayer.planAttack(u, Arrays.asList(enemy1));
 		testPlayer.forceReplan();
 		assert(testPlayer.getPlannedActions().isEmpty());
@@ -40,7 +45,7 @@ public class testAIPlayer {
 	public void testPlanAction() {
 		AIPlayer testPlayer = setUpAIPlayer();
 		Entity mine = new Unit(UnitType.Soldier, testPlayer, new Cell(TerrainType.GRASS, null, null, 0, 0));
-		Entity enemy1 = new Unit(UnitType.Soldier, new HumanPlayer(null, null, null), new Cell(TerrainType.GRASS, null, null, 1, 1));
+		Entity enemy1 = new Unit(UnitType.Soldier, setUpAIPlayer(), new Cell(TerrainType.GRASS, null, null, 1, 1));
 		testPlayer.planAction(mine, Arrays.asList(enemy1));
 		Map<Entity, MetaAction> actions = testPlayer.getPlannedActions();
 		assert(actions.keySet().contains(mine));
@@ -52,8 +57,8 @@ public class testAIPlayer {
 	public void testPlanAttack() {
 		AIPlayer testPlayer = setUpAIPlayer();
 		Unit u = new Unit(UnitType.Soldier, testPlayer, new Cell(TerrainType.GRASS, null, null, 0, 0));
-		Entity enemy1 = new Unit(UnitType.Soldier, new HumanPlayer(null, null, null), new Cell(TerrainType.GRASS, null, null, 1, 1));
-		Entity enemy2 = new Unit(UnitType.Soldier, new HumanPlayer(null, null, null), new Cell(TerrainType.GRASS, null, null, 1, 2));
+		Entity enemy1 = new Unit(UnitType.Soldier, setUpEnemy(), new Cell(TerrainType.GRASS, null, null, 1, 1));
+		Entity enemy2 = new Unit(UnitType.Soldier, setUpEnemy(), new Cell(TerrainType.GRASS, null, null, 1, 2));
 		testPlayer.planAttack(u, Arrays.asList(enemy1));
 		Map<Entity, MetaAction> actions = testPlayer.getPlannedActions();
 		assert(actions.keySet().contains(u));
