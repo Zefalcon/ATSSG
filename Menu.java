@@ -62,7 +62,7 @@ public class Menu extends UIContainer<MenuElement> {
 		}));
 		
 		JPanel buttonView = new JPanel();
-		buttonView.setLayout(new GridLayout(2, 3));
+		buttonView.setLayout(new GridLayout(3, 2));
 		for (MenuElement me : content) {
 			buttonView.add(me.getGooey());
 		}

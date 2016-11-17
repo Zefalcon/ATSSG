@@ -17,6 +17,7 @@ import ATSSG.Player.AI.AIPlayer;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class GameMap {
 	
@@ -29,7 +30,7 @@ public class GameMap {
 	
 	public GameMap(){
 		try{
-			File f = new File("C:/Users/TomShkurti/Desktop/swengineering_prime/ATSSG/src/Maps/5v5.map");
+			File f = new File(Paths.get("src/ATSSG/Maps/5v5.map").toString());
 			GameMap tmp = new GameMap(f);
 			this.all_cells = tmp.all_cells;
 			this.players = tmp.players;
