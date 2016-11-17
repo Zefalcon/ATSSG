@@ -70,7 +70,7 @@ public class MoveMeta extends MetaAction {
 			}
 		}
 		//Currently Assuming only in list if passable
-		return !enemy;
+		return !enemy && actor.getType().passableTerrain.containsKey(c.getTerrainType());
 	}
 	
 	public boolean pathInvalid() {
