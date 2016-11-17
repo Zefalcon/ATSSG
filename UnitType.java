@@ -1,6 +1,7 @@
 package ATSSG;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import java.util.HashMap;
 
 import java.nio.file.Paths;
 import java.util.Map;
@@ -9,7 +10,11 @@ public enum UnitType {
 	
 	Void("Void", "", new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel").toString()), 0, null, 0, null, 0, 0),
 	Soldier("Solder", "Soldier.", new ImageIcon(Paths.get("src/ATSSG/Art/DemoUnit.png").toString()), 5,
-			null, 1, AttackType.STABBING, 1, 500);//flag instakill shortcut code.
+			new InlineMap<TerrainType,Double>().returnPut(TerrainType.GRASS, 1.0), 1, AttackType.STABBING, 1, 500),//flag instakill shortcut code.
+	RealSoldier("Soldier", "A stronger melee unit.", null, 5, new InlineMap<TerrainType,Double>().returnPut(TerrainType.GRASS, 1.0), 1, AttackType.STABBING, 1, 3),
+	Archer("Archer", "A ranged unit.", null, 5, new InlineMap<TerrainType,Double>().returnPut(TerrainType.GRASS, 1.0), 1, AttackType.SHOOTING, 3, 1);
+
+	HashMap<TerrainType,Double> warriorPassage = new HashMap<>();
 	
 	public String name;
 	public String description;

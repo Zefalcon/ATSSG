@@ -4,7 +4,8 @@ import java.util.Map;
 
 public enum AttackType {
 	
-	STABBING("stabbing", new Hashtable<AttackType, Double>());
+	STABBING("stabbing", new Hashtable<AttackType, Double>()),
+	SHOOTING("shooting", new Hashtable<AttackType, Double>());
 	
 	
 	
