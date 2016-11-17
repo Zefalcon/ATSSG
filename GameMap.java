@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
+
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Player.HumanPlayer;
@@ -68,6 +70,7 @@ public class GameMap {
 			players.add(new AIPlayer(
 					new Hashtable<RCommodityType, Integer>(),
 					new ArrayList<Entity>(),
+					ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
 					this, 
 					new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1)
 			));

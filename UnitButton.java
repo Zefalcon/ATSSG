@@ -1,17 +1,18 @@
 package ATSSG;
+
 import ATSSG.Entities.Entity;
-import ATSSG.Entities.Unit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import ATSSG.Player.Player;
 
 public class UnitButton extends Button {
 	
 	//Variables
+	ImageIcon blank = new ImageIcon(UnitType.Void.image);
 
 	//Methods
 	public UnitButton(Player owner, MainMap mainMap) {
@@ -23,9 +24,9 @@ public class UnitButton extends Button {
 			gooeyButton.removeActionListener(actlis);
 		}
 		if (reference == null) {
-			gooeyButton.setIcon(UnitType.Void.image);
+			gooeyButton.setIcon(blank);
 		} else {
-			gooeyButton.setIcon(reference.getImage());
+			gooeyButton.setIcon(reference.getIcon());
 			gooeyButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					//highlight map cell

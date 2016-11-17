@@ -12,15 +12,11 @@ public class Unit extends Entity {
 	
 	//Constructors
 	public Unit(UnitType t, Player player, Cell current){
-		super(t.maxHP, player, current);
+		super(t.maxHP, player, current, t.getImage());
 		type = t;
-		image = t.getImage();
-		//button = new UnitButton(image, player, this);
 		allowedCommands.add(CommandType.IDLE);
 		allowedCommands.add(CommandType.MOVE); //Flag Possibly these allowedCommands collections should exist in the UnitType/BuildingType enums instead of Entity?
 		allowedCommands.add(CommandType.ATTACK);
-		//allowedCommands.add(new PatrolButton(null, "Patrol", this, player));
-		//It strikes me (JT) that we should not implement complex-ish multiturn basic commands since scripting
 	}
 	//Methods
 	public boolean canAttack(Entity target){

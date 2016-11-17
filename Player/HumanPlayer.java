@@ -1,7 +1,12 @@
 package ATSSG.Player;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import ATSSG.Entities.Entity;
 import ATSSG.GameMap;
@@ -13,6 +18,7 @@ public class HumanPlayer extends Player {
 		resources = startingResources;
 		owned_entities = starting_entities;
 		containing_map = map;
+		try {colors = ImageIO.read(new File(Paths.get("src/ATSSG/Art/HumanColorsDefault.png").toString()));} catch (IOException e) {}
 	}
 	
 	@Override

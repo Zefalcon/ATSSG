@@ -37,7 +37,7 @@ public class Cell implements Comparable<Cell> {
 		if (getOccupyingEntities().isEmpty()) {
 			icon = getTerrainType().getImage();
 		} else {
-			icon = getOccupyingEntities().iterator().next().getImage();
+			icon = getOccupyingEntities().iterator().next().getIcon();
 			//flag art proposition: if size = 1 do above, if size > 1 have a generic "army" image?
 		}
 		this.view.setIcon(icon);

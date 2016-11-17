@@ -1,4 +1,5 @@
 package ATSSG.Player.AI;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,9 +25,10 @@ public class AIPlayer extends Player {
 	protected Map<Integer, Boolean> featuresUsed;
 	protected AIConfig mode;
 	
-	public AIPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map, AIConfig config) {
+	public AIPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, Image colors, GameMap map, AIConfig config) {
 		resources = startingResources;
 		owned_entities = starting_entities;
+		this.colors = colors;
 		containing_map = map;
 		plannedActions = new HashMap<Entity, MetaAction>();
 		mode = config;

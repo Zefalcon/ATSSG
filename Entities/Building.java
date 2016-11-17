@@ -17,9 +17,8 @@ public class Building extends Entity {
 	
 	//Constructors
 	public Building(BuildingType type, Player player, Cell location){
-		super(type.maxHP, player, location);
+		super(type.maxHP, player, location, type.getImage());
 		this.type = type;
-		this.image = type.getImage();
 		buildable = new ArrayList<UnitType>();
 		//allowedCommands.add(new ConstructButton(null, "Construct"));
 	}

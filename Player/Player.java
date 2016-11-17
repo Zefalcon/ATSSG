@@ -1,6 +1,10 @@
 package ATSSG.Player;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
+
+import java.awt.Image;
 import java.util.Collection;
 
 import ATSSG.Entities.Entity;
@@ -13,6 +17,7 @@ public abstract class Player {
 	protected Map<RCommodityType, Integer> resources;
 	protected List<Entity> owned_entities;
 	protected GameMap containing_map;
+	protected Image colors;
 	
 	//Constructors
 
@@ -52,6 +57,8 @@ public abstract class Player {
 	}
 	
 	public void addEntity(Entity e) {
+		e.getImage().getGraphics().drawImage(colors, 40, 40, null);
+		e.setIcon(new ImageIcon(e.getImage()));
 		owned_entities.add(e);
 	}
 

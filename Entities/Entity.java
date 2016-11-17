@@ -1,11 +1,11 @@
 package ATSSG.Entities;
 import ATSSG.Cell;
 import ATSSG.CommandType;
-import ATSSG.UnitButton;
 import ATSSG.Player.Player;
 import ATSSG.Script.Script;
 import ATSSG.Actions.*;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,18 +23,18 @@ public abstract class Entity {
 	protected Script currentScript = null;
 	protected Action currentAction = null;
 	protected Collection<CommandType> allowedCommands; //Flag further review on whether this should be a collection. There is a corresponding collection at MainMap line 107
-	protected Icon image;
-	//protected UnitButton button;
+	protected Image image;
+	protected Icon icon;
 
 	//Constructor
-	public Entity(int hp, Player player, Cell currentCell){
+	public Entity(int hp, Player player, Cell currentCell, Image image){
 		hitPoints = hp;
 		owner = player;
 		containingCell = currentCell;
 		currentScript = null;
 		currentAction = null;
-		image = null;
-		//button = null;
+		this.image = image;
+		icon = null;
 		allowedCommands = new ArrayList<CommandType>();
 		if (player != null) player.addEntity(this);
 		if (currentCell != null) currentCell.addOccupyingEntity(this);
@@ -106,7 +106,8 @@ public abstract class Entity {
 	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
 	public Collection<CommandType> getAllowedCommands(){return allowedCommands;}
-	public Icon getImage() {return image;}
-	//public UnitButton getButton() {return button;}
+	public Image getImage() {return image;}
+	public void setIcon(Icon icon) {this.icon = icon;}
+	public Icon getIcon() {return icon;}
 
 }
