@@ -12,7 +12,7 @@ import ATSSG.Player.Player;
 public class UnitButton extends Button {
 	
 	//Variables
-	ImageIcon blank = new ImageIcon(UnitType.Void.image);
+	ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
 
 	//Methods
 	public UnitButton(Player owner, MainMap mainMap) {

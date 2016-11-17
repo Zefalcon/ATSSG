@@ -21,7 +21,7 @@ public enum UnitType {
 	
 	public String name;
 	public String description;
-	public Image image;
+	public String image_path;
 	public int maxHP;
 	public Map<TerrainType, Double> passableTerrain; 
 	public int maxMoves;
@@ -32,7 +32,7 @@ public enum UnitType {
 	private UnitType(String n, String d, String path, int mHP, Map<TerrainType, Double> pT, int mM, AttackType aT, int aR, int aD) {
 		name = n;
 		description = d;
-		try {image = ImageIO.read(new File(path));} catch (IOException e) {}
+		image_path = path;
 		maxHP = mHP;
 		passableTerrain = pT;
 		maxMoves = mM;
@@ -42,6 +42,8 @@ public enum UnitType {
 	}
 	
 	public Image getImage() {
+		Image image = null;
+		try {image = ImageIO.read(new File(image_path));} catch (IOException e) {}
 		return image;
 	}
 
