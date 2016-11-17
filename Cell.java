@@ -45,8 +45,11 @@ public class Cell implements Comparable<Cell> {
 	}
 	
 	public void setActionListener(ActionListener actlis) {
+		ActionListener[] ala = view.getActionListeners();
+		for (ActionListener al : ala) {
+			view.removeActionListener(al);
+		}
 		view.addActionListener(actlis);
-		//Flag potential crash: a cell should never be fed multiple actionlisteners but if it was who know what would happen?
 	}
 	
 	public JButton getView() {
