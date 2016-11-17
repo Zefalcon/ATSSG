@@ -48,6 +48,7 @@ public class GameMap {
 		
 		//flag These should really be moved ANYWHERE other than here...
 		terrain_lookup.put(new Character('g'), TerrainType.GRASS);
+		terrain_lookup.put(new Character('r'), TerrainType.ROUGH_TERRAIN);
 		unit_lookup.put("soldier", UnitType.Soldier);
 		
 		System.out.println("Constructing game map.");
