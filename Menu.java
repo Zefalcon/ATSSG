@@ -24,11 +24,11 @@ public class Menu extends UIContainer<MenuElement> {
 	//Variables
 
 	//Methods
-	public Menu(Collection<MenuElement> menuButtons, int width, int height, Player owner, JPanel paneSwitcher) {
+	public Menu(Collection<MenuElement> menuButtons, int width, int height, Player owner, final JPanel paneSwitcher) {
 		super(menuButtons, width, height, owner);
 		
-		JPanel menuPanes = new JPanel();
-		CardLayout menuCards = new CardLayout();
+		final JPanel menuPanes = new JPanel();
+		final CardLayout menuCards = new CardLayout();
 		menuPanes.setLayout(menuCards);
 		//Card 1: Menu Buttons
 		//Card 2: New Game Interface

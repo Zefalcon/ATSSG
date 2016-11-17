@@ -13,7 +13,7 @@ import ATSSG.Player.Player;
 
 public class MenuButton extends Button {
 
-	public MenuButton(Player owner, JPanel paneSwitcher) {
+	public MenuButton(Player owner, final JPanel paneSwitcher) {
 		super(null, owner);
 		gooeyButton = new JButton(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuButton.png").toString()));
 		gooeyButton.addActionListener(new ActionListener(){
