@@ -26,6 +26,10 @@ public class Block extends Statement {
 		}
 		addStatement(toAdd, lines.indexOf(previousStatement));
 	}
+
+	public void addAtEnd(Statement toAdd){
+		lines.add(toAdd);
+	}
 	
 	public void removeStatement(Statement toRemove) {
 		lines.remove(toRemove);
