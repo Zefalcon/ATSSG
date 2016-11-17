@@ -89,8 +89,7 @@ public class Gooey {
 		
 		JPanel paneSwitcher = new JPanel();
 		
-		ArrayList<MenuElement> menuButtons = new ArrayList<MenuElement>(6);
-		menu = new Menu(menuButtons, screenWidth, screenHeight, owner, paneSwitcher);
+		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, owner, paneSwitcher);
 		
 		mainMap = new MainMap(gm, mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this);
 		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes

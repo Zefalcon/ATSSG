@@ -7,10 +7,13 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.nio.file.Paths;
 import java.util.Collection;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -24,52 +27,87 @@ public class Menu extends UIContainer<MenuElement> {
 	public Menu(Collection<MenuElement> menuButtons, int width, int height, Player owner, JPanel paneSwitcher) {
 		super(menuButtons, width, height, owner);
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()), owner, new ActionListener(){
+		JPanel menuPanes = new JPanel();
+		CardLayout menuCards = new CardLayout();
+		menuPanes.setLayout(menuCards);
+		//Card 1: Menu Buttons
+		//Card 2: New Game Interface
+		//Card 3: Saving Interface
+		//Card 4: Loading Interface
+		
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoNew.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//dummy button 1
+				menuCards.next(menuPanes);
 			}
 		}));
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()), owner, new ActionListener(){
+		MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), owner, new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				//dummy button 4
+			}
+		});
+		content.add(stats);
+		
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 2
 			}
 		}));
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()), owner, new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				//dummy button 3
-			}
-		}));
-		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()), owner, new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				//dummy button 4
-			}
-		}));
-		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()), owner, new ActionListener(){
+		MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 5
 			}
+		});
+		content.add(save);
+		
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoExit.png").toString()), owner, new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				JFrame containerPrime = (JFrame) (paneSwitcher.getTopLevelAncestor());
+				containerPrime.dispatchEvent(new WindowEvent(containerPrime, WindowEvent.WINDOW_CLOSING));
+			}
 		}));
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), owner, new ActionListener(){
+		MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
 				cl.next(paneSwitcher);
 			}
-		}));
+		});
+		content.add(resume);
 		
 		JPanel buttonView = new JPanel();
 		buttonView.setLayout(new GridLayout(3, 2));
 		for (MenuElement me : content) {
 			buttonView.add(me.getGooey());
 		}
+		buttonView.setVisible(true);
+		
+		ImageIcon back = new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString());
+		MenuElement backButton = new MenuElement(back, owner, new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				menuCards.first(menuPanes);
+			}
+		});
+		
+		JPanel newGame = new JPanel();
+		newGame.setLayout(new GridLayout(5, 1));
+		newGame.add(new JButton("New Game Scenario 1"));//These are actually MenuElements once we have actlisses for them.
+		newGame.add(new JButton("New Game Scenario 2"));//They will update GameMap with the appropriate file (somehow - I need that method)
+		newGame.add(new JButton("New Game Scenario 3"));//Hopefully everything else behaves nicely
+		newGame.add(new JButton("New Game Scenario 4"));
+		newGame.add(backButton.getGooey());
+		newGame.setVisible(true);
 		
 		Dimension bkgrndSize = new Dimension(width / 3, height / 3);
 		
 		buttonView.setPreferredSize(bkgrndSize);
+		newGame.setPreferredSize(bkgrndSize);
+		
+		menuPanes.setPreferredSize(bkgrndSize);
+		menuPanes.add(buttonView);
+		menuPanes.add(newGame);
+		menuPanes.setVisible(true);
 		
 		JLabel background1 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
 		background1.setPreferredSize(bkgrndSize);
@@ -116,10 +154,10 @@ public class Menu extends UIContainer<MenuElement> {
 		gbl.setConstraints(background3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		view.add(background4);
 		gbl.setConstraints(background4, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		view.add(buttonView);
-		gbl.setConstraints(buttonView, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		view.add(background5);
 		gbl.setConstraints(background5, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		view.add(menuPanes);
+		gbl.setConstraints(menuPanes, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		view.add(background6);
 		gbl.setConstraints(background6, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		view.add(background7);
@@ -128,9 +166,3 @@ public class Menu extends UIContainer<MenuElement> {
 		gbl.setConstraints(background8, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 	}
 }
-
-
-
-
-
-//Idea: Menu Screen and In-game interface use a CardLayout to switch!
