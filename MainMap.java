@@ -69,7 +69,6 @@ public class MainMap extends UIContainer<Cell> {
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
-						System.out.println(occupiers.toString());
 						if (occupiers.isEmpty()) {
 							selectedEntity = null;
 						} else {
@@ -79,7 +78,6 @@ public class MainMap extends UIContainer<Cell> {
 							}
 						}
 						if (heldCommand == CommandType.MOVE) {
-							System.out.println("Move Command Recognized");
 							heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell)); //Unchecked Class Cast Flag
 							clearHeld();
 						} else if (heldCommand == CommandType.ATTACK) {
