@@ -19,9 +19,6 @@ public class MainMap extends UIContainer<Cell> {
 	
 	//Fields
 	
-	//This field stores the conversion of the Collection into an array
-	protected GameMap gm;
-	
 	//This field stores all Cells in the game, with listeners to prevent recalculations
 	protected Cell[][] interactable;
 	
@@ -45,21 +42,37 @@ public class MainMap extends UIContainer<Cell> {
 	//Constructors
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
-	public MainMap(GameMap gm, final int width, final int height, final Player owner, 
-			final int cCardW, final int cCardH, final int dCardW, final int dCardH, final Gooey holder, ScriptInterface si) {
-		super(null, width, height, owner);
+	public MainMap(final int width, final int height, final Player owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
+			final Gooey holder, ScriptInterface si) {
+		super(null, width, height, owner); //It so happens that arrays are not collections, and an array is notably better here.
 		this.holder = holder;
-		this.gm = gm;
 		this.si = si;
 		this.cCard = new CommandCard(null, cCardW, cCardH, owner, this);
 		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, owner, this, si);
 		selectedEntity = null;
-		view = new JPanel();
-		view.setLayout(new GridLayout(10, 10));
+		view = new JPanel();view.setPreferredSize(new Dimension(width, height));
+		view.setVisible(true);
 		
-		interactable = gm.getCells(); //reapply this update on turn ends
+		
+		/////////////////////////////////
+		//Maybe for now we don't care about moving the camera - make the whole map fit on one screen
+		/////////////////////////////////
+		
+		//viewableArea = interactable;
+		
+		
+	}
+	
+	//Methods
+	
+	public void updateGameMap(GameMap gm) {
+		if (gm == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;} //Flag possible error handling required
+		interactable = gm.getCells();
 		int mapWidth = interactable.length;
 		int mapHeight = interactable[0].length;
+		view.removeAll();
+		view.setLayout(new GridLayout(mapHeight, mapWidth));
+		
 		for (int i = 0; i < mapHeight; i++) {
 			for (int j = 0; j < mapWidth; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
@@ -112,31 +125,21 @@ public class MainMap extends UIContainer<Cell> {
 				view.add(interactable[i][j].getView()); //Shortcut code that assumes viewableArea = World
 			}
 		}
-		
-		view.setPreferredSize(new Dimension(width, height));
-		view.setVisible(true);
-		/////////////////////////////////
-		//Maybe for build one we don't care about moving the camera - make the whole map fit on one screen
-		/////////////////////////////////
-		
-		//viewableArea = interactable;
-		
-		
 	}
-	
-	//Methods
 	
 	//Notably, with proper external support this method, by not placing any restriction on 
 	//viewableArea, supports zooming
-	protected void updateView(int xStart, int xEnd, int yStart, int yEnd) {
-		int x = xStart;
-		while (yStart < yEnd) {
-			while (x < xEnd) {
-				interactable[x][yStart].updateView();
+	protected void updateView() {
+		if (interactable == null) {return;} //Flag possible error handling required
+		int x = 0;
+		int y = 0;
+		while (y < interactable.length) {
+			while (x < interactable[0].length) {
+				interactable[x][y].updateView();
 				x++;
 			}
-			x = xStart;
-			yStart++;
+			x = 0;
+			y++;
 		}
 	}
 	

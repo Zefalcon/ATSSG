@@ -13,13 +13,13 @@ import ATSSG.Script.ScriptInterface;
 public class UnitButton extends Button {
 	
 	//Variables
-	ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
+	static ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
 	ScriptInterface si;
 	MainMap mainMap;
 
 	//Methods
 	public UnitButton(Player owner, MainMap mainMap, ScriptInterface si) {
-		super(null, owner);
+		super(blank, owner);
 		this.mainMap = mainMap;
 		this.si = si;
 	}

@@ -30,4 +30,7 @@ public class HumanPlayer extends Player {
 		}
 	}
 
+	public void setGameMap(GameMap gm) {
+		containing_map = gm;
+	}
 }

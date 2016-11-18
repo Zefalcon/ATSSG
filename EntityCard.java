@@ -30,7 +30,7 @@ public class EntityCard extends UIContainer<Entity> {
 		entities = new UnitButton[8];
 		for (int i = 0; i < 8; i++) {
 			entities[i] = new UnitButton(owner, mainMap, si);
-			view.add(entities[i].getGooey());
+			view.add(entities[i].getView());
 		}
 		view.setVisible(true);
 	}

@@ -24,7 +24,7 @@ public class CommandCard extends UIContainer<CommandButton> {
 		buttons = new CommandButton[9];
 		for (int i = 0; i < 9; i++) {
 			buttons[i] = new CommandButton(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()), owner);
-			view.add(buttons[i].getGooey());
+			view.add(buttons[i].getView());
 		}
 		view.setPreferredSize(getSize());
 		view.setVisible(true);

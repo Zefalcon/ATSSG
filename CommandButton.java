@@ -19,7 +19,7 @@ public class CommandButton extends Button {
 	
 	//Methods
 	public CommandButton(Icon icon, Player owner) {
-		super(null, owner);
+		super("", owner);
 		this.gooeyButton = new GooeyJButton(icon, null);
 		//gooeyButton.setBorder(new LineBorder(Color.BLACK));
 		this.cmdText = null;

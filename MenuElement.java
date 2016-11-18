@@ -12,5 +12,9 @@ public class MenuElement extends Button {
 		super(icon, owner);
 		gooeyButton.addActionListener(actlis);
 	}
-
+	
+	public MenuElement(String text, Player owner, ActionListener actlis) {
+		super(text, owner);
+		gooeyButton.addActionListener(actlis);
+	}
 }

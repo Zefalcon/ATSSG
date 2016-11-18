@@ -29,16 +29,12 @@ public class GameMap {
 	
 	private static Map<Character, TerrainType> terrain_lookup = new HashMap<Character, TerrainType>();
 	private static Map<String, UnitType> unit_lookup = new HashMap<String, UnitType>();
+	private static HumanPlayer human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
 	
 	public GameMap(){
-		try{
-			File f = new File(Paths.get("src/ATSSG/Maps/5v5.map").toString());
-			GameMap tmp = new GameMap(f);
-			this.all_cells = tmp.all_cells;
-			this.players = tmp.players;
-		}
-		catch(IOException e){
-		}
+		this.all_cells = null;
+		this.players = null;
+		human.setGameMap(this);
 	}
 	
 	//Constructor
@@ -61,7 +57,7 @@ public class GameMap {
 		int ai_count = Integer.parseInt(name_stripped.substring(name_stripped.indexOf(':') + 1, name_stripped.indexOf("---")));
 		players = new LinkedList<Player>();
 		//The human is player zero.
-		Player human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), this);
+		human.setGameMap(this);
 		players.add(human);
 		for(int i = 0; i < ai_count; i++){
 			players.add(new AIPlayer(
@@ -138,11 +134,14 @@ public class GameMap {
 	
 	//Methods
 	
-	public void update(String fpath){
-		File toLoad = new File(fpath);
-		GameMap tmp = new GameMap(toLoad);
-		this.all_cells = tmp.all_cells;
-		this.players = tmp.players;
+	public void update(String fpath) {
+		try {
+			GameMap tmp = new GameMap(new File(fpath));
+			this.all_cells = tmp.all_cells;
+			this.players = tmp.players;
+		} catch (IOException e) {
+			//Flag Needs handling (gracefully)
+		}
 	}
 		
 	public Cell getCell(int x, int y){
@@ -177,4 +176,5 @@ public class GameMap {
 		return all_cells;
 	}
 
+	public static HumanPlayer getHuman() {return human;}
 }

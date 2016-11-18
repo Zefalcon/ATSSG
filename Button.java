@@ -19,9 +19,14 @@ public abstract class Button {
 		gooeyButton = new JButton(icon);
 	}
 	
+	public Button(String text, Player owner) {
+		this.owner = owner;
+		gooeyButton = new JButton(text);
+	}
+	
 	//Methods
 	
-	public JButton getGooey() {
+	public JButton getView() {
 		return gooeyButton;
 	}
 }

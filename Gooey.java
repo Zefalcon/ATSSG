@@ -5,14 +5,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import ATSSG.Player.Player;
-import ATSSG.Player.AI.AIPlayer;
 import ATSSG.Script.ScriptInterface;
 
 public class Gooey {
@@ -20,19 +18,19 @@ public class Gooey {
 	//Fields
 	protected Minimap minimap;
 	
-	protected JPanel mapButton;
+	protected MapButton mapButton;
 	
 	protected CommandCard commandCard;
 	
-	protected JPanel scriptInterfaceButton;
+	protected ScriptInterfaceButton scriptInterfaceButton;
 	
 	protected UnitQueue unitQueue;
 	
 	protected DetailCard detailCard;
 	
-	protected JPanel etButton;
+	protected EndTurnButton etButton;
 	
-	protected JPanel menuButton;
+	protected MenuButton menuButton;
 	
 	protected ResourceCard resourceCard;
 	
@@ -59,12 +57,6 @@ public class Gooey {
 		//0,0 is the top left corner.
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
-		Collection<Player> computers = new ArrayList<Player>();
-		for (Player p : gm.getPlayers()) {
-			if (p instanceof AIPlayer) {
-				computers.add(p);
-			}
-		}
 		//MiniMap is a square in the bottom left
 		int miniW = screenHeight / 3;
 		int miniH = miniW;
@@ -81,7 +73,7 @@ public class Gooey {
 		int brH = miniH - cCardH;
 		int brW = screenWidth - miniW;
 		int rcW = numResources * screenWidth / 8; //Flag the divisor is arbitrary and untested
-		int buttonWidth = (brW - rcW) / 4; //Flag Should customize size of buttons at some point.
+		int buttonWidth = (brW - rcW) / 6; //Flag Should customize size of buttons at some point.
 		//MainMap occupies all of the space left
 		int mainW = screenWidth;
 		int mainH = 3 * screenHeight / 4;
@@ -90,34 +82,22 @@ public class Gooey {
 		
 		JPanel paneSwitcher = new JPanel();
 		
-		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, owner, paneSwitcher);
+		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, owner, paneSwitcher, gm, this);
 		
-		mainMap = new MainMap(gm, mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
-		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
+		mainMap = new MainMap(mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
+		mainMap.updateView(); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
 		
 		minimap = new Minimap(null, miniW, miniH, owner);
 		
-		mapButton = new JPanel();
-		mapButton.add(new MapButton(owner, globalMap).getGooey());
-		mapButton.setPreferredSize((new Dimension(buttonWidth, brH)));
-		mapButton.setVisible(true);
+		mapButton = new MapButton(buttonWidth, brH, owner, globalMap);
 		
 		resourceCard = new ResourceCard(null, null, rcW, brH, owner);
 		
-		scriptInterfaceButton = new JPanel();
-		scriptInterfaceButton.add(new ScriptInterfaceButton(owner, scriptInt).getGooey());
-		scriptInterfaceButton.setPreferredSize((new Dimension(buttonWidth, brH)));
-		scriptInterfaceButton.setVisible(true);
+		scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, owner, scriptInt);
 		
-		menuButton = new JPanel();
-		menuButton.add(new MenuButton(owner, paneSwitcher).getGooey());
-		menuButton.setPreferredSize((new Dimension(buttonWidth, brH)));
-		menuButton.setVisible(true);
+		menuButton = new MenuButton(2 * buttonWidth / 3, brH, owner, paneSwitcher);
 		
-		etButton = new JPanel();
-		etButton.add(new EndTurnButton(owner, computers, this).getGooey());
-		etButton.setPreferredSize((new Dimension(buttonWidth, brH)));
-		etButton.setVisible(true);
+		etButton = new EndTurnButton(buttonWidth, brH, owner, null, this);
 		
 		detailCard = mainMap.getDCard();
 		
@@ -129,11 +109,12 @@ public class Gooey {
 		//Assemble the row of buttons
 		
 		buttonRow = new JPanel();
-		buttonRow.add(scriptInterfaceButton); //Flag see below flags
-		buttonRow.add(menuButton); //Flag see below flag
-		buttonRow.add(etButton);//Flag hack: This should exist below but when it does it's offscreen
-		buttonRow.add(mapButton);
+		
+		buttonRow.add(mapButton.getView());
 		buttonRow.add(resourceCard.getView());
+		buttonRow.add(scriptInterfaceButton.getView());
+		buttonRow.add(menuButton.getView());
+		buttonRow.add(etButton.getView());
 		buttonRow.setPreferredSize(new Dimension(brW, brH));
 		buttonRow.setVisible(true);
 		
@@ -183,7 +164,14 @@ public class Gooey {
 	public void turnEndUpdate() {
 		//MainMap, Minimap, GlobalMap, UnitQueue, ResourceCard, DetailCard, CommandCard need to be updated
 		//MainMap
-		mainMap.updateView(0, 10, 0, 10);
+		mainMap.updateView();
 		
+	}
+	
+	//Called by Menu when initializing a game
+	public void updateGameMap(GameMap gm) {
+		mainMap.updateGameMap(gm);
+		mainMap.updateView();
+		etButton.setComputers(gm.getPlayers());
 	}
 }

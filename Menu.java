@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.Collection;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,7 +23,8 @@ public class Menu extends UIContainer<MenuElement> {
 	//Variables
 
 	//Methods
-	public Menu(Collection<MenuElement> menuButtons, int width, int height, Player owner, final JPanel paneSwitcher) {
+	public Menu(Collection<MenuElement> menuButtons, int width, int height, Player owner, final JPanel paneSwitcher, final GameMap gm,
+			final Gooey holder) {
 		super(menuButtons, width, height, owner);
 		
 		final JPanel menuPanes = new JPanel();
@@ -46,6 +46,7 @@ public class Menu extends UIContainer<MenuElement> {
 				//dummy button 4
 			}
 		});
+		stats.getView().setEnabled(false);
 		content.add(stats);
 		
 		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), owner, new ActionListener(){
@@ -59,6 +60,7 @@ public class Menu extends UIContainer<MenuElement> {
 				//dummy button 5
 			}
 		});
+		save.getView().setEnabled(false);
 		content.add(save);
 		
 		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoExit.png").toString()), owner, new ActionListener(){
@@ -74,12 +76,13 @@ public class Menu extends UIContainer<MenuElement> {
 				cl.next(paneSwitcher);
 			}
 		});
+		resume.getView().setEnabled(false);
 		content.add(resume);
 		
 		JPanel buttonView = new JPanel();
 		buttonView.setLayout(new GridLayout(3, 2));
 		for (MenuElement me : content) {
-			buttonView.add(me.getGooey());
+			buttonView.add(me.getView());
 		}
 		buttonView.setVisible(true);
 		
@@ -92,11 +95,39 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		JPanel newGame = new JPanel();
 		newGame.setLayout(new GridLayout(5, 1));
-		newGame.add(new JButton("New Game Scenario 1"));//These are actually MenuElements once we have actlisses for them.
-		newGame.add(new JButton("New Game Scenario 2"));//They will update GameMap with the appropriate file (somehow - I need that method)
-		newGame.add(new JButton("New Game Scenario 3"));//Hopefully everything else behaves nicely
-		newGame.add(new JButton("New Game Scenario 4"));
-		newGame.add(backButton.getGooey());
+		newGame.add(new MenuElement("New Game Scenario 1", owner, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
+				holder.updateGameMap(gm);
+				stats.getView().setEnabled(true);
+				save.getView().setEnabled(true);
+				resume.getView().setEnabled(true);
+				backButton.getView().doClick();
+				resume.getView().doClick();
+			}
+		}).getView());
+		newGame.add(new MenuElement("New Game Scenario 2", owner, new ActionListener() {//They will update GameMap with the appropriate file (somehow - I need that method)
+			public void actionPerformed(ActionEvent e) {
+				gm.update(Paths.get("src/ATSSG/Maps/Roughpatch.map").toString());
+				holder.updateGameMap(gm);
+				stats.getView().setEnabled(true);
+				save.getView().setEnabled(true);
+				resume.getView().setEnabled(true);
+				backButton.getView().doClick();
+				resume.getView().doClick();
+			}
+		}).getView());
+		newGame.add(new MenuElement("New Game Scenario 3", owner, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Scenario 3
+			}
+		}).getView());
+		newGame.add(new MenuElement("New Game Random Scenario", owner, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Random Scenario?
+			}
+		}).getView());
+		newGame.add(backButton.getView());
 		newGame.setVisible(true);
 		
 		Dimension bkgrndSize = new Dimension(width / 3, height / 3);

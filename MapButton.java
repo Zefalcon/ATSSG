@@ -1,11 +1,11 @@
 package ATSSG;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 import ATSSG.Player.Player;
 
@@ -16,15 +16,16 @@ public class MapButton extends Button {
 	GlobalMap gmap;
 	
 	//Constructors
-	public MapButton(Player owner, GlobalMap gmap) {
-		super(null, owner);
-		this.gooeyButton = new JButton(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString()));
+	public MapButton(int width, int height, Player owner, GlobalMap gmap) {
+		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMapButton.png").toString()), owner);
+		gooeyButton.setSize(new Dimension(width, height));
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Spawn the global map overlay
 				//Make that another card in the main Gooey CardLayout?
 			}
 		});
+		gooeyButton.setEnabled(false);
 		this.gmap = gmap;
 	}
 }
