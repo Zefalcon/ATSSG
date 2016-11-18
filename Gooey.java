@@ -13,6 +13,7 @@ import javax.swing.WindowConstants;
 
 import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIPlayer;
+import ATSSG.Script.ScriptInterface;
 
 public class Gooey {
 
@@ -23,7 +24,7 @@ public class Gooey {
 	
 	protected CommandCard commandCard;
 	
-	protected JPanel scriptButton;
+	protected JPanel scriptInterfaceButton;
 	
 	protected UnitQueue unitQueue;
 	
@@ -91,7 +92,7 @@ public class Gooey {
 		
 		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, owner, paneSwitcher);
 		
-		mainMap = new MainMap(gm, mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this);
+		mainMap = new MainMap(gm, mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
 		mainMap.updateView(0, 10, 0, 10); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
 		
 		minimap = new Minimap(null, miniW, miniH, owner);
@@ -103,10 +104,10 @@ public class Gooey {
 		
 		resourceCard = new ResourceCard(null, null, rcW, brH, owner);
 		
-		scriptButton = new JPanel();
-		scriptButton.add(new ScriptButton(owner).getGooey());
-		scriptButton.setPreferredSize((new Dimension(buttonWidth, brH)));
-		scriptButton.setVisible(true);
+		scriptInterfaceButton = new JPanel();
+		scriptInterfaceButton.add(new ScriptInterfaceButton(owner, scriptInt).getGooey());
+		scriptInterfaceButton.setPreferredSize((new Dimension(buttonWidth, brH)));
+		scriptInterfaceButton.setVisible(true);
 		
 		menuButton = new JPanel();
 		menuButton.add(new MenuButton(owner, paneSwitcher).getGooey());
@@ -128,13 +129,11 @@ public class Gooey {
 		//Assemble the row of buttons
 		
 		buttonRow = new JPanel();
+		buttonRow.add(scriptInterfaceButton); //Flag see below flags
 		buttonRow.add(menuButton); //Flag see below flag
-		buttonRow.add(etButton);//Flag hack: This should exist where it is commented out below but when it does it's offscreen
+		buttonRow.add(etButton);//Flag hack: This should exist below but when it does it's offscreen
 		buttonRow.add(mapButton);
 		buttonRow.add(resourceCard.getView());
-		buttonRow.add(scriptButton);
-		//buttonRow.add(menuButton);
-		//buttonRow.add(etButton);
 		buttonRow.setPreferredSize(new Dimension(brW, brH));
 		buttonRow.setVisible(true);
 		

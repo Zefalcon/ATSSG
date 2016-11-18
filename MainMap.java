@@ -13,6 +13,7 @@ import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Player.Player;
+import ATSSG.Script.ScriptInterface;
 
 public class MainMap extends UIContainer<Cell> {
 	
@@ -43,12 +44,12 @@ public class MainMap extends UIContainer<Cell> {
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
 	public MainMap(GameMap gm, final int width, final int height, final Player owner, 
-			final int cCardW, final int cCardH, final int dCardW, final int dCardH, final Gooey holder) {
+			final int cCardW, final int cCardH, final int dCardW, final int dCardH, final Gooey holder, ScriptInterface si) {
 		super(null, width, height, owner);
 		this.holder = holder;
 		this.gm = gm;
 		this.cCard = new CommandCard(null, cCardW, cCardH, owner, this);
-		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, owner, this);
+		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, owner, this, si);
 		selectedEntity = null;
 		view = new JPanel();
 		view.setLayout(new GridLayout(10, 10));
@@ -60,6 +61,7 @@ public class MainMap extends UIContainer<Cell> {
 			for (int j = 0; j < mapWidth; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if (si.getView().isVisible() == true) {return;}
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
@@ -98,7 +100,7 @@ public class MainMap extends UIContainer<Cell> {
 							} else {
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
-									cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this));
+									cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
 									index++; //Flag not protected from being fed too many commandTypes
 								}
 							}

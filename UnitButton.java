@@ -8,15 +8,18 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import ATSSG.Player.Player;
+import ATSSG.Script.ScriptInterface;
 
 public class UnitButton extends Button {
 	
 	//Variables
 	ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
+	ScriptInterface si;
 
 	//Methods
-	public UnitButton(Player owner, MainMap mainMap) {
+	public UnitButton(Player owner, MainMap mainMap, ScriptInterface si) {
 		super(null, owner);
+		this.si = si;
 	}
 	
 	public void setEntity(Entity reference) {
@@ -29,6 +32,7 @@ public class UnitButton extends Button {
 			gooeyButton.setIcon(reference.getIcon());
 			gooeyButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
+					if (si.getView().isVisible() == true) {return;}
 					//highlight map cell
 					//simulate selecting that cell - update dCard
 					//simulate selecting that unit - update cCard and highlight in dCard

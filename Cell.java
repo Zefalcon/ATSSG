@@ -114,10 +114,6 @@ public class Cell implements Comparable<Cell> {
 		return true; //May want to change later to ensure no more than one building/unit can be in the same cell.
 	}
 	public void removeEntity(Entity toRemove){
-		/*if(occupyingEntities.contains(toRemove)){
-			occupyingEntities.remove(toRemove);
-		}*/
-		//flag single-entity only
 		occupyingEntities.remove(toRemove);
 	}
 	public Entity getEnemy(Player p){

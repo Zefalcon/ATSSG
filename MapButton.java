@@ -22,6 +22,7 @@ public class MapButton extends Button {
 		gooeyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Spawn the global map overlay
+				//Make that another card in the main Gooey CardLayout?
 			}
 		});
 		this.gmap = gmap;

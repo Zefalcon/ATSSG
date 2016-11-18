@@ -9,6 +9,7 @@ import ATSSG.Entities.Building;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Player.Player;
+import ATSSG.Script.ScriptInterface;
 
 public class EntityCard extends UIContainer<Entity> {
 
@@ -20,7 +21,7 @@ public class EntityCard extends UIContainer<Entity> {
 	
 	//Constructors
 	
-	public EntityCard(Collection<Entity> occupiers, int width, int height, Player owner, MainMap mainMap) {
+	public EntityCard(Collection<Entity> occupiers, int width, int height, Player owner, MainMap mainMap, ScriptInterface si) {
 		super(occupiers, width, height, owner);
 		this.mainMap = mainMap;
 		view = new JPanel();
@@ -28,7 +29,7 @@ public class EntityCard extends UIContainer<Entity> {
 		view.setLayout(new GridLayout(2, 4)); //Flag However big this ends up, will require safeguards on maximal cell occupancy
 		entities = new UnitButton[8];
 		for (int i = 0; i < 8; i++) {
-			entities[i] = new UnitButton(owner, mainMap);
+			entities[i] = new UnitButton(owner, mainMap, si);
 			view.add(entities[i].getGooey());
 		}
 		view.setVisible(true);

@@ -10,7 +10,7 @@ public abstract class Button {
 	//Variables
 	
 	protected JButton gooeyButton;
-	Player owner;
+	protected Player owner;
 	
 	//Constructors
 	
