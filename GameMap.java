@@ -112,12 +112,6 @@ public class GameMap {
 			unit_list = unit_list.substring(last_ind + 1);
 			last_ind = unit_list.indexOf(';');
 		}
-		
-		public void update(File toLoad){
-			tmp = new GameMap(toLoad);
-			this.all_cells = tmp.all_cells;
-			this.players = tmp.players;
-		}
 			
 		//all_cells = new Cell[10][10];
 		//for(int x = 0; x < 10; x++){
@@ -143,6 +137,14 @@ public class GameMap {
 	}
 	
 	//Methods
+	
+	public void update(String fpath){
+		File toLoad = new File(fpath);
+		tmp = new GameMap(toLoad);
+		this.all_cells = tmp.all_cells;
+		this.players = tmp.players;
+	}
+		
 	public Cell getCell(int x, int y){
 		if(x < 0 || x >= all_cells.length){
 			return null;
