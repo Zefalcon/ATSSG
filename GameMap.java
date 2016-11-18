@@ -41,8 +41,6 @@ public class GameMap {
 		}
 	}
 	
-	
-	
 	//Constructor
 	public GameMap(File toLoad) throws IOException{
 		
@@ -113,6 +111,12 @@ public class GameMap {
 			
 			unit_list = unit_list.substring(last_ind + 1);
 			last_ind = unit_list.indexOf(';');
+		}
+		
+		public void update(File toLoad){
+			tmp = new GameMap(toLoad);
+			this.all_cells = tmp.all_cells;
+			this.players = tmp.players;
 		}
 			
 		//all_cells = new Cell[10][10];
