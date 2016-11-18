@@ -51,8 +51,6 @@ public class GameMap {
 		terrain_lookup.put(new Character('r'), TerrainType.ROUGH_TERRAIN);
 		unit_lookup.put("soldier", UnitType.Soldier);
 		
-		System.out.println("Constructing game map.");
-		
 		Scanner s_tmp = new Scanner(toLoad);
 		String map_str = s_tmp.useDelimiter("\\Z").next().replaceAll("\\s+", "");
 		s_tmp.close();
