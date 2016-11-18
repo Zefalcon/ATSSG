@@ -118,7 +118,7 @@ public class Cell implements Comparable<Cell> {
 			occupyingEntities.remove(toRemove);
 		}*/
 		//flag single-entity only
-		occupyingEntities = new ArrayList<Entity>(8);
+		occupyingEntities.remove(toRemove);
 	}
 	public Entity getEnemy(Player p){
         if(occupyingEntities.isEmpty()){

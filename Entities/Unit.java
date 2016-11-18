@@ -36,7 +36,14 @@ public class Unit extends Entity {
 	}
 
 	public boolean canMoveTo(Cell destination){
-		return Cell.distance(getContainingCell(), destination) <= type.maxMoves && destination.getOccupyingEntities().isEmpty();
+		boolean enemy = false;
+		for (Entity ent : destination.getOccupyingEntities()) {
+			if (ent.getOwner() != owner) {
+				enemy = true;
+				break;
+			}
+		}
+		return Cell.distance(getContainingCell(), destination) <= type.maxMoves && !enemy;
 	}
 	
 	public boolean move(Cell destination){
