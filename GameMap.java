@@ -140,7 +140,7 @@ public class GameMap {
 	
 	public void update(String fpath){
 		File toLoad = new File(fpath);
-		tmp = new GameMap(toLoad);
+		GameMap tmp = new GameMap(toLoad);
 		this.all_cells = tmp.all_cells;
 		this.players = tmp.players;
 	}
