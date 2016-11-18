@@ -15,10 +15,12 @@ public class UnitButton extends Button {
 	//Variables
 	ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
 	ScriptInterface si;
+	MainMap mainMap;
 
 	//Methods
 	public UnitButton(Player owner, MainMap mainMap, ScriptInterface si) {
 		super(null, owner);
+		this.mainMap = mainMap;
 		this.si = si;
 	}
 	
@@ -32,10 +34,11 @@ public class UnitButton extends Button {
 			gooeyButton.setIcon(reference.getIcon());
 			gooeyButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					if (si.getView().isVisible() == true) {return;}
+					//if (si.getView().isVisible() == true) {return;}
 					//highlight map cell
 					//simulate selecting that cell - update dCard
 					//simulate selecting that unit - update cCard and highlight in dCard
+					mainMap.updateCCard(reference);
 				}
 			});
 		}

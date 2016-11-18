@@ -38,7 +38,9 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected DetailCard dCard;
 	
-	public Gooey holder;
+	protected Gooey holder;
+	
+	protected ScriptInterface si;
 	
 	//Constructors
 	
@@ -48,6 +50,7 @@ public class MainMap extends UIContainer<Cell> {
 		super(null, width, height, owner);
 		this.holder = holder;
 		this.gm = gm;
+		this.si = si;
 		this.cCard = new CommandCard(null, cCardW, cCardH, owner, this);
 		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, owner, this, si);
 		selectedEntity = null;
@@ -61,7 +64,7 @@ public class MainMap extends UIContainer<Cell> {
 			for (int j = 0; j < mapWidth; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (si.getView().isVisible() == true) {return;}
+						//if (si.getView().isVisible() == true) {return;}
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
@@ -98,6 +101,7 @@ public class MainMap extends UIContainer<Cell> {
 							if (selectedEntity == null) {
 								cCard.reset();
 							} else {
+								//Highlight the selected unit in DetailCard
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
 									cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
@@ -153,6 +157,14 @@ public class MainMap extends UIContainer<Cell> {
 	public void clearHeld() {
 		setHeldCommand(null);
 		setHeldEntity(null);
+	}
+	
+	public void updateCCard(Entity selectedEntity) {
+		int index = 0;
+		for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
+			cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+			index++; //Flag not protected from being fed too many commandTypes
+		}
 	}
 	
 	//getter methods to get references to Gooey

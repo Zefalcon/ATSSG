@@ -22,7 +22,7 @@ public class CommandListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (si.getView().isVisible() == true) {return;}
+		//if (si.getView().isVisible() == true) {return;}
 		if (cmd == CommandType.IDLE) {
 			//entity.setAction(new IdleAction());
 		} else {
