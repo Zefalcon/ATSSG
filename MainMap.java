@@ -161,10 +161,14 @@ public class MainMap extends UIContainer<Cell> {
 	}
 	
 	public void updateCCard(Entity selectedEntity) {
+		if (selectedEntity.getOwner() == owner) {
 		int index = 0;
-		for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
-			cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
-			index++; //Flag not protected from being fed too many commandTypes
+			for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
+				cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+				index++; //Flag not protected from being fed too many commandTypes
+			}
+		} else {
+			cCard.reset();
 		}
 	}
 	
