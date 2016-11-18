@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
-import javax.swing.text.View;
 
 import ATSSG.Player.Player;
 
