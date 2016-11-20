@@ -41,7 +41,7 @@ public class Menu extends UIContainer<MenuElement> {
 			}
 		}));
 		
-		MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), owner, new ActionListener(){
+		final MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 4
 			}
@@ -55,7 +55,7 @@ public class Menu extends UIContainer<MenuElement> {
 			}
 		}));
 		
-		MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), owner, new ActionListener(){
+		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 5
 			}
@@ -70,7 +70,7 @@ public class Menu extends UIContainer<MenuElement> {
 			}
 		}));
 		
-		MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), owner, new ActionListener(){
+		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
 				cl.next(paneSwitcher);
@@ -87,7 +87,7 @@ public class Menu extends UIContainer<MenuElement> {
 		buttonView.setVisible(true);
 		
 		ImageIcon back = new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString());
-		MenuElement backButton = new MenuElement(back, owner, new ActionListener(){
+		final MenuElement backButton = new MenuElement(back, owner, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.first(menuPanes);
 			}

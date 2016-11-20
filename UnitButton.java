@@ -24,7 +24,7 @@ public class UnitButton extends Button {
 		this.si = si;
 	}
 	
-	public void setEntity(Entity reference) {
+	public void setEntity(final Entity reference) {
 		for (ActionListener actlis : gooeyButton.getActionListeners()) {
 			gooeyButton.removeActionListener(actlis);
 		}

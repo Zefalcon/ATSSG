@@ -30,7 +30,7 @@ public class EndTurnButton extends Button {
 	
 	//Methods
 	
-	public void setComputers(Collection<Player> computers) {
+	public void setComputers(final Collection<Player> computers) {
 		for (ActionListener actlis : gooeyButton.getActionListeners()) {
 			gooeyButton.removeActionListener(actlis);
 		}

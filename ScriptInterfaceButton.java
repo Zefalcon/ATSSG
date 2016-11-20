@@ -13,7 +13,7 @@ import ATSSG.Script.ScriptInterface;
 public class ScriptInterfaceButton extends Button {
 
 	//Methods
-	public ScriptInterfaceButton(int width, int height, Player owner, ScriptInterface si) {
+	public ScriptInterfaceButton(int width, int height, Player owner, final ScriptInterface si) {
 		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoScriptUI.png").toString()) , owner);
 		gooeyButton.setPreferredSize(new Dimension(width, height));
 		gooeyButton.addActionListener(new ActionListener(){
