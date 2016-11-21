@@ -1,4 +1,4 @@
-package ATSSG.Script;
+package ATSSG.Script.Framework;
 
 import java.util.HashMap;
 

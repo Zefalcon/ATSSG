@@ -24,7 +24,6 @@ public class HumanPlayer extends Player {
 	@Override
 	public void executeAll() {
 		if (owned_entities == null) return;
-		// TODO Execute the script
 		for (Entity e: owned_entities) {
 			e.executeAction();
 		}

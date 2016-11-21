@@ -1,16 +1,23 @@
 package ATSSG.Script;
 import java.util.Collection;
+
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import ATSSG.Actions.Action;
 import ATSSG.Entities.Unit;
+
 import javax.swing.event.*;
 
 import ATSSG.Actions.*;
 import ATSSG.Button;
 import ATSSG.Overlay;
 import ATSSG.Player.Player;
+import ATSSG.Script.Framework.ActionStatement;
+import ATSSG.Script.Framework.Script;
+import ATSSG.Script.Framework.Statement;
 
 public class ScriptInterface extends Overlay implements ListSelectionListener{
 	

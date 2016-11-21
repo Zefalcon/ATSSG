@@ -1,4 +1,4 @@
-package ATSSG.Script;
+package ATSSG.Script.Framework;
 import ATSSG.Actions.*;
 
 public class ActionStatement extends Statement {
@@ -29,6 +29,11 @@ public class ActionStatement extends Statement {
 	@Override
 	public boolean statementDone() {
 		return true;
+	}
+
+	@Override
+	public Statement copy() {
+		return new ActionStatement(action);
 	}
 
 }

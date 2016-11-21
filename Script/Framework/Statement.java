@@ -1,4 +1,5 @@
-package ATSSG.Script;
+package ATSSG.Script.Framework;
+
 
 public abstract class Statement {
 		
@@ -14,5 +15,7 @@ public abstract class Statement {
 	 * @return true if the statement does not need another turn
 	 */
 	public abstract boolean statementDone();
+	
+	public abstract Statement copy();
 
 }

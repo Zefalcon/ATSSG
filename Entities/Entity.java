@@ -2,7 +2,8 @@ package ATSSG.Entities;
 import ATSSG.Cell;
 import ATSSG.CommandType;
 import ATSSG.Player.Player;
-import ATSSG.Script.Script;
+import ATSSG.Script.Framework.Script;
+import ATSSG.Script.Framework.ScriptError;
 import ATSSG.Actions.*;
 
 import java.awt.Image;
@@ -88,13 +89,22 @@ public abstract class Entity {
 	}
 	
 	public void executeScript(){
-		//TODO
+		if (currentScript != null) {
+			try {
+				currentScript.execute();
+			} catch (ScriptError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void executeAction(){
 		if (currentAction != null) {
 			currentAction.execute();
 			currentAction=null;
+		} else  {
+			executeScript();
 		}
 	}
 	
