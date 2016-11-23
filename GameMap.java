@@ -26,6 +26,7 @@ public class GameMap {
 	//Variables
 	protected Cell[][] all_cells;
 	protected List<Player> players;
+	protected List<AIPlayer> computers;
 	
 	private static Map<Character, TerrainType> terrain_lookup = new HashMap<Character, TerrainType>();
 	private static Map<String, UnitType> unit_lookup = new HashMap<String, UnitType>();
@@ -56,17 +57,20 @@ public class GameMap {
 		
 		int ai_count = Integer.parseInt(name_stripped.substring(name_stripped.indexOf(':') + 1, name_stripped.indexOf("---")));
 		players = new LinkedList<Player>();
+		computers = new LinkedList<AIPlayer>();
 		//The human is player zero.
 		human.setGameMap(this);
 		players.add(human);
+		AIPlayer cp;
 		for(int i = 0; i < ai_count; i++){
-			players.add(new AIPlayer(
-					new Hashtable<RCommodityType, Integer>(),
-					new ArrayList<Entity>(),
-					ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
-					this, 
-					new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1)
-			));
+			cp = new AIPlayer(
+				new Hashtable<RCommodityType, Integer>(),
+				new ArrayList<Entity>(),
+				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
+				this, 
+				new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1));
+			players.add(cp);
+			computers.add(cp);
 		}
 		
 		String terrain_plus = name_stripped.substring(name_stripped.indexOf("---") + 3);
@@ -139,6 +143,7 @@ public class GameMap {
 			GameMap tmp = new GameMap(new File(fpath));
 			this.all_cells = tmp.all_cells;
 			this.players = tmp.players;
+			this.computers = tmp.computers;
 		} catch (IOException e) {
 			//Flag Needs handling (gracefully)
 		}
@@ -156,6 +161,10 @@ public class GameMap {
 	
 	public Collection<Player> getPlayers() {
 		return players;
+	}
+	
+	public Collection<AIPlayer> getComputers() {
+		return computers;
 	}
 	
 	public Collection<Entity> getEntities(){

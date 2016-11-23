@@ -15,7 +15,6 @@ import ATSSG.Player.Player;
 public class UnitQueue extends UIContainer<UnitButton> {
 	
 	//Variables
-	protected Collection<UnitButton> units;
 	protected Collection<UnitButton> displayedUnits;
 	
 	//Constructors
@@ -40,6 +39,10 @@ public class UnitQueue extends UIContainer<UnitButton> {
 	
 	public void remove(Unit instructed) {
 		
+	}
+	
+	public boolean isEmpty() {
+		return content.isEmpty();
 	}
 	
 	private void fillDisplayedUnits() {

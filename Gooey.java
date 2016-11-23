@@ -97,12 +97,12 @@ public class Gooey {
 		
 		menuButton = new MenuButton(2 * buttonWidth / 3, brH, owner, paneSwitcher);
 		
-		etButton = new EndTurnButton(buttonWidth, brH, owner, null, this);
-		
 		detailCard = mainMap.getDCard();
 		
-		unitQueue = new UnitQueue(null, uqW, uqH, owner);
+		unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH, owner);
 		//unitQueue = mainMap.getUQ(); /TODO
+		
+		etButton = new EndTurnButton(buttonWidth, brH, owner, null, this, gm, unitQueue);
 		
 		commandCard = mainMap.getCCard();
 		
@@ -172,6 +172,6 @@ public class Gooey {
 	public void updateGameMap(GameMap gm) {
 		mainMap.updateGameMap(gm);
 		mainMap.updateView();
-		etButton.setComputers(gm.getPlayers());
+		etButton.updateComputers();
 	}
 }
