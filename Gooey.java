@@ -82,27 +82,27 @@ public class Gooey {
 		
 		JPanel paneSwitcher = new JPanel();
 		
-		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, owner, paneSwitcher, gm, this);
+		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
 		
 		mainMap = new MainMap(mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
 		mainMap.updateView(); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
 		
-		minimap = new Minimap(null, miniW, miniH, owner);
+		minimap = new Minimap(null, miniW, miniH);
 		
-		mapButton = new MapButton(buttonWidth, brH, owner, globalMap);
+		mapButton = new MapButton(buttonWidth, brH, globalMap);
 		
-		resourceCard = new ResourceCard(null, null, rcW, brH, owner);
+		resourceCard = new ResourceCard(null, null, rcW, brH);
 		
-		scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, owner, scriptInt);
+		scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, scriptInt);
 		
-		menuButton = new MenuButton(2 * buttonWidth / 3, brH, owner, paneSwitcher);
+		menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher);
 		
 		detailCard = mainMap.getDCard();
 		
-		unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH, owner);
+		unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
 		//unitQueue = mainMap.getUQ(); /TODO
 		
-		etButton = new EndTurnButton(buttonWidth, brH, owner, null, this, gm, unitQueue);
+		etButton = new EndTurnButton(buttonWidth, brH, owner, this, gm, unitQueue);
 		
 		commandCard = mainMap.getCCard();
 		
@@ -110,11 +110,11 @@ public class Gooey {
 		
 		buttonRow = new JPanel();
 		
-		buttonRow.add(mapButton.getView());
+		buttonRow.add(mapButton);
 		buttonRow.add(resourceCard.getView());
-		buttonRow.add(scriptInterfaceButton.getView());
-		buttonRow.add(menuButton.getView());
-		buttonRow.add(etButton.getView());
+		buttonRow.add(scriptInterfaceButton);
+		buttonRow.add(menuButton);
+		buttonRow.add(etButton);
 		buttonRow.setPreferredSize(new Dimension(brW, brH));
 		buttonRow.setVisible(true);
 		

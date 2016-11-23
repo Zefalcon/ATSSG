@@ -6,21 +6,26 @@ import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
-import ATSSG.Player.Player;
 import ATSSG.Script.ScriptInterface;
 
-public class ScriptInterfaceButton extends Button {
+public class ScriptInterfaceButton extends JButton {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	//Methods
-	public ScriptInterfaceButton(int width, int height, Player owner, final ScriptInterface si) {
-		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoScriptUI.png").toString()) , owner);
-		gooeyButton.setPreferredSize(new Dimension(width, height));
-		gooeyButton.addActionListener(new ActionListener(){
+	public ScriptInterfaceButton(int width, int height, final ScriptInterface si) {
+		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoScriptUI.png").toString()));
+		this.setPreferredSize(new Dimension(width, height));
+		this.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				si.getView().setVisible(true);
 			}
 		});
-		gooeyButton.setEnabled(false);
+		this.setEnabled(false);
 	}
 }

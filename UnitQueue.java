@@ -10,16 +10,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ATSSG.Player.Player;
-
 public class UnitQueue extends UIContainer<UnitButton> {
 	
 	//Variables
 	protected Collection<UnitButton> displayedUnits;
 	
 	//Constructors
-	public UnitQueue(Collection<UnitButton> units, int width, int height, Player owner) {
-		super(units, width, height, owner);
+	public UnitQueue(Collection<UnitButton> units, int width, int height) {
+		super(units, width, height);
 		view = new JPanel();
 		view.setLayout(new GridLayout(3,1));
 		//flag hack lines below for new UI testing (and relevant imports)

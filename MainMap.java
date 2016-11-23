@@ -39,16 +39,19 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected ScriptInterface si;
 	
+	protected Player owner;
+	
 	//Constructors
 	
 	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
 	public MainMap(final int width, final int height, final Player owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
 			final Gooey holder, ScriptInterface si) {
-		super(null, width, height, owner); //It so happens that arrays are not collections, and an array is notably better here.
+		super(null, width, height); //It so happens that arrays are not collections, and an array is notably better here.
 		this.holder = holder;
+		this.owner = owner;
 		this.si = si;
-		this.cCard = new CommandCard(null, cCardW, cCardH, owner, this);
-		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, owner, this, si);
+		this.cCard = new CommandCard(null, cCardW, cCardH, this);
+		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, this, si);
 		selectedEntity = null;
 		view = new JPanel();view.setPreferredSize(new Dimension(width, height));
 		view.setVisible(true);

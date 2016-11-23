@@ -6,20 +6,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import ATSSG.Player.Player;
-
 public class TerrainCard extends UIContainer<TerrainType> {
 
 	//Variables
 	
-	TerrainType terrain;
+	protected TerrainType terrain;
 	
-	JLabel terrView;
+	protected JLabel terrView;
 	
 	//Constructors
 	
-	public TerrainCard(Collection<TerrainType> content, int width, int height, Player owner) {
-		super(content, width, height, owner);
+	public TerrainCard(Collection<TerrainType> content, int width, int height) {
+		super(content, width, height);
 		this.terrain = content.iterator().next();
 		view = new JPanel();
 		view.setPreferredSize(getSize());

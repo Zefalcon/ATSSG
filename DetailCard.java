@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.swing.JPanel;
 
 import ATSSG.Entities.Entity;
-import ATSSG.Player.Player;
 import ATSSG.Script.ScriptInterface;
 
 public class DetailCard extends UIContainer<Entity> {
@@ -19,14 +18,14 @@ public class DetailCard extends UIContainer<Entity> {
 	
 	//Constructors
 	public DetailCard(Collection<Entity> occupiers, TerrainType terrain, final int width, final int height, 
-			final Player owner, MainMap mainMap, ScriptInterface si) {
-		super(occupiers, width, height, owner);
+			MainMap mainMap, ScriptInterface si) {
+		super(occupiers, width, height);
 		
-		entCard = new EntityCard(occupiers, width - height - 50, height, owner, mainMap, si); //Flag that -50 is completely arbitrary and I'm not totally sure why I needed it
+		entCard = new EntityCard(occupiers, width - height - 50, height, mainMap, si); //Flag that -50 is completely arbitrary and I'm not totally sure why I needed it
 		
 		ArrayList<TerrainType> altt = new ArrayList<TerrainType>(1);
 		altt.add(TerrainType.VOID);
-		terrCard = new TerrainCard(altt, height, height, owner);
+		terrCard = new TerrainCard(altt, height, height);
 		
 		view = new JPanel();
 		view.setPreferredSize(getSize());

@@ -4,15 +4,13 @@ import java.util.Collection;
 
 import javax.swing.JFrame;
 
-import ATSSG.Player.Player;
-
 public abstract class Overlay extends UIContainer<Object>{
 	
 	//Variables
 	
 	//Methods
-	public Overlay(Collection<Object> content, int width, int height, Player owner) {
-		super(content, width, height, owner);
+	public Overlay(Collection<Object> content, int width, int height) {
+		super(content, width, height);
 		JFrame frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		view = frame;

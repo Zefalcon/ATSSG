@@ -3,18 +3,26 @@ package ATSSG;
 import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
+import javax.swing.JButton;
 
-import ATSSG.Player.Player;
+public class MenuElement extends JButton {
 
-public class MenuElement extends Button {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	//Variables
+	
+	//Constructors
 
-	public MenuElement(Icon icon, Player owner, ActionListener actlis) {
-		super(icon, owner);
-		gooeyButton.addActionListener(actlis);
+	public MenuElement(Icon icon, ActionListener actlis) {
+		super(icon);
+		this.addActionListener(actlis);
 	}
 	
-	public MenuElement(String text, Player owner, ActionListener actlis) {
-		super(text, owner);
-		gooeyButton.addActionListener(actlis);
+	public MenuElement(String text, ActionListener actlis) {
+		super(text);
+		this.addActionListener(actlis);
 	}
 }

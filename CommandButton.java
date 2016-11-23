@@ -6,11 +6,15 @@ import java.nio.file.Paths;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
-import ATSSG.Player.Player;
-
-public class CommandButton extends Button {
+public class CommandButton extends JButton {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//Variables
 	protected String cmdText;
@@ -18,9 +22,8 @@ public class CommandButton extends Button {
 	
 	
 	//Methods
-	public CommandButton(Icon icon, Player owner) {
-		super("", owner);
-		this.gooeyButton = new GooeyJButton(icon, null);
+	public CommandButton(Icon icon) {
+		super(icon);
 		//gooeyButton.setBorder(new LineBorder(Color.BLACK));
 		this.cmdText = null;
 		blank = new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString());
@@ -28,11 +31,11 @@ public class CommandButton extends Button {
 	
 	public void setParams(Icon icon, String cmdText, ActionListener actlis) {
 		this.cmdText = cmdText;
-		gooeyButton.setIcon(icon);
-		for (ActionListener al : gooeyButton.getActionListeners()) {
-			gooeyButton.removeActionListener(al);
+		this.setIcon(icon);
+		for (ActionListener al : this.getActionListeners()) {
+			this.removeActionListener(al);
 		}
-		gooeyButton.addActionListener(actlis);
+		this.addActionListener(actlis);
 	}
 	
 	public void reset() {

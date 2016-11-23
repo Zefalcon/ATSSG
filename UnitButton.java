@@ -6,33 +6,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
-import ATSSG.Player.Player;
 import ATSSG.Script.ScriptInterface;
 
-public class UnitButton extends Button {
+public class UnitButton extends JButton {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//Variables
-	static ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
-	ScriptInterface si;
-	MainMap mainMap;
+	protected static ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
+	protected ScriptInterface si;
+	protected MainMap mainMap;
 
 	//Methods
-	public UnitButton(Player owner, MainMap mainMap, ScriptInterface si) {
-		super(blank, owner);
+	public UnitButton( MainMap mainMap, ScriptInterface si) {
+		super(blank);
 		this.mainMap = mainMap;
 		this.si = si;
 	}
 	
 	public void setEntity(final Entity reference) {
-		for (ActionListener actlis : gooeyButton.getActionListeners()) {
-			gooeyButton.removeActionListener(actlis);
+		for (ActionListener actlis : this.getActionListeners()) {
+			this.removeActionListener(actlis);
 		}
 		if (reference == null) {
-			gooeyButton.setIcon(blank);
+			this.setIcon(blank);
 		} else {
-			gooeyButton.setIcon(reference.getIcon());
-			gooeyButton.addActionListener(new ActionListener(){
+			this.setIcon(reference.getIcon());
+			this.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					//if (si.getView().isVisible() == true) {return;}
 					//highlight map cell

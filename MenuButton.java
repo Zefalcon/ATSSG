@@ -7,24 +7,24 @@ import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ATSSG.Player.Player;
+public class MenuButton extends JButton {
 
-public class MenuButton extends Button {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public MenuButton(int width, int height, Player owner, final JPanel paneSwitcher) {
-		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuButton.png").toString()), owner);
-		gooeyButton.setPreferredSize(new Dimension(width, height));
-		gooeyButton.addActionListener(new ActionListener(){
+	public MenuButton(int width, int height, final JPanel paneSwitcher) {
+		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuButton.png").toString()));
+		this.setPreferredSize(new Dimension(width, height));
+		this.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
 				cl.previous(paneSwitcher);
 			}
 		});
-	}
-	
-	public void clicked() {
-		
 	}
 }

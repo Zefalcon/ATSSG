@@ -15,17 +15,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import ATSSG.Player.Player;
-
 public class Menu extends UIContainer<MenuElement> {
 	
 	//Variables
 
 	//Methods
-	public Menu(Collection<MenuElement> menuButtons, int width, int height, Player owner, final JPanel paneSwitcher, final GameMap gm,
+	public Menu(Collection<MenuElement> menuButtons, int width, int height, final JPanel paneSwitcher, final GameMap gm,
 			final Gooey holder) {
-		super(menuButtons, width, height, owner);
+		super(menuButtons, width, height);
 		
 		final JPanel menuPanes = new JPanel();
 		final CardLayout menuCards = new CardLayout();
@@ -35,59 +32,59 @@ public class Menu extends UIContainer<MenuElement> {
 		//Card 3: Saving Interface
 		//Card 4: Loading Interface
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoNew.png").toString()), owner, new ActionListener(){
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoNew.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.next(menuPanes);
 			}
 		}));
 		
-		final MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), owner, new ActionListener(){
+		final MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 4
 			}
 		});
-		stats.getView().setEnabled(false);
+		stats.setEnabled(false);
 		content.add(stats);
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), owner, new ActionListener(){
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 2
 			}
 		}));
 		
-		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), owner, new ActionListener(){
+		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 5
 			}
 		});
-		save.getView().setEnabled(false);
+		save.setEnabled(false);
 		content.add(save);
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoExit.png").toString()), owner, new ActionListener(){
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoExit.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				JFrame containerPrime = (JFrame) (paneSwitcher.getTopLevelAncestor());
 				containerPrime.dispatchEvent(new WindowEvent(containerPrime, WindowEvent.WINDOW_CLOSING));
 			}
 		}));
 		
-		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), owner, new ActionListener(){
+		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
 				cl.next(paneSwitcher);
 			}
 		});
-		resume.getView().setEnabled(false);
+		resume.setEnabled(false);
 		content.add(resume);
 		
 		JPanel buttonView = new JPanel();
 		buttonView.setLayout(new GridLayout(3, 2));
 		for (MenuElement me : content) {
-			buttonView.add(me.getView());
+			buttonView.add(me);
 		}
 		buttonView.setVisible(true);
 		
 		ImageIcon back = new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString());
-		final MenuElement backButton = new MenuElement(back, owner, new ActionListener(){
+		final MenuElement backButton = new MenuElement(back, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.first(menuPanes);
 			}
@@ -95,39 +92,39 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		JPanel newGame = new JPanel();
 		newGame.setLayout(new GridLayout(5, 1));
-		newGame.add(new MenuElement("New Game Scenario 1", owner, new ActionListener() {
+		newGame.add(new MenuElement("New Game Scenario 1", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
 				holder.updateGameMap(gm);
-				stats.getView().setEnabled(true);
-				save.getView().setEnabled(true);
-				resume.getView().setEnabled(true);
-				backButton.getView().doClick();
-				resume.getView().doClick();
+				stats.setEnabled(true);
+				save.setEnabled(true);
+				resume.setEnabled(true);
+				backButton.doClick();
+				resume.doClick();
 			}
-		}).getView());
-		newGame.add(new MenuElement("New Game Scenario 2", owner, new ActionListener() {//They will update GameMap with the appropriate file (somehow - I need that method)
+		}));
+		newGame.add(new MenuElement("New Game Scenario 2", new ActionListener() {//They will update GameMap with the appropriate file (somehow - I need that method)
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/Roughpatch.map").toString());
 				holder.updateGameMap(gm);
-				stats.getView().setEnabled(true);
-				save.getView().setEnabled(true);
-				resume.getView().setEnabled(true);
-				backButton.getView().doClick();
-				resume.getView().doClick();
+				stats.setEnabled(true);
+				save.setEnabled(true);
+				resume.setEnabled(true);
+				backButton.doClick();
+				resume.doClick();
 			}
-		}).getView());
-		newGame.add(new MenuElement("New Game Scenario 3", owner, new ActionListener() {
+		}));
+		newGame.add(new MenuElement("New Game Scenario 3", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Scenario 3
 			}
-		}).getView());
-		newGame.add(new MenuElement("New Game Random Scenario", owner, new ActionListener() {
+		}));
+		newGame.add(new MenuElement("New Game Random Scenario", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Random Scenario?
 			}
-		}).getView());
-		newGame.add(backButton.getView());
+		}));
+		newGame.add(backButton);
 		newGame.setVisible(true);
 		
 		Dimension bkgrndSize = new Dimension(width / 3, height / 3);

@@ -5,8 +5,6 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ATSSG.Player.Player;
-
 public class ResourceCard extends UIContainer<Integer>{
 	
 	//Variables
@@ -14,8 +12,8 @@ public class ResourceCard extends UIContainer<Integer>{
 	protected Collection<Icon> pics;
 	
 	//Constructors
-	public ResourceCard(Collection<Integer> quantities, Collection<Icon> pics, int width, int height, Player owner) {
-		super(quantities, width, height, owner);
+	public ResourceCard(Collection<Integer> quantities, Collection<Icon> pics, int width, int height) {
+		super(quantities, width, height);
 		this.pics = pics;
 		view = new JPanel();
 		view.add(new JLabel());
