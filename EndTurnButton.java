@@ -9,7 +9,6 @@ import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIPlayer;
 
 public class EndTurnButton extends JButton {
@@ -22,27 +21,24 @@ public class EndTurnButton extends JButton {
 	private static final long serialVersionUID = 1L;
 	
 	protected Gooey holder;
-	protected GameMap gm;
+	protected final Collection<AIPlayer> computers;
 	protected UnitQueue uq;
-	protected Player owner;
 	protected Boolean prompted = false;
 	
 	//Constructors
 	
-	public EndTurnButton(int width, int height, final Player owner, final Gooey holder, final GameMap gm,
+	public EndTurnButton(int width, int height, final Gooey holder, final Collection<AIPlayer> computers,
 			final UnitQueue uq) {
 		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoEndTurn.png").toString()));
 		this.holder = holder;
-		this.gm = gm;
 		this.uq = uq;
-		this.owner = owner;
+		this.computers = computers;
 		this.setSize(new Dimension(width, height));
 	}
 	
 	//Methods
 	
 	public void updateComputers() {
-		final Collection<AIPlayer> computers = gm.getComputers();
 		for (ActionListener actlis : this.getActionListeners()) {
 			this.removeActionListener(actlis);
 		}
@@ -50,7 +46,7 @@ public class EndTurnButton extends JButton {
 			public void actionPerformed(ActionEvent e) {
 				updateComputers();
 				if (uq.isEmpty() && ! prompted)
-					owner.executeAll();
+					GameMap.getHuman().executeAll();
 					if (computers != null) {
 						for (AIPlayer ai : computers) {
 							ai.executeAll();
