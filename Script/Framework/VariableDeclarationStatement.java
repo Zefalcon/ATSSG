@@ -1,5 +1,9 @@
 package ATSSG.Script.Framework;
 
+import java.util.regex.Pattern;
+
+import javax.management.RuntimeErrorException;
+
 
 public class VariableDeclarationStatement extends Statement {
 	
@@ -7,16 +11,19 @@ public class VariableDeclarationStatement extends Statement {
 	protected String name;
 	protected Class<?> type;
 	
-	public VariableDeclarationStatement(String name, Class<?> varType) {
+	public VariableDeclarationStatement(String name, Class<?> varType) throws ScriptError {
+		if (!Pattern.matches("^[a-zA-Z][a-zA-Z_$0-9]*$", name)) {
+			throw new ScriptError(null, this, "Invalid variable name: " + name);
+		}		
 		this.name = name;
 		this.type = varType;
 	}
 	
 	@Override
 	public boolean execute(Script environment) throws ScriptError {
-		if (type == Double.TYPE) {
+		if (type == Double.class) {
 			environment.getHeap().put(name, 0.0);
-		} else if (type == Boolean.TYPE) {
+		} else if (type == Boolean.class) {
 			environment.getHeap().put(name, false);
 		} else {
 			throw new ScriptError(environment, this, "Unknown variable type for variable \""+name+"\" : " + type.getCanonicalName());
@@ -47,7 +54,12 @@ public class VariableDeclarationStatement extends Statement {
 
 	@Override
 	public Statement copy() {
-		return new VariableDeclarationStatement(name, type);
+		try {
+			return new VariableDeclarationStatement(name+"", type);
+		} catch (ScriptError e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 

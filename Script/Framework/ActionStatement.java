@@ -23,6 +23,7 @@ public class ActionStatement extends Statement {
 	@Override
 	public boolean execute(Script environment) throws ScriptError {
 		environment.getOwner().setAction(action);
+		environment.getOwner().executeAction();
 		return true;
 	}
 

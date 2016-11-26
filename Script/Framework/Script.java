@@ -27,6 +27,7 @@ public class Script {
 	public Script(Entity owner) {
 		this.owner = owner;
 		lines = new Block();
+		heap = new HashMap<String, Object>();
 	}
 	
 	//Methods
