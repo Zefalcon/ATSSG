@@ -43,7 +43,8 @@ public class Unit extends Entity {
 				break;
 			}
 		}
-		return Cell.distance(getContainingCell(), destination) <= type.maxMoves && !enemy;
+		return Cell.distance(getContainingCell(), destination) <= type.maxMoves && !enemy 
+				&& type.passableTerrain.containsKey(destination.getTerrainType());
 	}
 	
 	public boolean move(Cell destination){
