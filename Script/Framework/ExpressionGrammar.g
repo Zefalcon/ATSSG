@@ -7,8 +7,7 @@ options
 {
   language = Java;
   // generated parser should create abstract syntax tree
-  output = AST;  
-  tokenVocab = ExpressionToken;
+  output = AST;
   backtrack=true;
 }
 
@@ -45,13 +44,17 @@ WS : ( ' ' | '\t' | '\r' | '\n' )+ { $channel = HIDDEN; };
 //start rule
 booleanexpression : andexpression;
 numberexpression : pmexpression;
-andexpression : orexpression AND^ andexpression | orexpression;
-orexpression : ineqexpression OR^ ineqexpression | ineqexpression;
-ineqexpression: pmexpression EQ^ pmexpression | pmexpression LT^ pmexpression | pmexpression LTE^ pmexpression 
-	| pmexpression GT^ pmexpression | pmexpression GTE^ pmexpression | pmexpression NE^ pmexpression | notexpression;
+andexpression : orexpression (AND^ orexpression)*;
+orexpression : ineqexpression (OR^ ineqexpression)*;
+ineqexpression: pmexpression compareop^ pmexpression | notexpression;
 notexpression : NOT^ booleanatom | booleanatom;
 booleanatom :  NAME | LPAREN! andexpression RPAREN!;
-pmexpression : mdexpression ADD^ pmexpression | mdexpression SUBT^ pmexpression | mdexpression;
-mdexpression : negative MULT^ mdexpression | negative DIV^ mdexpression | negative;
+pmexpression : mdexpression (addsubtractop^ mdexpression)*;
+mdexpression : negative (multdivop^ negative)*;
 negative : SUBT^ numberatom | numberatom;
 numberatom : NAME | NUMBER | LPAREN! pmexpression RPAREN!;
+
+// Used http://www.gregbugaj.com/?p=251
+addsubtractop: ADD | SUBT;
+multdivop: MULT | DIV;
+compareop : EQ | LT |LTE | GT |GTE |NE;

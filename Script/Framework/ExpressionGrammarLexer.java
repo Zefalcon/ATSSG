@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 Script\\Framework\\ExpressionGrammar.g 2016-11-27 08:53:02
+// $ANTLR 3.5.2 Script\\Framework\\ExpressionGrammar.g 2016-11-27 09:20:44
 
 package ATSSG.Script.Framework;
 
@@ -50,8 +50,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = LPAREN;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:25:8: ( '(' )
-			// Script\\Framework\\ExpressionGrammar.g:25:10: '('
+			// Script\\Framework\\ExpressionGrammar.g:24:8: ( '(' )
+			// Script\\Framework\\ExpressionGrammar.g:24:10: '('
 			{
 			match('('); 
 			}
@@ -70,8 +70,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = RPAREN;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:26:8: ( ')' )
-			// Script\\Framework\\ExpressionGrammar.g:26:10: ')'
+			// Script\\Framework\\ExpressionGrammar.g:25:8: ( ')' )
+			// Script\\Framework\\ExpressionGrammar.g:25:10: ')'
 			{
 			match(')'); 
 			}
@@ -90,8 +90,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = AND;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:27:5: ( '&&' )
-			// Script\\Framework\\ExpressionGrammar.g:27:7: '&&'
+			// Script\\Framework\\ExpressionGrammar.g:26:5: ( '&&' )
+			// Script\\Framework\\ExpressionGrammar.g:26:7: '&&'
 			{
 			match("&&"); 
 
@@ -111,8 +111,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = OR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:28:4: ( '||' )
-			// Script\\Framework\\ExpressionGrammar.g:28:6: '||'
+			// Script\\Framework\\ExpressionGrammar.g:27:4: ( '||' )
+			// Script\\Framework\\ExpressionGrammar.g:27:6: '||'
 			{
 			match("||"); 
 
@@ -132,8 +132,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = NOT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:29:5: ( '!' )
-			// Script\\Framework\\ExpressionGrammar.g:29:7: '!'
+			// Script\\Framework\\ExpressionGrammar.g:28:5: ( '!' )
+			// Script\\Framework\\ExpressionGrammar.g:28:7: '!'
 			{
 			match('!'); 
 			}
@@ -152,8 +152,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = MULT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:30:5: ( '*' )
-			// Script\\Framework\\ExpressionGrammar.g:30:7: '*'
+			// Script\\Framework\\ExpressionGrammar.g:29:5: ( '*' )
+			// Script\\Framework\\ExpressionGrammar.g:29:7: '*'
 			{
 			match('*'); 
 			}
@@ -172,8 +172,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = DIV;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:31:4: ( '/' )
-			// Script\\Framework\\ExpressionGrammar.g:31:6: '/'
+			// Script\\Framework\\ExpressionGrammar.g:30:4: ( '/' )
+			// Script\\Framework\\ExpressionGrammar.g:30:6: '/'
 			{
 			match('/'); 
 			}
@@ -192,8 +192,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = ADD;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:32:4: ( '+' )
-			// Script\\Framework\\ExpressionGrammar.g:32:6: '+'
+			// Script\\Framework\\ExpressionGrammar.g:31:4: ( '+' )
+			// Script\\Framework\\ExpressionGrammar.g:31:6: '+'
 			{
 			match('+'); 
 			}
@@ -212,8 +212,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = SUBT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:33:5: ( '-' )
-			// Script\\Framework\\ExpressionGrammar.g:33:7: '-'
+			// Script\\Framework\\ExpressionGrammar.g:32:5: ( '-' )
+			// Script\\Framework\\ExpressionGrammar.g:32:7: '-'
 			{
 			match('-'); 
 			}
@@ -232,8 +232,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = EQ;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:34:3: ( '==' )
-			// Script\\Framework\\ExpressionGrammar.g:34:5: '=='
+			// Script\\Framework\\ExpressionGrammar.g:33:3: ( '==' )
+			// Script\\Framework\\ExpressionGrammar.g:33:5: '=='
 			{
 			match("=="); 
 
@@ -253,8 +253,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = LT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:35:3: ( '<' )
-			// Script\\Framework\\ExpressionGrammar.g:35:5: '<'
+			// Script\\Framework\\ExpressionGrammar.g:34:3: ( '<' )
+			// Script\\Framework\\ExpressionGrammar.g:34:5: '<'
 			{
 			match('<'); 
 			}
@@ -273,8 +273,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = LTE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:36:4: ( '<=' )
-			// Script\\Framework\\ExpressionGrammar.g:36:6: '<='
+			// Script\\Framework\\ExpressionGrammar.g:35:4: ( '<=' )
+			// Script\\Framework\\ExpressionGrammar.g:35:6: '<='
 			{
 			match("<="); 
 
@@ -294,8 +294,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = GT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:37:3: ( '>' )
-			// Script\\Framework\\ExpressionGrammar.g:37:5: '>'
+			// Script\\Framework\\ExpressionGrammar.g:36:3: ( '>' )
+			// Script\\Framework\\ExpressionGrammar.g:36:5: '>'
 			{
 			match('>'); 
 			}
@@ -314,8 +314,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = GTE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:38:4: ( '>=' )
-			// Script\\Framework\\ExpressionGrammar.g:38:6: '>='
+			// Script\\Framework\\ExpressionGrammar.g:37:4: ( '>=' )
+			// Script\\Framework\\ExpressionGrammar.g:37:6: '>='
 			{
 			match(">="); 
 
@@ -335,8 +335,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = NE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:39:3: ( '!=' )
-			// Script\\Framework\\ExpressionGrammar.g:39:5: '!='
+			// Script\\Framework\\ExpressionGrammar.g:38:3: ( '!=' )
+			// Script\\Framework\\ExpressionGrammar.g:38:5: '!='
 			{
 			match("!="); 
 
@@ -356,8 +356,8 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = NAME;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:41:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )* )
-			// Script\\Framework\\ExpressionGrammar.g:41:8: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
+			// Script\\Framework\\ExpressionGrammar.g:40:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )* )
+			// Script\\Framework\\ExpressionGrammar.g:40:8: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -367,7 +367,7 @@ public class ExpressionGrammarLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// Script\\Framework\\ExpressionGrammar.g:41:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
+			// Script\\Framework\\ExpressionGrammar.g:40:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -412,10 +412,10 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = NUMBER;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:42:8: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? )
-			// Script\\Framework\\ExpressionGrammar.g:42:10: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )?
+			// Script\\Framework\\ExpressionGrammar.g:41:8: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? )
+			// Script\\Framework\\ExpressionGrammar.g:41:10: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )?
 			{
-			// Script\\Framework\\ExpressionGrammar.g:42:10: ( '0' .. '9' )+
+			// Script\\Framework\\ExpressionGrammar.g:41:10: ( '0' .. '9' )+
 			int cnt2=0;
 			loop2:
 			while (true) {
@@ -448,7 +448,7 @@ public class ExpressionGrammarLexer extends Lexer {
 				cnt2++;
 			}
 
-			// Script\\Framework\\ExpressionGrammar.g:42:24: ( '.' ( '0' .. '9' )+ )?
+			// Script\\Framework\\ExpressionGrammar.g:41:24: ( '.' ( '0' .. '9' )+ )?
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='.') ) {
@@ -456,10 +456,10 @@ public class ExpressionGrammarLexer extends Lexer {
 			}
 			switch (alt4) {
 				case 1 :
-					// Script\\Framework\\ExpressionGrammar.g:42:25: '.' ( '0' .. '9' )+
+					// Script\\Framework\\ExpressionGrammar.g:41:25: '.' ( '0' .. '9' )+
 					{
 					match('.'); 
-					// Script\\Framework\\ExpressionGrammar.g:42:29: ( '0' .. '9' )+
+					// Script\\Framework\\ExpressionGrammar.g:41:29: ( '0' .. '9' )+
 					int cnt3=0;
 					loop3:
 					while (true) {
@@ -513,10 +513,10 @@ public class ExpressionGrammarLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// Script\\Framework\\ExpressionGrammar.g:43:4: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-			// Script\\Framework\\ExpressionGrammar.g:43:6: ( ' ' | '\\t' | '\\r' | '\\n' )+
+			// Script\\Framework\\ExpressionGrammar.g:42:4: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+			// Script\\Framework\\ExpressionGrammar.g:42:6: ( ' ' | '\\t' | '\\r' | '\\n' )+
 			{
-			// Script\\Framework\\ExpressionGrammar.g:43:6: ( ' ' | '\\t' | '\\r' | '\\n' )+
+			// Script\\Framework\\ExpressionGrammar.g:42:6: ( ' ' | '\\t' | '\\r' | '\\n' )+
 			int cnt5=0;
 			loop5:
 			while (true) {

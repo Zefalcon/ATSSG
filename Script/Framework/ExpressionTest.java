@@ -21,6 +21,8 @@ public class ExpressionTest {
 		new VariableDeclarationStatement("var1", Double.class).execute(s);
 		new SetVariableStatement("var1", "2.5").execute(s);
 		assertEquals((Double) 7.5, Expression.getDoubleValue("(3)*var1", s));
+		assertEquals((Double) 2.0, Expression.getDoubleValue("1-2+3", s));
+		
 	}
 
 	@Test
