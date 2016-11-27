@@ -10,12 +10,12 @@ public class SetVariableStatementTest {
 	public void testExecute() throws ScriptError {
 		Script s = new Script(null);
 		new VariableDeclarationStatement("var1", Double.class).execute(s);
-		Statement set = new SetVariableStatement("var1", "1");
-		set.execute(s);
+		new SetVariableStatement("var1", "1").execute(s);
+		assert((Double) s.getHeap().get("var1") == 1.0);
+		new SetVariableStatement("var1", "5").execute(s);
 		assert((Double) s.getHeap().get("var1") == 1.0);
 		new VariableDeclarationStatement("var2", Boolean.class).execute(s);
-		set = new SetVariableStatement("var2", "true");
-		set.execute(s);
+		new SetVariableStatement("var2", "true").execute(s);
 		assert((Boolean) s.getHeap().get("var2") == true);
 		try {
 			new SetVariableStatement("var3", "true").execute(s);

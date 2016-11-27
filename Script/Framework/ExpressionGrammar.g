@@ -1,7 +1,7 @@
-parser grammar BooleanExpressionGrammar;
+grammar ExpressionGrammar;
 
 //This code was modified from: http://meri-stuff.blogspot.com/2011/09/antlr-tutorial-expression-language.html
-//Compile it via: java -jar jars\antlr-3.5.2-complete.jar Script\Framework\BooleanExpressionGrammar.g
+//Compile it via: java -jar jars\antlr-3.5.2-complete.jar Script\Framework\ExpressionGrammar.g
 
 options
 {
@@ -17,9 +17,34 @@ options
 @parser::header {
 package ATSSG.Script.Framework;
 }
+
+@lexer::header {
+package ATSSG.Script.Framework;
+}
+
+LPAREN : '(' ;
+RPAREN : ')' ;
+AND : '&&';
+OR : '||';
+NOT : '!';
+MULT: '*';
+DIV: '/';
+ADD: '+';
+SUBT: '-';
+EQ: '==';
+LT: '<';
+LTE: '<=';
+GT: '>';
+GTE: '>=';
+NE: '!=';
+
+NAME : ('a'..'z' | 'A'..'Z')('a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '$')*; 
+NUMBER : ('0' .. '9')+ ('.' ('0' .. '9')+)?;
+WS : ( ' ' | '\t' | '\r' | '\n' )+ { $channel = HIDDEN; };
  
 //start rule
-expression : andexpression;
+booleanexpression : andexpression;
+numberexpression : pmexpression;
 andexpression : orexpression AND^ andexpression | orexpression;
 orexpression : ineqexpression OR^ ineqexpression | ineqexpression;
 ineqexpression: pmexpression EQ^ pmexpression | pmexpression LT^ pmexpression | pmexpression LTE^ pmexpression 
@@ -27,5 +52,6 @@ ineqexpression: pmexpression EQ^ pmexpression | pmexpression LT^ pmexpression | 
 notexpression : NOT^ booleanatom | booleanatom;
 booleanatom :  NAME | LPAREN! andexpression RPAREN!;
 pmexpression : mdexpression ADD^ pmexpression | mdexpression SUBT^ pmexpression | mdexpression;
-mdexpression : numberatom MULT^ mdexpression | numberatom DIV^ mdexpression | numberatom;
-numberatom : NAME | LPAREN! mdexpression RPAREN!;
+mdexpression : negative MULT^ mdexpression | negative DIV^ mdexpression | negative;
+negative : SUBT^ numberatom | numberatom;
+numberatom : NAME | NUMBER | LPAREN! pmexpression RPAREN!;

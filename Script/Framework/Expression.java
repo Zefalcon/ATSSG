@@ -14,10 +14,10 @@ public class Expression {
 		CommonTree ast = null;
 		try {
 			ANTLRStringStream input = new ANTLRStringStream(source);
-			TokenStream tokens = new CommonTokenStream( new ExpressionToken( input ) );
-			NumberExpressionGrammar parser = new NumberExpressionGrammar(tokens);
-			NumberExpressionGrammar.expression_return ret;
-			ret = parser.expression();
+			TokenStream tokens = new CommonTokenStream( new ExpressionGrammarLexer( input ) );
+			ExpressionGrammarParser parser = new ExpressionGrammarParser(tokens);
+			ExpressionGrammarParser.numberexpression_return ret;
+			ret = parser.numberexpression();
 		    ast = (CommonTree) ret.tree;
 		    print(ast, 0);
 		} catch (RecognitionException e) {
@@ -28,19 +28,25 @@ public class Expression {
 	
 	private static Double getDoubleValue(Tree ast, Script environment) {
 		switch (ast.getType()) {
-		case ExpressionToken.ADD:
+		case ExpressionGrammarLexer.ADD:
 			return getDoubleValue(ast.getChild(0), environment) + getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.DIV:
+		case ExpressionGrammarLexer.DIV:
 			return getDoubleValue(ast.getChild(0), environment) / getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.MULT:
+		case ExpressionGrammarLexer.MULT:
 			return getDoubleValue(ast.getChild(0), environment) * getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.NAME:
+		case ExpressionGrammarLexer.NAME:
 			if (environment.getHeap().containsKey(ast.getText())) {
 				return (Double) environment.getHeap().get(ast.getText());
 			}
 			return Double.parseDouble(ast.getText());
-		case ExpressionToken.SUBT:
-			return getDoubleValue(ast.getChild(0), environment) - getDoubleValue(ast.getChild(1), environment);
+		case ExpressionGrammarLexer.NUMBER:
+			return Double.parseDouble(ast.getText());
+		case ExpressionGrammarLexer.SUBT:
+			if (ast.getChildCount() == 2) {
+				return getDoubleValue(ast.getChild(0), environment) - getDoubleValue(ast.getChild(1), environment);
+			} else {
+				return - getDoubleValue(ast.getChild(0), environment);
+			}
 		default: return null;
 		}
 	}
@@ -65,10 +71,10 @@ public class Expression {
 		CommonTree ast = null;
 		try {
 			ANTLRStringStream input = new ANTLRStringStream(source);
-			TokenStream tokens = new CommonTokenStream( new ExpressionToken( input ) );
-			BooleanExpressionGrammar parser = new BooleanExpressionGrammar(tokens);
-			BooleanExpressionGrammar.expression_return ret;
-			ret = parser.expression();
+			TokenStream tokens = new CommonTokenStream( new ExpressionGrammarLexer( input ) );
+			ExpressionGrammarParser parser = new ExpressionGrammarParser(tokens);
+			ExpressionGrammarParser.booleanexpression_return ret;
+			ret = parser.booleanexpression();
 		    ast = (CommonTree) ret.tree;
 		    print(ast, 0);
 		} catch (RecognitionException e) {
@@ -79,30 +85,30 @@ public class Expression {
 	
 	public static Boolean getBooleanValue(Tree ast, Script environment) {
 		switch (ast.getType()) {
-		case ExpressionToken.AND:
+		case ExpressionGrammarLexer.AND:
 			boolean result = true;
 			for (int i=0; i<ast.getChildCount(); i++) {
 				result =  result && getBooleanValue(ast.getChild(i), environment);
 			}
 			return result;
-		case ExpressionToken.EQ:
+		case ExpressionGrammarLexer.EQ:
 			return getDoubleValue(ast.getChild(0), environment).equals(getDoubleValue(ast.getChild(1), environment));
-		case ExpressionToken.GT:
+		case ExpressionGrammarLexer.GT:
 			return getDoubleValue(ast.getChild(0), environment) > getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.GTE:
+		case ExpressionGrammarLexer.GTE:
 			return getDoubleValue(ast.getChild(0), environment) >= getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.LT:
+		case ExpressionGrammarLexer.LT:
 			return getDoubleValue(ast.getChild(0), environment) < getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.LTE:
+		case ExpressionGrammarLexer.LTE:
 			return getDoubleValue(ast.getChild(0), environment) <= getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.NAME:
+		case ExpressionGrammarLexer.NAME:
 			if (environment.getHeap().containsKey(ast.getText())) {
 				return (Boolean) environment.getHeap().get(ast.getText());
 			}
 			return Boolean.parseBoolean(ast.getText());
-		case ExpressionToken.NE:
+		case ExpressionGrammarLexer.NE:
 			return getDoubleValue(ast.getChild(0), environment) != getDoubleValue(ast.getChild(1), environment);
-		case ExpressionToken.OR:
+		case ExpressionGrammarLexer.OR:
 			boolean result2 = false;
 			for (int i=0; i<ast.getChildCount(); i++) {
 				result2 = result2 || getBooleanValue(ast.getChild(i), environment);
