@@ -117,6 +117,13 @@ public class Menu extends UIContainer<MenuElement> {
 		newGame.add(new MenuElement("New Game Scenario 3", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Scenario 3
+				gm.update(Paths.get("src/ATSSG/Maps/Large.map").toString());
+				holder.updateGameMap(gm);
+				stats.setEnabled(true);
+				save.setEnabled(true);
+				resume.setEnabled(true);
+				backButton.doClick();
+				resume.doClick();
 			}
 		}));
 		newGame.add(new MenuElement("New Game Random Scenario", new ActionListener() {

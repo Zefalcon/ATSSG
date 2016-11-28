@@ -42,8 +42,10 @@ public class GameMap {
 	public GameMap(File toLoad) throws IOException{
 		
 		//flag These should really be moved ANYWHERE other than here...
+		terrain_lookup.put(new Character('v'), TerrainType.VOID);
 		terrain_lookup.put(new Character('g'), TerrainType.GRASS);
 		terrain_lookup.put(new Character('r'), TerrainType.ROUGH_TERRAIN);
+		terrain_lookup.put(new Character('m'), TerrainType.MOUNTAIN);
 		unit_lookup.put("soldier", UnitType.Soldier);
 		
 		Scanner s_tmp = new Scanner(toLoad);
@@ -53,6 +55,7 @@ public class GameMap {
 		String name_stripped = map_str.substring(map_str.indexOf("---") + 3);
 		int size_x = Integer.parseInt(name_stripped.substring(0, name_stripped.indexOf('x')));
 		int size_y = Integer.parseInt(name_stripped.substring(name_stripped.indexOf('x') + 1, name_stripped.indexOf(':')));
+		System.out.println("Size recorded is " + size_x + ", " + size_y);
 		all_cells = new Cell[size_x][size_y];
 		
 		int ai_count = Integer.parseInt(name_stripped.substring(name_stripped.indexOf(':') + 1, name_stripped.indexOf("---")));
@@ -79,7 +82,7 @@ public class GameMap {
 		for(int x = 0; x < size_x; x++){
 			for(int y = 0; y < size_y; y++){
 				all_cells[x][y] = new Cell(
-						terrain_lookup.get(terrain_only.charAt(x * size_x + y)),
+						terrain_lookup.get(terrain_only.charAt(x * size_y + y)),
 						null,
 						this,
 						x,

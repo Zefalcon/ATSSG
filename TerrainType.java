@@ -7,9 +7,10 @@ import javax.swing.ImageIcon;
 
 public enum TerrainType {
 	
-	VOID	("Void", "No Selection.", new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString())),
+	VOID	("Void", "", new ImageIcon(Paths.get("src/ATSSG/Art/DemoVoid.png").toString())),
 	GRASS	("Grass", "An open, grassy area.", new ImageIcon(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString())),
-	ROUGH_TERRAIN ("Rough Terrain", "A rocky, hilly area that is hard to traverse", new ImageIcon(Paths.get("src/ATSSG/Art/DemoRocks.png").toString()));
+	ROUGH_TERRAIN ("Rough Terrain", "A rocky, hilly area that is hard to traverse", new ImageIcon(Paths.get("src/ATSSG/Art/DemoRocks.png").toString())),
+	MOUNTAIN ("Mountain", "An area impassable to units", new ImageIcon(Paths.get("src/ATSSG/Art/DemoMountain.png").toString()));
 	
 	
 	public String name;
