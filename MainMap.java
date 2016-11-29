@@ -76,8 +76,8 @@ public class MainMap extends UIContainer<Cell> {
 		view.removeAll();
 		view.setLayout(new GridLayout(mapHeight, mapWidth));
 		
-		for (int i = 0; i < mapHeight; i++) {
-			for (int j = 0; j < mapWidth; j++) {
+		for (int i = 0; i < mapWidth; i++) {
+			for (int j = 0; j < mapHeight; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//if (si.getView().isVisible() == true) {return;}
@@ -136,13 +136,13 @@ public class MainMap extends UIContainer<Cell> {
 		if (interactable == null) {return;} //Flag possible error handling required
 		int x = 0;
 		int y = 0;
-		while (y < interactable.length) {
-			while (x < interactable[0].length) {
+		while (x < interactable.length) {
+			while (y < interactable[0].length) {
 				interactable[x][y].updateView();
-				x++;
+				y++;
 			}
-			x = 0;
-			y++;
+			y = 0;
+			x++;
 		}
 	}
 	

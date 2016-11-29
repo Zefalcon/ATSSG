@@ -106,17 +106,17 @@ public class GameMap {
 			int ly = Integer.parseInt(unit_string.substring(comma + 1));
 			
 			if(pi.equals("h")){
-				new Unit(ut, human, all_cells[ly][lx]);
+				new Unit(ut, human, all_cells[lx][ly]);
 			}
 			else{
-				new Unit(ut, players.get(Integer.parseInt(pi)), all_cells[ly][lx]);
+				new Unit(ut, players.get(Integer.parseInt(pi)), all_cells[lx][ly]);
 			}
 			
 			unit_list = unit_list.substring(last_ind + 1);
 			last_ind = unit_list.indexOf(';');
 		}
 			
-		//all_cells = new Cell[10][10];
+		/*all_cells = new Cell[10][10];
 		//for(int x = 0; x < 10; x++){
 			//for(int y = 0; y < 10; y++){
 				//all_cells[x][y] = new Cell(TerrainType.GRASS, null, this, x, y);
@@ -130,7 +130,7 @@ public class GameMap {
 		//players.add(human);
 		//players.add(ai);
 
-		/*for(int i = 3; i < 8; i++){
+		for(int i = 3; i < 8; i++){
 			Unit s = new Unit(UnitType.Soldier, human, all_cells[3][i]);
 		}
 		
