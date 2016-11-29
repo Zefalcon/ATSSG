@@ -9,8 +9,8 @@ public class ControlStatement extends Statement {
 	protected Boolean evaluation = null;
 	
 	public ControlStatement(Statement trueBranch, Statement falseBranch, String condition) {
-		this.trueBranch = trueBranch;
-		this.falseBranch = falseBranch;
+		setTrueBranch(trueBranch);
+		setFalseBranch(falseBranch);
 		this.condition = condition;
 	}
 
@@ -45,6 +45,9 @@ public class ControlStatement extends Statement {
 	}
 
 	public void setTrueBranch(Statement trueBranch) {
+		if (trueBranch == null) {
+			trueBranch = new Block();
+		}
 		this.trueBranch = trueBranch;
 	}
 
@@ -53,6 +56,9 @@ public class ControlStatement extends Statement {
 	}
 
 	public void setFalseBranch(Statement falseBranch) {
+		if (falseBranch == null) {
+			falseBranch = new Block();
+		}
 		this.falseBranch = falseBranch;
 	}
 
@@ -70,7 +76,6 @@ public class ControlStatement extends Statement {
 
 	@Override
 	public Statement copy() {
-		// TODO Auto-generated method stub
-		return new ControlStatement(trueBranch.copy(), falseBranch.copy(), condition);
+		return new ControlStatement(trueBranch.copy(), falseBranch.copy(), condition+"");
 	}
 }

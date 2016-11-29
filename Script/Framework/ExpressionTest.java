@@ -31,8 +31,11 @@ public class ExpressionTest {
 		assertEquals(true, Expression.getBooleanValue("true", s));
 		assertEquals(false, Expression.getBooleanValue("false", s));
 		assertEquals(false, Expression.getBooleanValue("true && false", s));
+		assertEquals(false, Expression.getBooleanValue("false && true", s));
 		assertEquals(true, Expression.getBooleanValue("true && true", s));
+		assertEquals(false, Expression.getBooleanValue("true && true && false", s));
 		assertEquals(true, Expression.getBooleanValue("true && (false || true)", s));
+		assertEquals(true, Expression.getBooleanValue("false || false || true", s));		
 		assertEquals(true, Expression.getBooleanValue("3 == 3", s));
 		assertEquals(true, Expression.getBooleanValue("3 <= 3", s));
 		assertEquals(false, Expression.getBooleanValue("3 < 3", s));
@@ -46,11 +49,16 @@ public class ExpressionTest {
 		assertEquals(false, Expression.getBooleanValue("3 < 2", s));
 		assertEquals(true, Expression.getBooleanValue("3 >= 2", s));
 		assertEquals(true, Expression.getBooleanValue("3 > 2", s));
+		assertEquals(true, Expression.getBooleanValue("3 != 2", s));
+		assertEquals(false, Expression.getBooleanValue("2 != 2", s));
+		assertEquals(false, Expression.getBooleanValue("!true", s));
+		assertEquals(true, Expression.getBooleanValue("!false", s));
 		assertEquals(true, Expression.getBooleanValue("1<2 && (3*4==2 || 2/1==2)", s));
 		assertEquals(true, Expression.getBooleanValue("1<(1+1) && (3*4==2 || 2/1==2)", s));
 		new VariableDeclarationStatement("var2", Boolean.class).execute(s);
 		new SetVariableStatement("var2", "true").execute(s);
 		assertEquals(true, Expression.getBooleanValue("var2", s));
+		assertEquals(false, Expression.getBooleanValue("!var2", s));
 	}
 
 }
