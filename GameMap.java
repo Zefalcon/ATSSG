@@ -82,7 +82,7 @@ public class GameMap {
 		for(int x = 0; x < size_x; x++){
 			for(int y = 0; y < size_y; y++){
 				all_cells[x][y] = new Cell(
-						terrain_lookup.get(terrain_only.charAt(x * size_y + y)),
+						terrain_lookup.get(terrain_only.charAt(y * size_x + x)),
 						null,
 						this,
 						x,
