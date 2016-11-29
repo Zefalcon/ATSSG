@@ -28,14 +28,14 @@ public class GameMap {
 	protected List<AIPlayer> computers;
 	
 	private static Map<Character, TerrainType> terrain_lookup = new InlineMap<Character, TerrainType>()
-			.returnPut(new Character('v'), TerrainType.VOID)
-			.returnPut(new Character('g'), TerrainType.GRASS)
-			.returnPut(new Character('r'), TerrainType.ROUGH_TERRAIN)
-			.returnPut(new Character('m'), TerrainType.MOUNTAIN)
+		.returnPut(new Character('v'), TerrainType.VOID)
+		.returnPut(new Character('g'), TerrainType.GRASS)
+		.returnPut(new Character('r'), TerrainType.ROUGH_TERRAIN)
+		.returnPut(new Character('m'), TerrainType.MOUNTAIN)
 	;
-		
+	
 	private static Map<String, UnitType> unit_lookup = new InlineMap<String, UnitType>()
-			.returnPut("soldier", UnitType.Soldier)
+		.returnPut("soldier", UnitType.Soldier)
 	;
 	private static HumanPlayer human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
 	
@@ -82,7 +82,7 @@ public class GameMap {
 		for(int x = 0; x < size_x; x++){
 			for(int y = 0; y < size_y; y++){
 				all_cells[x][y] = new Cell(
-						terrain_lookup.get(terrain_only.charAt(y * size_x + x)),
+						terrain_lookup.get(terrain_only.charAt(x * size_y + y)),
 						null,
 						this,
 						x,
