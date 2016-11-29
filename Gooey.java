@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import ATSSG.Player.Player;
+import ATSSG.Player.HumanPlayer;
 import ATSSG.Script.ScriptInterface;
 
 public class Gooey {
@@ -36,6 +36,8 @@ public class Gooey {
 	
 	protected MainMap mainMap;
 	
+	protected MainScroller mainScroll;
+	
 	protected Menu menu;
 	
 	protected ScriptInterface scriptInt;
@@ -53,7 +55,7 @@ public class Gooey {
 	
 	//Constructors
 	
-	public Gooey(int screenHeight, int screenWidth, int numResources, Player owner, GameMap gm) {
+	public Gooey(int screenHeight, int screenWidth, int numResources, HumanPlayer owner, GameMap gm) {
 		//0,0 is the top left corner.
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
@@ -75,8 +77,10 @@ public class Gooey {
 		int rcW = numResources * screenWidth / 8; //Flag the divisor is arbitrary and untested
 		int buttonWidth = (brW - rcW) / 6; //Flag Should customize size of buttons at some point.
 		//MainMap occupies all of the space left
-		int mainW = screenWidth;
-		int mainH = 3 * screenHeight / 4;
+		int msW = screenWidth;
+		int msH = 3 * screenHeight / 4;
+		int mainW = screenWidth - 100;
+		int mainH = (3 * screenHeight / 4) - 100;
 		
 		//Building the UI
 		
@@ -85,7 +89,9 @@ public class Gooey {
 		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
 		
 		mainMap = new MainMap(mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
-		mainMap.updateView(); //flag arbitrary numbers //FLAG uncomment after fixing icon sizes
+		mainMap.updateGameMap(gm);
+		
+		mainScroll = new MainScroller(msW, msH, mainMap);
 		
 		minimap = new Minimap(null, miniW, miniH);
 		
@@ -124,8 +130,8 @@ public class Gooey {
 		GridBagLayout gbl = new GridBagLayout();
 		panelPrime.setLayout(gbl);
 		panelPrime.setBounds(0, 0, screenWidth, screenHeight);
-		panelPrime.add(mainMap.getView());
-		gbl.setConstraints(mainMap.getView(), new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(mainScroll.getView());
+		gbl.setConstraints(mainScroll.getView(), new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		panelPrime.add(minimap.getView());
 		gbl.setConstraints(minimap.getView(), new GridBagConstraints(0, 1, 1, 2, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		panelPrime.add(buttonRow);
@@ -171,7 +177,8 @@ public class Gooey {
 	//Called by Menu when initializing a game
 	public void updateGameMap(GameMap gm) {
 		mainMap.updateGameMap(gm);
-		mainMap.updateView();
+		mainScroll.updateBounds(mainMap);
+		mainMap.updateView(GameMap.getHuman().getStartingX(), GameMap.getHuman().getStartingY());
 		etButton.updateComputers();
 	}
 }

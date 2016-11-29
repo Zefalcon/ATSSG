@@ -1,7 +1,6 @@
 package ATSSG;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +27,16 @@ public class GameMap {
 	protected List<Player> players;
 	protected List<AIPlayer> computers;
 	
-	private static Map<Character, TerrainType> terrain_lookup = new HashMap<Character, TerrainType>();
-	private static Map<String, UnitType> unit_lookup = new HashMap<String, UnitType>();
+	private static Map<Character, TerrainType> terrain_lookup = new InlineMap<Character, TerrainType>()
+			.returnPut(new Character('v'), TerrainType.VOID)
+			.returnPut(new Character('g'), TerrainType.GRASS)
+			.returnPut(new Character('r'), TerrainType.ROUGH_TERRAIN)
+			.returnPut(new Character('m'), TerrainType.MOUNTAIN)
+	;
+		
+	private static Map<String, UnitType> unit_lookup = new InlineMap<String, UnitType>()
+			.returnPut("soldier", UnitType.Soldier)
+	;
 	private static HumanPlayer human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
 	
 	public GameMap(){
@@ -40,13 +47,6 @@ public class GameMap {
 	
 	//Constructor
 	public GameMap(File toLoad) throws IOException{
-		
-		//flag These should really be moved ANYWHERE other than here...
-		terrain_lookup.put(new Character('v'), TerrainType.VOID);
-		terrain_lookup.put(new Character('g'), TerrainType.GRASS);
-		terrain_lookup.put(new Character('r'), TerrainType.ROUGH_TERRAIN);
-		terrain_lookup.put(new Character('m'), TerrainType.MOUNTAIN);
-		unit_lookup.put("soldier", UnitType.Soldier);
 		
 		Scanner s_tmp = new Scanner(toLoad);
 		String map_str = s_tmp.useDelimiter("\\Z").next().replaceAll("\\s+", "");
@@ -82,7 +82,7 @@ public class GameMap {
 		for(int x = 0; x < size_x; x++){
 			for(int y = 0; y < size_y; y++){
 				all_cells[x][y] = new Cell(
-						terrain_lookup.get(terrain_only.charAt(x * size_y + y)),
+						terrain_lookup.get(terrain_only.charAt(y * size_x + x)),
 						null,
 						this,
 						x,

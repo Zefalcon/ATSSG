@@ -1,6 +1,5 @@
 package ATSSG;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +11,7 @@ import ATSSG.Actions.AttackAction;
 import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
-import ATSSG.Player.Player;
+import ATSSG.Player.HumanPlayer;
 import ATSSG.Script.ScriptInterface;
 
 public class MainMap extends UIContainer<Cell> {
@@ -22,8 +21,12 @@ public class MainMap extends UIContainer<Cell> {
 	//This field stores all Cells in the game, with listeners to prevent recalculations
 	protected Cell[][] interactable;
 	
+	protected int mapW, mapH;
+	
 	//While this one stores the subset of the above collection that is onscreen
-	//protected Cell[][] viewableArea;
+	protected Cell[][] viewableArea;
+	
+	protected int cameraW, cameraH;
 	
 	protected CommandType heldCommand;
 	
@@ -39,51 +42,44 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected ScriptInterface si;
 	
-	protected Player owner;
+	protected HumanPlayer owner;
 	
 	//Constructors
 	
-	//MainMap wants to be passed the entire map, and will rescale its viewable section dynamically
-	public MainMap(final int width, final int height, final Player owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
+	public MainMap(final int width, final int height, final HumanPlayer owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
 			final Gooey holder, ScriptInterface si) {
 		super(null, width, height); //It so happens that arrays are not collections, and an array is notably better here.
 		this.holder = holder;
 		this.owner = owner;
 		this.si = si;
+		this.cameraH = 10;
+		this.cameraW = 15;
 		this.cCard = new CommandCard(null, cCardW, cCardH, this);
 		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, this, si);
 		selectedEntity = null;
-		view = new JPanel();view.setPreferredSize(new Dimension(width, height));
+		viewableArea = new Cell[cameraW][cameraH];
+		view = new JPanel();
+		view.setPreferredSize(getSize());
 		view.setVisible(true);
-		
-		
-		/////////////////////////////////
-		//Maybe for now we don't care about moving the camera - make the whole map fit on one screen
-		/////////////////////////////////
-		
-		//viewableArea = interactable;
-		
-		
 	}
 	
 	//Methods
 	
 	public void updateGameMap(GameMap gm) {
-		if (gm == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;} //Flag possible error handling required
+		if (gm == null || gm.getCells() == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;} //Flag possible error handling required
 		interactable = gm.getCells();
-		int mapWidth = interactable.length;
-		int mapHeight = interactable[0].length;
-		view.removeAll();
-		view.setLayout(new GridLayout(mapHeight, mapWidth));
-		
-		for (int i = 0; i < mapWidth; i++) {
-			for (int j = 0; j < mapHeight; j++) {
+		mapW = interactable.length;
+		mapH = interactable[0].length;
+		for (int i = 0; i < mapW; i++) {
+			for (int j = 0; j < mapH; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//if (si.getView().isVisible() == true) {return;}
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
+						System.out.print(clickedCell.getTerrainType().getName());
+						System.out.println("  ("+clickedCell.getX() + "," + clickedCell.getY() + ")");
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
 						if (occupiers.isEmpty()) {
 							selectedEntity = null;
@@ -103,14 +99,9 @@ public class MainMap extends UIContainer<Cell> {
 							}
 							clearHeld();
 						} else {
-							//Do stuff
-							//Display info on DetailCard - which includes selectable entities in a grid - thus UnitButton is what refreshes the Command Card
 							//highlight selected Cell
-							//discriminate between left and right clicks?
 							
-							/*if (clickedCell != null && ! clickedCell.getOccupyingEntities().isEmpty()) {
-								selectedEntity = clickedCell.getOccupyingEntities().iterator().next();
-							}*/
+							
 							dCard.update(occupiers, clickedCell.getTerrainType());
 							if (selectedEntity == null) {
 								cCard.reset();
@@ -125,24 +116,32 @@ public class MainMap extends UIContainer<Cell> {
 						}
 					}
 				});
-				view.add(interactable[i][j].getView()); //Shortcut code that assumes viewableArea = World
 			}
 		}
+		updateView(owner.getStartingX(), owner.getStartingY());
 	}
 	
-	//Notably, with proper external support this method, by not placing any restriction on 
-	//viewableArea, supports zooming
 	protected void updateView() {
+		updateView(viewableArea[0][0].getX(), viewableArea[0][0].getY());
+	}
+	
+	protected void updateView(int x, int y) {
 		if (interactable == null) {return;} //Flag possible error handling required
-		int x = 0;
-		int y = 0;
-		while (x < interactable.length) {
-			while (y < interactable[0].length) {
-				interactable[x][y].updateView();
-				y++;
+		view.removeAll();
+		view.setLayout(new GridLayout(cameraH, cameraW));
+		
+		if (x + cameraW > mapW) {x = mapW - cameraW;}//No one likes ArrayIndexOutOfBoundsExceptions
+		if (y + cameraH > mapH) {y = mapH - cameraH;}
+		if (x < 0) {x = 0;}
+		if (y < 0) {y = 0;}
+		
+		for (int j = 0; j < cameraH && j < mapH; j++) {
+			for (int i = 0; i < cameraW && i < mapW; i++) {
+				interactable[x+i][y+j].updateView();
+				viewableArea[i][j] = interactable[x+i][y+j];
+				view.add(viewableArea[i][j].getView());
+				viewableArea[i][j].updateView();
 			}
-			y = 0;
-			x++;
 		}
 	}
 	
@@ -178,4 +177,22 @@ public class MainMap extends UIContainer<Cell> {
 	//getter methods to get references to Gooey
 	public CommandCard getCCard() {return cCard;}
 	public DetailCard getDCard() {return dCard;}
+	
+	//getter methods for MainScroller to find camera bounds
+	public int getCamTop() {return viewableArea[0][0].getY();}
+	public int getCamLeft() {return viewableArea[0][0].getX();}
+	public int getCamRight() {
+		if (cameraW < mapW && cameraH < mapH)
+			return viewableArea[cameraW-1][cameraH-1].getX();
+		else
+			return viewableArea[mapW-1][mapH-1].getX();//Flag: what about cross terms? Or do we just have no maps smaller than the camera?
+	}
+	public int getCamBot() {
+		if (cameraW < mapW && cameraH < mapH)
+			return viewableArea[cameraW-1][cameraH-1].getY();
+		else
+			return viewableArea[mapW-1][mapH-1].getY();
+	}
+	public int getMapW() {return mapW;}
+	public int getMapH() {return mapH;}
 }

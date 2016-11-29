@@ -14,10 +14,14 @@ import ATSSG.RCommodityType;
 
 public class HumanPlayer extends Player {
 
+	protected int stX, stY;
+	
 	public HumanPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map) {
 		resources = startingResources;
 		owned_entities = starting_entities;
 		containing_map = map;
+		stX = 0;
+		stY = 0;
 		try {colors = ImageIO.read(new File(Paths.get("src/ATSSG/Art/HumanColorsDefault.png").toString()));} catch (IOException e) {}
 	}
 	
@@ -32,4 +36,9 @@ public class HumanPlayer extends Player {
 	public void setGameMap(GameMap gm) {
 		containing_map = gm;
 	}
+	
+	public void setStartingX(int stX) {this.stX = stX;}
+	public void setStartingY(int stY) {this.stY = stY;}
+	public int getStartingX() {return stX;}
+	public int getStartingY() {return stY;}
 }
