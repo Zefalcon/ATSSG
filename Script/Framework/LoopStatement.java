@@ -25,14 +25,14 @@ public class LoopStatement extends Statement {
 			progressbody = originalbody.copy();
 			return execute(environment);
 		} else {
+			originalbody = null;
 			return false;
 		}
 	}
 
 	@Override
 	public boolean statementDone() {
-		// TODO Auto-generated method stub
-		return false;
+		return originalbody == null;
 	}
 	
 	public Statement getOriginalbody() {
@@ -57,8 +57,7 @@ public class LoopStatement extends Statement {
 
 	@Override
 	public Statement copy() {
-		// TODO Auto-generated method stub
-		return new LoopStatement(originalbody.copy(), condition);
+		return new LoopStatement(originalbody.copy(), condition+"");
 	}
 
 }

@@ -22,8 +22,9 @@ public class Block extends Statement {
 	public void addAfter(Statement toAdd, Statement previousStatement) {
 		if (previousStatement == null || !lines.contains(previousStatement)) {
 			addStatement(toAdd, 0);
+		} else {
+			addStatement(toAdd, lines.indexOf(previousStatement)+1);
 		}
-		addStatement(toAdd, lines.indexOf(previousStatement));
 	}
 
 	public void addAtEnd(Statement toAdd){
