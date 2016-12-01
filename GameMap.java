@@ -42,6 +42,7 @@ public class GameMap {
 		.returnPut("mountaineer", UnitType.Mountaineer)
 		.returnPut("cavalry", UnitType.Cavalry)
 	;
+	
 	private static HumanPlayer human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
 	
 	public GameMap(){
