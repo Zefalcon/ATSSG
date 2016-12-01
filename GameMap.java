@@ -36,6 +36,11 @@ public class GameMap {
 	
 	private static Map<String, UnitType> unit_lookup = new InlineMap<String, UnitType>()
 		.returnPut("soldier", UnitType.Soldier)
+		.returnPut("archer", UnitType.Archer)
+		.returnPut("tower", UnitType.Guardtower)
+		.returnPut("seige", UnitType.SeigeEngine)
+		.returnPut("mountaineer", UnitType.Mountaineer)
+		.returnPut("cavalry", UnitType.Cavalry)
 	;
 	private static HumanPlayer human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
 	
