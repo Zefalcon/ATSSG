@@ -21,7 +21,7 @@ public class MainScroller extends UIContainer<Object> {
 	
 	//Constructors
 
-	public MainScroller(int width, int height, MainMap mainMap) {
+	public MainScroller(int width, int height, final MainMap mainMap) {
 		super(null, width, height);
 		cameraConstants = new int[6];
 		scrollUp = new JButton("^");

@@ -22,7 +22,7 @@ public class EntityTest {
         Cell cell = new Cell(null,null,map,0,0);
         Entity e = new Unit(UnitType.Soldier,player,cell);
         e.doDamage(3);
-        assertEquals(2, e.getHitPoints());
+        assertEquals(Math.max(0,UnitType.Soldier.maxHP-3), e.getHitPoints());
     }
 
     @Test

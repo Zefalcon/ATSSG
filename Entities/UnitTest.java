@@ -2,8 +2,10 @@ package ATSSG.Entities;
 
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
+import ATSSG.TerrainType;
 import ATSSG.UnitType;
 import ATSSG.Cell;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -22,14 +24,14 @@ public class UnitTest {
         Unit b = new Unit(UnitType.Soldier,player,new Cell(null, null,null,1,0));
         assertTrue(a.canAttack(b));
         a.attack(b);
-        assertEquals(0, b.getHitPoints());
+        assertEquals(Math.max(0,UnitType.Soldier.maxHP-UnitType.Soldier.aDamage), b.getHitPoints());
     }
 
     @Test
     public void move() throws Exception {
         Player player = new HumanPlayer(null,new ArrayList<Entity>(),null);
-        Cell a = new Cell(null, null, null, 0, 0);
-        Cell b = new Cell(null, null, null, 1, 0);
+        Cell a = new Cell(TerrainType.GRASS, null, null, 0, 0);
+        Cell b = new Cell(TerrainType.GRASS, null, null, 1, 0);
         Unit u = new Unit(UnitType.Soldier, player, a);
         u.move(b);
         assertFalse(a.getOccupyingEntities().contains(u));
