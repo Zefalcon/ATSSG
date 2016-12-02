@@ -25,7 +25,6 @@ public class GameMap {
 	//Variables
 	protected Cell[][] all_cells;
 	protected List<Player> players;
-	protected List<AIPlayer> computers;
 	
 	private static Map<Character, TerrainType> terrain_lookup = new InlineMap<Character, TerrainType>()
 		.returnPut(new Character('v'), TerrainType.VOID)
@@ -66,7 +65,6 @@ public class GameMap {
 		
 		int ai_count = Integer.parseInt(name_stripped.substring(name_stripped.indexOf(':') + 1, name_stripped.indexOf("---")));
 		players = new LinkedList<Player>();
-		computers = new LinkedList<AIPlayer>();
 		//The human is player zero.
 		human.setGameMap(this);
 		players.add(human);
@@ -79,7 +77,6 @@ public class GameMap {
 				this, 
 				new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1));
 			players.add(cp);
-			computers.add(cp);
 		}
 		
 		String terrain_plus = name_stripped.substring(name_stripped.indexOf("---") + 3);
@@ -152,7 +149,6 @@ public class GameMap {
 			GameMap tmp = new GameMap(new File(fpath));
 			this.all_cells = tmp.all_cells;
 			this.players = tmp.players;
-			this.computers = tmp.computers;
 		} catch (IOException e) {
 			//Flag Needs handling (gracefully)
 		}
@@ -170,10 +166,6 @@ public class GameMap {
 	
 	public Collection<Player> getPlayers() {
 		return players;
-	}
-	
-	public Collection<AIPlayer> getComputers() {
-		return computers;
 	}
 	
 	public Collection<Entity> getEntities(){
