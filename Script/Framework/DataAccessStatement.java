@@ -23,59 +23,61 @@ public class DataAccessStatement extends Statement {
 
 	@Override
 	public boolean execute(Script environment) throws ScriptError {
-		Object value =null;
+		Object value;
 		switch (type) {
 		case Cell_Cost:
-			value = ((Unit)getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), 
-					environment)).getType().passableTerrain.get(
+			value = new Double(((Unit)getEntity(getIntParam(environment, 0), environment)).getType().passableTerrain.get(
 					environment.getOwner().getOwner().getContaining_map().getCell(
-					Expression.getDoubleValue(arguments.get(1), environment).intValue(), 
-					Expression.getDoubleValue(arguments.get(2), environment).intValue()));
+					getIntParam(environment, 1), getIntParam(environment, 2))));
 			break;
 		case Current_HP:
-			value = getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment).getHitPoints();
+			value = new Double(getEntity(getIntParam(environment, 0), environment).getHitPoints());
 			break;
 		case Damage:
-			value = ((Unit)getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment)).getType().aDamage;
+			value = new Double(((Unit)getEntity(getIntParam(environment, 0), environment)).getType().aDamage);
 			break;
 		case IsCellPassable:
-			value = new Boolean(((Unit)getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), 
+			value = new Boolean(((Unit)getEntity(getIntParam(environment, 0), 
 					environment)).getType().passableTerrain.containsKey(
 					environment.getOwner().getOwner().getContaining_map().getCell(
-					Expression.getDoubleValue(arguments.get(1), environment).intValue(), 
-					Expression.getDoubleValue(arguments.get(2), environment).intValue())));
+					getIntParam(environment, 1), getIntParam(environment, 2))));
 			break;
 		case Is_Alive:
-			value = new Boolean(getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment) == null);
+			value = new Boolean(getEntity(getIntParam(environment, 0), environment) == null);
 			break;
 		case Is_Enemy:
+			value = new Boolean(getEntity(getIntParam(environment, 0), environment).getOwner() != environment.owner.getOwner());
 			break;
 		case Maximum_HP:
-			value = ((Unit)getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment)).getType().maxHP;
+			value = new Double(((Unit)getEntity(getIntParam(environment, 0), environment)).getType().maxHP);
 			break;
 		case Maximum_Moves:
-			value = ((Unit)getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment)).getType().maxMoves;
+			value = new Double(((Unit)getEntity(getIntParam(environment, 0), environment)).getType().maxMoves);
 			break;
 		case Maximum_valid_id:
-			value = Entity.getNextId()-1;
+			value = new Double(Entity.getNextId()-1);
 			break;
 		case My_ID:
-			value = environment.getOwner().getId();
+			value = new Double(environment.getOwner().getId());
 			break;
 		case Range:
-			value = ((Unit)getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment)).getType().aRange;
+			value = new Double(((Unit)getEntity(getIntParam(environment, 0), environment)).getType().aRange);
 			break;
 		case X_Loc:
-			getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment).getContainingCell().getX();
+			value = new Double(getEntity(getIntParam(environment, 0), environment).getContainingCell().getX());
 			break;
 		case Y_Loc:
-			getEntity(Expression.getDoubleValue(arguments.get(0), environment).intValue(), environment).getContainingCell().getY();
+			value = new Double(getEntity(getIntParam(environment, 0), environment).getContainingCell().getY());
 			break;
 		default:
 			throw new ScriptError(environment, this, "Unimplemented AccessType: "+type);
 		}
 		environment.getHeap().put(varname, value);
 		return false;
+	}
+
+	private int getIntParam(Script environment, int index) {
+		return Expression.getDoubleValue(arguments.get(index), environment).intValue();
 	}
 	
 	protected Entity getEntity(int id, Script environment) {
