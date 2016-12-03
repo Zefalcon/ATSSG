@@ -36,8 +36,6 @@ public class Gooey {
 	
 	protected MainMap mainMap;
 	
-	protected MainScroller mainScroll;
-	
 	protected Menu menu;
 	
 	protected ScriptInterface scriptInt;
@@ -77,10 +75,7 @@ public class Gooey {
 		int rcW = numResources * screenWidth / 8; //Flag the divisor is arbitrary and untested
 		int buttonWidth = (brW - rcW) / 6; //Flag Should customize size of buttons at some point.
 		//MainMap occupies all of the space left
-		int msW = screenWidth;
-		int msH = 3 * screenHeight / 4;
-		int mainW = screenWidth - 100;
-		int mainH = (3 * screenHeight / 4) - 100;
+		int mainH = (3 * screenHeight / 4);
 		
 		//Building the UI
 		
@@ -88,10 +83,7 @@ public class Gooey {
 		
 		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
 		
-		mainMap = new MainMap(mainW, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
-		mainMap.updateGameMap(gm);
-		
-		mainScroll = new MainScroller(msW, msH, mainMap);
+		mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
 		
 		minimap = new Minimap(null, miniW, miniH);
 		
@@ -130,8 +122,8 @@ public class Gooey {
 		GridBagLayout gbl = new GridBagLayout();
 		panelPrime.setLayout(gbl);
 		panelPrime.setBounds(0, 0, screenWidth, screenHeight);
-		panelPrime.add(mainScroll.getView());
-		gbl.setConstraints(mainScroll.getView(), new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		panelPrime.add(mainMap.getView());
+		gbl.setConstraints(mainMap.getView(), new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		panelPrime.add(minimap.getView());
 		gbl.setConstraints(minimap.getView(), new GridBagConstraints(0, 1, 1, 2, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		panelPrime.add(buttonRow);
@@ -177,8 +169,6 @@ public class Gooey {
 	//Called by Menu when initializing a game
 	public void updateGameMap(GameMap gm) {
 		mainMap.updateGameMap(gm);
-		mainScroll.updateBounds(mainMap);
-		mainMap.updateView(GameMap.getHuman().getStartingX(), GameMap.getHuman().getStartingY());
 		etButton.endTurn();
 	}
 }

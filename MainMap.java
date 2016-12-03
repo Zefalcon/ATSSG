@@ -1,10 +1,13 @@
 package ATSSG;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import ATSSG.Actions.AttackAction;
@@ -21,12 +24,8 @@ public class MainMap extends UIContainer<Cell> {
 	//This field stores all Cells in the game, with listeners to prevent recalculations
 	protected Cell[][] interactable;
 	
-	protected int mapW, mapH;
-	
 	//While this one stores the subset of the above collection that is onscreen
 	protected Cell[][] viewableArea;
-	
-	protected int cameraW, cameraH;
 	
 	protected CommandType heldCommand;
 	
@@ -44,6 +43,14 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected HumanPlayer owner;
 	
+	protected JPanel mapView;
+	
+	protected final int[] cameraConstants; //camLeftEdge, camTopEdge, camWidth, camHeight, mapWidth, mapHeight
+	protected final JButton scrollUp;
+	protected final JButton scrollLeft;
+	protected final JButton scrollRight;
+	protected final JButton scrollDown;
+	
 	//Constructors
 	
 	public MainMap(final int width, final int height, final HumanPlayer owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
@@ -52,13 +59,73 @@ public class MainMap extends UIContainer<Cell> {
 		this.holder = holder;
 		this.owner = owner;
 		this.si = si;
-		this.cameraH = 10;
-		this.cameraW = 15;
+		
+		//interactable map setup
+		
 		this.cCard = new CommandCard(null, cCardW, cCardH, this);
 		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, this, si);
 		selectedEntity = null;
-		viewableArea = new Cell[cameraW][cameraH];
+		mapView = new JPanel();
+		mapView.setPreferredSize(new Dimension(width - 100, height - 100));
+		mapView.setVisible(true);
+		
+		//Scroller setup
+		
+		cameraConstants = new int[6];
+		cameraConstants[0] = GameMap.getHuman().getStartingX();
+		cameraConstants[1] = GameMap.getHuman().getStartingY();
+		cameraConstants[2] = 15;
+		cameraConstants[3] = 10;
+		viewableArea = new Cell[cameraConstants[2]][cameraConstants[3]];
+		scrollUp = new JButton("^");
+		scrollLeft = new JButton("<");
+		scrollRight = new JButton(">");
+		scrollDown = new JButton("v");
+		
+		ActionListener alUp = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cameraConstants[1]--;
+				updateView(cameraConstants[0], cameraConstants[1]);
+			}
+		};
+		scrollUp.addActionListener(alUp);
+		
+		ActionListener alLeft = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cameraConstants[0]--;
+				updateView(cameraConstants[0], cameraConstants[1]);
+			}
+		};
+		scrollLeft.addActionListener(alLeft);
+		
+		ActionListener alRight = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cameraConstants[0]++;
+				updateView(cameraConstants[0], cameraConstants[1]);
+			}
+		};
+		scrollRight.addActionListener(alRight);
+		
+		ActionListener alDown = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cameraConstants[1]++;
+				updateView(cameraConstants[0], cameraConstants[1]);
+			}
+		};
+		scrollDown.addActionListener(alDown);
+		
+		scrollUp.setPreferredSize(new Dimension(width, 50));
+		scrollLeft.setPreferredSize(new Dimension(50, height - 100));
+		scrollRight.setPreferredSize(new Dimension(50, height - 100));
+		scrollDown.setPreferredSize(new Dimension(width, 50));
+		
 		view = new JPanel();
+		view.setLayout(new BorderLayout());
+		view.add(scrollUp, BorderLayout.NORTH);
+		view.add(scrollLeft, BorderLayout.WEST);
+		view.add(scrollRight, BorderLayout.EAST);
+		view.add(scrollDown, BorderLayout.SOUTH);
+		view.add(mapView, BorderLayout.CENTER);
 		view.setPreferredSize(getSize());
 		view.setVisible(true);
 	}
@@ -68,10 +135,10 @@ public class MainMap extends UIContainer<Cell> {
 	public void updateGameMap(GameMap gm) {
 		if (gm == null || gm.getCells() == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;} //Flag possible error handling required
 		interactable = gm.getCells();
-		mapW = interactable.length;
-		mapH = interactable[0].length;
-		for (int i = 0; i < mapW; i++) {
-			for (int j = 0; j < mapH; j++) {
+		cameraConstants[4] = interactable.length;
+		cameraConstants[5] = interactable[0].length;
+		for (int i = 0; i < cameraConstants[4]; i++) {
+			for (int j = 0; j < cameraConstants[5]; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//if (si.getView().isVisible() == true) {return;}
@@ -126,23 +193,38 @@ public class MainMap extends UIContainer<Cell> {
 	}
 	
 	protected void updateView(int x, int y) {
-		if (interactable == null) {return;} //Flag possible error handling required
-		view.removeAll();
-		view.setLayout(new GridLayout(cameraH, cameraW));
+		updateView(x, y, cameraConstants[2], cameraConstants[3]);
+	}
+	
+	protected void updateView(int x, int y, int w, int h) {
 		
-		if (x + cameraW > mapW) {x = mapW - cameraW;}//No one likes ArrayIndexOutOfBoundsExceptions
-		if (y + cameraH > mapH) {y = mapH - cameraH;}
+		cameraConstants[0] = x;
+		cameraConstants[1] = y;
+		cameraConstants[2] = w;
+		cameraConstants[3] = h;
+		
+		scrollUp.setEnabled(cameraConstants[1] > 0);
+		scrollLeft.setEnabled(cameraConstants[0] > 0);
+		scrollRight.setEnabled(cameraConstants[0] + cameraConstants[2] < cameraConstants[4]);
+		scrollDown.setEnabled(cameraConstants[1] + cameraConstants[3] < cameraConstants[5]);
+		mapView.removeAll();
+		mapView.setLayout(new GridLayout(cameraConstants[3], cameraConstants[2]));
+		
+		if (x + cameraConstants[2] > cameraConstants[4]) {x = cameraConstants[4] - cameraConstants[2];}//No one likes ArrayIndexOutOfBoundsExceptions
+		if (y + cameraConstants[3] > cameraConstants[5]) {y = cameraConstants[5] - cameraConstants[3];}
 		if (x < 0) {x = 0;}
 		if (y < 0) {y = 0;}
 		
-		for (int j = 0; j < cameraH && j < mapH; j++) {
-			for (int i = 0; i < cameraW && i < mapW; i++) {
+		for (int j = 0; j < cameraConstants[3] && y+j < cameraConstants[5]; j++) {
+			for (int i = 0; i < cameraConstants[2] && x+i < cameraConstants[4]; i++) {
 				interactable[x+i][y+j].updateView();
 				viewableArea[i][j] = interactable[x+i][y+j];
-				view.add(viewableArea[i][j].getView());
+				mapView.add(viewableArea[i][j].getView());
 				viewableArea[i][j].updateView();
 			}
 		}
+		view.revalidate();
+		view.repaint();
 	}
 	
 	public void setHeldCommand(CommandType heldCommand) {
@@ -177,22 +259,4 @@ public class MainMap extends UIContainer<Cell> {
 	//getter methods to get references to Gooey
 	public CommandCard getCCard() {return cCard;}
 	public DetailCard getDCard() {return dCard;}
-	
-	//getter methods for MainScroller to find camera bounds
-	public int getCamTop() {return viewableArea[0][0].getY();}
-	public int getCamLeft() {return viewableArea[0][0].getX();}
-	public int getCamRight() {
-		if (cameraW < mapW && cameraH < mapH)
-			return viewableArea[cameraW-1][cameraH-1].getX();
-		else
-			return viewableArea[mapW-1][mapH-1].getX();//Flag: what about cross terms? Or do we just have no maps smaller than the camera?
-	}
-	public int getCamBot() {
-		if (cameraW < mapW && cameraH < mapH)
-			return viewableArea[cameraW-1][cameraH-1].getY();
-		else
-			return viewableArea[mapW-1][mapH-1].getY();
-	}
-	public int getMapW() {return mapW;}
-	public int getMapH() {return mapH;}
 }
