@@ -18,12 +18,14 @@ public class Cell implements Comparable<Cell> {
 	protected GameMap containingMap;
 	protected int x, y; //location, may want to turn into an inner class or something
 	protected GooeyJButton view;
+	protected Icon baseIcon;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
 		this.x = x_in;
 		this.y = y_in;
 		this.terrainType = t;
+		this.baseIcon = terrainType.getImage();
 		this.occupyingResource = r;
 		this.containingMap = m;
 		
@@ -35,7 +37,7 @@ public class Cell implements Comparable<Cell> {
 	public void updateView() {
 		Icon icon;
 		if (getOccupyingEntities().isEmpty()) {
-			icon = getTerrainType().getImage();
+			icon = baseIcon;
 		} else {
 			icon = getOccupyingEntities().iterator().next().getIcon();
 			//flag art proposition: if size = 1 do above, if size > 1 have a generic "army" image?
