@@ -12,13 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 
 import javax.swing.ImageIcon;
@@ -66,7 +60,7 @@ public class Menu extends UIContainer<MenuElement> {
 		final MenuElement backButton = new MenuElement(back, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.first(menuPanes);
-				try{
+				/*try{
 					gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
 					holder.updateGameMap(gm);
 					FileOutputStream out = new FileOutputStream("src/ATSSG/save.sav");
@@ -74,7 +68,7 @@ public class Menu extends UIContainer<MenuElement> {
 					out.close();
 				}catch(Exception x){
 					System.out.println(x.toString());
-				}
+				}*/
 			}
 		});
 		
@@ -95,26 +89,6 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				try{
-					File file = new File("src/ATSSG/save.sav");
-					FileInputStream in = new FileInputStream(file);
-					byte[] contents = new byte[(int)file.length()];
-					in.read(contents);
-					in.close();
-					
-					gm.update(GameMap.Load(contents));
-					holder.updateGameMap(gm);
-					stats.setEnabled(true);
-					save.setEnabled(true);
-					resume.setEnabled(true);
-					backButton.doClick();
-					resume.doClick();
-				}catch(FileNotFoundException x){
-					//Silently drop.
-				}
-				catch(Exception x){
-					System.out.println(x.toString());
-				}
 			}
 		}));
 		

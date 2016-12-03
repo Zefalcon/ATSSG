@@ -125,5 +125,7 @@ public abstract class Entity {
 	public Icon getIcon() {return icon;}
 	public int getId() {return entity_id;}
 	public static int getNextId() {return next_id;}
+	
+	public void setHitPoints(int h){this.hitPoints = h;}
 
 }

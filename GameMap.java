@@ -206,7 +206,7 @@ public class GameMap{
 		for(int a = 0; a < units_tmp.length; a++){
 			for(int b = 0; b < units_tmp[0].length; b++){
 				for(int c = 0; c < units_tmp[0][0].length; c++){
-					units[a * units_tmp[0].length + b * units_tmp[0][0].length + c] = units_tmp[a][b][c];
+					units[a * units_tmp[0].length * units_tmp[0][0].length + b * units_tmp[0][0].length + c] = units_tmp[a][b][c];
 				}
 			}
 		}
@@ -242,7 +242,81 @@ public class GameMap{
 	
 	public static GameMap Load(byte[] input){
 		System.out.println("Called.");
-		return null;
+		GameMap gm = new GameMap();
+		
+		byte[] x_bytes = new byte [Saveable.ict];
+		byte[] y_bytes = new byte [Saveable.ict];
+		byte[] p_bytes = new byte [Saveable.ict];
+		
+		for(int i = 0; i < Saveable.ict; i++){
+			x_bytes[i] = input[i];
+			y_bytes[i] = input[i + Saveable.ict];
+			p_bytes[i] = input[i + 2 * Saveable.ict];
+		}
+		
+		gm.all_cells = new Cell[Saveable.btoi(x_bytes)][Saveable.btoi(y_bytes)];
+		
+		int pc = Saveable.btoi(p_bytes);
+		gm.players = new ArrayList<Player>(pc + 1);
+		gm.players.add(human);
+		for(int i = 0; i < pc; i++){
+			try{
+				Player cp = new AIPlayer(
+					new Hashtable<RCommodityType, Integer>(),
+					new ArrayList<Entity>(),
+					ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
+					gm, 
+					new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1)
+				);
+				gm.players.add(cp);
+			}catch(Exception x){
+				
+			}
+		}
+		
+		int offset = x_bytes.length + y_bytes.length + p_bytes.length;
+		for(int x = 0; x < gm.all_cells.length; x++){
+			for(int y = 0; y < gm.all_cells[0].length; y++){
+				byte[] terrain_type_bytes = new byte[Saveable.ict];
+				int ttos = ((x * gm.all_cells[0].length + y) * Saveable.ict) + offset;
+				for(int i = 0; i < Saveable.ict; i++){
+					terrain_type_bytes[i] = input[i + ttos];
+				}
+				gm.all_cells[x][y] = new Cell(
+					TerrainType.values()[Saveable.btoi(terrain_type_bytes)],
+					null,
+					gm,
+					x,
+					y
+				);
+			}
+		}
+		
+		offset = offset + gm.all_cells.length * gm.all_cells[0].length * Saveable.ict;
+		for(int i = offset; i < input.length; i = i + (Saveable.ict * 5)){
+			byte[] x_pos_byte = new byte[Saveable.ict];
+			byte[] y_pos_byte = new byte[Saveable.ict];
+			byte[] player_byte = new byte[Saveable.ict];
+			byte[] type_byte = new byte[Saveable.ict];
+			byte[] hp_byte = new byte[Saveable.ict];
+			
+			for(int j = 0; j < Saveable.ict; j++){
+				x_pos_byte[j] = input[i + j];
+				y_pos_byte[j] = input[i + j + Saveable.ict];
+				type_byte[j] = input[i + j + 2 * Saveable.ict];
+				hp_byte[j] = input[i + j + 3 * Saveable.ict];
+				player_byte[j] = input[i + j + 4 * Saveable.ict];
+			}
+			
+			Unit u_prime = new Unit(
+				UnitType.values()[Saveable.btoi(type_byte)],
+				gm.players.get(Saveable.btoi(player_byte)),
+				gm.all_cells[Saveable.btoi(x_pos_byte)][Saveable.btoi(y_pos_byte)]
+			);
+			u_prime.setHitPoints(Saveable.btoi(hp_byte));
+		}
+		
+		return gm;
 	}
 	
 	public void update(GameMap in){
