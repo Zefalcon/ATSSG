@@ -21,7 +21,7 @@ public class TerrainCard extends UIContainer<TerrainType> {
 		this.terrain = content.iterator().next();
 		view = new JPanel();
 		view.setPreferredSize(getSize());
-		terrView = new JLabel(terrain.description, terrain.image, SwingConstants.CENTER);
+		terrView = new JLabel(terrain.description, terrain.getImage(), SwingConstants.CENTER);
 		terrView.setVerticalTextPosition(SwingConstants.BOTTOM);
 		terrView.setHorizontalTextPosition(SwingConstants.CENTER);
 		view.add(terrView);
@@ -31,7 +31,7 @@ public class TerrainCard extends UIContainer<TerrainType> {
 	public void update(TerrainType terrain) {
 		if (this.terrain != terrain) {
 			this.terrain = terrain;
-			terrView.setIcon(terrain.image);
+			terrView.setIcon(terrain.getImage());
 			terrView.setText(terrain.description);
 		}
 	}
