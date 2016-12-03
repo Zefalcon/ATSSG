@@ -42,13 +42,12 @@ public class EndTurnButton extends JButton {
 		for (ActionListener actlis : this.getActionListeners()) {
 			this.removeActionListener(actlis);
 		}
-		Collection<Player> players = gameMap.getPlayers();
+		final Collection<Player> players = gameMap.getPlayers();
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (uq.isEmpty() || prompted[0] == true) {
 					GameMap.getHuman().executeAll();
 					if (players != null) {
-						System.out.println(players.toString());
 						for (Player ai : players) {
 							if (ai instanceof AIPlayer) {
 								ai.executeAll();
