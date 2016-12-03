@@ -1,5 +1,10 @@
 package ATSSG.Entities;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
+
 import ATSSG.*;
 import ATSSG.Entities.Building;
 import ATSSG.Entities.Entity;
@@ -36,6 +41,36 @@ public class Unit extends Entity {
 	}
 
 	public boolean canMoveTo(Cell destination){
+		if (!isPassable(destination)) return false;
+		PriorityQueue<EstimatingCell> toCheck = new PriorityQueue<EstimatingCell>();
+		toCheck.add(new EstimatingCell(containingCell, 0, destination, new ArrayList<Cell>(), 1));
+		HashSet<Cell> reachedCells = new HashSet<Cell>();
+		reachedCells.add(containingCell);
+		while (!toCheck.isEmpty()) {
+			EstimatingCell current = toCheck.remove();
+			if (current.getEstimate() > type.maxMoves) {
+				return false;
+			}
+			if (current.getCell().equals(destination)) {
+				return true;
+			}
+			for (Cell possMove : current.getCell().getAdjacent()) {
+				List<Cell> newPath = new ArrayList<Cell>(current.getPath());
+				newPath.add(possMove);
+				if(isPassable(possMove) && !reachedCells.contains(possMove)) {
+					if (possMove == destination) {
+						return current.getCost()+type.passableTerrain.get(possMove.getTerrainType()) <= type.maxMoves;
+					}
+					toCheck.add(new EstimatingCell(possMove, current.getCost()+
+							type.passableTerrain.get(possMove.getTerrainType()), destination, newPath, 1));
+					reachedCells.add(possMove);
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean isPassable(Cell destination) {
 		boolean enemy = false;
 		for (Entity ent : destination.getOccupyingEntities()) {
 			if (ent.getOwner() != owner) {
@@ -43,9 +78,7 @@ public class Unit extends Entity {
 				break;
 			}
 		}
-		//TODO: Cannot determine movability by being inside distance, must determine is there is a valid path
-		return Cell.distance(getContainingCell(), destination) <= 1 && !enemy 
-				&& type.passableTerrain.containsKey(destination.getTerrainType());
+		return !enemy && type.passableTerrain.containsKey(destination.getTerrainType());
 	}
 	
 	public boolean move(Cell destination){

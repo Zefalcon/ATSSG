@@ -57,6 +57,10 @@ public class EndTurnButton extends JButton {
 						holder.turnEndUpdate();
 					} else {
 						//generate an Are You Sure? prompt and set prompted[0] = true
+						/*holder.getPrompts().createMessagePrompt("Are you sure?", 
+								"You still have units without orders.", 
+								new ImageIcon(Paths.get("src/ATSSG/Art/DemoPromptError.png").toString()));
+						prompted[0] = true;*/
 					}
 				}
 				endTurn();

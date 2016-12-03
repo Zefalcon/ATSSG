@@ -108,6 +108,7 @@ public class Cell implements Comparable<Cell> {
 	}
 
 	public TerrainType getTerrainType() {return terrainType;}
+	public Icon getIcon() {return baseIcon;}
 	public Collection<Entity> getOccupyingEntities() { return occupyingEntities;}
 	public GameMap getGameMap(){ return containingMap;}
 	public ResourceItem getResourceItem(){return occupyingResource;}

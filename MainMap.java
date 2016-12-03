@@ -145,8 +145,6 @@ public class MainMap extends UIContainer<Cell> {
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
-						System.out.print(clickedCell.getTerrainType().getName());
-						System.out.println("  ("+clickedCell.getX() + "," + clickedCell.getY() + ")");
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
 						if (occupiers.isEmpty()) {
 							selectedEntity = null;
@@ -169,7 +167,7 @@ public class MainMap extends UIContainer<Cell> {
 							//highlight selected Cell
 							
 							
-							dCard.update(occupiers, clickedCell.getTerrainType());
+							dCard.update(occupiers, clickedCell.getTerrainType(), clickedCell.getIcon());
 							if (selectedEntity == null) {
 								cCard.reset();
 							} else {

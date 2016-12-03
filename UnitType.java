@@ -20,9 +20,9 @@ public enum UnitType {
 		"A standard melee unit.",
 		Paths.get("src/ATSSG/Art/DemoUnit.png").toString(),
 		10,
-		new InlineMap<TerrainType,Double>()
-			.returnPut(TerrainType.GRASS, 1.0)
-			.returnPut(TerrainType.ROUGH_TERRAIN, 2.0),
+		new InlineMap<TerrainType,Integer>()
+			.returnPut(TerrainType.GRASS, 1)
+			.returnPut(TerrainType.ROUGH_TERRAIN, 2),
 		3,
 		AttackType.STABBING,
 		1,
@@ -33,9 +33,9 @@ public enum UnitType {
 		"A basic ranged unit.",
 		null,
 		10,
-		new InlineMap<TerrainType,Double>()
-			.returnPut(TerrainType.GRASS, 1.0)
-			.returnPut(TerrainType.ROUGH_TERRAIN,  2.0),
+		new InlineMap<TerrainType,Integer>()
+			.returnPut(TerrainType.GRASS, 1)
+			.returnPut(TerrainType.ROUGH_TERRAIN,  2),
 		3,
 		AttackType.STABBING,
 		3,
@@ -46,7 +46,7 @@ public enum UnitType {
 		"A stationary, ranged defensive structure.",
 		null,
 		15,
-		new InlineMap<TerrainType,Double>(),
+		new InlineMap<TerrainType,Integer>(),
 		0,
 		AttackType.STABBING,
 		5,
@@ -57,8 +57,8 @@ public enum UnitType {
 		"A large, moving weapon.",
 		null,
 		5,
-		new InlineMap<TerrainType,Double>()
-			.returnPut(TerrainType.GRASS, 1.0),
+		new InlineMap<TerrainType,Integer>()
+			.returnPut(TerrainType.GRASS, 1),
 		1,
 		AttackType.STABBING,
 		8,
@@ -69,10 +69,10 @@ public enum UnitType {
 		"A unit trained in navigating difficult terrain.",
 		null,
 		8,
-		new InlineMap<TerrainType,Double>()
-			.returnPut(TerrainType.GRASS, 1.0)
-			.returnPut(TerrainType.ROUGH_TERRAIN, 1.0)
-			.returnPut(TerrainType.MOUNTAIN, 1.5),
+		new InlineMap<TerrainType,Integer>()
+			.returnPut(TerrainType.GRASS, 1)
+			.returnPut(TerrainType.ROUGH_TERRAIN, 1)
+			.returnPut(TerrainType.MOUNTAIN, 2),
 		3,
 		AttackType.STABBING,
 		1,
@@ -83,7 +83,7 @@ public enum UnitType {
 		"A fast, hard-hitting, fragile unit.",
 		null,
 		4,
-		new InlineMap<TerrainType, Double>().returnPut(TerrainType.GRASS, 1.0),
+		new InlineMap<TerrainType, Integer>().returnPut(TerrainType.GRASS, 1),
 		8,
 		AttackType.STABBING,
 		1,
@@ -97,13 +97,13 @@ public enum UnitType {
 	public String description;
 	public String image_path;
 	public int maxHP;
-	public Map<TerrainType, Double> passableTerrain; 
+	public Map<TerrainType, Integer> passableTerrain; 
 	public int maxMoves;
 	public AttackType aType;
 	public int aRange;
 	public int aDamage;
 	
-	private UnitType(String n, String d, String path, int mHP, Map<TerrainType, Double> pT, int mM, AttackType aT, int aR, int aD) {
+	private UnitType(String n, String d, String path, int mHP, Map<TerrainType, Integer> pT, int mM, AttackType aT, int aR, int aD) {
 		name = n;
 		description = d;
 		image_path = path;
