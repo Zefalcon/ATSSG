@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.FileOutputStream;
 import java.nio.file.Paths;
 import java.util.Collection;
 
@@ -54,7 +55,13 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(gm.Save().toString());
+				try{
+					FileOutputStream fos = new FileOutputStream("src/save.sav");
+					fos.write(gm.Save());
+					fos.close();
+				}catch(Exception x){
+					
+				}
 			}
 		});
 		save.setEnabled(false);
