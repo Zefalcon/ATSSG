@@ -1,11 +1,13 @@
 package ATSSG.Player.AI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import ATSSG.Actions.Action;
 import ATSSG.Cell;
+import ATSSG.EstimatingCell;
 import ATSSG.Entities.Entity;
 import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Unit;
@@ -14,7 +16,7 @@ public class MoveMeta extends MetaAction {
 	protected Unit actor;
 	protected Cell dest;
 	protected List<Cell> path;
-	public static final int MAXPLAN = 20;
+	public static final int MAXCOST = 20;
 	
 	public MoveMeta(Cell destination, Unit actor) {
 		this.actor = actor;
@@ -23,98 +25,54 @@ public class MoveMeta extends MetaAction {
 	}
 	
 	protected List<Cell> planPath () {
-		PriorityQueue<RecordCell> toCheck = new PriorityQueue<RecordCell>();
-		toCheck.add(new RecordCell(actor.getContainingCell(), 0, dest, new ArrayList<Cell>()));
+		double heuristic= 1.5;
+		PriorityQueue<EstimatingCell> toCheck = new PriorityQueue<EstimatingCell>();
+		toCheck.add(new EstimatingCell(actor.getContainingCell(), 0, dest, new ArrayList<Cell>(), heuristic));
+		HashSet<Cell> reachedCells = new HashSet<Cell>();
+		reachedCells.add(actor.getContainingCell());
 		while (!toCheck.isEmpty()) {
-			RecordCell current = toCheck.remove();
-			if (current.getCell().equals(dest) || current.getPath().size() >= MAXPLAN) {
-				return current.getPath();
+			EstimatingCell current = toCheck.remove();
+			if (current.getCell().equals(dest) || current.getCost() > MAXCOST) {
+				List<Cell> path = current.getPath();
+				if (path.size() >0) path.remove(path.size()-1);
+				return path;
 			}
 			for (Cell possMove : current.getCell().getAdjacent()) {
-				List<Cell> newPath = new ArrayList<Cell>(current.getPath());
-				newPath.add(possMove);
-				//TODO: change values for high cost terrain				
-				RecordCell child = new RecordCell(possMove, current.getCost()+1, dest, newPath);
 				if (possMove == dest) {
-					return child.getPath();
+					return current.getPath();
 				}
-				if(isPassable(possMove)) {
-					boolean toAdd = true;
-					//Verify not repeat
-					for (RecordCell c: toCheck) {
-						if (c.equals(possMove)) {
-							toAdd = false;
-							/*if (child.compareTo(c) > 0) {
-								toCheck.remove(c);
-							} else {
-								toAdd = false;
-							}*/
-							break;
-						}
-					}
-					if (toAdd) {
-						toCheck.add(child);
-					}
+				if(actor.isPassable(possMove) && !reachedCells.contains(possMove)) {
+					List<Cell> newPath = new ArrayList<Cell>(current.getPath());
+					newPath.add(possMove);
+					toCheck.add(new EstimatingCell(possMove, current.getCost()+
+							actor.getType().passableTerrain.get(possMove.getTerrainType()), dest, newPath, heuristic));
+					reachedCells.add(possMove);
 				}
 			}
 		}
 		return null;
 	}
 	
-	public boolean isPassable(Cell c) {
-		boolean enemy = false;
-		for (Entity ent : c.getOccupyingEntities()) {
-			if (ent.getOwner() != actor.getOwner()) {
-				enemy = true;
-				break;
-			}
-		}
-		//Currently Assuming only in list if passable
-		return !enemy && actor.getType().passableTerrain.containsKey(c.getTerrainType());
-	}
-	
 	public boolean pathInvalid() {
-		return path == null || path.isEmpty() || !isPassable(path.get(0));
+		return path == null || path.isEmpty() || !actor.isPassable(path.get(0));
 	}
 	
 	public Action nextAction() {
 		if (isDone()) return null;
 		if (pathInvalid()) path = planPath();
 		if (pathInvalid()) return null;
-		return new MoveAction(1, actor, path.remove(0)); // TODO: replace with code that can take multiple turns
+		int movesLeft = actor.getType().maxMoves;
+		Cell next = path.get(0);
+		while (!path.isEmpty() && movesLeft > actor.getType().passableTerrain.get(path.get(0).getTerrainType())) {
+			next = path.remove(0);
+			movesLeft -= actor.getType().passableTerrain.get(next.getTerrainType());
+			
+		}
+		return new MoveAction(1, actor, next);
 	}
 
 	@Override
 	public Boolean isDone() {
 		return actor.getContainingCell().getX() == dest.getX() && actor.getContainingCell().getY() == dest.getY();
-	}
-}
-
-class RecordCell implements Comparable<RecordCell> {
-	protected Cell current;
-	protected List<Cell> path;
-	protected int cost;
-	protected int estimate;
-	
-	public RecordCell(Cell cell, int cost, Cell dest, List<Cell> path) {
-		this.path = path;
-		current = cell;
-		this.cost = cost;
-		int xDif = Math.abs(dest.getX()-cell.getX());
-		int yDif = Math.abs(dest.getY()-cell.getY());
-		this.estimate = cost + 2*Math.max(xDif, yDif);
-	}
-	
-	public boolean equals(RecordCell other) {
-		return current.equals(other.getCell());
-	}
-	
-	public Cell getCell() { return current;}
-	public int getCost() {return cost;}
-	public int getEstimate() {return estimate;}
-	public List<Cell> getPath() {return path;}
-
-	public int compareTo(RecordCell arg0) {
-		return estimate - arg0.getEstimate();
 	}
 }
