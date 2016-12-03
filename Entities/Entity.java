@@ -26,6 +26,8 @@ public abstract class Entity {
 	protected Collection<CommandType> allowedCommands; //Flag further review on whether this should be a collection. There is a corresponding collection at MainMap line 107
 	protected Image image;
 	protected Icon icon;
+	protected final int entity_id;
+	protected static int next_id = 0;
 
 	//Constructor
 	public Entity(int hp, Player player, Cell currentCell, Image image){
@@ -39,6 +41,8 @@ public abstract class Entity {
 		allowedCommands = new ArrayList<CommandType>();
 		if (player != null) player.addEntity(this);
 		if (currentCell != null) currentCell.addOccupyingEntity(this);
+		entity_id = next_id;
+		next_id++;
 	}
 	
 	//Methods
@@ -119,5 +123,7 @@ public abstract class Entity {
 	public Image getImage() {return image;}
 	public void setIcon(Icon icon) {this.icon = icon;}
 	public Icon getIcon() {return icon;}
+	public int getId() {return entity_id;}
+	public static int getNextId() {return next_id;}
 
 }
