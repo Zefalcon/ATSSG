@@ -238,6 +238,15 @@ public class GameMap{
 		}
 		
 		return serial;
-		
+	}
+	
+	public static GameMap Load(byte[] input){
+		System.out.println("Called.");
+		return null;
+	}
+	
+	public void update(GameMap in){
+		this.players = in.players;
+		this.all_cells = in.all_cells;
 	}
 }

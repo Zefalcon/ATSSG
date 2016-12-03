@@ -8,8 +8,17 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 
 import javax.swing.ImageIcon;
@@ -39,6 +48,43 @@ public class Menu extends UIContainer<MenuElement> {
 			}
 		}));
 		
+		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				try{
+					//gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
+					//holder.updateGameMap(gm);
+					FileOutputStream out = new FileOutputStream("src/ATSSG/save.sav");
+					out.write(gm.Save());
+					out.close();
+				}catch(Exception x){
+					System.out.println(x.toString());
+				}
+			}
+		});
+		
+		ImageIcon back = new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString());
+		final MenuElement backButton = new MenuElement(back, new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				menuCards.first(menuPanes);
+				try{
+					gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
+					holder.updateGameMap(gm);
+					FileOutputStream out = new FileOutputStream("src/ATSSG/save.sav");
+					out.write(gm.Save());
+					out.close();
+				}catch(Exception x){
+					System.out.println(x.toString());
+				}
+			}
+		});
+		
+		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
+				cl.next(paneSwitcher);
+			}
+		});
+		
 		final MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 4
@@ -49,21 +95,29 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//dummy button 2
+				try{
+					File file = new File("src/ATSSG/save.sav");
+					FileInputStream in = new FileInputStream(file);
+					byte[] contents = new byte[(int)file.length()];
+					in.read(contents);
+					in.close();
+					
+					gm.update(GameMap.Load(contents));
+					holder.updateGameMap(gm);
+					stats.setEnabled(true);
+					save.setEnabled(true);
+					resume.setEnabled(true);
+					backButton.doClick();
+					resume.doClick();
+				}catch(FileNotFoundException x){
+					//Silently drop.
+				}
+				catch(Exception x){
+					System.out.println(x.toString());
+				}
 			}
 		}));
 		
-		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				try{
-					FileOutputStream fos = new FileOutputStream("src/save.sav");
-					fos.write(gm.Save());
-					fos.close();
-				}catch(Exception x){
-					
-				}
-			}
-		});
 		save.setEnabled(false);
 		content.add(save);
 		
@@ -74,12 +128,6 @@ public class Menu extends UIContainer<MenuElement> {
 			}
 		}));
 		
-		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
-				cl.next(paneSwitcher);
-			}
-		});
 		resume.setEnabled(false);
 		content.add(resume);
 		
@@ -89,16 +137,6 @@ public class Menu extends UIContainer<MenuElement> {
 			buttonView.add(me);
 		}
 		buttonView.setVisible(true);
-		
-		ImageIcon back = new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString());
-		final MenuElement backButton = new MenuElement(back, new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				menuCards.first(menuPanes);
-				//gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
-				//holder.updateGameMap(gm);
-				//System.out.println(""+gm.Save().length);
-			}
-		});
 		
 		JPanel newGame = new JPanel();
 		newGame.setLayout(new GridLayout(5, 1));
