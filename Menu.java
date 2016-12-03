@@ -54,7 +54,7 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//dummy button 5
+				System.out.println(gm.Save().toString());
 			}
 		});
 		save.setEnabled(false);
@@ -87,6 +87,9 @@ public class Menu extends UIContainer<MenuElement> {
 		final MenuElement backButton = new MenuElement(back, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.first(menuPanes);
+				//gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
+				//holder.updateGameMap(gm);
+				//System.out.println(""+gm.Save().length);
 			}
 		});
 		
