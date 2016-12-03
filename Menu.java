@@ -12,13 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 
 import javax.swing.ImageIcon;
@@ -42,11 +36,12 @@ public class Menu extends UIContainer<MenuElement> {
 		//Card 3: Saving Interface
 		//Card 4: Loading Interface
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoNew.png").toString()), new ActionListener(){
+		final MenuElement settings = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSettings.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				menuCards.next(menuPanes);
+				//dummy button 4
 			}
-		}));
+		});
+		settings.setEnabled(false);
 		
 		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -61,22 +56,7 @@ public class Menu extends UIContainer<MenuElement> {
 				}
 			}
 		});
-		
-		ImageIcon back = new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString());
-		final MenuElement backButton = new MenuElement(back, new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				menuCards.first(menuPanes);
-				try{
-					gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
-					holder.updateGameMap(gm);
-					FileOutputStream out = new FileOutputStream("src/ATSSG/save.sav");
-					out.write(gm.Save());
-					out.close();
-				}catch(Exception x){
-					System.out.println(x.toString());
-				}
-			}
-		});
+		save.setEnabled(false);
 		
 		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -84,15 +64,20 @@ public class Menu extends UIContainer<MenuElement> {
 				cl.next(paneSwitcher);
 			}
 		});
+		resume.setEnabled(false);
 		
-		final MenuElement stats = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoStats.png").toString()), new ActionListener(){
+		final MenuElement backButton = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//dummy button 4
+				menuCards.first(menuPanes);
 			}
 		});
-		stats.setEnabled(false);
-		content.add(stats);
 		
+		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoNew.png").toString()), new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				menuCards.next(menuPanes);
+			}
+		}));
+		content.add(settings);
 		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				try{
@@ -104,7 +89,7 @@ public class Menu extends UIContainer<MenuElement> {
 					
 					gm.update(GameMap.Load(contents));
 					holder.updateGameMap(gm);
-					stats.setEnabled(true);
+					settings.setEnabled(true);
 					save.setEnabled(true);
 					resume.setEnabled(true);
 					backButton.doClick();
@@ -117,18 +102,13 @@ public class Menu extends UIContainer<MenuElement> {
 				}
 			}
 		}));
-		
-		save.setEnabled(false);
 		content.add(save);
-		
 		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoExit.png").toString()), new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				JFrame containerPrime = (JFrame) (paneSwitcher.getTopLevelAncestor());
 				containerPrime.dispatchEvent(new WindowEvent(containerPrime, WindowEvent.WINDOW_CLOSING));
 			}
 		}));
-		
-		resume.setEnabled(false);
 		content.add(resume);
 		
 		JPanel buttonView = new JPanel();
@@ -144,33 +124,36 @@ public class Menu extends UIContainer<MenuElement> {
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
 				holder.updateGameMap(gm);
-				stats.setEnabled(true);
+				settings.setEnabled(true);
 				save.setEnabled(true);
 				resume.setEnabled(true);
 				backButton.doClick();
 				resume.doClick();
+				holder.getPrompts().createMessagePrompt("New Game - Basic", "GL HF!", null);
 			}
 		}));
 		newGame.add(new MenuElement("New Game Scenario 2", new ActionListener() {//They will update GameMap with the appropriate file (somehow - I need that method)
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/Roughpatch.map").toString());
 				holder.updateGameMap(gm);
-				stats.setEnabled(true);
+				settings.setEnabled(true);
 				save.setEnabled(true);
 				resume.setEnabled(true);
 				backButton.doClick();
 				resume.doClick();
+				holder.getPrompts().createMessagePrompt("New Game - Terrained", "GL HF!", null);
 			}
 		}));
 		newGame.add(new MenuElement("New Game Scenario 3", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/Large.map").toString());
 				holder.updateGameMap(gm);
-				stats.setEnabled(true);
+				settings.setEnabled(true);
 				save.setEnabled(true);
 				resume.setEnabled(true);
 				backButton.doClick();
 				resume.doClick();
+				holder.getPrompts().createMessagePrompt("New Game - Large", "GL HF!", null);
 			}
 		}));
 		newGame.add(new MenuElement("New Game Random Scenario", new ActionListener() {

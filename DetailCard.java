@@ -3,6 +3,7 @@ package ATSSG;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.Icon;
 import javax.swing.JPanel;
 
 import ATSSG.Entities.Entity;
@@ -36,13 +37,13 @@ public class DetailCard extends UIContainer<Entity> {
 	
 	//Methods
 	
-	//This update is called by turn ending functionality, just in case the units you selected die horribly. Or a nuke changes the terrain. Whichever.
+	//This update is called by turn ending functionality, just in case the units you selected die horribly.
 	public void update() {
-		update(content, terrain);
+		entCard.update(content);
 	}
 	
-	public void update(Collection<Entity> occupiers, TerrainType terrain) {
-		terrCard.update(terrain);
+	public void update(Collection<Entity> occupiers, TerrainType terr, Icon icon) {
+		terrCard.update(terr, icon);
 		content = occupiers;
 		entCard.update(content);
 		

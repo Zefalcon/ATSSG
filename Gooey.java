@@ -4,9 +4,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -33,6 +38,10 @@ public class Gooey {
 	protected MenuButton menuButton;
 	
 	protected ResourceCard resourceCard;
+	
+	protected final Prompt prompts;
+	
+	protected JButton lastPromptButton;
 	
 	protected MainMap mainMap;
 	
@@ -102,6 +111,16 @@ public class Gooey {
 		
 		etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue);
 		
+		prompts = new Prompt();
+		
+		lastPromptButton = new JButton("Last Prompt");
+		lastPromptButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				prompts.createLastPrompt();
+			}
+		});
+		lastPromptButton.setPreferredSize(new Dimension(2 * buttonWidth / 3, brH));
+		
 		commandCard = mainMap.getCCard();
 		
 		//Assemble the row of buttons
@@ -109,6 +128,7 @@ public class Gooey {
 		buttonRow = new JPanel();
 		
 		buttonRow.add(mapButton);
+		buttonRow.add(lastPromptButton);
 		buttonRow.add(resourceCard.getView());
 		buttonRow.add(scriptInterfaceButton);
 		buttonRow.add(menuButton);
@@ -170,5 +190,45 @@ public class Gooey {
 	public void updateGameMap(GameMap gm) {
 		mainMap.updateGameMap(gm);
 		etButton.endTurn();
+	}
+	
+	public Prompt getPrompts() {
+		return prompts;
+	}
+	
+	public class Prompt {
+		
+		private String lastTitle;
+		private String lastMessage;
+		private int lastMessageType;
+		private Icon lastIcon;
+		
+		public Prompt() {
+			lastTitle = "";
+			lastMessage = "";
+			lastMessageType = -1;
+			lastIcon = null;
+		}
+		
+		public void createMessagePrompt(String title, String message, Icon icon) {
+			lastTitle = title;
+			lastMessage = message;
+			lastMessageType = JOptionPane.INFORMATION_MESSAGE;
+			lastIcon = icon;
+			JOptionPane.showMessageDialog(panelPrime, message, title, JOptionPane.INFORMATION_MESSAGE, icon);
+		}
+		
+		public void createErrorPrompt(String title, String message, Icon icon) {
+			lastTitle = title;
+			lastMessage = message;
+			lastMessageType = JOptionPane.ERROR_MESSAGE;
+			lastIcon = icon;
+			JOptionPane.showMessageDialog(panelPrime, message, title, JOptionPane.ERROR_MESSAGE, icon);
+		}
+		
+		private void createLastPrompt() {
+			if (lastMessage != "")
+				JOptionPane.showMessageDialog(panelPrime, lastTitle, lastMessage, lastMessageType, lastIcon);
+		}
 	}
 }

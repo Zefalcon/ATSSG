@@ -2,6 +2,7 @@ package ATSSG;
 
 import java.util.Collection;
 
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -28,11 +29,9 @@ public class TerrainCard extends UIContainer<TerrainType> {
 		view.setVisible(true);
 	}
 	
-	public void update(TerrainType terrain) {
-		if (this.terrain != terrain) {
-			this.terrain = terrain;
-			terrView.setIcon(terrain.getImage());
-			terrView.setText(terrain.description);
-		}
+	public void update(TerrainType terrain, Icon icon) {
+		this.terrain = terrain;
+		terrView.setIcon(icon);
+		terrView.setText(terrain.getDescription());
 	}
 }
