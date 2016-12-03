@@ -43,7 +43,8 @@ public class Unit extends Entity {
 				break;
 			}
 		}
-		return Cell.distance(getContainingCell(), destination) <= type.maxMoves && !enemy 
+		//TODO: Cannot determine movability by being inside distance, must determine is there is a valid path
+		return Cell.distance(getContainingCell(), destination) <= 1 && !enemy 
 				&& type.passableTerrain.containsKey(destination.getTerrainType());
 	}
 	

@@ -66,7 +66,7 @@ public class Expression {
 		return getBooleanValue(ast, environment);
 	}
 	
-	public static Boolean getBooleanValue(Tree ast, Script environment) {
+	private static Boolean getBooleanValue(Tree ast, Script environment) {
 		switch (ast.getType()) {
 		case ExpressionGrammarLexer.AND:
 			return getBooleanValue(ast.getChild(0), environment) && getBooleanValue(ast.getChild(1), environment);
