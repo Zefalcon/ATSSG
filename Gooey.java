@@ -228,7 +228,7 @@ public class Gooey {
 		
 		private void createLastPrompt() {
 			if (lastMessage != "")
-				JOptionPane.showMessageDialog(panelPrime, lastTitle, lastMessage, lastMessageType, lastIcon);
+				JOptionPane.showMessageDialog(panelPrime, lastMessage, lastTitle, lastMessageType, lastIcon);
 		}
 	}
 }
