@@ -113,6 +113,9 @@ public abstract class Entity {
 	}
 	
 	public void setAction(Action act) {
+		if (!allowedCommands.contains(act.getType())) {
+			throw new RuntimeException("Illegal action type for entity: "+act.getType());
+		}
 		currentAction = act;
 	}
 	

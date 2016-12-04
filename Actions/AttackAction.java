@@ -1,4 +1,5 @@
 package ATSSG.Actions;
+import ATSSG.CommandType;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 
@@ -12,6 +13,10 @@ public class AttackAction extends UnitAction {
 		turnsToComplete = numTurns;
 		performer = perf;
 		enemy = enem;
+		type = CommandType.ATTACK;
+		if (!perf.canAttack(enem)) {
+			throw new RuntimeException("Entity"+perf.getId()+" cannot currently attack Entity"+enem.getId());
+		}
 	}
 	
 	//Methods
