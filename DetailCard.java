@@ -1,9 +1,7 @@
 package ATSSG;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.swing.Icon;
 import javax.swing.JPanel;
 
 import ATSSG.Entities.Entity;
@@ -24,9 +22,7 @@ public class DetailCard extends UIContainer<Entity> {
 		
 		entCard = new EntityCard(occupiers, width - height - 50, height, mainMap, si); //Flag that -50 is completely arbitrary and I'm not totally sure why I needed it
 		
-		ArrayList<TerrainType> altt = new ArrayList<TerrainType>(1);
-		altt.add(TerrainType.VOID);
-		terrCard = new TerrainCard(altt, height, height);
+		terrCard = new TerrainCard(null, height, height);
 		
 		view = new JPanel();
 		view.setPreferredSize(getSize());
@@ -42,9 +38,9 @@ public class DetailCard extends UIContainer<Entity> {
 		entCard.update(content);
 	}
 	
-	public void update(Collection<Entity> occupiers, TerrainType terr, Icon icon) {
-		terrCard.update(terr, icon);
-		content = occupiers;
+	public void update(Cell cell) {
+		terrCard.update(cell);
+		content = cell.getOccupyingEntities();
 		entCard.update(content);
 		
 	}

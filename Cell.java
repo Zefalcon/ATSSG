@@ -2,11 +2,13 @@ package ATSSG;
 import ATSSG.Entities.Entity;
 import ATSSG.Player.Player;
 
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Cell implements Comparable<Cell> {
@@ -18,14 +20,16 @@ public class Cell implements Comparable<Cell> {
 	protected GameMap containingMap;
 	protected int x, y; //location, may want to turn into an inner class or something
 	protected GooeyJButton view;
-	protected Icon baseIcon;
+	protected Image[] terrImage;
+	protected Icon terrCardIcon;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
 		this.x = x_in;
 		this.y = y_in;
 		this.terrainType = t;
-		this.baseIcon = terrainType.getImage();
+		this.terrImage = terrainType.getImage();
+		this.terrCardIcon = new ImageIcon(terrImage[1]);
 		this.occupyingResource = r;
 		this.containingMap = m;
 		
@@ -34,12 +38,12 @@ public class Cell implements Comparable<Cell> {
 	}
 	
 	//Methods
-	public void updateView() {
+	public void updateView(int iconW, int iconH) {
 		Icon icon;
 		if (getOccupyingEntities().isEmpty()) {
-			icon = baseIcon;
+			icon = new ImageIcon(terrImage[0].getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
 		} else {
-			icon = getOccupyingEntities().iterator().next().getIcon();
+			icon = new ImageIcon(getOccupyingEntities().iterator().next().getImage().getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
 			//flag art proposition: if size = 1 do above, if size > 1 have a generic "army" image?
 		}
 		this.view.setIcon(icon);
@@ -108,7 +112,7 @@ public class Cell implements Comparable<Cell> {
 	}
 
 	public TerrainType getTerrainType() {return terrainType;}
-	public Icon getIcon() {return baseIcon;}
+	public Icon getTerrainDIcon() {return terrCardIcon;}
 	public Collection<Entity> getOccupyingEntities() { return occupyingEntities;}
 	public GameMap getGameMap(){ return containingMap;}
 	public ResourceItem getResourceItem(){return occupyingResource;}

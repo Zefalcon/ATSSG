@@ -63,7 +63,7 @@ public class Gooey {
 	
 	//Constructors
 	
-	public Gooey(int screenHeight, int screenWidth, int numResources, HumanPlayer owner, GameMap gm) {
+	public Gooey(int screenWidth, int screenHeight, int numResources, HumanPlayer owner, GameMap gm) {
 		//0,0 is the top left corner.
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
@@ -86,13 +86,6 @@ public class Gooey {
 		int buttonWidth = (brW - rcW) / 6; //Flag Should customize size of buttons at some point.
 		//MainMap occupies all of the space left
 		int mainH = (3 * screenHeight / 4);
-		
-		//Some image resizing
-		try {
-			CommandType.setIconSizes((int)(cCardW / 3.0), (int)(cCardH / 3.0));
-		} catch (IOException ioe) {
-			System.out.println("iamge files not found for Command buttons");
-		}
 		
 		//Building the UI
 		
@@ -187,10 +180,6 @@ public class Gooey {
 	
 	//Methods
 	
-	public void createPrompt(String text) {
-		//Prompt notification = new Prompt(PARAMETERS);
-	}
-	
 	public void turnEndUpdate() {
 		//MainMap, Minimap, GlobalMap, UnitQueue, ResourceCard, DetailCard, CommandCard need to be updated
 		//MainMap
@@ -222,11 +211,13 @@ public class Gooey {
 			lastIcon = null;
 		}
 		
-		public void createMessagePrompt(String title, String message, Icon icon) {
-			lastTitle = title;
-			lastMessage = message;
-			lastMessageType = JOptionPane.INFORMATION_MESSAGE;
-			lastIcon = icon;
+		public void createMessagePrompt(String title, Object message, Icon icon) {
+			if (message instanceof String) {
+				lastTitle = title;
+				lastMessage = (String) message;
+				lastMessageType = JOptionPane.INFORMATION_MESSAGE;
+				lastIcon = icon;
+			}
 			JOptionPane.showMessageDialog(panelPrime, message, title, JOptionPane.INFORMATION_MESSAGE, icon);
 		}
 		

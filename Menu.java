@@ -31,6 +31,8 @@ public class Menu extends UIContainer<MenuElement> {
 			final Gooey holder) throws IOException {
 		super(menuButtons, width, height);
 		
+		view = new JPanel();
+		
 		final JPanel menuPanes = new JPanel();
 		final CardLayout menuCards = new CardLayout();
 		menuPanes.setLayout(menuCards);
@@ -223,7 +225,6 @@ public class Menu extends UIContainer<MenuElement> {
 		
 		GridBagLayout gbl = new GridBagLayout();
 		
-		view = new JPanel();
 		view.setLayout(gbl);
 		view.setPreferredSize(getSize());
 		view.add(background1);
