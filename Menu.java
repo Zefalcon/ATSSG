@@ -61,7 +61,7 @@ public class Menu extends UIContainer<MenuElement> {
 				}
 			}
 		});
-		save.setEnabled(false);
+
 		
 		ImageIcon resumeImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoResume.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
 		final MenuElement resume = new MenuElement(resumeImage, new ActionListener(){
