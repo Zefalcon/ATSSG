@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import ATSSG.Actions.Action;
 import ATSSG.Entities.Entity;
 import ATSSG.Cell;
 import ATSSG.GameMap;
@@ -108,8 +109,11 @@ public class AIPlayer extends Player {
 		}
 		planAllActions();
 		for (Entity e: plannedActions.keySet()) {
-			e.setAction(plannedActions.get(e).nextAction());
-			e.executeAction();
+			Action a = plannedActions.get(e).nextAction();
+			if (a != null) {
+				e.setAction(a);
+				e.executeAction();
+			}
 		}
 	}
 	

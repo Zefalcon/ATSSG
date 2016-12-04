@@ -1,5 +1,6 @@
 package ATSSG.Actions;
 import ATSSG.Cell;
+import ATSSG.CommandType;
 
 public class IdleAction extends Action {
 	
@@ -8,6 +9,7 @@ public class IdleAction extends Action {
 	
 	//Constructor
 	public IdleAction(){
+		type = CommandType.IDLE;
 	}
 	
 	//Methods

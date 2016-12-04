@@ -155,14 +155,22 @@ public class MainMap extends UIContainer<Cell> {
 							}
 						}
 						if (heldCommand == CommandType.MOVE) {
-							heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell)); //Unchecked Class Cast Flag
-							clearHeld();
-						} else if (heldCommand == CommandType.ATTACK) {
-							Entity enemy = clickedCell.getEnemy(owner);
-							if (enemy != null) {
-								heldEntity.setAction(new AttackAction(1, (Unit) heldEntity, enemy));
+							try {
+								heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell)); //Unchecked Class Cast Flag
+								clearHeld();
+							} catch (RuntimeException error) {
+								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
 							}
-							clearHeld();
+						} else if (heldCommand == CommandType.ATTACK) {
+							try {
+								Entity enemy = clickedCell.getEnemy(owner);
+								if (enemy != null) {
+									heldEntity.setAction(new AttackAction(1, (Unit) heldEntity, enemy));
+								}
+								clearHeld();
+							} catch (RuntimeException error) {
+								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
+							}
 						} else {
 							//highlight selected Cell
 							

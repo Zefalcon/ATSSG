@@ -1,6 +1,7 @@
 package ATSSG.Actions;
 import ATSSG.Entities.Unit;
 import ATSSG.Cell;
+import ATSSG.CommandType;
 
 public class MoveAction extends UnitAction {
 	
@@ -12,6 +13,10 @@ public class MoveAction extends UnitAction {
 		turnsToComplete = numTurns;
 		performer = perf;
 		destination = end;
+		type = CommandType.MOVE;
+		if (!perf.canMoveTo(end)) {
+			throw new RuntimeException("Entity"+perf.getId()+" cannot currently move to ("+end.getX()+","+end.getY()+")");
+		}
 	}
 	
 	//Methods
