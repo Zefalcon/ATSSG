@@ -1,13 +1,11 @@
 package ATSSG;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.border.LineBorder;
 
 public class CommandButton extends JButton {
 	
@@ -24,7 +22,6 @@ public class CommandButton extends JButton {
 	//Methods
 	public CommandButton(Icon icon) {
 		super(icon);
-		//gooeyButton.setBorder(new LineBorder(Color.BLACK));
 		this.cmdText = null;
 		blank = new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString());
 	}

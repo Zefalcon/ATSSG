@@ -87,6 +87,13 @@ public class Gooey {
 		//MainMap occupies all of the space left
 		int mainH = (3 * screenHeight / 4);
 		
+		//Some image resizing
+		try {
+			CommandType.setIconSizes((int)(cCardW / 3.0), (int)(cCardH / 3.0));
+		} catch (IOException ioe) {
+			System.out.println("iamge files not found for Command buttons");
+		}
+		
 		//Building the UI
 		
 		JPanel paneSwitcher = new JPanel();
@@ -119,7 +126,7 @@ public class Gooey {
 			
 			etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue);
 		} catch (IOException ioe) {
-			System.out.println("Image files not found");
+			System.out.println("Image files not found for game buttons.");
 		}
 		
 		detailCard = mainMap.getDCard();

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Collection;
 
 import javax.swing.JButton;
@@ -62,8 +63,12 @@ public class MainMap extends UIContainer<Cell> {
 		
 		//interactable map setup
 		
-		this.cCard = new CommandCard(null, cCardW, cCardH, this);
-		this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, this, si);
+		try {
+			this.cCard = new CommandCard(null, cCardW, cCardH, this);
+			this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, this, si);
+		} catch (IOException ioe) {
+			System.out.println("Images not found for cards");
+		}
 		selectedEntity = null;
 		mapView = new JPanel();
 		mapView.setPreferredSize(new Dimension(width - 100, height - 100));
@@ -184,7 +189,7 @@ public class MainMap extends UIContainer<Cell> {
 								//Highlight the selected unit in DetailCard
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
-									cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+									cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
 									index++; //Flag not protected from being fed too many commandTypes
 								}
 							}
