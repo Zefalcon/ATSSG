@@ -1,11 +1,15 @@
 package ATSSG;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collection;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -28,12 +32,12 @@ public class EndTurnButton extends JButton {
 	
 	//Constructors
 	
-	public EndTurnButton(int width, int height, final Gooey holder, final GameMap gameMap, final UnitQueue uq) {
-		super(new ImageIcon(Paths.get("src/ATSSG/Art/DemoEndTurn.png").toString()));
+	public EndTurnButton(int width, int height, final Gooey holder, final GameMap gameMap, final UnitQueue uq) throws IOException {
+		super(new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoEndTurn.png").toString())).getScaledInstance(width, height, Image.SCALE_SMOOTH)));
 		this.holder = holder;
 		this.uq = uq;
 		this.gameMap = gameMap;
-		this.setSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(width, height));
 	}
 	
 	//Methods

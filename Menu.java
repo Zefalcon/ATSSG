@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,9 +13,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collection;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +28,7 @@ public class Menu extends UIContainer<MenuElement> {
 
 	//Methods
 	public Menu(Collection<MenuElement> menuButtons, int width, int height, final JPanel paneSwitcher, final GameMap gm,
-			final Gooey holder) {
+			final Gooey holder) throws IOException {
 		super(menuButtons, width, height);
 		
 		final JPanel menuPanes = new JPanel();
@@ -36,14 +39,16 @@ public class Menu extends UIContainer<MenuElement> {
 		//Card 3: Saving Interface
 		//Card 4: Loading Interface
 		
-		final MenuElement settings = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSettings.png").toString()), new ActionListener(){
+		ImageIcon settingsImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoSettings.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
+		final MenuElement settings = new MenuElement(settingsImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//dummy button 4
 			}
 		});
 		settings.setEnabled(false);
 		
-		final MenuElement save = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoSave.png").toString()), new ActionListener(){
+		ImageIcon saveImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoSave.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
+		final MenuElement save = new MenuElement(saveImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				try{
 					//gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
@@ -58,7 +63,8 @@ public class Menu extends UIContainer<MenuElement> {
 		});
 		save.setEnabled(false);
 		
-		final MenuElement resume = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoResume.png").toString()), new ActionListener(){
+		ImageIcon resumeImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoResume.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
+		final MenuElement resume = new MenuElement(resumeImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) paneSwitcher.getLayout();
 				cl.next(paneSwitcher);
@@ -66,19 +72,22 @@ public class Menu extends UIContainer<MenuElement> {
 		});
 		resume.setEnabled(false);
 		
-		final MenuElement backButton = new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoBack.png").toString()), new ActionListener(){
+		ImageIcon backImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoBack.png").toString())).getScaledInstance(width / 3, height / 15, Image.SCALE_SMOOTH));
+		final MenuElement backButton = new MenuElement(backImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.first(menuPanes);
 			}
 		});
 		
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoNew.png").toString()), new ActionListener(){
+		ImageIcon newImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoNew.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
+		content.add(new MenuElement(newImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				menuCards.next(menuPanes);
 			}
 		}));
 		content.add(settings);
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoLoad.png").toString()), new ActionListener(){
+		ImageIcon loadImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoLoad.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
+		content.add(new MenuElement(loadImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				try{
 					File file = new File("src/ATSSG/save.sav");
@@ -103,7 +112,8 @@ public class Menu extends UIContainer<MenuElement> {
 			}
 		}));
 		content.add(save);
-		content.add(new MenuElement(new ImageIcon(Paths.get("src/ATSSG/Art/DemoExit.png").toString()), new ActionListener(){
+		ImageIcon exitImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoExit.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
+		content.add(new MenuElement(exitImage, new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				JFrame containerPrime = (JFrame) (paneSwitcher.getTopLevelAncestor());
 				containerPrime.dispatchEvent(new WindowEvent(containerPrime, WindowEvent.WINDOW_CLOSING));

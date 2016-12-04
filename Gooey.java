@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -90,36 +91,40 @@ public class Gooey {
 		
 		JPanel paneSwitcher = new JPanel();
 		
-		menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
-		
 		mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
-		
-		minimap = new Minimap(null, miniW, miniH);
-		
-		mapButton = new MapButton(buttonWidth, brH, globalMap);
-		
-		resourceCard = new ResourceCard(null, null, rcW, brH);
-		
-		scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, scriptInt);
-		
-		menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher);
-		
-		detailCard = mainMap.getDCard();
 		
 		unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
 		//unitQueue = mainMap.getUQ(); /TODO
 		
-		etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue);
+		try {
+			menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
+			
+			minimap = new Minimap(null, miniW, miniH);
+		
+			mapButton = new MapButton(brH, brH, globalMap);
+			
+			lastPromptButton = new JButton("Last Prompt");
+			lastPromptButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					prompts.createLastPrompt();
+				}
+			});
+			lastPromptButton.setPreferredSize(new Dimension(2 * buttonWidth / 3, brH));
+		
+			resourceCard = new ResourceCard(null, null, rcW, brH);
+		
+			scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, scriptInt);
+		
+			menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher);
+			
+			etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue);
+		} catch (IOException ioe) {
+			System.out.println("Image files not found");
+		}
+		
+		detailCard = mainMap.getDCard();
 		
 		prompts = new Prompt();
-		
-		lastPromptButton = new JButton("Last Prompt");
-		lastPromptButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				prompts.createLastPrompt();
-			}
-		});
-		lastPromptButton.setPreferredSize(new Dimension(2 * buttonWidth / 3, brH));
 		
 		commandCard = mainMap.getCCard();
 		
