@@ -1,20 +1,22 @@
 package ATSSG.Player.AI;
 
 public class AIConfig {
-	public final AttackMode target_style;
+	public final double dist_mult;
 	public final double focus_bonus;
+	public final double hp_mult;
 	
 	public AIConfig() {
-		this(AttackMode.RANDOM, 0.0);
+		this(1.0, 0.0, 0.0);
 	}
 
-	public AIConfig(AttackMode target_style, double focus) {
-		this.target_style = target_style;
-		this.focus_bonus = focus;
+	public AIConfig(double dist_mult, double focus_bonus, double hp_mult) {
+		this.dist_mult = dist_mult;
+		this.focus_bonus = focus_bonus;
+		this.hp_mult = hp_mult;
 	}
 	
-	public enum AttackMode {
-		RANDOM(),
-		CLOSEST();
+	public boolean isRandom() {
+		return dist_mult == 0 && focus_bonus == 0 && hp_mult == 0;
 	}
+	
 }

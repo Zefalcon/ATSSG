@@ -54,7 +54,7 @@ public class AIPlayer extends Player {
 	
 	protected void planAction(Entity entity, List<Entity> enemies) {
 		if (plannedActions.containsKey(entity)) {
-			if (plannedActions.get(entity).isDone() || (entity instanceof Unit && mode.target_style == AIConfig.AttackMode.CLOSEST)) {
+			if (plannedActions.get(entity).isDone() || (entity instanceof Unit && !mode.isRandom())) {
 				plannedActions.remove(entity);
 			} else {
 				return;
@@ -73,30 +73,25 @@ public class AIPlayer extends Player {
 			return;
 		}
 		Entity target = null;
-		switch(mode.target_style){
-			case CLOSEST:
-				Collections.shuffle(enemies, new Random(System.nanoTime()));
-				double lowest = Double.POSITIVE_INFINITY;
-				for (Entity enemy: enemies) {
-					int shared = 0;
-					if (mode.focus_bonus != 0) {
-						for (Entity other: plannedActions.keySet()) {
-							MetaAction act = plannedActions.get(other);
-							if (act instanceof AttackMeta && ((AttackMeta) act).getTarget() == enemy) {
-								shared++;
-							}
-						}
-					}
-					double distance = Cell.distance(unit.getContainingCell(), enemy.getContainingCell()) - shared*mode.focus_bonus;
-					if (distance < lowest) {
-						target = enemy;
-						lowest = distance;
+		Collections.shuffle(enemies, new Random(System.nanoTime()));
+		double lowest = Double.POSITIVE_INFINITY;
+		for (Entity enemy: enemies) {
+			int shared = 0;
+			if (mode.focus_bonus != 0) {
+				for (Entity other: plannedActions.keySet()) {
+					MetaAction act = plannedActions.get(other);
+					if (act instanceof AttackMeta && ((AttackMeta) act).getTarget() == enemy) {
+						shared++;
 					}
 				}
-				break;
-			case RANDOM:
-			default:
-				target = enemies.get(new Random().nextInt(enemies.size()));
+			}
+			double distance = Cell.distance(unit.getContainingCell(), enemy.getContainingCell())*mode.dist_mult 
+					+ shared*mode.focus_bonus 
+					+ enemy.getHitPoints()*mode.hp_mult;
+			if (distance < lowest) {
+				target = enemy;
+				lowest = distance;
+			}
 		}
 		plannedActions.put(unit, new AttackMeta(unit, target));
 	}

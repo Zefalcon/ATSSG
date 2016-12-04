@@ -74,7 +74,7 @@ public class GameMap{
 				new ArrayList<Entity>(),
 				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
 				this, 
-				new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1));
+				new AIConfig(1.0, -0.5, 0.1));
 			players.add(cp);
 		}
 		
@@ -266,7 +266,7 @@ public class GameMap{
 					new ArrayList<Entity>(),
 					ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
 					gm, 
-					new AIConfig(AIConfig.AttackMode.CLOSEST, -5.1)
+					new AIConfig(1.0, -0.5, 0.1)
 				);
 				gm.players.add(cp);
 			}catch(Exception x){
