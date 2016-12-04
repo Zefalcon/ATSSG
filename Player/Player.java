@@ -10,6 +10,7 @@ import java.util.Collection;
 import ATSSG.Entities.Entity;
 import ATSSG.GameMap;
 import ATSSG.RCommodityType;
+import ATSSG.UnitType;
 
 public abstract class Player {
 	
@@ -58,7 +59,7 @@ public abstract class Player {
 	
 	public void addEntity(Entity e) {
 		e.getImage().getGraphics().drawImage(colors, 40, 40, null);
-		e.setIcon(new ImageIcon(e.getImage()));
+		e.setCardIcon(new ImageIcon(UnitType.resizeCard(e.getImage())));
 		owned_entities.add(e);
 	}
 
