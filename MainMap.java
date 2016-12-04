@@ -166,6 +166,8 @@ public class MainMap extends UIContainer<Cell> {
 								Entity enemy = clickedCell.getEnemy(owner);
 								if (enemy != null) {
 									heldEntity.setAction(new AttackAction(1, (Unit) heldEntity, enemy));
+								} else {
+									throw new RuntimeException("Entity"+selectedEntity.getId()+" can only attack enemies.");
 								}
 								clearHeld();
 							} catch (RuntimeException error) {
