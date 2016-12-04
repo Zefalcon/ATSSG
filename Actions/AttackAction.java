@@ -37,4 +37,8 @@ public class AttackAction extends UnitAction {
 		enemy = target;
 	}
 
+	public String toString(){
+		return performer.toString() + " to attack " + enemy.toString();
+	}
+
 }

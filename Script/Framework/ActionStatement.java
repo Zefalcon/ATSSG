@@ -37,4 +37,9 @@ public class ActionStatement extends Statement {
 		return new ActionStatement(action);
 	}
 
+	@Override
+	public String toString(){
+		return action.toString();
+	}
+
 }

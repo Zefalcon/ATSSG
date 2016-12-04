@@ -90,6 +90,10 @@ public class Unit extends Entity {
 		}
 		return false;
 	}
+
+	public String toString(){
+		return entity_id + ": " + type;
+	}
 	
 	public UnitType getType() {return type;}
 	//public UnitButton getButton() {return button;}
