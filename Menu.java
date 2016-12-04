@@ -45,7 +45,6 @@ public class Menu extends UIContainer<MenuElement> {
 				//dummy button 4
 			}
 		});
-		settings.setEnabled(false);
 		
 		ImageIcon saveImage = new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoSave.png").toString())).getScaledInstance(width / 6, height / 9, Image.SCALE_SMOOTH));
 		final MenuElement save = new MenuElement(saveImage, new ActionListener(){
@@ -98,7 +97,6 @@ public class Menu extends UIContainer<MenuElement> {
 					
 					gm.update(GameMap.Load(contents));
 					holder.updateGameMap(gm);
-					settings.setEnabled(true);
 					save.setEnabled(true);
 					resume.setEnabled(true);
 					backButton.doClick();
@@ -134,7 +132,6 @@ public class Menu extends UIContainer<MenuElement> {
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/5v5.map").toString());
 				holder.updateGameMap(gm);
-				settings.setEnabled(true);
 				save.setEnabled(true);
 				resume.setEnabled(true);
 				backButton.doClick();
@@ -146,7 +143,6 @@ public class Menu extends UIContainer<MenuElement> {
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/Roughpatch.map").toString());
 				holder.updateGameMap(gm);
-				settings.setEnabled(true);
 				save.setEnabled(true);
 				resume.setEnabled(true);
 				backButton.doClick();
@@ -158,7 +154,6 @@ public class Menu extends UIContainer<MenuElement> {
 			public void actionPerformed(ActionEvent e) {
 				gm.update(Paths.get("src/ATSSG/Maps/Large.map").toString());
 				holder.updateGameMap(gm);
-				settings.setEnabled(true);
 				save.setEnabled(true);
 				resume.setEnabled(true);
 				backButton.doClick();
@@ -184,35 +179,45 @@ public class Menu extends UIContainer<MenuElement> {
 		menuPanes.add(newGame);
 		menuPanes.setVisible(true);
 		
-		JLabel background1 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		String bg1 = Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString();
+		String bg2 = Paths.get("src/ATSSG/Art/DemoMenuBackground2.png").toString();
+		JLabel background1 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background1.setPreferredSize(bkgrndSize);
 		background1.setVisible(true);
 		
-		JLabel background2 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		JLabel background2 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background2.setPreferredSize(bkgrndSize);
 		background2.setVisible(true);
 		
-		JLabel background3 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		JLabel background3 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background3.setPreferredSize(bkgrndSize);
 		background3.setVisible(true);
 		
-		JLabel background4 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground2.png").toString()));
+		JLabel background4 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg2)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background4.setPreferredSize(bkgrndSize);
 		background4.setVisible(true);
 		
-		JLabel background5 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		JLabel background5 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background5.setPreferredSize(bkgrndSize);
 		background5.setVisible(true);
 		
-		JLabel background6 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		JLabel background6 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background6.setPreferredSize(bkgrndSize);
 		background6.setVisible(true);
 		
-		JLabel background7 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		JLabel background7 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background7.setPreferredSize(bkgrndSize);
 		background7.setVisible(true);
 		
-		JLabel background8 = new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoMenuBackground1.png").toString()));
+		JLabel background8 = new JLabel(new ImageIcon(
+				ImageIO.read(new File(bg1)).getScaledInstance((int)(width / 3.0), (int)(height / 3.0), Image.SCALE_SMOOTH)));
 		background8.setPreferredSize(bkgrndSize);
 		background8.setVisible(true);
 		
