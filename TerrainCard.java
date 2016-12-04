@@ -2,36 +2,40 @@ package ATSSG;
 
 import java.util.Collection;
 
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class TerrainCard extends UIContainer<TerrainType> {
+public class TerrainCard extends UIContainer<Cell> {
 
 	//Variables
 	
-	protected TerrainType terrain;
+	protected Cell cell;
 	
 	protected JLabel terrView;
 	
 	//Constructors
 	
-	public TerrainCard(Collection<TerrainType> content, int width, int height) {
+	public TerrainCard(Collection<Cell> content, int width, int height) {
 		super(content, width, height);
-		this.terrain = content.iterator().next();
+		
+		if (content == null) {
+			cell = new Cell(TerrainType.VOID, null, null, 0, 0);
+		} else {
+			this.cell = content.iterator().next();
+		}
 		view = new JPanel();
 		view.setPreferredSize(getSize());
-		terrView = new JLabel(terrain.description, terrain.getImage(), SwingConstants.CENTER);
+		terrView = new JLabel(cell.getTerrainType().description, cell.getTerrainDIcon(), SwingConstants.CENTER);
 		terrView.setVerticalTextPosition(SwingConstants.BOTTOM);
 		terrView.setHorizontalTextPosition(SwingConstants.CENTER);
 		view.add(terrView);
 		view.setVisible(true);
 	}
 	
-	public void update(TerrainType terrain, Icon icon) {
-		this.terrain = terrain;
-		terrView.setIcon(icon);
-		terrView.setText(terrain.getDescription());
+	public void update(Cell c) {
+		this.cell = c;
+		terrView.setIcon(cell.getTerrainDIcon());
+		terrView.setText(cell.getTerrainType().getDescription());
 	}
 }

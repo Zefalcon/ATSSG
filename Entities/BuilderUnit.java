@@ -1,4 +1,5 @@
 package ATSSG.Entities;
+import java.io.IOException;
 import java.util.Collection;
 
 import ATSSG.*;
@@ -10,7 +11,7 @@ public class BuilderUnit extends Unit {
 	BuildingType constructionGoal;
 	Collection<BuildingType> buildable;
 	
-	public BuilderUnit(BUnitType t, Player player, Cell location){
+	public BuilderUnit(BUnitType t, Player player, Cell location) throws IOException {
 		super(t.baseUnit, player, location);
 	}
 	

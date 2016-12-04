@@ -18,7 +18,7 @@ public class UnitButton extends JButton {
 	private static final long serialVersionUID = 1L;
 	
 	//Variables
-	protected static ImageIcon blank = new ImageIcon(UnitType.Void.getImage());
+	protected static ImageIcon blank = new ImageIcon(UnitType.resizeCard(TerrainType.VOID.getImage()[1]));
 	protected ScriptInterface si;
 	protected MainMap mainMap;
 
@@ -36,7 +36,7 @@ public class UnitButton extends JButton {
 		if (reference == null) {
 			this.setIcon(blank);
 		} else {
-			this.setIcon(reference.getIcon());
+			this.setIcon(reference.getCardIcon());
 			this.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					//if (si.getView().isVisible() == true) {return;}

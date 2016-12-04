@@ -182,7 +182,7 @@ public class MainMap extends UIContainer<Cell> {
 							//highlight selected Cell
 							
 							
-							dCard.update(occupiers, clickedCell.getTerrainType(), clickedCell.getIcon());
+							dCard.update(clickedCell);
 							if (selectedEntity == null) {
 								cCard.reset();
 							} else {
@@ -230,10 +230,9 @@ public class MainMap extends UIContainer<Cell> {
 		
 		for (int j = 0; j < cameraConstants[3] && y+j < cameraConstants[5]; j++) {
 			for (int i = 0; i < cameraConstants[2] && x+i < cameraConstants[4]; i++) {
-				interactable[x+i][y+j].updateView();
+				interactable[x+i][y+j].updateView((int) (getSize().getWidth() / cameraConstants[2]), (int) (getSize().getHeight() / cameraConstants[3]));
 				viewableArea[i][j] = interactable[x+i][y+j];
 				mapView.add(viewableArea[i][j].getView());
-				viewableArea[i][j].updateView();
 			}
 		}
 		view.revalidate();

@@ -80,7 +80,7 @@ public class DataAccessStatement extends Statement {
 		return Expression.getDoubleValue(arguments.get(index), environment).intValue();
 	}
 	
-	protected Entity getEntity(int id, Script environment) {
+	public static Entity getEntity(int id, Script environment) {
 		for (Entity e : environment.getOwner().getOwner().getContaining_map().getEntities()) {
 			if (e.getId() == id) return e;
 		}

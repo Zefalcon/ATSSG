@@ -31,7 +31,7 @@ public enum UnitType {
 	Archer(
 		"Archer",
 		"A basic ranged unit.",
-		null,
+		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
 		10,
 		new InlineMap<TerrainType,Integer>()
 			.returnPut(TerrainType.GRASS, 1)
@@ -44,7 +44,7 @@ public enum UnitType {
 	Guardtower(
 		"Guardtower",
 		"A stationary, ranged defensive structure.",
-		null,
+		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
 		15,
 		new InlineMap<TerrainType,Integer>(),
 		0,
@@ -55,7 +55,7 @@ public enum UnitType {
 	SeigeEngine(
 		"Seige Engine",
 		"A large, moving weapon.",
-		null,
+		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
 		5,
 		new InlineMap<TerrainType,Integer>()
 			.returnPut(TerrainType.GRASS, 1),
@@ -67,7 +67,7 @@ public enum UnitType {
 	Mountaineer(
 		"Mountaineer",
 		"A unit trained in navigating difficult terrain.",
-		null,
+		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
 		8,
 		new InlineMap<TerrainType,Integer>()
 			.returnPut(TerrainType.GRASS, 1)
@@ -81,7 +81,7 @@ public enum UnitType {
 	Cavalry(
 		"Cavalier",
 		"A fast, hard-hitting, fragile unit.",
-		null,
+		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
 		4,
 		new InlineMap<TerrainType, Integer>().returnPut(TerrainType.GRASS, 1),
 		8,
@@ -95,18 +95,23 @@ public enum UnitType {
 	
 	public String name;
 	public String description;
-	public String image_path;
+	public String path;
 	public int maxHP;
 	public Map<TerrainType, Integer> passableTerrain; 
 	public int maxMoves;
 	public AttackType aType;
 	public int aRange;
 	public int aDamage;
+	public Image image;
+	public static int smallW = 0;
+	public static int smallH = 0;
+	public static int cardW;
+	public static int cardH;
 	
 	private UnitType(String n, String d, String path, int mHP, Map<TerrainType, Integer> pT, int mM, AttackType aT, int aR, int aD) {
 		name = n;
 		description = d;
-		image_path = path;
+		this.path = path;
 		maxHP = mHP;
 		passableTerrain = pT;
 		maxMoves = mM;
@@ -115,10 +120,15 @@ public enum UnitType {
 		aDamage = aD;
 	}
 	
-	public Image getImage() {
-		Image image = null;
-		try {image = ImageIO.read(new File(image_path));} catch (IOException e) {}
-		return image;
+	public static void setCardImageSizes(int cardW, int cardH) {
+		UnitType.cardW = cardW;
+		UnitType.cardH = cardH;
 	}
+	
+	public static Image resizeCard(Image i) {
+		return i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH);
+	}
+	
+	public Image getImage() throws IOException {return ImageIO.read(new File(path));}
 
 }

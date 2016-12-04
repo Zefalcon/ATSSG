@@ -25,6 +25,7 @@ public class GameMap{
 	//Variables
 	protected Cell[][] all_cells;
 	protected List<Player> players;
+	protected int size_x, size_y;
 	
 	private static Map<Character, TerrainType> terrain_lookup = new InlineMap<Character, TerrainType>()
 		.returnPut(new Character('v'), TerrainType.VOID)
@@ -44,13 +45,14 @@ public class GameMap{
 	
 	private static HumanPlayer human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
 	
+	//Constructors
+	
 	public GameMap(){
 		this.all_cells = null;
 		this.players = null;
 		human.setGameMap(this);
 	}
 	
-	//Constructor
 	public GameMap(File toLoad) throws IOException{
 		
 		Scanner s_tmp = new Scanner(toLoad);
@@ -58,8 +60,8 @@ public class GameMap{
 		s_tmp.close();
 		
 		String name_stripped = map_str.substring(map_str.indexOf("---") + 3);
-		int size_x = Integer.parseInt(name_stripped.substring(0, name_stripped.indexOf('x')));
-		int size_y = Integer.parseInt(name_stripped.substring(name_stripped.indexOf('x') + 1, name_stripped.indexOf(':')));
+		size_x = Integer.parseInt(name_stripped.substring(0, name_stripped.indexOf('x')));
+		size_y = Integer.parseInt(name_stripped.substring(name_stripped.indexOf('x') + 1, name_stripped.indexOf(':')));
 		all_cells = new Cell[size_x][size_y];
 		
 		int ai_count = Integer.parseInt(name_stripped.substring(name_stripped.indexOf(':') + 1, name_stripped.indexOf("---")));
@@ -126,6 +128,8 @@ public class GameMap{
 			GameMap tmp = new GameMap(new File(fpath));
 			this.all_cells = tmp.all_cells;
 			this.players = tmp.players;
+			this.size_x = tmp.getSizeX();
+			this.size_y = tmp.getSizeY();
 		} catch (IOException e) {
 			//Flag Needs handling (gracefully)
 		}
@@ -240,7 +244,7 @@ public class GameMap{
 		return serial;
 	}
 	
-	public static GameMap Load(byte[] input){
+	public static GameMap Load(byte[] input) throws IOException {
 		System.out.println("Called.");
 		GameMap gm = new GameMap();
 		
@@ -323,4 +327,7 @@ public class GameMap{
 		this.players = in.players;
 		this.all_cells = in.all_cells;
 	}
+	
+	public int getSizeX() {return size_x;}
+	public int getSizeY() {return size_y;}
 }

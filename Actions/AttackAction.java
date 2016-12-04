@@ -1,4 +1,5 @@
 package ATSSG.Actions;
+import ATSSG.Cell;
 import ATSSG.CommandType;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
@@ -15,7 +16,9 @@ public class AttackAction extends UnitAction {
 		enemy = enem;
 		type = CommandType.ATTACK;
 		if (!perf.canAttack(enem)) {
-			throw new RuntimeException("Entity"+perf.getId()+" cannot currently attack Entity"+enem.getId());
+			throw new RuntimeException("Entity"+perf.getId()+" cannot currently attack Entity"+enem.getId() 
+					+". Target is "+Cell.distance(perf.getContainingCell(), enem.getContainingCell())+" units away. Attack range is "
+					+ perf.getType().aRange);
 		}
 	}
 	
@@ -32,6 +35,10 @@ public class AttackAction extends UnitAction {
 	
 	public void setTarget(Entity target){
 		enemy = target;
+	}
+
+	public String toString(){
+		return performer.toString() + " to attack " + enemy.toString();
 	}
 
 }

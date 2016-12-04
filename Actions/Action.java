@@ -1,5 +1,7 @@
 package ATSSG.Actions;
 
+import java.io.IOException;
+
 import ATSSG.CommandType;
 
 public abstract class Action { //Flag we should totally make one or two ActionType enums instead of all these subclasses.
@@ -9,7 +11,7 @@ public abstract class Action { //Flag we should totally make one or two ActionTy
 	protected CommandType type;
 	
 	//Methods
-	public boolean execute(){
+	public boolean execute() throws IOException{
 		return true;
 	}
 	
