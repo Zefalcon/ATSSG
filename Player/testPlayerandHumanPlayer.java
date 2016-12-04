@@ -2,6 +2,7 @@ package ATSSG.Player;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -25,7 +26,7 @@ public class testPlayerandHumanPlayer {
 	}
 
 	@Test
-	public void testAddEntity() {
+	public void testAddEntity() throws IOException {
 		Unit u = new Unit(UnitType.Soldier, null, null);
 		Player p = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null);
 		p.addEntity(u);
@@ -33,7 +34,7 @@ public class testPlayerandHumanPlayer {
 	}
 
 	@Test
-	public void testRemoveEntity() {
+	public void testRemoveEntity() throws IOException {
 		Entity u = new Unit(UnitType.Soldier, null, null);
 		List<Entity> units = new ArrayList<Entity>();
 		units.add(u);

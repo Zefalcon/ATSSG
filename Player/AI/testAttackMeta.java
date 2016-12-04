@@ -2,6 +2,7 @@ package ATSSG.Player.AI;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -22,7 +23,7 @@ public class testAttackMeta {
 	}
 
 	@Test
-	public void testIsDone() {
+	public void testIsDone() throws IOException {
 		Unit attacker = new Unit(UnitType.Soldier, setUpHuman(), new Cell(null, null, null, 0, 0));
 		Unit target = new Unit(UnitType.Soldier, setUpHuman(), new Cell(null, null, null, 0, 0));
 		MetaAction m = new AttackMeta(attacker, target);

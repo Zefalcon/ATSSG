@@ -29,7 +29,11 @@ public class HumanPlayer extends Player {
 	public void executeAll() {
 		if (owned_entities == null) return;
 		for (Entity e: owned_entities) {
-			e.executeAction();
+			try {
+				e.executeAction();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 

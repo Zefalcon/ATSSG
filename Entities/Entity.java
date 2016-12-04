@@ -7,6 +7,7 @@ import ATSSG.Script.Framework.ScriptError;
 import ATSSG.Actions.*;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -47,7 +48,7 @@ public abstract class Entity {
 	}
 	
 	//Methods
-	public void tickTurn(){
+	public void tickTurn() throws IOException{
 		if(currentAction!=null){
 			executeAction();
 		}
@@ -104,7 +105,7 @@ public abstract class Entity {
 		}
 	}
 	
-	public void executeAction(){
+	public void executeAction() throws IOException{
 		if (currentAction != null) {
 			currentAction.execute();
 			currentAction=null;

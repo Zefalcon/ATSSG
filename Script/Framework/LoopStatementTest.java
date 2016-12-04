@@ -2,6 +2,8 @@ package ATSSG.Script.Framework;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import ATSSG.Cell;
@@ -13,7 +15,7 @@ import ATSSG.Entities.Unit;
 public class LoopStatementTest {
 
 	@Test
-	public void testExecute() throws ScriptError {
+	public void testExecute() throws ScriptError, IOException {
 		Unit u = new Unit(UnitType.Soldier, null, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Script s = new Script(u);
 		new VariableDeclarationStatement("var1", Double.class).execute(s);
@@ -38,7 +40,7 @@ public class LoopStatementTest {
 	}
 
 	@Test
-	public void testStatementDone() throws ScriptError {
+	public void testStatementDone() throws ScriptError, IOException {
 		Unit u = new Unit(UnitType.Soldier, null, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Script s = new Script(u);
 		new VariableDeclarationStatement("var1", Double.class).execute(s);

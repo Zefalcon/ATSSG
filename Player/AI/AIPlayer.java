@@ -1,5 +1,6 @@
 package ATSSG.Player.AI;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -107,7 +108,11 @@ public class AIPlayer extends Player {
 			Action a = plannedActions.get(e).nextAction();
 			if (a != null) {
 				e.setAction(a);
-				e.executeAction();
+				try {
+					e.executeAction();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 	}

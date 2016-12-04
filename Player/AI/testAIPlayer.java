@@ -3,6 +3,7 @@ package ATSSG.Player.AI;
 import static org.junit.Assert.*;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -32,7 +33,7 @@ public class testAIPlayer {
 	}
 	
 	@Test
-	public void testForceReplan() {
+	public void testForceReplan() throws IOException {
 		AIPlayer testPlayer = setUpAIPlayer();
 		Unit u = new Unit(UnitType.Soldier, testPlayer, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Entity enemy1 = new Unit(UnitType.Soldier, setUpEnemy(), new Cell(TerrainType.GRASS, null, null, 1, 1));
@@ -42,7 +43,7 @@ public class testAIPlayer {
 	}
 
 	@Test
-	public void testPlanAction() {
+	public void testPlanAction() throws IOException {
 		AIPlayer testPlayer = setUpAIPlayer();
 		Entity mine = new Unit(UnitType.Soldier, testPlayer, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Entity enemy1 = new Unit(UnitType.Soldier, setUpAIPlayer(), new Cell(TerrainType.GRASS, null, null, 1, 1));
@@ -54,7 +55,7 @@ public class testAIPlayer {
 	}
 
 	@Test
-	public void testPlanAttack() {
+	public void testPlanAttack() throws IOException {
 		AIPlayer testPlayer = setUpAIPlayer();
 		Unit u = new Unit(UnitType.Soldier, testPlayer, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Entity enemy1 = new Unit(UnitType.Soldier, setUpEnemy(), new Cell(TerrainType.GRASS, null, null, 1, 1));
