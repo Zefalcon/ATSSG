@@ -55,6 +55,9 @@ public class GameMap{
 	
 	public GameMap(File toLoad) throws IOException{
 		
+		human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
+		human.setGameMap(this);
+		
 		Scanner s_tmp = new Scanner(toLoad);
 		String map_str = s_tmp.useDelimiter("\\Z").next().replaceAll("\\s+", "");
 		s_tmp.close();
