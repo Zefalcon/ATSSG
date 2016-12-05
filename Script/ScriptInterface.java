@@ -79,7 +79,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		add(addButton);
 		add(options);
 
-		setTitle(actor.toString() + "Script");
+		setTitle("Script");
 		setSize(250, 500);
 		setResizable(false);
 		setVisible(true);
