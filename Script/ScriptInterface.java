@@ -52,7 +52,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		//options.add("Loop");
 		options.add("Set Variable");
 		options.add("Declare Variable");
-		//options.add("Access Data");
+		options.add("Access Data");
 
 		actor = thisEntity;
 		if(actor != null) {
@@ -123,11 +123,11 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 					declareVar.setVisible(true);
 					break;
 				}
-				/*case "Access Data":{
+				case "Access Data":{
 					//Open Access Data window
-					//accessData.setVisible(true);  No implementation for demo
+					accessData.setVisible(true);
 					break;
-				}*/
+				}
 				default:{
 					//Code should NOT get here, but if it does, it means Choice doesn't automatically choose the top of the list.
 					//Do it manually.
