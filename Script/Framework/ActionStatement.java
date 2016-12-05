@@ -1,4 +1,6 @@
 package ATSSG.Script.Framework;
+import java.io.IOException;
+
 import ATSSG.Actions.*;
 
 public class ActionStatement extends Statement {
@@ -23,7 +25,11 @@ public class ActionStatement extends Statement {
 	@Override
 	public boolean execute(Script environment) throws ScriptError {
 		environment.getOwner().setAction(action);
-		environment.getOwner().executeAction();
+		try {
+			environment.getOwner().executeAction();
+		} catch (IOException e) {
+			throw new ScriptError(environment, this, e.toString());
+		}
 		return true;
 	}
 

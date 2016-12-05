@@ -2,6 +2,7 @@ package ATSSG.Script.Framework;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,7 +16,7 @@ import ATSSG.Entities.Unit;
 public class BlockTest {
 
 	@Test
-	public void testExecute() throws ScriptError {
+	public void testExecute() throws ScriptError, IOException {
 		Unit u = new Unit(UnitType.Soldier, null, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Script s = new Script(u);
 		Block b1 = new Block();
@@ -41,7 +42,7 @@ public class BlockTest {
 	}
 
 	@Test
-	public void testStatementDone() throws ScriptError {
+	public void testStatementDone() throws ScriptError, IOException {
 		Unit u = new Unit(UnitType.Soldier, null, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Script s = new Script(u);
 		Block b1 = new Block();

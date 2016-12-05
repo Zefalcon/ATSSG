@@ -1,5 +1,6 @@
 package ATSSG.Entities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Unit extends Entity {
 	protected UnitType type;
 	
 	//Constructors
-	public Unit(UnitType t, Player player, Cell current){
+	public Unit(UnitType t, Player player, Cell current) throws IOException {
 		super(t.maxHP, player, current, t.getImage());
 		type = t;
 		allowedCommands.add(CommandType.IDLE);

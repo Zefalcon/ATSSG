@@ -244,7 +244,7 @@ public class GameMap{
 		return serial;
 	}
 	
-	public static GameMap Load(byte[] input){
+	public static GameMap Load(byte[] input) throws IOException {
 		System.out.println("Called.");
 		GameMap gm = new GameMap();
 		

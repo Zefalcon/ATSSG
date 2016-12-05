@@ -90,6 +90,8 @@ public class Gooey {
 		//Building the UI
 		
 		JPanel paneSwitcher = new JPanel();
+
+		scriptInt = new ScriptInterface(null);
 		
 		mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
 		
@@ -190,6 +192,11 @@ public class Gooey {
 	//Called by Menu when initializing a game
 	public void updateGameMap(GameMap gm) {
 		mainMap.updateGameMap(gm);
+		
+		int ciW = (screenWidth - 100) / gm.getCells().length;
+		int ciH = (int) ((((3.0 * screenHeight) / 4.0) - 100) / gm.getCells()[0].length);
+		TerrainType.setCellIconSizes(ciW, ciH);
+		
 		etButton.endTurn();
 	}
 	

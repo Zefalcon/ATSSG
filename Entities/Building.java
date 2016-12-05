@@ -1,4 +1,5 @@
 package ATSSG.Entities;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -51,7 +52,7 @@ public class Building extends Entity {
 		return valid;
 	}
 	
-	public boolean build(UnitType type, Cell location){
+	public boolean build(UnitType type, Cell location) throws IOException {
 		if(canBuild(type) && validConstructionSquares(type).contains(location)){
 			return location.addOccupyingEntity(new Unit(type, owner, location));
 		}

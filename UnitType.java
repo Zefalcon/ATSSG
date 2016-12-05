@@ -120,16 +120,6 @@ public enum UnitType {
 		aDamage = aD;
 	}
 	
-	public static void populateImages() throws IOException {
-		Void.image = ImageIO.read(new File(Void.path));
-		Soldier.image = ImageIO.read(new File(Soldier.path));
-		Archer.image = ImageIO.read(new File(Archer.path));
-		Guardtower.image = ImageIO.read(new File(Guardtower.path));
-		SeigeEngine.image = ImageIO.read(new File(SeigeEngine.path));
-		Mountaineer.image = ImageIO.read(new File(Mountaineer.path));
-		Cavalry.image = ImageIO.read(new File(Cavalry.path));
-	}
-	
 	public static void setCardImageSizes(int cardW, int cardH) {
 		UnitType.cardW = cardW;
 		UnitType.cardH = cardH;
@@ -139,6 +129,13 @@ public enum UnitType {
 		return i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH);
 	}
 	
-	public Image getImage() {return image;}
+	public Image getImage() {
+		try {
+			return ImageIO.read(new File(path));
+		} catch (IOException e) {
+			System.out.println("Error fetching an image file");
+			return null;
+		}
+	}
 
 }

@@ -1,6 +1,9 @@
 package ATSSG.Actions;
 import ATSSG.Entities.Building;
 import ATSSG.UnitType;
+
+import java.io.IOException;
+
 import ATSSG.Cell;
 
 public class BuildUnitAction extends BuildingAction {
@@ -18,7 +21,7 @@ public class BuildUnitAction extends BuildingAction {
 	}
 	
 	//Methods
-	public boolean execute(){
+	public boolean execute() throws IOException {
 		//Executes build(toBuild, location) of performer
 		if(performer.build(toBuild, location)){
 			return true;

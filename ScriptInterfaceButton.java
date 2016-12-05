@@ -27,7 +27,8 @@ public class ScriptInterfaceButton extends JButton {
 		this.setPreferredSize(new Dimension(width, height));
 		this.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				si.getView().setVisible(true);
+				si.setVisible(true);
+				//si.getView().setVisible(true);
 			}
 		});
 		this.setEnabled(false);

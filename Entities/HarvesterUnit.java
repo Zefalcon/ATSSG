@@ -1,4 +1,5 @@
 package ATSSG.Entities;
+import java.io.IOException;
 import java.util.Collection;
 
 import ATSSG.*;
@@ -11,7 +12,7 @@ public class HarvesterUnit extends Unit {
 	int cargoAmount;
 	int depositProgress;
 	ResourceItem depositTarget;
-	public HarvesterUnit(HUnitType h, Player player, Cell location){
+	public HarvesterUnit(HUnitType h, Player player, Cell location) throws IOException {
 		super(h.baseUnit, player, location);
 	}
 	
