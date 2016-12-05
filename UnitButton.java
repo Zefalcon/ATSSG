@@ -18,7 +18,7 @@ public class UnitButton extends JButton {
 	private static final long serialVersionUID = 1L;
 	
 	//Variables
-	protected static ImageIcon blank = new ImageIcon(UnitType.resizeCard(TerrainType.VOID.getImage()[1]));
+	protected static ImageIcon blank = new ImageIcon(UnitType.resizeCard(UnitType.Void.getImage()));
 	protected ScriptInterface si;
 	protected MainMap mainMap;
 

@@ -129,6 +129,13 @@ public enum UnitType {
 		return i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH);
 	}
 	
-	public Image getImage() throws IOException {return ImageIO.read(new File(path));}
+	public Image getImage() {
+		try {
+			return ImageIO.read(new File(path));
+		} catch (IOException e) {
+			System.out.println("Error fetching an image file");
+			return null;
+		}
+	}
 
 }
