@@ -56,6 +56,9 @@ public class MainMap extends UIContainer<Cell> {
 	protected final JButton scrollRight;
 	protected final JButton scrollDown;
 	
+	protected static int defaultCameraWidth = 15;
+	protected static int defaultCameraHeight = 10;
+	
 	//Constructors
 	
 	public MainMap(final int width, final int height, final HumanPlayer owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
@@ -84,8 +87,8 @@ public class MainMap extends UIContainer<Cell> {
 		cameraConstants = new int[6];
 		cameraConstants[0] = GameMap.getHuman().getStartingX();
 		cameraConstants[1] = GameMap.getHuman().getStartingY();
-		cameraConstants[2] = 15;
-		cameraConstants[3] = 10;
+		cameraConstants[2] = MainMap.defaultCameraWidth;
+		cameraConstants[3] = MainMap.defaultCameraHeight;
 		viewableArea = new Cell[cameraConstants[2]][cameraConstants[3]];
 		scrollUp = new JButton("^");
 		scrollLeft = new JButton("<");
@@ -279,4 +282,6 @@ public class MainMap extends UIContainer<Cell> {
 	//getter methods to get references to Gooey
 	public CommandCard getCCard() {return cCard;}
 	public DetailCard getDCard() {return dCard;}
+	public static int getDefaultCameraWidth() {return MainMap.defaultCameraWidth;}
+	public static int getDefaultCameraHeight() {return MainMap.defaultCameraHeight;}
 }

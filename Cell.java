@@ -39,6 +39,7 @@ public class Cell implements Comparable<Cell> {
 	
 	//Methods
 	public void updateView(int iconW, int iconH) {
+		this.terrIcons = terrainType.getImages();
 		Icon icon;
 		if (getOccupyingEntities().isEmpty()) {
 			icon = new ImageIcon(terrIcons[0]);
