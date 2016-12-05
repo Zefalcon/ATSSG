@@ -20,14 +20,14 @@ public class Cell implements Comparable<Cell> {
 	protected GameMap containingMap;
 	protected int x, y; //location, may want to turn into an inner class or something
 	protected GooeyJButton view;
-	protected Icon[] terrIcons;
+	protected Image[] terrIcons;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
 		this.x = x_in;
 		this.y = y_in;
 		this.terrainType = t;
-		this.terrIcons = terrainType.getIcons();
+		this.terrIcons = terrainType.getImages();
 		this.occupyingResource = r;
 		this.containingMap = m;
 		
@@ -39,13 +39,15 @@ public class Cell implements Comparable<Cell> {
 	public void updateView(int iconW, int iconH) {
 		Icon icon;
 		if (getOccupyingEntities().isEmpty()) {
-			icon = terrIcons[0];
+			icon = new ImageIcon(terrIcons[0]);
 		} else {
-			icon = new ImageIcon(getOccupyingEntities().iterator().next().getImage().getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
+			Image image = getOccupyingEntities().iterator().next().getImage();
+			Image background = terrIcons[2];
+			background.getGraphics().drawImage(image, 0, 0, null);
+			icon = new ImageIcon(background.getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
 			//flag art proposition: if size = 1 do above, if size > 1 have a generic "army" image?
 		}
 		this.view.setIcon(icon);
-		
 	}
 	
 	public void setActionListener(ActionListener actlis) {
@@ -110,7 +112,7 @@ public class Cell implements Comparable<Cell> {
 	}
 
 	public TerrainType getTerrainType() {return terrainType;}
-	public Icon getTerrainDIcon() {return terrIcons[1];}
+	public Icon getTerrainDIcon() {return new ImageIcon(terrIcons[1]);}
 	public Collection<Entity> getOccupyingEntities() { return occupyingEntities;}
 	public GameMap getGameMap(){ return containingMap;}
 	public ResourceItem getResourceItem(){return occupyingResource;}

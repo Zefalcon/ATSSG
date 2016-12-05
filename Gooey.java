@@ -93,11 +93,6 @@ public class Gooey {
 
 		scriptInt = new ScriptInterface(null);
 		
-		mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
-		
-		unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
-		//unitQueue = mainMap.getUQ(); /TODO
-		
 		try {
 			menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
 			
@@ -117,6 +112,11 @@ public class Gooey {
 		
 			scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, scriptInt);
 		
+			mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt, scriptInterfaceButton);
+			
+			unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
+			//unitQueue = mainMap.getUQ(); /TODO
+			
 			menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher);
 			
 			etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue);
@@ -183,10 +183,11 @@ public class Gooey {
 	//Methods
 	
 	public void turnEndUpdate() {
-		//MainMap, Minimap, GlobalMap, UnitQueue, ResourceCard, DetailCard, CommandCard need to be updated
+		//MainMap, Minimap, GlobalMap, UnitQueue, ResourceCard, DetailCard, CommandCard, ScriptUI need to be updated
 		//MainMap
 		mainMap.updateView();
 		
+		scriptInt.update();
 	}
 	
 	//Called by Menu when initializing a game

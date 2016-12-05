@@ -41,6 +41,7 @@ public class MainMap extends UIContainer<Cell> {
 	protected Gooey holder;
 	
 	protected ScriptInterface si;
+	protected ScriptInterfaceButton sibtn;
 	
 	protected HumanPlayer owner;
 	
@@ -55,11 +56,12 @@ public class MainMap extends UIContainer<Cell> {
 	//Constructors
 	
 	public MainMap(final int width, final int height, final HumanPlayer owner, final int cCardW, final int cCardH, final int dCardW, final int dCardH,
-			final Gooey holder, ScriptInterface si) {
+			final Gooey holder, ScriptInterface si, ScriptInterfaceButton sibtn) {
 		super(null, width, height); //It so happens that arrays are not collections, and an array is notably better here.
 		this.holder = holder;
 		this.owner = owner;
 		this.si = si;
+		this.sibtn = sibtn;
 		
 		//interactable map setup
 		
@@ -146,7 +148,7 @@ public class MainMap extends UIContainer<Cell> {
 			for (int j = 0; j < cameraConstants[5]; j++) {
 				interactable[i][j].setActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//if (si.getView().isVisible() == true) {return;}
+						if (si.isVisible() == true) {return;}
 						Object o = e.getSource();
 						Cell clickedCell = ((GooeyJButton) o).getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
@@ -181,7 +183,12 @@ public class MainMap extends UIContainer<Cell> {
 						} else {
 							//highlight selected Cell
 							
-							
+							if (selectedEntity != null) {
+								si.update(selectedEntity);
+								sibtn.setEnabled(true);
+							} else {
+								sibtn.setEnabled(false);
+							}
 							dCard.update(clickedCell);
 							if (selectedEntity == null) {
 								cCard.reset();

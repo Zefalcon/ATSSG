@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 public enum TerrainType {
 	
@@ -24,8 +22,8 @@ public enum TerrainType {
 	public String name;
 	public String description;
 	public List<String> paths;
-	public List<ImageIcon> cellIcons;
-	public List<ImageIcon> cardIcons;
+	public List<Image> cellImages;
+	public List<Image> cardImages;
 	public List<Image> images;
 	public static int cardW, cardH;
 	
@@ -33,8 +31,8 @@ public enum TerrainType {
 		name = NAME;
 		description = DESCRIPTION;
 		this.paths = paths;
-		cellIcons = new ArrayList<ImageIcon>(4);
-		cardIcons = new ArrayList<ImageIcon>(4);
+		cellImages = new ArrayList<Image>(4);
+		cellImages = new ArrayList<Image>(4);
 		images = new ArrayList<Image>(4);
 	}
 	
@@ -54,49 +52,50 @@ public enum TerrainType {
 	}
 	
 	public static void setCellIconSizes(int ciW, int ciH) {
-		VOID.cellIcons.clear();
+		VOID.cellImages.clear();
 		for (Image i : VOID.images) {
-			VOID.cellIcons.add(new ImageIcon(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH)));
+			VOID.cellImages.add(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH));
 		}
-		GRASS.cellIcons.clear();
+		GRASS.cellImages.clear();
 		for (Image i : GRASS.images) {
-			GRASS.cellIcons.add(new ImageIcon(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH)));
+			GRASS.cellImages.add(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH));
 		}
-		ROUGH_TERRAIN.cellIcons.clear();
+		ROUGH_TERRAIN.cellImages.clear();
 		for (Image i : ROUGH_TERRAIN.images) {
-			ROUGH_TERRAIN.cellIcons.add(new ImageIcon(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH)));
+			ROUGH_TERRAIN.cellImages.add(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH));
 		}
-		MOUNTAIN.cellIcons.clear();
+		MOUNTAIN.cellImages.clear();
 		for (Image i : MOUNTAIN.images) {
-			MOUNTAIN.cellIcons.add(new ImageIcon(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH)));
+			MOUNTAIN.cellImages.add(i.getScaledInstance(ciW, ciH, Image.SCALE_SMOOTH));
 		}
 	}
 	
 	public static void setCardIconSizes(int cardW, int cardH) {
-		VOID.cardIcons.clear();
+		VOID.cardImages = new ArrayList<Image>(4);
 		for (Image i : VOID.images) {
-			VOID.cardIcons.add(new ImageIcon(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH)));
+			VOID.cardImages.add(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH));
 		}
-		GRASS.cardIcons.clear();
+		GRASS.cardImages = new ArrayList<Image>(4);
 		for (Image i : GRASS.images) {
-			GRASS.cardIcons.add(new ImageIcon(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH)));
+			GRASS.cardImages.add(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH));
 		}
-		ROUGH_TERRAIN.cardIcons.clear();
+		ROUGH_TERRAIN.cardImages = new ArrayList<Image>(4);
 		for (Image i : ROUGH_TERRAIN.images) {
-			ROUGH_TERRAIN.cardIcons.add(new ImageIcon(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH)));
+			ROUGH_TERRAIN.cardImages.add(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH));
 		}
-		MOUNTAIN.cardIcons.clear();
+		MOUNTAIN.cardImages = new ArrayList<Image>(4);
 		for (Image i : MOUNTAIN.images) {
-			MOUNTAIN.cardIcons.add(new ImageIcon(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH)));
+			MOUNTAIN.cardImages.add(i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH));
 		}
 	}
 	
 	public String getName() {return name;}
-	public Icon[] getIcons() {
+	public Image[] getImages() {
 		int rand = (int) (Math.random() * images.size());
-		Icon[] ret = new Icon[2];
-		ret[0] = cellIcons.get(rand);
-		ret[1] = cardIcons.get(rand);
+		Image[] ret = new Image[3];
+		ret[0] = cellImages.get(rand);
+		ret[1] = cardImages.get(rand);
+		try {ret[2] = ImageIO.read(new File(paths.get(rand)));} catch (IOException ioe) {ret[2] = null;}
 		return ret;
 	}
 	public String getDescription() {return description;}

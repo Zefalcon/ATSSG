@@ -39,7 +39,7 @@ public class UnitButton extends JButton {
 			this.setIcon(reference.getCardIcon());
 			this.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					//if (si.getView().isVisible() == true) {return;}
+					if (si.isVisible() == true) {return;}
 					//highlight map cell
 					//simulate selecting that cell - update dCard
 					//simulate selecting that unit - update cCard and highlight in dCard
