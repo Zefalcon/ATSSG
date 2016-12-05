@@ -140,7 +140,6 @@ public class Menu extends UIContainer<MenuElement> {
 				resume.setEnabled(true);
 				backButton.doClick();
 				resume.doClick();
-				holder.getPrompts().createMessagePrompt("New Game - Basic", "GL HF!", null);
 			}
 		}));
 		newGame.add(new MenuElement("New Game Scenario 2", new ActionListener() {//They will update GameMap with the appropriate file (somehow - I need that method)
@@ -151,7 +150,6 @@ public class Menu extends UIContainer<MenuElement> {
 				resume.setEnabled(true);
 				backButton.doClick();
 				resume.doClick();
-				holder.getPrompts().createMessagePrompt("New Game - Terrained", "GL HF!", null);
 			}
 		}));
 		newGame.add(new MenuElement("New Game Scenario 3", new ActionListener() {
@@ -162,7 +160,6 @@ public class Menu extends UIContainer<MenuElement> {
 				resume.setEnabled(true);
 				backButton.doClick();
 				resume.doClick();
-				holder.getPrompts().createMessagePrompt("New Game - Large", "GL HF!", null);
 			}
 		}));
 		newGame.add(new MenuElement("New Game Random Scenario", new ActionListener() {
