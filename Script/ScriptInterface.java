@@ -171,8 +171,10 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 
 	public void update(Entity newEntity){
 		actor = newEntity;
-		environment = newEntity.getCurrentScript();
-		setTitle(actor.toString() + "Script");
+		if(actor != null) {
+			environment = newEntity.getCurrentScript();
+			setTitle(actor.toString() + "Script");
+		}
 
 		if(environment == null /*|| environment.getLines().statementDone()*/){
 			model.removeAllElements();
