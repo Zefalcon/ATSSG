@@ -12,6 +12,9 @@ import java.util.Map;
 import ATSSG.*;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.RCommodityType;
+import ATSSG.Enums.TerrainType;
+import ATSSG.Enums.UnitType;
 import ATSSG.Player.*;
 
 import org.junit.Test;

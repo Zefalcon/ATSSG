@@ -1,17 +1,17 @@
 "5 V 5" : "A flat, open map for an AI and human player. Probably \"minimalistic\" or something."
 ---
-10 x 10 : 1
+15 x 10 : 1
 ---
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
-g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
+g g g g g g g g g g g g g g g
 ---
 soldier - h @ 2, 2;
 soldier - h @ 3, 2;

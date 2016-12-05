@@ -24,7 +24,6 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	AccessDataPopup accessData;
 	Entity actor;
 	Script environment;
-	//TODO: Need subclass that holds Statement?  Or just do a list of statements?
 
 	public ScriptInterface(Entity thisEntity){
 		this.addWindowListener(new WindowAdapter() {
@@ -38,9 +37,13 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		//expandButton.addActionListener(this);
 
 		addAction = new ActionPopup(this);
+		addAction.setLocation(250,0);
 		setVar = new SetVarPopup(this);
+		setVar.setLocation(250,0);
 		declareVar = new DeclareVarPopup(this);
+		declareVar.setLocation(250,0);
 		accessData = new AccessDataPopup(this);
+		accessData.setLocation(250,0);
 
 		options = new Choice();
 		options.add("Action");
@@ -48,7 +51,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		//options.add("Loop");
 		options.add("Set Variable");
 		options.add("Declare Variable");
-		//options.add("Access Data");
+		options.add("Access Data");
 
 		actor = thisEntity;
 		if(actor != null) {
@@ -79,10 +82,11 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		add(addButton);
 		add(options);
 
-		setTitle(actor.toString() + "Script");
+		setTitle("Script");
 		setSize(250, 500);
 		setResizable(false);
-		setVisible(true);
+		setAlwaysOnTop(true);
+		setVisible(false);
 	}
 
 	/*public static void main(String[] args){
@@ -119,11 +123,11 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 					declareVar.setVisible(true);
 					break;
 				}
-				/*case "Access Data":{
+				case "Access Data":{
 					//Open Access Data window
-					//accessData.setVisible(true);  No implementation for demo
+					accessData.setVisible(true);
 					break;
-				}*/
+				}
 				default:{
 					//Code should NOT get here, but if it does, it means Choice doesn't automatically choose the top of the list.
 					//Do it manually.
@@ -144,26 +148,35 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			model.removeAllElements();
 			model.addElement(toAdd.toString());
 			environment.getLines().addAtEnd(toAdd);
+			System.out.println(toAdd.toString() + " added");
 		}
 		else { //Add after selected value
 			if (selected == null) { //Nothing selected, add to end.
 				model.addElement(toAdd.toString());
 				environment.getLines().addAtEnd(toAdd);
+				System.out.println(toAdd.toString() + " added");
 			}
 			else { //Add after selected value
 				model.add(script.getSelectedIndex() + 1, toAdd.toString());
 				environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //TODO: Hack, pls fix
 				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
+				System.out.println(toAdd.toString() + " added");
 			}
 		}
 	}
 
+	public void update(){
+		update(actor);
+	}
+
 	public void update(Entity newEntity){
 		actor = newEntity;
-		environment = newEntity.getCurrentScript();
-		setTitle(actor.toString() + "Script");
+		if(actor != null) {
+			environment = newEntity.getCurrentScript();
+			setTitle(actor.toString() + "Script");
+		}
 
-		if(environment == null || environment.getLines().statementDone()){
+		if(environment == null /*|| environment.getLines().statementDone()*/){
 			model.removeAllElements();
 			model.addElement("No statements");
 			model.addElement("");
@@ -176,6 +189,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			model.addElement("");
 			model.addElement("");
 			model.addElement("");
+			environment = new Script(actor);
 		}
 		else{ //Populate with lines from script
 			List<Statement> lines = environment.getLines().getLines();

@@ -1,7 +1,7 @@
 package ATSSG.Actions;
 import ATSSG.Entities.Unit;
+import ATSSG.GUI.CommandType;
 import ATSSG.Cell;
-import ATSSG.CommandType;
 
 public class MoveAction extends UnitAction {
 	

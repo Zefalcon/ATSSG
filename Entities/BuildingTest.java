@@ -1,10 +1,11 @@
 package ATSSG.Entities;
 
-import ATSSG.BuildingType;
 import ATSSG.Player.Player;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Cell;
-import ATSSG.TerrainType;
+import ATSSG.Enums.BuildingType;
+import ATSSG.Enums.TerrainType;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

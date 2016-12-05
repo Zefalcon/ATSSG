@@ -1,6 +1,6 @@
 package ATSSG.Actions;
-import ATSSG.BuildingType;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.BuildingType;
 
 public class BuildBuildingAction extends UnitAction {
 	

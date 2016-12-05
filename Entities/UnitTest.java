@@ -2,9 +2,9 @@ package ATSSG.Entities;
 
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
-import ATSSG.TerrainType;
-import ATSSG.UnitType;
 import ATSSG.Cell;
+import ATSSG.Enums.TerrainType;
+import ATSSG.Enums.UnitType;
 
 import org.junit.Test;
 

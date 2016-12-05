@@ -1,8 +1,8 @@
 package ATSSG.Actions;
 import ATSSG.Cell;
-import ATSSG.CommandType;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.GUI.CommandType;
 
 public class AttackAction extends UnitAction {
 	

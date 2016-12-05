@@ -10,9 +10,9 @@ import java.util.List;
 import org.junit.Test;
 
 import ATSSG.Entities.Entity;
-import ATSSG.RCommodityType;
 import ATSSG.Entities.Unit;
-import ATSSG.UnitType;
+import ATSSG.Enums.RCommodityType;
+import ATSSG.Enums.UnitType;
 
 public class testPlayerandHumanPlayer {
 

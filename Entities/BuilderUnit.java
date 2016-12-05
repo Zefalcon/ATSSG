@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.util.Collection;
 
 import ATSSG.*;
+import ATSSG.Enums.BUnitType;
+import ATSSG.Enums.BuildingType;
+import ATSSG.Enums.TerrainType;
 import ATSSG.Player.Player;
 
 public class BuilderUnit extends Unit {

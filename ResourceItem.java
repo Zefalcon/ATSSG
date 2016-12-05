@@ -1,5 +1,7 @@
 package ATSSG;
 
+import ATSSG.Enums.ResourceType;
+
 public class ResourceItem {
 	
 	//Variables

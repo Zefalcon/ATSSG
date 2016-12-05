@@ -1,6 +1,6 @@
 package ATSSG.Actions;
 import ATSSG.Entities.Building;
-import ATSSG.UnitType;
+import ATSSG.Enums.UnitType;
 
 import java.io.IOException;
 

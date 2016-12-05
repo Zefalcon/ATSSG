@@ -1,10 +1,10 @@
 package ATSSG.Entities;
 import ATSSG.Cell;
-import ATSSG.CommandType;
 import ATSSG.Player.Player;
 import ATSSG.Script.Framework.Script;
 import ATSSG.Script.Framework.ScriptError;
 import ATSSG.Actions.*;
+import ATSSG.GUI.CommandType;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -53,7 +53,8 @@ public abstract class Entity {
 			executeAction();
 		}
 		else if(currentScript!=null){
-			executeScript();
+			System.out.println("Executing script");
+  			executeScript();
 		}
 		else{
 			//Do nothing

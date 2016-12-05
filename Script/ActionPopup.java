@@ -77,6 +77,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
+		environment = inter.environment;
 		String choice = options.getSelectedItem();
 		Statement toAdd;
 		switch (choice){
@@ -84,10 +85,11 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				//Ask for target of attack
 				int id;
 				try {
-					id = Integer.parseInt(target.getText());
+					id = Expression.getDoubleValue(target.getText(), environment).intValue();
 				}
-				catch(NumberFormatException nfe){
+				catch(Exception ex){
 					//Throw up some exception or other.
+					System.out.println("Number not right");
 					return;
 				}
 				//Get entity from id
@@ -98,6 +100,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				}
 				else{
 					//Throw up some exception or other.
+					System.out.println("Enemy does not exist");
 					return;
 				}
 				break;
@@ -112,11 +115,12 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				int xVal;
 				int yVal;
 				try {
-					xVal = Integer.parseInt(x.getText());
-					yVal = Integer.parseInt(y.getText());
+					xVal = Expression.getDoubleValue(x.getText(), environment).intValue();
+					yVal = Expression.getDoubleValue(y.getText(), environment).intValue();
 				}
-				catch(NumberFormatException nfe){
+				catch(Exception ex){
 					//Throw up some exception or other.
+					System.out.println("Not a number");
 					return;
 				}
 				//Get Cell from id
@@ -128,6 +132,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				}
 				else{
 					//Throw up some exception or other.
+					System.out.println("Cell does not exist");
 					return;
 				}
 				break;
@@ -203,4 +208,3 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 	}
 
 }
-

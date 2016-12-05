@@ -12,8 +12,8 @@ import ATSSG.Actions.Action;
 import ATSSG.Entities.Entity;
 import ATSSG.Cell;
 import ATSSG.GameMap;
-import ATSSG.RCommodityType;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.RCommodityType;
 import ATSSG.Player.Player;
 
 public class AIPlayer extends Player {

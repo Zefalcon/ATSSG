@@ -8,9 +8,9 @@ import java.awt.Image;
 import java.util.Collection;
 
 import ATSSG.Entities.Entity;
+import ATSSG.Enums.RCommodityType;
+import ATSSG.Enums.UnitType;
 import ATSSG.GameMap;
-import ATSSG.RCommodityType;
-import ATSSG.UnitType;
 
 public abstract class Player {
 	

@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import ATSSG.*;
+import ATSSG.Enums.BuildingType;
+import ATSSG.Enums.UnitType;
 import ATSSG.Player.Player;
 
 public class Building extends Entity {

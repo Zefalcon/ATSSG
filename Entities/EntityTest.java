@@ -2,9 +2,10 @@ package ATSSG.Entities;
 
 import ATSSG.Cell;
 import ATSSG.GameMap;
+import ATSSG.Enums.UnitType;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
-import ATSSG.UnitType;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

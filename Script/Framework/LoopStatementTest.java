@@ -7,10 +7,10 @@ import java.io.IOException;
 import org.junit.Test;
 
 import ATSSG.Cell;
-import ATSSG.TerrainType;
-import ATSSG.UnitType;
 import ATSSG.Actions.IdleAction;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.TerrainType;
+import ATSSG.Enums.UnitType;
 
 public class LoopStatementTest {
 

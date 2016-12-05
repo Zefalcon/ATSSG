@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.Collection;
 
 import ATSSG.*;
+import ATSSG.Enums.HUnitType;
+import ATSSG.Enums.RCommodityType;
 import ATSSG.Player.Player;
 
 public class HarvesterUnit extends Unit {

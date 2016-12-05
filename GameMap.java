@@ -11,6 +11,9 @@ import javax.imageio.ImageIO;
 
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.RCommodityType;
+import ATSSG.Enums.TerrainType;
+import ATSSG.Enums.UnitType;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIConfig;
@@ -54,6 +57,9 @@ public class GameMap{
 	}
 	
 	public GameMap(File toLoad) throws IOException{
+		
+		human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
+		human.setGameMap(this);
 		
 		Scanner s_tmp = new Scanner(toLoad);
 		String map_str = s_tmp.useDelimiter("\\Z").next().replaceAll("\\s+", "");

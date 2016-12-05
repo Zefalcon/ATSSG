@@ -2,6 +2,11 @@ package ATSSG;
 
 import java.io.IOException;
 
+import ATSSG.Enums.TerrainType;
+import ATSSG.Enums.UnitType;
+import ATSSG.GUI.CommandType;
+import ATSSG.GUI.Gooey;
+
 public class Game {
 
 	public static void main(String[] args) {

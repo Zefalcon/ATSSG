@@ -9,10 +9,10 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 import ATSSG.Cell;
-import ATSSG.RCommodityType;
-import ATSSG.UnitType;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.RCommodityType;
+import ATSSG.Enums.UnitType;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
 

@@ -9,8 +9,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import ATSSG.Entities.Entity;
+import ATSSG.Enums.RCommodityType;
 import ATSSG.GameMap;
-import ATSSG.RCommodityType;
 
 public class HumanPlayer extends Player {
 
