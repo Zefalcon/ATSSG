@@ -77,6 +77,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
+		environment = inter.environment;
 		String choice = options.getSelectedItem();
 		Statement toAdd;
 		switch (choice){

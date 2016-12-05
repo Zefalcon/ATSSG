@@ -38,9 +38,13 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		//expandButton.addActionListener(this);
 
 		addAction = new ActionPopup(this);
+		addAction.setLocation(250,0);
 		setVar = new SetVarPopup(this);
+		setVar.setLocation(250,0);
 		declareVar = new DeclareVarPopup(this);
+		declareVar.setLocation(250,0);
 		accessData = new AccessDataPopup(this);
+		accessData.setLocation(250,0);
 
 		options = new Choice();
 		options.add("Action");
