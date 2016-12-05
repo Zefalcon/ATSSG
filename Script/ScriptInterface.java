@@ -24,7 +24,6 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	AccessDataPopup accessData;
 	Entity actor;
 	Script environment;
-	//TODO: Need subclass that holds Statement?  Or just do a list of statements?
 
 	public ScriptInterface(Entity thisEntity){
 		this.addWindowListener(new WindowAdapter() {
@@ -86,7 +85,8 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		setTitle("Script");
 		setSize(250, 500);
 		setResizable(false);
-		setVisible(true);
+		setAlwaysOnTop(true);
+		setVisible(false);
 	}
 
 	/*public static void main(String[] args){
@@ -148,19 +148,25 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			model.removeAllElements();
 			model.addElement(toAdd.toString());
 			environment.getLines().addAtEnd(toAdd);
+			System.out.println(toAdd.toString() + " added");
 		}
 		else { //Add after selected value
 			if (selected == null) { //Nothing selected, add to end.
 				model.addElement(toAdd.toString());
 				environment.getLines().addAtEnd(toAdd);
+				System.out.println(toAdd.toString() + " added");
 			}
 			else { //Add after selected value
 				model.add(script.getSelectedIndex() + 1, toAdd.toString());
 				environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //TODO: Hack, pls fix
 				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
+				System.out.println(toAdd.toString() + " added");
 			}
 		}
-		System.out.println(toAdd.toString() + " added");
+	}
+
+	public void update(){
+		update(actor);
 	}
 
 	public void update(Entity newEntity){
@@ -168,7 +174,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		environment = newEntity.getCurrentScript();
 		setTitle(actor.toString() + "Script");
 
-		if(environment == null || environment.getLines().statementDone()){
+		if(environment == null /*|| environment.getLines().statementDone()*/){
 			model.removeAllElements();
 			model.addElement("No statements");
 			model.addElement("");
