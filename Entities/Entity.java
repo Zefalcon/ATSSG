@@ -53,6 +53,7 @@ public abstract class Entity {
 			executeAction();
 		}
 		else if(currentScript!=null){
+			System.out.println("Executing script");
 			executeScript();
 		}
 		else{
