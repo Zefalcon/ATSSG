@@ -33,7 +33,7 @@ public enum UnitType {
 	Archer(
 		"Archer",
 		"A basic ranged unit.",
-		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
+		Paths.get("src/ATSSG/Art/DemoArcher.png").toString(),
 		10,
 		new InlineMap<TerrainType,Integer>()
 			.returnPut(TerrainType.GRASS, 1)
@@ -46,7 +46,7 @@ public enum UnitType {
 	Guardtower(
 		"Guardtower",
 		"A stationary, ranged defensive structure.",
-		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
+		Paths.get("src/ATSSG/Art/DemoTower.png").toString(),
 		15,
 		new InlineMap<TerrainType,Integer>(),
 		0,
@@ -57,7 +57,7 @@ public enum UnitType {
 	SeigeEngine(
 		"Seige Engine",
 		"A large, moving weapon.",
-		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
+		Paths.get("src/ATSSG/Art/DemoSeige.png").toString(),
 		5,
 		new InlineMap<TerrainType,Integer>()
 			.returnPut(TerrainType.GRASS, 1),
@@ -69,7 +69,7 @@ public enum UnitType {
 	Mountaineer(
 		"Mountaineer",
 		"A unit trained in navigating difficult terrain.",
-		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
+		Paths.get("src/ATSSG/Art/DemoHiker.png").toString(),
 		8,
 		new InlineMap<TerrainType,Integer>()
 			.returnPut(TerrainType.GRASS, 1)
@@ -83,7 +83,7 @@ public enum UnitType {
 	Cavalry(
 		"Cavalier",
 		"A fast, hard-hitting, fragile unit.",
-		Paths.get("src/ATSSG/Art/BlankLabel.png").toString(),
+		Paths.get("src/ATSSG/Art/DemoCavalry.png").toString(),
 		4,
 		new InlineMap<TerrainType, Integer>().returnPut(TerrainType.GRASS, 1),
 		8,
