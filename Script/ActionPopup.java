@@ -85,9 +85,9 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				//Ask for target of attack
 				int id;
 				try {
-					id = Integer.parseInt(target.getText());
+					id = Expression.getDoubleValue(target.getText(), environment).intValue();
 				}
-				catch(NumberFormatException nfe){
+				catch(Exception ex){
 					//Throw up some exception or other.
 					System.out.println("Number not right");
 					return;
@@ -115,10 +115,10 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				int xVal;
 				int yVal;
 				try {
-					xVal = Integer.parseInt(x.getText());
-					yVal = Integer.parseInt(y.getText());
+					xVal = Expression.getDoubleValue(x.getText(), environment).intValue();
+					yVal = Expression.getDoubleValue(y.getText(), environment).intValue();
 				}
-				catch(NumberFormatException nfe){
+				catch(Exception ex){
 					//Throw up some exception or other.
 					System.out.println("Not a number");
 					return;
