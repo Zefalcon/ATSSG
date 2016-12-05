@@ -144,6 +144,7 @@ public class MainMap extends UIContainer<Cell> {
 	
 	public void updateGameMap(GameMap gm) {
 		if (gm == null || gm.getCells() == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;} //Flag possible error handling required
+		owner = GameMap.getHuman();
 		interactable = gm.getCells();
 		cameraConstants[4] = interactable.length;
 		cameraConstants[5] = interactable[0].length;
@@ -186,21 +187,18 @@ public class MainMap extends UIContainer<Cell> {
 						} else {
 							//highlight selected Cell
 							
-							if (selectedEntity != null) {
-								si.update(selectedEntity);
-								sibtn.setEnabled(true);
-							} else {
-								sibtn.setEnabled(false);
-							}
 							dCard.update(clickedCell);
 							if (selectedEntity == null) {
 								cCard.reset();
+								sibtn.setEnabled(false);
 							} else {
 								//Highlight the selected unit in DetailCard
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
 									cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
 									index++; //Flag not protected from being fed too many commandTypes
+									si.update(selectedEntity);
+									sibtn.setEnabled(true);
 								}
 							}
 						}
