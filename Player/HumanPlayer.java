@@ -20,8 +20,8 @@ public class HumanPlayer extends Player {
 		resources = startingResources;
 		owned_entities = starting_entities;
 		containing_map = map;
-		stX = 0;
-		stY = 0;
+		stX = 9;
+		stY = 9; //Flag: arbitrary numbers
 		try {colors = ImageIO.read(new File(Paths.get("src/ATSSG/Art/HumanColorsDefault.png").toString()));} catch (IOException e) {}
 	}
 	
