@@ -89,6 +89,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				}
 				catch(NumberFormatException nfe){
 					//Throw up some exception or other.
+					System.out.println("Number not right");
 					return;
 				}
 				//Get entity from id
@@ -99,6 +100,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				}
 				else{
 					//Throw up some exception or other.
+					System.out.println("Enemy does not exist");
 					return;
 				}
 				break;
@@ -118,6 +120,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				}
 				catch(NumberFormatException nfe){
 					//Throw up some exception or other.
+					System.out.println("Not a number");
 					return;
 				}
 				//Get Cell from id
@@ -129,6 +132,7 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 				}
 				else{
 					//Throw up some exception or other.
+					System.out.println("Cell does not exist");
 					return;
 				}
 				break;

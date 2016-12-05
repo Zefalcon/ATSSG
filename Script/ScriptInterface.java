@@ -160,6 +160,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
 			}
 		}
+		System.out.println(toAdd.toString() + " added");
 	}
 
 	public void update(Entity newEntity){
