@@ -17,6 +17,7 @@ import ATSSG.Actions.AttackAction;
 import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.CommandType;
 import ATSSG.Enums.TerrainType;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Script.ScriptInterface;
@@ -171,9 +172,10 @@ public class MainMap extends UIContainer<Cell> {
 						if (heldCommand == CommandType.MOVE) {
 							try {
 								heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell)); //Unchecked Class Cast Flag
-								clearHeld();
 							} catch (RuntimeException error) {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
+							} finally {
+								clearHeld();
 							}
 						} else if (heldCommand == CommandType.ATTACK) {
 							try {
@@ -183,9 +185,10 @@ public class MainMap extends UIContainer<Cell> {
 								} else {
 									throw new RuntimeException("Entity"+selectedEntity.getId()+" can only attack enemies.");
 								}
-								clearHeld();
 							} catch (RuntimeException error) {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
+							} finally {
+								clearHeld();
 							}
 						} else {
 							//highlight selected Cell

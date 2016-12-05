@@ -194,11 +194,11 @@ public class Gooey {
 	
 	//Called by Menu when initializing a game
 	public void updateGameMap(GameMap gm) {
-		mainMap.updateGameMap(gm);
-		
 		int ciW = (screenWidth - 100) / MainMap.getDefaultCameraWidth();
 		int ciH = (int) ((((3.0 * screenHeight) / 4.0) - 100) / MainMap.getDefaultCameraHeight());
 		TerrainType.setCellIconSizes(ciW, ciH);
+		
+		mainMap.updateGameMap(gm);
 		
 		etButton.endTurn();
 	}

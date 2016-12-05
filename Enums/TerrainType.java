@@ -34,20 +34,12 @@ public enum TerrainType {
 		cellImages = new ArrayList<Image>(4);
 		cellImages = new ArrayList<Image>(4);
 		images = new ArrayList<Image>(4);
-	}
-	
-	public static void populateImages() throws IOException {
-		for (String s : VOID.paths) {
-			VOID.images.add(ImageIO.read(new File(s)));
-		}
-		for (String s : GRASS.paths) {
-			GRASS.images.add(ImageIO.read(new File(s)));
-		}
-		for (String s : ROUGH_TERRAIN.paths) {
-			ROUGH_TERRAIN.images.add(ImageIO.read(new File(s)));
-		}
-		for (String s : MOUNTAIN.paths) {
-			MOUNTAIN.images.add(ImageIO.read(new File(s)));
+		for (String s : paths) {
+			try {
+				images.add(ImageIO.read(new File(s)));
+			} catch (IOException ioe) {
+				System.out.println("Image Files not found for terrains");
+			}
 		}
 	}
 	

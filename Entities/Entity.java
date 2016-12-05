@@ -4,7 +4,7 @@ import ATSSG.Player.Player;
 import ATSSG.Script.Framework.Script;
 import ATSSG.Script.Framework.ScriptError;
 import ATSSG.Actions.*;
-import ATSSG.GUI.CommandType;
+import ATSSG.Enums.CommandType;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public abstract class Entity {
 		hitPoints = hp;
 		owner = player;
 		containingCell = currentCell;
-		currentScript = null;
+		currentScript = new Script(this);
 		currentAction = null;
 		this.image = image;
 		icon = null;
