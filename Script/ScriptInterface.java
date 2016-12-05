@@ -180,6 +180,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			model.addElement("");
 			model.addElement("");
 			model.addElement("");
+			environment = new Script(actor);
 		}
 		else{ //Populate with lines from script
 			List<Statement> lines = environment.getLines().getLines();
