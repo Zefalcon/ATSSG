@@ -9,10 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 public class ScriptInterface extends JFrame implements ActionListener, ListSelectionListener{
 
-	JList<String/*Statement*/> script;
+	JList<String> script;
 	Button addButton;
 	//Button expandButton;
 	Choice options;
@@ -25,7 +26,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	Script environment;
 	//TODO: Need subclass that holds Statement?  Or just do a list of statements?
 
-	public ScriptInterface(Entity thisEntity, Script env){
+	public ScriptInterface(Entity thisEntity){
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we){
 				setVisible(false);
@@ -48,10 +49,11 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		options.add("Set Variable");
 		options.add("Declare Variable");
 		//options.add("Access Data");
-		//options.add("Block");
 
 		actor = thisEntity;
-		environment = env;
+		if(actor != null) {
+			environment = thisEntity.getCurrentScript();
+		}
 
 		setLayout(new FlowLayout());
 
@@ -79,12 +81,13 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 
 		setTitle(actor.toString() + "Script");
 		setSize(250, 500);
+		setResizable(false);
 		setVisible(true);
 	}
 
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		ScriptInterface si = new ScriptInterface(null, null);
-	}
+	}*/
 
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource().equals(addButton)){
@@ -121,11 +124,6 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 					//accessData.setVisible(true);  No implementation for demo
 					break;
 				}*/
-				/*case "Block":{
-					//Open Add Block window
-					//toAdd = window.getStatement(); or something
-					break;
-				}*/
 				default:{
 					//Code should NOT get here, but if it does, it means Choice doesn't automatically choose the top of the list.
 					//Do it manually.
@@ -145,20 +143,44 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		if(model.getElementAt(0).equals("No statements")) { //No statements yet.  Clear, then add to end.
 			model.removeAllElements();
 			model.addElement(toAdd.toString());
-			//model.addElement("No selection!"); //For testing
 			environment.getLines().addAtEnd(toAdd);
 		}
 		else { //Add after selected value
 			if (selected == null) { //Nothing selected, add to end.
 				model.addElement(toAdd.toString());
-				//model.addElement("Add at end"); //For testing
 				environment.getLines().addAtEnd(toAdd);
 			}
 			else { //Add after selected value
 				model.add(script.getSelectedIndex() + 1, toAdd.toString());
-				//model.add(script.getSelectedIndex() + 1, "After!"); //For testing
 				environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //TODO: Hack, pls fix
 				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
+			}
+		}
+	}
+
+	public void update(Entity newEntity){
+		actor = newEntity;
+		environment = newEntity.getCurrentScript();
+		setTitle(actor.toString() + "Script");
+
+		if(environment == null || environment.getLines().statementDone()){
+			model.removeAllElements();
+			model.addElement("No statements");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+			model.addElement("");
+		}
+		else{ //Populate with lines from script
+			List<Statement> lines = environment.getLines().getLines();
+			for(int i=0;i<lines.size();i++){
+				model.addElement(lines.get(i).toString());
 			}
 		}
 	}

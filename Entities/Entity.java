@@ -134,5 +134,8 @@ public abstract class Entity {
 	public static int getNextId() {return next_id;}
 	
 	public void setHitPoints(int h){this.hitPoints = h;}
+	public Script getCurrentScript(){
+		return currentScript;
+	}
 
 }

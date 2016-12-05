@@ -90,6 +90,8 @@ public class Gooey {
 		//Building the UI
 		
 		JPanel paneSwitcher = new JPanel();
+
+		scriptInt = new ScriptInterface(null);
 		
 		mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt);
 		
