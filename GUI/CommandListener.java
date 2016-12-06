@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import ATSSG.Actions.IdleAction;
 import ATSSG.Entities.Entity;
+import ATSSG.Enums.CommandType;
 import ATSSG.Script.ScriptInterface;
 
 public class CommandListener implements ActionListener {

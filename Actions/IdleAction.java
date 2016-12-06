@@ -1,6 +1,6 @@
 package ATSSG.Actions;
 import ATSSG.Cell;
-import ATSSG.GUI.CommandType;
+import ATSSG.Enums.CommandType;
 
 public class IdleAction extends Action {
 	

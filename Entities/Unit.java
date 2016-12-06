@@ -11,7 +11,7 @@ import ATSSG.Entities.Building;
 import ATSSG.Entities.Entity;
 import ATSSG.Enums.BuildingType;
 import ATSSG.Enums.UnitType;
-import ATSSG.GUI.CommandType;
+import ATSSG.Enums.CommandType;
 import ATSSG.Player.Player;
 
 public class Unit extends Entity {

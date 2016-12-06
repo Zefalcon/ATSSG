@@ -1,6 +1,6 @@
 package ATSSG.Actions;
 import ATSSG.Entities.Unit;
-import ATSSG.GUI.CommandType;
+import ATSSG.Enums.CommandType;
 import ATSSG.Cell;
 
 public class MoveAction extends UnitAction {

@@ -2,7 +2,7 @@ package ATSSG.Actions;
 import ATSSG.Cell;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
-import ATSSG.GUI.CommandType;
+import ATSSG.Enums.CommandType;
 
 public class AttackAction extends UnitAction {
 	

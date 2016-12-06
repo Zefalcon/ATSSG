@@ -246,6 +246,9 @@ public class GameMap{
 		for(int i = 0; i < units.length; i++){
 			serial[i + sp] = units[i];
 		}
+		sp = sp + units.length;
+		
+		
 		
 		return serial;
 	}
