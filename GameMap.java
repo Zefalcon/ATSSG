@@ -41,8 +41,8 @@ public class GameMap{
 		.returnPut("soldier", UnitType.Soldier)
 		.returnPut("archer", UnitType.Archer)
 		.returnPut("tower", UnitType.Guardtower)
-		.returnPut("seige", UnitType.SeigeEngine)
-		.returnPut("mountaineer", UnitType.Mountaineer)
+		.returnPut("siege", UnitType.SeigeEngine)
+		.returnPut("hiker", UnitType.Mountaineer)
 		.returnPut("cavalry", UnitType.Cavalry)
 	;
 	
@@ -101,6 +101,8 @@ public class GameMap{
 			}
 		}
 		
+		System.out.println("Beginnind unit creation.");
+		
 		String unit_list = terrain_plus.substring(terrain_plus.indexOf("---") + 3);
 		int last_ind = unit_list.indexOf(';');
 		while(last_ind != -1){
@@ -109,6 +111,8 @@ public class GameMap{
 			int dash = unit_string.indexOf('-');
 			int at = unit_string.indexOf('@');
 			int comma = unit_string.indexOf(',');
+			
+			System.out.println("Loading unit " + unit_string.substring(0, dash));
 			
 			UnitType ut = unit_lookup.get(unit_string.substring(0, dash));
 			String pi = unit_string.substring(dash + 1, at);
