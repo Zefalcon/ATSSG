@@ -38,6 +38,10 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected Entity selectedEntity;
 	
+	protected GooeyJButton lastClicked;
+	
+	protected GooeyJButton clickedButton;
+	
 	protected CommandCard cCard;
 	
 	protected DetailCard dCard;
@@ -158,7 +162,8 @@ public class MainMap extends UIContainer<Cell> {
 					public void actionPerformed(ActionEvent e) {
 						if (si.isVisible() == true) {return;}
 						Object o = e.getSource();
-						Cell clickedCell = ((GooeyJButton) o).getCell();
+						GooeyJButton gjb = (GooeyJButton) o;
+						Cell clickedCell = gjb.getCell();
 						if (clickedCell == null) {return;} //Applies only to blank CmdButtons
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
 						if (occupiers.isEmpty()) {
@@ -191,7 +196,10 @@ public class MainMap extends UIContainer<Cell> {
 								clearHeld();
 							}
 						} else {
-							//highlight selected Cell
+							lastClicked = clickedButton;
+							clickedButton = gjb;
+							if (lastClicked != null) {lastClicked.toggleSelected();}
+							clickedButton.toggleSelected();
 							
 							dCard.update(clickedCell);
 							if (selectedEntity == null) {

@@ -1,7 +1,10 @@
 package ATSSG.GUI;
 
+import java.awt.Color;
+
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
 
 import ATSSG.Cell;
 
@@ -23,6 +26,9 @@ public class GooeyJButton extends JButton {
 	public GooeyJButton(Icon icon, Cell locus) {
 		super(icon);
 		this.locus = locus;
+		LineBorder b = new LineBorder(Color.WHITE);
+		setBorder(b);
+		setBorderPainted(false);
 	}
 
 	/*public GooeyJButton(String text) {
@@ -39,5 +45,9 @@ public class GooeyJButton extends JButton {
 
 	public Cell getCell() {
 		return locus;
+	}
+	
+	public void toggleSelected() {
+		setBorderPainted(!isBorderPainted());
 	}
 }
