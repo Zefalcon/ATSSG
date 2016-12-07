@@ -15,8 +15,20 @@ public class Block extends Statement {
 		lines = new ArrayList<Statement>();
 	}
 	
-	public Block(String lines, int d){
-		
+	public Block(String wad, int d){
+		this.lines = new ArrayList<Statement>();
+		if(wad.length() > 0){
+			//If we aren't given an empty block.
+			String tag = "[" + d + "]";
+			String w_cut = wad;
+			int tag_loc = wad.indexOf(tag);
+			while(tag_loc != -1){
+				String line = w_cut.substring(0, tag_loc);
+				lines.add(Statement.make(line));
+				w_cut = w_cut.substring(tag_loc + wad.length());
+				tag_loc = wad.indexOf(tag);
+			}
+		}
 	}
 	
 	public void addStatement(Statement toAdd, int pos) {
@@ -80,7 +92,7 @@ public class Block extends Statement {
 		String total = wrapper;
 		String line_wrapper = "[" + depth + "]";
 		for(Statement s : lines){
-			total = total + line_wrapper + s.saveString(depth) + line_wrapper;
+			total = total + s.saveString(depth) + line_wrapper;
 		}
 		return total + wrapper;
 	}

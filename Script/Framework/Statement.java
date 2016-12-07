@@ -18,4 +18,9 @@ public abstract class Statement {
 	public abstract Statement copy();
 	
 	public abstract String saveString(int depth);
+	
+	public static Statement make(String line){
+		System.out.println("Making from " + line);
+		return null;
+	}
 }
