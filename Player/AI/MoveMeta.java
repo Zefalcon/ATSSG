@@ -8,7 +8,6 @@ import java.util.PriorityQueue;
 import ATSSG.Actions.Action;
 import ATSSG.Cell;
 import ATSSG.EstimatingCell;
-import ATSSG.Entities.Entity;
 import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Unit;
 

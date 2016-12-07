@@ -2,9 +2,6 @@ package ATSSG.Script.Framework;
 
 import java.util.regex.Pattern;
 
-import javax.management.RuntimeErrorException;
-
-
 public class VariableDeclarationStatement extends Statement {
 	
 	//Variables

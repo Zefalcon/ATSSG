@@ -2,6 +2,7 @@ package ATSSG.Script;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import ATSSG.Script.Framework.*;
 import ATSSG.Entities.*;
 import ATSSG.Actions.*;
@@ -11,6 +12,7 @@ import ATSSG.Cell;
 /**
  * Created by Evelyn Moss on 12/4/2016.
  */
+@SuppressWarnings("serial")
 public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 
 	Script environment;

@@ -1,9 +1,11 @@
 package ATSSG.Script;
 import ATSSG.Entities.Entity;
 import ATSSG.Script.Framework.*;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class ScriptInterface extends JFrame implements ActionListener, ListSelectionListener{
 
 	JList<String> script;

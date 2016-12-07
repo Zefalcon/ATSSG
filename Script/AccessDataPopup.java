@@ -4,12 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 import ATSSG.Script.Framework.*;
+
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * Created by Evelyn Moss on 12/4/2016.
  */
+@SuppressWarnings("serial")
 public class AccessDataPopup extends Dialog implements ActionListener, ItemListener {
 
 	ScriptInterface inter;

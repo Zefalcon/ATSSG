@@ -1,16 +1,17 @@
 package ATSSG.Script;
 
-import javax.xml.soap.Text;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import ATSSG.Script.Framework.*;
 
 /**
  * Created by Evelyn Moss on 12/4/2016.
  */
+@SuppressWarnings("serial")
 public class SetVarPopup extends Dialog implements ActionListener  {
 
 	ScriptInterface inter;

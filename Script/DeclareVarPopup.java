@@ -2,11 +2,13 @@ package ATSSG.Script;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import ATSSG.Script.Framework.*;
 
 /**
  * Created by Evelyn Moss on 12/4/2016.
  */
+@SuppressWarnings("serial")
 public class DeclareVarPopup extends Dialog implements ActionListener{
 	ScriptInterface inter;
 

@@ -2,11 +2,8 @@ package ATSSG.Script;
 
 import javax.swing.*;
 import ATSSG.Actions.Action;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 import ATSSG.Actions.*;
-
-import java.nio.file.Paths;
 
 public class ScriptButton extends JButton {
 
