@@ -54,6 +54,11 @@ public class SetVariableStatement extends Statement {
 	}
 	
 	@Override
+	public String toString(){
+		return "Set variable "+name+" to "+value;
+	}
+	
+	@Override
 	public String saveString(int depth){
 		return "set:" + name + "," + value;
 	}

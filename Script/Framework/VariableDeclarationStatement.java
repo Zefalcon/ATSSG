@@ -60,6 +60,11 @@ public class VariableDeclarationStatement extends Statement {
 	}
 	
 	@Override
+	public String toString(){
+		return "Declare variable "+name+" as "+type.getName();
+	}
+	
+	@Override
 	public String saveString(int d){
 		return "dec:" + name + "," + type.getName();
 	}

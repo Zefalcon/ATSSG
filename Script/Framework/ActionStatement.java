@@ -59,7 +59,16 @@ public class ActionStatement extends Statement {
 
 	@Override
 	public String toString(){
-		return actionType.name();
+		switch (actionType) {
+		case ATTACK:
+			return "Action: Attacking \""+actionArgs.get(0)+"\"";
+		case IDLE:
+			return "Action: Idle";
+		case MOVE:
+			return "Action: Moving to ("+actionArgs.get(0)+","+actionArgs.get(1)+")";
+		default:
+			return "Action: None";
+		}
 	}
 	
 	public CommandType getActionType() {
