@@ -30,8 +30,7 @@ public class HumanPlayer extends Player {
 		if (owned_entities == null) return;
 		for (Entity e: owned_entities) {
 			try {
-				e.tickTurn();
-				//e.executeAction();
+				e.executeAction();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

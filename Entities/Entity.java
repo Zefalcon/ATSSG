@@ -46,20 +46,6 @@ public abstract class Entity {
 		entity_id = next_id;
 		next_id++;
 	}
-	
-	//Methods
-	public void tickTurn() throws IOException{
-		if(currentAction!=null){
-			executeAction();
-		}
-		else if(currentScript!=null){
-			System.out.println("Executing script");
-  			executeScript();
-		}
-		else{
-			//Do nothing
-		}
-	}
 
 	public void doDamage(int damage){
 		hitPoints-=damage;
