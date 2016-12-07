@@ -247,6 +247,7 @@ public class GameMap{
 			for(int j = 0; j < semiserialized.length; j++){
 				scripts[j + script_offset + len.length] = semiserialized[j];
 			}
+			script_offset = script_offset + len.length + semiserialized.length;
 		}
 		
 		
@@ -285,7 +286,6 @@ public class GameMap{
 	}
 	
 	public static GameMap Load(byte[] input) throws IOException {
-		System.out.println("Called.");
 		GameMap gm = new GameMap();
 		
 		byte[] x_bytes = new byte [Saveable.ict];
@@ -356,6 +356,33 @@ public class GameMap{
 				gm.all_cells[Saveable.btoi(x_pos_byte)][Saveable.btoi(y_pos_byte)]
 			);
 			u_prime.setHitPoints(Saveable.btoi(hp_byte));
+		}
+		
+		offset = offset + (uc * Saveable.ict * 5);
+		byte[] script_chunk = new byte[input.length - offset];
+		for(int i = 0; i < script_chunk.length; i++){
+			script_chunk[i] = input[offset + i];
+		}
+		
+		List<Entity> units = gm.getEntities();
+		int sc_offset = 0;
+		while(sc_offset < script_chunk.length){
+			byte[] size_bytes = new byte[Saveable.ict];
+			for(int i = 0; i < Saveable.ict; i++){
+				size_bytes[i] = script_chunk[i + sc_offset];
+			}
+			sc_offset = sc_offset + Saveable.ict;
+			int size_int = Saveable.btoi(size_bytes);
+			byte[] string_bytes = new byte[size_int];
+			for(int i = 0; i < size_int; i++){
+				string_bytes[i] = script_chunk[i + sc_offset];
+			}
+			String string_string = new String(string_bytes);
+			
+			int utarget = Integer.parseInt(string_string.substring(0, string_string.indexOf(':')));
+			String wad = string_string.substring(string_string.indexOf(':') + 1);
+			units.get(utarget).setScript(wad);
+			sc_offset = sc_offset + size_int;
 		}
 		
 		return gm;

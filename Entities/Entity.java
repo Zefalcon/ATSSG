@@ -138,5 +138,8 @@ public abstract class Entity {
 	public Script getCurrentScript(){
 		return currentScript;
 	}
+	public void setScript(String wad){
+		//TODO
+	}
 
 }
