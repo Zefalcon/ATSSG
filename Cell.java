@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -44,11 +45,19 @@ public class Cell implements Comparable<Cell> {
 		if (getOccupyingEntities().isEmpty()) {
 			icon = new ImageIcon(terrIcons[0]);
 		} else {
-			Image image = getOccupyingEntities().iterator().next().getImage();
+			Image[] entities = new Image[getOccupyingEntities().size()];
+			Iterator<Entity> itr = getOccupyingEntities().iterator();
+			for (int i = 0; i < entities.length; i++) {
+				entities[i] = itr.next().getImage();
+			}
 			Image background = terrIcons[2];
-			background.getGraphics().drawImage(image, 0, 0, null);
+			double iW = background.getWidth(null);
+			double iH = background.getHeight(null);
+			for (int j = 0; j < entities.length; j++) {
+				background.getGraphics().drawImage(entities[j].getScaledInstance((int)(iW/Math.pow(1.3, j)), (int)(iH/Math.pow(1.3, j)), Image.SCALE_SMOOTH),
+						(int)(iW-iW/Math.pow(1.3, j)), (int)(iH-iH/Math.pow(1.3, j)), null);
+			}
 			icon = new ImageIcon(background.getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
-			//flag art proposition: if size = 1 do above, if size > 1 have a generic "army" image?
 		}
 		this.view.setIcon(icon);
 	}
