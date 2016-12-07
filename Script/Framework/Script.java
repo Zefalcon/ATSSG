@@ -34,6 +34,12 @@ public class Script {
 		heap = new HashMap<String, Object>();
 	}
 	
+	public Script(Entity owner, String wad){
+		this.owner = owner;
+		this.heap = new HashMap<String, Object>();
+		this.lines = new Block(wad.substring(3, wad.length() - 3), 0);
+	}
+	
 	//Methods
 	public boolean execute() throws ScriptError{
 		return lines.execute(this);

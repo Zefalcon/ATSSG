@@ -15,6 +15,10 @@ public class Block extends Statement {
 		lines = new ArrayList<Statement>();
 	}
 	
+	public Block(String lines, int d){
+		
+	}
+	
 	public void addStatement(Statement toAdd, int pos) {
 		lines.add(pos, toAdd);
 	}

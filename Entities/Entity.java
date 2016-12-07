@@ -139,7 +139,7 @@ public abstract class Entity {
 		return currentScript;
 	}
 	public void setScript(String wad){
-		//TODO
+		this.currentScript = new Script(this, wad);
 	}
 
 }
