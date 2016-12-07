@@ -19,9 +19,8 @@ import static org.junit.Assert.*;
 public class EntityTest {
     @Test
     public void doDamage() throws Exception {
-        GameMap map = new GameMap();
-        Player player = new HumanPlayer(null,new ArrayList<Entity>(),map);
-        Cell cell = new Cell(TerrainType.GRASS,null,map,0,0);
+        Player player = new HumanPlayer(null,new ArrayList<Entity>(), null);
+        Cell cell = new Cell(TerrainType.GRASS,null,null,0,0);
         Entity e = new Unit(UnitType.Soldier,player,cell);
         e.doDamage(3);
         assertEquals(Math.max(0,UnitType.Soldier.maxHP-3), e.getHitPoints());
@@ -29,9 +28,8 @@ public class EntityTest {
 
     @Test
     public void kill() throws Exception {
-        GameMap map = new GameMap();
-        Player player = new HumanPlayer(null,new ArrayList<Entity>(),map);
-        Cell cell = new Cell(TerrainType.GRASS,null,map,0,0);
+        Player player = new HumanPlayer(null,new ArrayList<Entity>(),null);
+        Cell cell = new Cell(TerrainType.GRASS,null,null,0,0);
         Entity e = new Unit(UnitType.Soldier,player,cell);
         e.doDamage(30);
         assertFalse(player.getEntities().contains(e));

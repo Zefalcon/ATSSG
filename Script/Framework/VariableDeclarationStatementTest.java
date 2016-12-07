@@ -32,9 +32,8 @@ public class VariableDeclarationStatementTest {
 		for (String bad: invalidNames) {
 			try {
 				new VariableDeclarationStatement(bad, Double.class);
-				assert(false);
+				fail(bad);
 			} catch (ScriptError e) {
-				assert(true);
 			}
 		}
 		
@@ -45,11 +44,11 @@ public class VariableDeclarationStatementTest {
 		VariableDeclarationStatement v = new VariableDeclarationStatement("var1", Double.class);
 		Script s = new Script(null);
 		v.execute(s);
-		assert(s.getHeap().containsKey("var1"));
-		assert(s.getHeap().get("var1").getClass() == Double.class);
+		assertTrue(s.getHeap().containsKey("var1"));
+		assertEquals(s.getHeap().get("var1").getClass(), Double.class);
 		v = new VariableDeclarationStatement("var2", Boolean.class);
 		v.execute(s);
-		assert(s.getHeap().get("var2").getClass() == Boolean.class);
+		assertEquals(s.getHeap().get("var2").getClass(), Boolean.class);
 	}
 	
 	@Test
@@ -58,13 +57,13 @@ public class VariableDeclarationStatementTest {
 		VariableDeclarationStatement copy = (VariableDeclarationStatement) orig.copy();
 		assertEquals(orig.getName(), copy.getName());
 		assertEquals(orig.getType(), copy.getType());
-		assert(orig != copy);
+		assertNotSame(orig, copy);
 	}
 	
 	@Test
 	public void testStatementDone() throws ScriptError {
 		Statement s = new VariableDeclarationStatement("var1", Double.class);
 		s.execute(new Script(null));
-		assert(s.statementDone());
+		assertTrue(s.statementDone());
 	}
 }

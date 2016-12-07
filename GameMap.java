@@ -74,7 +74,6 @@ public class GameMap{
 		players = new LinkedList<Player>();
 		//The human is player zero.
 		human.setGameMap(this);
-		players.add(human);
 		AIPlayer cp;
 		for(int i = 0; i < ai_count; i++){
 			cp = new AIPlayer(
@@ -83,7 +82,6 @@ public class GameMap{
 				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
 				this, 
 				new AIConfig(1.0, -0.5, 0.1));
-			players.add(cp);
 		}
 		
 		String terrain_plus = name_stripped.substring(name_stripped.indexOf("---") + 3);

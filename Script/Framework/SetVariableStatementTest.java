@@ -11,17 +11,16 @@ public class SetVariableStatementTest {
 		Script s = new Script(null);
 		new VariableDeclarationStatement("var1", Double.class).execute(s);
 		new SetVariableStatement("var1", "1").execute(s);
-		assert((Double) s.getHeap().get("var1") == 1.0);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 1.0);
 		new SetVariableStatement("var1", "5").execute(s);
-		assert((Double) s.getHeap().get("var1") == 1.0);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 5.0);
 		new VariableDeclarationStatement("var2", Boolean.class).execute(s);
 		new SetVariableStatement("var2", "true").execute(s);
-		assert((Boolean) s.getHeap().get("var2") == true);
+		assertTrue((Boolean) s.getHeap().get("var2"));
 		try {
 			new SetVariableStatement("var3", "true").execute(s);
-			assert(false);
+			fail();
 		} catch (ScriptError e) {
-			assert(true);
 		}
 	}
 
@@ -31,7 +30,7 @@ public class SetVariableStatementTest {
 		new VariableDeclarationStatement("var1", Double.class).execute(s);
 		SetVariableStatement set = new SetVariableStatement("var1", "1");
 		set.execute(s);
-		assert(set.statementDone());
+		assertTrue(set.statementDone());
 	}
 	
 	@Test
@@ -40,7 +39,7 @@ public class SetVariableStatementTest {
 		SetVariableStatement copy = (SetVariableStatement) orig.copy();
 		assertEquals(orig.getName(), copy.getName());
 		assertEquals(orig.getValue(), copy.getValue());
-		assert(orig != copy);
+		assertNotSame(orig, copy);
 	}
 
 }
