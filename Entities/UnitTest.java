@@ -3,11 +3,13 @@ package ATSSG.Entities;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Player.Player;
 import ATSSG.Cell;
+import ATSSG.GameMap;
 import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -29,9 +31,10 @@ public class UnitTest {
 
     @Test
     public void move() throws Exception {
+    	GameMap gm = new GameMap(new File("src/ATSSG/Maps/empty.map"));
         Player player = new HumanPlayer(null,new ArrayList<Entity>(),null);
-        Cell a = new Cell(TerrainType.GRASS, null, null, 0, 0);
-        Cell b = new Cell(TerrainType.GRASS, null, null, 1, 0);
+        Cell a = gm.getCell(0, 0);
+        Cell b = gm.getCell(1, 0);
         Unit u = new Unit(UnitType.Soldier, player, a);
         u.move(b);
         assertFalse(a.getOccupyingEntities().contains(u));

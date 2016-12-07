@@ -2,6 +2,9 @@ package ATSSG;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,8 +15,8 @@ public class TestGameMap {
 	private GameMap testMap;
 	
 	@Before
-	public void createMap(){
-		testMap = new GameMap();
+	public void createMap() throws IOException{
+		testMap = new GameMap(new File("src/ATSSG/Maps/empty.map"));
 	}
 	
 	@Test
