@@ -5,6 +5,7 @@ import ATSSG.Script.Framework.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.plaf.nimbus.State;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,8 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	JList<String> script;
 	Button addButton;
 	//Button expandButton;
+	Button updateButton;
+	List<Statement> statementList;
 	Choice options;
 	DefaultListModel<String> model;
 	ActionPopup addAction;
@@ -38,6 +41,8 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		addButton.addActionListener(this);
 		//expandButton = new Button("Expand block");
 		//expandButton.addActionListener(this);
+		updateButton = new Button("Update script");
+		updateButton.addActionListener(this);
 
 		addAction = new ActionPopup(this);
 		addAction.setLocation(250,0);
@@ -84,6 +89,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		//add(expandButton);
 		add(addButton);
 		add(options);
+		add(updateButton);
 
 		setTitle("Script");
 		setSize(250, 500);
@@ -140,6 +146,10 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 				}
 			}
 		}
+		else if(e.getSource().equals(updateButton)){
+			//TODO: Update script
+			setVisible(false);
+		}
 		/*else if(e.getSource().equals(expandButton)){
 			//Expand currently chosen block
 		}*/
@@ -150,22 +160,69 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		if(model.getElementAt(0).equals("No statements")) { //No statements yet.  Clear, then add to end.
 			model.removeAllElements();
 			model.addElement(toAdd.toString());
-			environment.getLines().addAtEnd(toAdd);
-			System.out.println(toAdd.toString() + " added");
+			//environment.getLines().addAtEnd(toAdd);
+			statementList.add(toAdd);
 		}
 		else { //Add after selected value
 			if (selected == null) { //Nothing selected, add to end.
 				model.addElement(toAdd.toString());
-				environment.getLines().addAtEnd(toAdd);
-				System.out.println(toAdd.toString() + " added");
+				//environment.getLines().addAtEnd(toAdd);
+				statementList.add(toAdd);
 			}
 			else { //Add after selected value
 				model.add(script.getSelectedIndex() + 1, toAdd.toString());
-				environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //TODO: Hack, pls fix
+				//environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //TODO: Hack, pls fix
 				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
-				System.out.println(toAdd.toString() + " added");
+				statementList.add(script.getSelectedIndex()+1, toAdd);
 			}
 		}
+	}
+
+	public void addIfAtPointer(String condition){
+		model.addElement("If (" + condition + ")");
+		model.addElement("Else");
+		model.addElement("End If");
+	}
+
+	public void addLoopAtPointer(String condition){
+		model.addElement("Loop (" + condition + ")");
+		model.addElement("End Loop");
+	}
+
+	public void updateScript(){
+		//Updates script on entity
+		Block unitBlock = internalBlock(null);
+		environment.setLines(unitBlock);
+	}
+
+	public Block internalBlock(String end){
+		//Creates internal block, can be used recursively.
+		Block block = new Block();
+		for(int mIndex = 0; mIndex < model.size(); mIndex++){
+			String line = model.remove(mIndex);
+			String loopcheck = line.substring(0, 4);
+			String ifcheck = loopcheck.substring(0, 2);
+			//Check for further blocks
+			if(loopcheck.equals("Loop")){
+				//Loop, evaluate block, then add
+				String condition = line.substring(6, line.length()-1);
+				block.addAtEnd(new LoopStatement(internalBlock("End Loop"), condition));
+			}
+			else if(ifcheck.equals("If")){
+				//If statement, evaluate if and else blocks, then add
+				String condition = line.substring(4, line.length()-1);
+				block.addAtEnd(new ControlStatement(internalBlock("Else"), internalBlock("End If"), condition));
+			}
+			else if(line.equals(end)){
+				//Block done, return
+				return block;
+			}
+			else{
+				//Normal statement, add
+				block.addAtEnd(statementList.remove(0));
+			}
+		}
+		return block;
 	}
 
 	public void update(){
@@ -196,8 +253,49 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		}
 		else{ //Populate with lines from script
 			List<Statement> lines = environment.getLines().getLines();
-			for(int i=0;i<lines.size();i++){
+			populateInterface(lines);
+		}
+	}
+
+	public void populateInterface(List<Statement> lines){
+		//Populates interface with given statement lines recursively
+		for(int i=0; i<lines.size();i++){
+			if(lines.get(0) instanceof ControlStatement){
+				//If statement, separate out if and else blocks
+				model.addElement("If (" + ((ControlStatement) lines.get(0)).getCondition() + ")");
+				Statement trueState = ((ControlStatement) lines.get(0)).getTrueBranch();
+				if(trueState instanceof Block){
+					populateInterface(((Block) trueState).getLines());
+				}
+				else{
+					//Just a statement.  Shouldn't be possible, but code may change.
+					statementList.add(trueState);
+				}
+				model.addElement("Else");
+				Statement falseState = ((ControlStatement) lines.get(0)).getFalseBranch();
+				if(falseState instanceof  Block){
+					populateInterface(((Block) falseState).getLines());
+				}
+				else{
+					statementList.add(falseState);
+				}
+				model.addElement("End If");
+			}
+			else if(lines.get(0) instanceof LoopStatement){
+				//Loop statement, separate out block
+				model.addElement("Loop (" + ((LoopStatement) lines.get(0)).getCondition() + ")");
+				Statement body = ((LoopStatement) lines.get(0)).getOriginalbody();
+				if(body instanceof Block){
+					populateInterface(((Block) body).getLines());
+				}
+				else{
+					statementList.add(body);
+				}
+				model.addElement("End Loop");
+			}
+			else{
 				model.addElement(lines.get(i).toString());
+				statementList.add(lines.get(i));
 			}
 		}
 	}
