@@ -101,8 +101,6 @@ public class GameMap{
 			}
 		}
 		
-		System.out.println("Beginnind unit creation.");
-		
 		String unit_list = terrain_plus.substring(terrain_plus.indexOf("---") + 3);
 		int last_ind = unit_list.indexOf(';');
 		while(last_ind != -1){
@@ -111,8 +109,6 @@ public class GameMap{
 			int dash = unit_string.indexOf('-');
 			int at = unit_string.indexOf('@');
 			int comma = unit_string.indexOf(',');
-			
-			System.out.println("Loading unit " + unit_string.substring(0, dash));
 			
 			UnitType ut = unit_lookup.get(unit_string.substring(0, dash));
 			String pi = unit_string.substring(dash + 1, at);
@@ -180,10 +176,11 @@ public class GameMap{
 	public static HumanPlayer getHuman() {return human;}
 
 	public byte[] Save() {
+		//Save the vital statistics of the map.
 		byte[] dim_x = Saveable.itob(all_cells.length);
 		byte[] dim_y = Saveable.itob(all_cells[0].length);
-		byte[] player_count = Saveable.itob(players.size() - 1);
 		
+		//Save the terrain
 		byte[][] terrain_tmp = new byte[all_cells.length * all_cells[0].length][Saveable.ict];
 		for(int x = 0; x < all_cells.length; x++){
 			for(int y = 0; y < all_cells[x].length; y++){
@@ -202,7 +199,9 @@ public class GameMap{
 			}
 		}
 		
+		//Save the units.
 		List<Entity> ulist = this.getEntities();
+		byte[] unit_count = Saveable.itob(ulist.size());
 		byte[][][] units_tmp = new byte[ulist.size()][5][];
 		for(int i = 0; i < ulist.size(); i++){
 			Unit u = (Unit)ulist.get(i);
@@ -225,9 +224,11 @@ public class GameMap{
 			}
 		}
 		
+		//
+		
 		//Serialize everything.
 		byte[] serial = new byte[
-		                         dim_x.length + dim_y.length + player_count.length
+		                         dim_x.length + dim_y.length + unit_count.length
 		                         + terrain.length + units.length
 		                         ];
 		int sp = 0;
@@ -239,10 +240,10 @@ public class GameMap{
 			serial[i + sp] = dim_y[i];
 		}
 		sp = sp + dim_y.length;
-		for(int i = 0; i < player_count.length; i++){
-			serial[i + sp] = player_count[i];
+		for(int i = 0; i < unit_count.length; i++){
+			serial[i + sp] = unit_count[i];
 		}
-		sp = sp + player_count.length;
+		sp = sp + unit_count.length;
 		for(int i = 0; i < terrain.length; i++){
 			serial[i + sp] = terrain[i];
 		}
@@ -263,35 +264,33 @@ public class GameMap{
 		
 		byte[] x_bytes = new byte [Saveable.ict];
 		byte[] y_bytes = new byte [Saveable.ict];
-		byte[] p_bytes = new byte [Saveable.ict];
+		byte[] u_bytes = new byte [Saveable.ict];
 		
 		for(int i = 0; i < Saveable.ict; i++){
 			x_bytes[i] = input[i];
 			y_bytes[i] = input[i + Saveable.ict];
-			p_bytes[i] = input[i + 2 * Saveable.ict];
+			u_bytes[i] = input[i + 2 * Saveable.ict];
 		}
 		
 		gm.all_cells = new Cell[Saveable.btoi(x_bytes)][Saveable.btoi(y_bytes)];
 		
-		int pc = Saveable.btoi(p_bytes);
-		gm.players = new ArrayList<Player>(pc + 1);
+		int uc = Saveable.btoi(u_bytes);
+		gm.players = new ArrayList<Player>(2);
 		gm.players.add(human);
-		for(int i = 0; i < pc; i++){
-			try{
-				Player cp = new AIPlayer(
-					new Hashtable<RCommodityType, Integer>(),
-					new ArrayList<Entity>(),
-					ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
-					gm, 
-					new AIConfig(1.0, -0.5, 0.1)
-				);
-				gm.players.add(cp);
-			}catch(Exception x){
-				
-			}
+		try{
+			Player cp = new AIPlayer(
+				new Hashtable<RCommodityType, Integer>(),
+				new ArrayList<Entity>(),
+				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
+				gm, 
+				new AIConfig(1.0, -0.5, 0.1)
+			);
+			gm.players.add(cp);
+		}catch(Exception x){
+			
 		}
 		
-		int offset = x_bytes.length + y_bytes.length + p_bytes.length;
+		int offset = x_bytes.length + y_bytes.length + u_bytes.length;
 		for(int x = 0; x < gm.all_cells.length; x++){
 			for(int y = 0; y < gm.all_cells[0].length; y++){
 				byte[] terrain_type_bytes = new byte[Saveable.ict];
@@ -310,7 +309,7 @@ public class GameMap{
 		}
 		
 		offset = offset + gm.all_cells.length * gm.all_cells[0].length * Saveable.ict;
-		for(int i = offset; i < input.length; i = i + (Saveable.ict * 5)){
+		for(int i = offset; i < offset + (uc * Saveable.ict * 5); i = i + (Saveable.ict * 5)){
 			byte[] x_pos_byte = new byte[Saveable.ict];
 			byte[] y_pos_byte = new byte[Saveable.ict];
 			byte[] player_byte = new byte[Saveable.ict];
