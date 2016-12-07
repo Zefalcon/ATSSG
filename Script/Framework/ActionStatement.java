@@ -1,29 +1,43 @@
 package ATSSG.Script.Framework;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ATSSG.Actions.*;
+import ATSSG.Entities.*;
+import ATSSG.Enums.CommandType;
 
 public class ActionStatement extends Statement {
 	
 	//Variables
-	protected Action action;
-	
-	public Action getAction() {
-		return action;
-	}
-
-	public void setAction(Action action) {
-		this.action = action;
-	}
+	protected CommandType actionType;
+	protected List<String> actionArgs;
 
 	//Constructors
-	public ActionStatement(Action act) {
-		action = act;
+	public ActionStatement(CommandType act, List<String> args) {
+		actionType = act;
+		actionArgs = args;
 	}
 	
 	//Methods
 	@Override
 	public boolean execute(Script environment) throws ScriptError {
+		Action action = null;
+		switch (actionType) {
+		case ATTACK:
+			action = new AttackAction(1, (Unit) environment.getOwner(), 
+					DataAccessStatement.getEntity(Expression.getDoubleValue(actionArgs.get(0), environment).intValue(), environment));
+			break;
+		case IDLE:
+			action = new IdleAction();
+			break;
+		case MOVE:
+			int xVal = Expression.getDoubleValue(actionArgs.get(0), environment).intValue();
+			int yVal = Expression.getDoubleValue(actionArgs.get(1), environment).intValue();
+			action = new MoveAction(1, (Unit) environment.getOwner(), 
+					environment.getOwner().getOwner().getContaining_map().getCell(xVal, yVal));
+			break;
+		}
 		environment.getOwner().setAction(action);
 		try {
 			environment.getOwner().executeAction();
@@ -40,17 +54,37 @@ public class ActionStatement extends Statement {
 
 	@Override
 	public Statement copy() {
-		return new ActionStatement(action);
+		return new ActionStatement(actionType, new ArrayList<String>(actionArgs));
 	}
 
 	@Override
 	public String toString(){
-		return action.toString();
+		return actionType.name();
+	}
+	
+	public CommandType getActionType() {
+		return actionType;
+	}
+
+	public void setAction(CommandType action) {
+		this.actionType = action;
+	}
+
+	public List<String> getActionArgs() {
+		return actionArgs;
+	}
+
+	public void setActionArgs(List<String> actionArgs) {
+		this.actionArgs = actionArgs;
 	}
 	
 	@Override
 	public String saveString(int d){
-		return "act:" + action.saveString();
+		String args = "";
+		for(String s : actionArgs){
+			args = args + s + ";";
+		}
+		return "act:" + Integer.toString(actionType.ordinal()) + "," + args;
 	}
 
 }

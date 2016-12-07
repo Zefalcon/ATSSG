@@ -2,12 +2,11 @@ package ATSSG.Script;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ATSSG.Script.Framework.*;
-import ATSSG.Entities.*;
-import ATSSG.Actions.*;
-import ATSSG.GameMap;
-import ATSSG.Cell;
+import ATSSG.Enums.CommandType;
 
 /**
  * Created by Evelyn Moss on 12/4/2016.
@@ -84,65 +83,22 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 		Statement toAdd;
 		switch (choice){
 			case "Attack":{
-				//Ask for target of attack
-				int id;
-				try {
-					id = Expression.getDoubleValue(target.getText(), environment).intValue();
-				}
-				catch(Exception ex){
-					//Throw up some exception or other.
-					System.out.println("Number not right");
-					return;
-				}
-				//Get entity from id
-				Entity enemy = DataAccessStatement.getEntity(id, environment);
-				//Add new attack action
-				if(enemy != null){
-					toAdd = new ActionStatement(new AttackAction(1, (Unit)environment.getOwner(), enemy));
-				}
-				else{
-					//Throw up some exception or other.
-					System.out.println("Enemy does not exist");
-					return;
-				}
+				toAdd = new ActionStatement(CommandType.ATTACK, Arrays.asList(target.getText()));
 				break;
 			}
 			case "Idle":{
 				//Add new idle action
-				toAdd = new ActionStatement(new IdleAction());
+				toAdd = new ActionStatement(CommandType.IDLE, new ArrayList<String>());
 				break;
 			}
 			case "Move":{
-				//Ask for destination in x and y
-				int xVal;
-				int yVal;
-				try {
-					xVal = Expression.getDoubleValue(x.getText(), environment).intValue();
-					yVal = Expression.getDoubleValue(y.getText(), environment).intValue();
-				}
-				catch(Exception ex){
-					//Throw up some exception or other.
-					System.out.println("Not a number");
-					return;
-				}
-				//Get Cell from id
-				GameMap map = environment.getOwner().getOwner().getContaining_map();
-				Cell dest = map.getCell(xVal, yVal);
-				//Add new move action
-				if(dest != null){
-					toAdd = new ActionStatement(new MoveAction(1, (Unit)environment.getOwner(), dest));
-				}
-				else{
-					//Throw up some exception or other.
-					System.out.println("Cell does not exist");
-					return;
-				}
+				toAdd = new ActionStatement(CommandType.MOVE, Arrays.asList(x.getText(), y.getText()));
 				break;
 			}
 			default:{
 				//Should NOT get here.  Default to Idle
 				//Add new idle action
-				toAdd = new ActionStatement(new IdleAction());
+				toAdd = new ActionStatement(CommandType.IDLE, new ArrayList<String>());
 				break;
 			}
 		}

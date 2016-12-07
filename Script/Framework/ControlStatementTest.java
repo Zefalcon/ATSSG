@@ -1,12 +1,13 @@
 package ATSSG.Script.Framework;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
 import ATSSG.Cell;
-import ATSSG.Actions.IdleAction;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.CommandType;
 import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 
@@ -18,7 +19,7 @@ public class ControlStatementTest {
 		Script s = new Script(u);
 		Block b1 = new Block();
 		b1.addAtEnd(new VariableDeclarationStatement("var1", Double.class));
-		b1.addAtEnd(new ActionStatement(new IdleAction()));
+		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var2", Boolean.class));
 		Block b2 = new Block();
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
@@ -51,7 +52,7 @@ public class ControlStatementTest {
 		Script s = new Script(u);
 		Block b1 = new Block();
 		b1.addAtEnd(new VariableDeclarationStatement("var1", Double.class));
-		b1.addAtEnd(new ActionStatement(new IdleAction()));
+		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var2", Boolean.class));
 		Block b2 = new Block();
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));

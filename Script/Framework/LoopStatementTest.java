@@ -1,12 +1,13 @@
 package ATSSG.Script.Framework;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
 import ATSSG.Cell;
-import ATSSG.Actions.IdleAction;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.CommandType;
 import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 
@@ -24,7 +25,7 @@ public class LoopStatementTest {
 		assert(((Double) s.getHeap().get("var1")) == 1);
 		l1.execute(s);
 		assert(((Double) s.getHeap().get("var1")) == 3);
-		b.addAtEnd(new ActionStatement(new IdleAction()));
+		b.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		LoopStatement l2 = new LoopStatement(b.copy(), "var1 < 5");
 		l2.execute(s);
 		assert(((Double) s.getHeap().get("var1")) == 4);
@@ -49,7 +50,7 @@ public class LoopStatementTest {
 		assert(!l1.statementDone());
 		l1.execute(s);
 		assert(l1.statementDone());
-		b.addAtEnd(new ActionStatement(new IdleAction()));
+		b.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		LoopStatement l2 = new LoopStatement(b.copy(), "var1 < 5");
 		assert(!l2.statementDone());
 		l2.execute(s);

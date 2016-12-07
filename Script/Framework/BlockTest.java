@@ -3,13 +3,14 @@ package ATSSG.Script.Framework;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import ATSSG.Cell;
-import ATSSG.Actions.IdleAction;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.CommandType;
 import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 
@@ -25,11 +26,11 @@ public class BlockTest {
 		b1.execute(s);
 		assert(s.getHeap().containsKey("var1"));
 		assert(s.getHeap().containsKey("var2"));
-		b1.addAtEnd(new ActionStatement(new IdleAction()));
+		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
 		Block b2 = new Block();
 		b2.addAtEnd(b1);
-		b2.addAtEnd(new ActionStatement(new IdleAction()));
+		b2.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b2.addAtEnd(new VariableDeclarationStatement("var4", Double.class));
 		b2.execute(s);
 		assert(!s.getHeap().containsKey("var3"));
@@ -51,14 +52,14 @@ public class BlockTest {
 		b1.addAtEnd(new VariableDeclarationStatement("var2", Double.class));
 		b1.execute(s);
 		assert(b1.statementDone());
-		b1.addAtEnd(new ActionStatement(new IdleAction()));
+		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.execute(s);
 		assert(b1.statementDone());
-		b1.addAtEnd(new ActionStatement(new IdleAction()));
+		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
 		Block b2 = new Block();
 		b2.addAtEnd(b1);
-		b2.addAtEnd(new ActionStatement(new IdleAction()));
+		b2.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b2.addAtEnd(new VariableDeclarationStatement("var4", Double.class));
 		b2.execute(s);
 		assert(!b1.statementDone());
