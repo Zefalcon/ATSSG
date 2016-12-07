@@ -28,12 +28,18 @@ public class EntityCard extends UIContainer<Entity> {
 		view.setLayout(new GridLayout(2, 4)); //Flag However big this ends up, will require safeguards on maximal cell occupancy
 		entities = new UnitButton[8];
 		for (int i = 0; i < 8; i++) {
-			entities[i] = new UnitButton(mainMap, si);
+			entities[i] = new UnitButton(mainMap, si, this);
 			view.add(entities[i]);
 		}
 		view.setVisible(true);
 	}
 
+	public void removeBorders() {
+		for (UnitButton ub : entities) {
+			ub.setBorderPainted(false);
+		}
+	}
+	
 	public void update(Collection<Entity> occupiers) {
 		this.content = occupiers;
 		for (UnitButton ub : entities) {
@@ -57,6 +63,7 @@ public class EntityCard extends UIContainer<Entity> {
 				entities[index].setEntity(e);
 				index++;
 			}
+			entities[0].setBorderPainted(true);
 		}
 	}
 }

@@ -3,11 +3,13 @@ package ATSSG.GUI;
 import ATSSG.Entities.Entity;
 import ATSSG.Enums.UnitType;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
 
 import ATSSG.Script.ScriptInterface;
 
@@ -22,12 +24,16 @@ public class UnitButton extends JButton {
 	protected static ImageIcon blank = new ImageIcon(UnitType.resizeCard(UnitType.Void.getImage()));
 	protected ScriptInterface si;
 	protected MainMap mainMap;
+	protected EntityCard holder;
 
 	//Methods
-	public UnitButton( MainMap mainMap, ScriptInterface si) {
+	public UnitButton(MainMap mainMap, ScriptInterface si, EntityCard holder) {
 		super(blank);
 		this.mainMap = mainMap;
 		this.si = si;
+		this.holder = holder;
+		setBorder(new LineBorder(Color.BLACK, 2));
+		setBorderPainted(false);
 	}
 	
 	public void setEntity(final Entity reference) {
@@ -41,9 +47,10 @@ public class UnitButton extends JButton {
 			this.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					if (si.isVisible() == true) {return;}
-					//highlight map cell
 					//simulate selecting that cell - update dCard
-					//simulate selecting that unit - update cCard and highlight in dCard
+					holder.removeBorders();
+					setBorderPainted(true);
+					//simulate selecting that unit - update cCard
 					mainMap.updateCCard(reference);
 				}
 			});
