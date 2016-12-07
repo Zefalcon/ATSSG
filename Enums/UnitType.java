@@ -128,7 +128,8 @@ public enum UnitType {
 	}
 	
 	public static Image resizeCard(Image i) {
-		return i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH);
+		if (cardW > 0 && cardH > 0) return i.getScaledInstance(cardW, cardH, Image.SCALE_SMOOTH);
+		else return i;
 	}
 	
 	public Image getImage() {

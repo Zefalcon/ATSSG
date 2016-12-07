@@ -20,8 +20,8 @@ public class UnitTest {
     public void attack() throws Exception {
         //Range currently 1 cell
         Player player = new HumanPlayer(null,new ArrayList<Entity>(),null);
-        Unit a = new Unit(UnitType.Soldier,player,new Cell(null, null,null,0,0));
-        Unit b = new Unit(UnitType.Soldier,player,new Cell(null, null,null,1,0));
+        Unit a = new Unit(UnitType.Soldier,player,new Cell(TerrainType.GRASS, null,null,0,0));
+        Unit b = new Unit(UnitType.Soldier,player,new Cell(TerrainType.GRASS, null,null,1,0));
         assertTrue(a.canAttack(b));
         a.attack(b);
         assertEquals(Math.max(0,UnitType.Soldier.maxHP-UnitType.Soldier.aDamage), b.getHitPoints());

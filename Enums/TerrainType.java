@@ -32,11 +32,14 @@ public enum TerrainType {
 		description = DESCRIPTION;
 		this.paths = paths;
 		cellImages = new ArrayList<Image>(4);
-		cellImages = new ArrayList<Image>(4);
+		cardImages = new ArrayList<Image>(4);
 		images = new ArrayList<Image>(4);
 		for (String s : paths) {
 			try {
-				images.add(ImageIO.read(new File(s)));
+				Image i = ImageIO.read(new File(s));
+				images.add(i);
+				cellImages.add(i);
+				cardImages.add(i);
 			} catch (IOException ioe) {
 				System.out.println("Image Files not found for terrains");
 			}

@@ -1,7 +1,5 @@
 package ATSSG.Player.AI;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -12,9 +10,9 @@ import ATSSG.Cell;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Enums.RCommodityType;
+import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 import ATSSG.Player.HumanPlayer;
-import ATSSG.Player.Player;
 
 public class testAttackMeta {
 
@@ -24,8 +22,8 @@ public class testAttackMeta {
 
 	@Test
 	public void testIsDone() throws IOException {
-		Unit attacker = new Unit(UnitType.Soldier, setUpHuman(), new Cell(null, null, null, 0, 0));
-		Unit target = new Unit(UnitType.Soldier, setUpHuman(), new Cell(null, null, null, 0, 0));
+		Unit attacker = new Unit(UnitType.Soldier, setUpHuman(), new Cell(TerrainType.GRASS, null, null, 0, 0));
+		Unit target = new Unit(UnitType.Soldier, setUpHuman(), new Cell(TerrainType.GRASS, null, null, 0, 0));
 		MetaAction m = new AttackMeta(attacker, target);
 		assert(!m.isDone());
 		target.doDamage(UnitType.Soldier.maxHP);
