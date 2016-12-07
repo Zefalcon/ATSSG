@@ -236,12 +236,24 @@ public class GameMap{
 			}
 		}
 		
+		byte[] scripts = new byte[tbs];
+		int script_offset = 0;
+		for(String s : scriptstrings){
+			byte[] semiserialized = s.getBytes();
+			byte[] len = Saveable.itob(semiserialized.length);
+			for(int j = 0; j < len.length; j++){
+				scripts[j + script_offset] = len[j];
+			}
+			for(int j = 0; j < semiserialized.length; j++){
+				scripts[j + script_offset + len.length] = semiserialized[j];
+			}
+		}
 		
 		
 		//Serialize everything.
 		byte[] serial = new byte[
 		                         dim_x.length + dim_y.length + unit_count.length
-		                         + terrain.length + units.length
+		                         + terrain.length + units.length + scripts.length
 		                         ];
 		int sp = 0;
 		for(int i = 0; i < dim_x.length; i++){
@@ -264,7 +276,9 @@ public class GameMap{
 			serial[i + sp] = units[i];
 		}
 		sp = sp + units.length;
-		
+		for(int i = 0; i < scripts.length; i++){
+			serial[i + sp] = scripts[i];
+		}
 		
 		
 		return serial;
