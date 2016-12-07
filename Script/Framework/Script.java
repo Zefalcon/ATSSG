@@ -15,6 +15,10 @@ public class Script {
 		return lines;
 	}
 
+	public void setLines(Block newLines){
+		lines = newLines;
+	}
+
 	public HashMap<String, Object> getHeap() {
 		return heap;
 	}
