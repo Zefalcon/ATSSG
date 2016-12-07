@@ -53,4 +53,9 @@ public class SetVariableStatement extends Statement {
 		return new SetVariableStatement(name, value);
 	}
 	
+	@Override
+	public String saveString(int depth){
+		return "set:" + name + "," + value;
+	}
+	
 }

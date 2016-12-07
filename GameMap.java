@@ -224,7 +224,19 @@ public class GameMap{
 			}
 		}
 		
-		//
+		ArrayList<String> scriptstrings = new ArrayList<String>(ulist.size());
+		int tbs = 0;
+		for(int i = 0; i < ulist.size(); i++){
+			Entity u = ulist.get(i);
+			if(u.scripted()){
+				String tmp = Integer.toString(i) + ":" + u.getCurrentScript().saveString(); 
+				scriptstrings.add(tmp);
+				tbs = tbs + Saveable.ict + tmp.getBytes().length;
+				System.out.println(tmp);
+			}
+		}
+		
+		
 		
 		//Serialize everything.
 		byte[] serial = new byte[

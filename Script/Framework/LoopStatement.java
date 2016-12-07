@@ -59,5 +59,14 @@ public class LoopStatement extends Statement {
 	public Statement copy() {
 		return new LoopStatement(originalbody.copy(), condition+"");
 	}
-
+	
+	@Override
+	public String saveString(int d){
+		return 
+			"loop:" +
+			originalbody.saveString(d + 1) +
+			"," + progressbody.saveString(d + 1) +
+			"," + condition
+		;
+	}
 }

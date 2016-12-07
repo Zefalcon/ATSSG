@@ -78,4 +78,23 @@ public class ControlStatement extends Statement {
 	public Statement copy() {
 		return new ControlStatement(trueBranch.copy(), falseBranch.copy(), condition+"");
 	}
+	
+	@Override
+	public String saveString(int d){
+		String estring;
+		if(evaluation == null){
+			estring = "n";
+		}else if(evaluation == Boolean.FALSE){
+			estring = "f";
+		}else{
+			estring = "t";
+		}
+		
+		return
+			"con:" + 
+			trueBranch.saveString(d + 1) + "," +
+			falseBranch.saveString(d + 1) + "," +
+			condition + "," + estring
+		;
+	}
 }

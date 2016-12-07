@@ -16,5 +16,9 @@ public class IdleAction extends Action {
 	public boolean execute(){
 		return true;
 	}
+	
+	public String saveString(){
+		return "-idle-";
+	}
 
 }

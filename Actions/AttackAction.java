@@ -1,4 +1,6 @@
 package ATSSG.Actions;
+import java.util.List;
+
 import ATSSG.Cell;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
@@ -39,6 +41,17 @@ public class AttackAction extends UnitAction {
 
 	public String toString(){
 		return performer.toString() + " to attack " + enemy.toString();
+	}
+	
+	@Override
+	public String saveString(){
+		List<Entity> master_list = performer.getOwner().getContaining_map().getEntities();
+		return
+			"-atk:" + Integer.toString(master_list.indexOf(performer))
+			+ "," + Integer.toString(turnsToComplete)
+			+ "," + Integer.toString(master_list.indexOf(enemy))
+			+ "-"
+		;
 	}
 
 }

@@ -83,7 +83,7 @@ public abstract class Entity {
 	}
 	
 	public boolean scripted(){
-		return currentScript!=null;
+		return currentScript != null;
 	}
 	
 	public boolean actionQueued(){

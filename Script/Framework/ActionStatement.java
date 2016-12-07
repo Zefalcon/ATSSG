@@ -47,5 +47,10 @@ public class ActionStatement extends Statement {
 	public String toString(){
 		return action.toString();
 	}
+	
+	@Override
+	public String saveString(int d){
+		return "act:" + action.saveString();
+	}
 
 }

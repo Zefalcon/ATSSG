@@ -68,4 +68,16 @@ public class Block extends Statement {
 		}
 		return b;
 	}
+	
+	@Override
+	public String saveString(int depth){
+		String wrapper = "(" + Integer.toString(depth) + ")";
+		
+		String total = wrapper;
+		String line_wrapper = "[" + depth + "]";
+		for(Statement s : lines){
+			total = total + line_wrapper + s.saveString(depth) + line_wrapper;
+		}
+		return total + wrapper;
+	}
 }

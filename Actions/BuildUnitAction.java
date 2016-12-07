@@ -35,5 +35,9 @@ public class BuildUnitAction extends BuildingAction {
 		toBuild = toSet;
 	}
 	public void setLocation(Cell toPlace) { location = toPlace; }
-
+	
+	@Override
+	public String saveString(){
+		return null;//Not used.
+	}
 }

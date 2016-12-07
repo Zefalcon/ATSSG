@@ -28,5 +28,10 @@ public class HarvestAction extends UnitAction {
 	public void setResource(ResourceItem resource){
 		toHarvest = resource;
 	}
+	
+	@Override
+	public String saveString(){
+		return null;//Not used.
+	}
 
 }

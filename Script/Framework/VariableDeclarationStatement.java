@@ -58,6 +58,9 @@ public class VariableDeclarationStatement extends Statement {
 			return null;
 		}
 	}
-
-
+	
+	@Override
+	public String saveString(int d){
+		return "dec:" + name + "," + type.getName();
+	}
 }

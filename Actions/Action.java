@@ -26,4 +26,6 @@ public abstract class Action { //Flag we should totally make one or two ActionTy
 	public CommandType getType() {
 		return type;
 	}
+	
+	public abstract String saveString();
 }

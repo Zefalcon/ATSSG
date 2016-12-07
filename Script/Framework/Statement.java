@@ -1,6 +1,5 @@
 package ATSSG.Script.Framework;
 
-
 public abstract class Statement {
 		
 	//Methods
@@ -17,5 +16,6 @@ public abstract class Statement {
 	public abstract boolean statementDone();
 	
 	public abstract Statement copy();
-
+	
+	public abstract String saveString(int depth);
 }

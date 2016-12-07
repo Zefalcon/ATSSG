@@ -34,4 +34,8 @@ public class Script {
 	public boolean execute() throws ScriptError{
 		return lines.execute(this);
 	}
+	
+	public String saveString(){
+		return lines.saveString(0);
+	}
 }

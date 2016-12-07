@@ -121,6 +121,15 @@ public class DataAccessStatement extends Statement {
 		this.varname = varname;
 	}
 	
+	@Override
+	public String saveString(int d){
+		String args = "";
+		for(String s : arguments){
+			args = args + s + ";";
+		}
+		return "das:" + Integer.toString(type.ordinal()) + "," + args + "," + varname;
+	}
+	
 	public enum AccessType {
 		Current_HP("Current HP", new ArrayList<Class<?>>(Arrays.asList(Double.class)), Arrays.asList("Unit ID")),
 		Maximum_HP("Maximum HP", new ArrayList<Class<?>>(Arrays.asList(Double.class)), Arrays.asList("Unit ID")),
