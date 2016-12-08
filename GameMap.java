@@ -57,9 +57,8 @@ public class GameMap{
 	}
 	
 	public GameMap(File toLoad) throws IOException{
-		
-		human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
-		human.setGameMap(this);
+		players = new LinkedList<Player>();		
+		human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), this);
 		
 		Scanner s_tmp = new Scanner(toLoad);
 		String map_str = s_tmp.useDelimiter("\\Z").next().replaceAll("\\s+", "");
@@ -71,9 +70,6 @@ public class GameMap{
 		all_cells = new Cell[size_x][size_y];
 		
 		int ai_count = Integer.parseInt(name_stripped.substring(name_stripped.indexOf(':') + 1, name_stripped.indexOf("---")));
-		players = new LinkedList<Player>();
-		//The human is player zero.
-		human.setGameMap(this);
 		for(int i = 0; i < ai_count; i++){
 			new AIPlayer(
 				new Hashtable<RCommodityType, Integer>(),

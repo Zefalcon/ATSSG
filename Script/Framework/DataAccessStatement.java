@@ -85,7 +85,6 @@ public class DataAccessStatement extends Statement {
 	
 	public static Entity getEntity(int id, Script environment) {
 		for (Entity e : environment.getOwner().getOwner().getContaining_map().getEntities()) {
-			System.out.println("Comparing "+e+" to "+id);
 			if (e.getId() == id) return e;
 		}
 		return null;
