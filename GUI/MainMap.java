@@ -150,7 +150,7 @@ public class MainMap extends UIContainer<Cell> {
 	//Methods
 	
 	public void updateGameMap(GameMap gm) {
-		if (gm == null || gm.getCells() == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;} //Flag possible error handling required
+		if (gm == null || gm.getCells() == null || gm.getCells().length == 0 || gm.getCells()[0].length == 0) {return;}
 		owner = GameMap.getHuman();
 		interactable = gm.getCells();
 		cameraConstants[4] = interactable.length;
@@ -175,7 +175,7 @@ public class MainMap extends UIContainer<Cell> {
 						}
 						if (heldCommand == CommandType.MOVE) {
 							try {
-								heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell)); //Unchecked Class Cast Flag
+								heldEntity.setAction(new MoveAction(1, (Unit) heldEntity, clickedCell));
 							} catch (RuntimeException error) {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
 							} finally {
@@ -195,24 +195,29 @@ public class MainMap extends UIContainer<Cell> {
 								clearHeld();
 							}
 						} else {
+							//Indicate selected Cell, storing the last one for performance speed
 							lastClicked = clickedButton;
 							clickedButton = gjb;
 							if (lastClicked != null) {lastClicked.toggleSelected();}
 							clickedButton.toggleSelected();
-							
+							//Update DetailCard
 							dCard.update(clickedCell);
 							if (selectedEntity == null) {
+								//reset CommandCard and disable SI
 								cCard.reset();
 								sibtn.setEnabled(false);
 							} else {
-								//Highlight the selected unit in DetailCard
+								//Update the CommandCard
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
-									cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
-									index++; //Flag not protected from being fed too many commandTypes
-									si.update(selectedEntity);
-									sibtn.setEnabled(true);
+									if (index < 9) {
+										cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+										index++;
+									}
 								}
+								//and update the ScriptInterface
+								si.update(selectedEntity);
+								sibtn.setEnabled(true);
 							}
 						}
 					}
@@ -282,8 +287,10 @@ public class MainMap extends UIContainer<Cell> {
 		if (selectedEntity != null && selectedEntity.getOwner() == owner) {
 		int index = 0;
 			for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
-				cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
-				index++; //Flag not protected from being fed too many commandTypes
+				if (index < 9) {
+					cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+					index++;
+				}
 			}
 		} else {
 			cCard.reset();
