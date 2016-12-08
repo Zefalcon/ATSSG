@@ -24,7 +24,7 @@ public class Unit extends Entity {
 		super(t.maxHP, player, current, t.getImage());
 		type = t;
 		allowedCommands.add(CommandType.IDLE);
-		allowedCommands.add(CommandType.MOVE); //Flag Possibly these allowedCommands collections should exist in the UnitType/BuildingType enums instead of Entity?
+		allowedCommands.add(CommandType.MOVE);
 		allowedCommands.add(CommandType.ATTACK);
 	}
 	//Methods

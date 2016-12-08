@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.Icon;
 
@@ -24,7 +25,7 @@ public abstract class Entity {
 	protected Cell containingCell;
 	protected Script currentScript = null;
 	protected Action currentAction = null;
-	protected Collection<CommandType> allowedCommands; //Flag further review on whether this should be a collection. There is a corresponding collection at MainMap line 107
+	protected List<CommandType> allowedCommands;
 	protected Image image;
 	protected Icon icon;
 	protected Icon cardIcon;
