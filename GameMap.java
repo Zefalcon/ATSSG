@@ -295,6 +295,8 @@ public class GameMap{
 		
 		int uc = Saveable.btoi(u_bytes);
 		gm.players = new ArrayList<Player>(2);
+		human = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(0), null);
+		human.setGameMap(gm);
 		gm.players.add(human);
 		try{
 			Player cp = new AIPlayer(
@@ -304,10 +306,11 @@ public class GameMap{
 				gm, 
 				new AIConfig(1.0, -0.5, 0.1)
 			);
-			gm.players.add(cp);
+			//gm.players.add(cp);
 		}catch(Exception x){
-			
+			//Silently drop.
 		}
+		
 		
 		int offset = x_bytes.length + y_bytes.length + u_bytes.length;
 		for(int x = 0; x < gm.all_cells.length; x++){
