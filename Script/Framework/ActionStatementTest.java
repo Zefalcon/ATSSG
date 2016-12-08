@@ -27,7 +27,7 @@ public class ActionStatementTest {
 	@Test
 	public void testExecute() throws IOException, ScriptError {
 		GameMap gm = new GameMap(new File("src/ATSSG/Maps/empty.map"));
-		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1,1), gm, new AIConfig());
+		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1,1), null, gm, new AIConfig());
 		Player enemy = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), gm);
 		Unit testUnit = new Unit(UnitType.Soldier, ai, gm.getCell(4, 5));
 		Unit enem = new Unit(UnitType.Soldier, enemy, gm.getCell(2, 3));

@@ -22,7 +22,7 @@ public class UnitQueue extends UIContainer<UnitButton> {
 		view.setLayout(new GridLayout(3,1));
 		//flag hack lines below for new UI testing (and relevant imports)
 		view.add(new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString())));
-		view.add(new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString())));
+		view.add(new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString())));
 		view.add(new JLabel(new ImageIcon(Paths.get("src/ATSSG/Art/BlankLabel.png").toString())));
 		//view.setBounds(xLoc, yLoc, width, height);
 		view.setPreferredSize(new Dimension(width, height));

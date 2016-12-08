@@ -18,7 +18,6 @@ import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Enums.CommandType;
-import ATSSG.Enums.TerrainType;
 import ATSSG.Player.HumanPlayer;
 import ATSSG.Script.ScriptInterface;
 
@@ -78,7 +77,7 @@ public class MainMap extends UIContainer<Cell> {
 		
 		try {
 			this.cCard = new CommandCard(null, cCardW, cCardH, this);
-			this.dCard = new DetailCard(null, TerrainType.VOID, dCardW, dCardH, this, si);
+			this.dCard = new DetailCard(null, dCardW, dCardH, this, si);
 		} catch (IOException ioe) {
 			System.out.println("Images not found for cards");
 		}
@@ -233,10 +232,16 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected void updateView(int x, int y, int w, int h) {
 		
-		cameraConstants[0] = x;
-		cameraConstants[1] = y;
 		cameraConstants[2] = w;
 		cameraConstants[3] = h;
+		
+		if (x + cameraConstants[2] > cameraConstants[4]) {x = cameraConstants[4] - cameraConstants[2];}//No one likes ArrayIndexOutOfBoundsExceptions
+		if (y + cameraConstants[3] > cameraConstants[5]) {y = cameraConstants[5] - cameraConstants[3];}
+		if (x < 0) {x = 0;}
+		if (y < 0) {y = 0;}
+		
+		cameraConstants[0] = x;
+		cameraConstants[1] = y;
 		
 		scrollUp.setEnabled(cameraConstants[1] > 0);
 		scrollLeft.setEnabled(cameraConstants[0] > 0);
@@ -244,11 +249,6 @@ public class MainMap extends UIContainer<Cell> {
 		scrollDown.setEnabled(cameraConstants[1] + cameraConstants[3] < cameraConstants[5]);
 		mapView.removeAll();
 		mapView.setLayout(new GridLayout(cameraConstants[3], cameraConstants[2]));
-		
-		if (x + cameraConstants[2] > cameraConstants[4]) {x = cameraConstants[4] - cameraConstants[2];}//No one likes ArrayIndexOutOfBoundsExceptions
-		if (y + cameraConstants[3] > cameraConstants[5]) {y = cameraConstants[5] - cameraConstants[3];}
-		if (x < 0) {x = 0;}
-		if (y < 0) {y = 0;}
 		
 		for (int j = 0; j < cameraConstants[3] && y+j < cameraConstants[5]; j++) {
 			for (int i = 0; i < cameraConstants[2] && x+i < cameraConstants[4]; i++) {
@@ -279,7 +279,7 @@ public class MainMap extends UIContainer<Cell> {
 	}
 	
 	public void updateCCard(Entity selectedEntity) {
-		if (selectedEntity.getOwner() == owner) {
+		if (selectedEntity != null && selectedEntity.getOwner() == owner) {
 		int index = 0;
 			for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
 				cCard.getCmdButton(index).setParams(cmdt.icon, "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
@@ -288,6 +288,8 @@ public class MainMap extends UIContainer<Cell> {
 		} else {
 			cCard.reset();
 		}
+		cCard.getView().revalidate();
+		cCard.getView().repaint();
 	}
 	
 	//getter methods to get references to Gooey

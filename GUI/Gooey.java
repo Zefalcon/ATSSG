@@ -98,7 +98,7 @@ public class Gooey {
 		try {
 			menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
 			
-			minimap = new Minimap(null, miniW, miniH);
+			minimap = new Minimap(null, miniW, miniH, gm);
 		
 			mapButton = new MapButton(brH, brH, globalMap);
 			
@@ -185,10 +185,16 @@ public class Gooey {
 	//Methods
 	
 	public void turnEndUpdate() {
-		//MainMap, Minimap, GlobalMap, UnitQueue, ResourceCard, DetailCard, CommandCard, ScriptUI need to be updated
+		//MainMap, Minimap, UnitQueue, ResourceCard, EntityCard, CommandCard, ScriptUI need to be updated
 		//MainMap
 		mainMap.updateView();
-		
+		//Minimap
+		minimap.endTurnUpdate();
+		//UnitQueue & ResourceCard
+		////May Not Exist
+		//EntityCard and CommandCard
+		detailCard.update();
+		//ScriptInterface
 		scriptInt.update();
 	}
 	
@@ -199,6 +205,7 @@ public class Gooey {
 		TerrainType.setCellIconSizes(ciW, ciH);
 		
 		mainMap.updateGameMap(gm);
+		minimap.updateAll();
 		
 		etButton.endTurn();
 	}

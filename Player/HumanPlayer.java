@@ -1,5 +1,6 @@
 package ATSSG.Player;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -21,6 +22,7 @@ public class HumanPlayer extends Player {
 		stX = 9;
 		stY = 9; //Flag: arbitrary numbers
 		try {colors = ImageIO.read(new File(Paths.get("src/ATSSG/Art/HumanColorsDefault.png").toString()));} catch (IOException e) {}
+		visID = Color.GREEN;
 	}
 	
 	@Override

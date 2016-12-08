@@ -28,7 +28,7 @@ public class DataAccessStatementTest {
 	@Test
 	public void testExecute() throws IOException, ScriptError {
 		GameMap gm = new GameMap(new File("src/ATSSG/Maps/empty.map"));
-		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1, 1), gm, new AIConfig());
+		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1, 1), null, gm, new AIConfig());
 		Player enemy = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), gm);
 		Unit test_unit = new Unit(UnitType.Soldier, ai, gm.getCell(8, 7));
 		Unit ally = new Unit(UnitType.Cavalry, ai, gm.getCell(9, 7));

@@ -22,7 +22,7 @@ import org.junit.Test;
 public class testAIPlayer {
 
 	public AIPlayer setUpAIPlayer() {
-		return new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1, 1), null, new AIConfig());
+		return new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), new BufferedImage(1,1, 1), null, null, new AIConfig());
 	}
 	public Player setUpEnemy() {
 		return new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null);
