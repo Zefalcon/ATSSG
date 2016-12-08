@@ -24,41 +24,26 @@ import ATSSG.Script.ScriptInterface;
 public class Gooey {
 
 	//Fields
-	protected Minimap minimap;
-	
-	protected MapButton mapButton;
-	
-	protected CommandCard commandCard;
-	
-	protected ScriptInterfaceButton scriptInterfaceButton;
-	
-	protected UnitQueue unitQueue;
-	
-	protected DetailCard detailCard;
-	
-	protected EndTurnButton etButton;
-	
-	protected MenuButton menuButton;
-	
-	protected ResourceCard resourceCard;
-	
 	protected final Prompt prompts;
-	
-	protected JButton lastPromptButton;
-	
-	protected MainMap mainMap;
-	
-	protected Menu menu;
-	
 	protected ScriptInterface scriptInt;
-	
 	protected GlobalMap globalMap;
 	
-	protected JPanel panelPrime; //Flag hideous disorganization
-	
-	protected JFrame containerPrime;
-	
+	protected Menu menu;
+	protected Minimap minimap;
+	protected MapButton mapButton;
+	protected JButton lastPromptButton;
+	protected ResourceCard resourceCard;
+	protected ScriptInterfaceButton scriptInterfaceButton;
+	protected MainMap mainMap;
+	protected UnitQueue unitQueue;
+	protected MenuButton menuButton;
+	protected EndTurnButton etButton;
+	protected DetailCard detailCard;
+	protected CommandCard commandCard;
 	protected JPanel buttonRow;
+	
+	protected JPanel panelPrime;
+	protected JFrame containerPrime;
 	
 	protected final int screenWidth, screenHeight;
 	
@@ -85,14 +70,14 @@ public class Gooey {
 		int brH = miniH - cCardH;
 		int brW = screenWidth - miniW;
 		int rcW = numResources * screenWidth / 8; //Flag the divisor is arbitrary and untested
-		int buttonWidth = (brW - rcW) / 6; //Flag Should customize size of buttons at some point.
+		int buttonWidth = (brW - rcW) / 6;
 		//MainMap occupies all of the space left
 		int mainH = (3 * screenHeight / 4);
 		
 		//Building the UI
-		
 		JPanel paneSwitcher = new JPanel();
-
+		
+		prompts = new Prompt();
 		scriptInt = new ScriptInterface(null);
 		
 		try {
@@ -127,8 +112,6 @@ public class Gooey {
 		}
 		
 		detailCard = mainMap.getDCard();
-		
-		prompts = new Prompt();
 		
 		commandCard = mainMap.getCCard();
 		
