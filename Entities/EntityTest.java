@@ -1,7 +1,6 @@
 package ATSSG.Entities;
 
 import ATSSG.Cell;
-import ATSSG.GameMap;
 import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 import ATSSG.Player.HumanPlayer;

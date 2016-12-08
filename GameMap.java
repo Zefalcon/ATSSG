@@ -74,9 +74,8 @@ public class GameMap{
 		players = new LinkedList<Player>();
 		//The human is player zero.
 		human.setGameMap(this);
-		AIPlayer cp;
 		for(int i = 0; i < ai_count; i++){
-			cp = new AIPlayer(
+			new AIPlayer(
 				new Hashtable<RCommodityType, Integer>(),
 				new ArrayList<Entity>(),
 				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
