@@ -28,10 +28,8 @@ public class AIPlayer extends Player {
 	protected AIConfig mode;
 	
 	public AIPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, Image colors, GameMap map, AIConfig config) {
-		resources = startingResources;
-		owned_entities = starting_entities;
+		super(startingResources, starting_entities, map);
 		this.colors = colors;
-		containing_map = map;
 		plannedActions = new HashMap<Entity, MetaAction>();
 		mode = config;
 	}

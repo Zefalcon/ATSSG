@@ -21,7 +21,13 @@ public abstract class Player {
 	protected Image colors;
 	
 	//Constructors
-
+	public Player(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map) {
+		resources = startingResources;
+		owned_entities = starting_entities;
+		containing_map = map;
+		if (containing_map != null) containing_map.getPlayers().add(this);
+	}
+	
 	//Methods
 	public void kill(){
 		if (owned_entities != null) {

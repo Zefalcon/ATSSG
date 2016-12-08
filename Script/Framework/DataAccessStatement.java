@@ -3,9 +3,11 @@ package ATSSG.Script.Framework;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.Enums.TerrainType;
 
 public class DataAccessStatement extends Statement {
 	
@@ -26,9 +28,10 @@ public class DataAccessStatement extends Statement {
 		Object value;
 		switch (type) {
 		case Cell_Cost:
-			value = new Double(((Unit)getEntity(getIntParam(environment, 0), environment)).getType().passableTerrain.get(
-					environment.getOwner().getOwner().getContaining_map().getCell(
-					getIntParam(environment, 1), getIntParam(environment, 2))));
+			TerrainType t = environment.getOwner().getOwner().getContaining_map().getCell(
+					getIntParam(environment, 1), getIntParam(environment, 2)).getTerrainType();
+			Map<TerrainType, Integer> pass = ((Unit)getEntity(getIntParam(environment, 0), environment)).getType().passableTerrain;
+			value = new Double(pass.get(t));
 			break;
 		case Current_HP:
 			value = new Double(getEntity(getIntParam(environment, 0), environment).getHitPoints());
@@ -40,10 +43,10 @@ public class DataAccessStatement extends Statement {
 			value = new Boolean(((Unit)getEntity(getIntParam(environment, 0), 
 					environment)).getType().passableTerrain.containsKey(
 					environment.getOwner().getOwner().getContaining_map().getCell(
-					getIntParam(environment, 1), getIntParam(environment, 2))));
+					getIntParam(environment, 1), getIntParam(environment, 2)).getTerrainType()));
 			break;
 		case Is_Alive:
-			value = new Boolean(getEntity(getIntParam(environment, 0), environment) == null);
+			value = new Boolean(getEntity(getIntParam(environment, 0), environment) != null);
 			break;
 		case Is_Enemy:
 			value = new Boolean(getEntity(getIntParam(environment, 0), environment).getOwner() != environment.owner.getOwner());
@@ -82,6 +85,7 @@ public class DataAccessStatement extends Statement {
 	
 	public static Entity getEntity(int id, Script environment) {
 		for (Entity e : environment.getOwner().getOwner().getContaining_map().getEntities()) {
+			System.out.println("Comparing "+e+" to "+id);
 			if (e.getId() == id) return e;
 		}
 		return null;

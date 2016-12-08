@@ -67,7 +67,6 @@ public class Block extends Statement {
 				lines.remove(0);
 			}
 		}
-		System.out.println("Block execute stopped");
   		return false;
 	}
 

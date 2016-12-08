@@ -1,5 +1,7 @@
 package ATSSG.Script.Framework;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,28 +24,28 @@ public class ControlStatementTest {
 		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var2", Boolean.class));
 		Block b2 = new Block();
-		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
+		b2.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
 		ControlStatement c1 = new ControlStatement(b1.copy(), b2.copy(), "true");
-		assert(!s.getHeap().containsKey("var1"));
-		assert(!s.getHeap().containsKey("var2"));
-		assert(!s.getHeap().containsKey("var3"));
+		assertFalse(s.getHeap().containsKey("var1"));
+		assertFalse(s.getHeap().containsKey("var2"));
+		assertFalse(s.getHeap().containsKey("var3"));
 		c1.execute(s);
-		assert(s.getHeap().containsKey("var1"));
-		assert(!s.getHeap().containsKey("var2"));
-		assert(!s.getHeap().containsKey("var3"));
+		assertTrue(s.getHeap().containsKey("var1"));
+		assertFalse(s.getHeap().containsKey("var2"));
+		assertFalse(s.getHeap().containsKey("var3"));
 		c1.execute(s);
-		assert(s.getHeap().containsKey("var1"));
-		assert(s.getHeap().containsKey("var2"));
-		assert(!s.getHeap().containsKey("var3"));
+		assertTrue(s.getHeap().containsKey("var1"));
+		assertTrue(s.getHeap().containsKey("var2"));
+		assertFalse(s.getHeap().containsKey("var3"));
 		s = new Script(u);
 		ControlStatement c2 = new ControlStatement(b1.copy(), b2.copy(), "false");
-		assert(!s.getHeap().containsKey("var1"));
-		assert(!s.getHeap().containsKey("var2"));
-		assert(!s.getHeap().containsKey("var3"));
+		assertFalse(s.getHeap().containsKey("var1"));
+		assertFalse(s.getHeap().containsKey("var2"));
+		assertFalse(s.getHeap().containsKey("var3"));
 		c2.execute(s);
-		assert(!s.getHeap().containsKey("var1"));
-		assert(!s.getHeap().containsKey("var2"));
-		assert(s.getHeap().containsKey("var3"));
+		assertFalse(s.getHeap().containsKey("var1"));
+		assertFalse(s.getHeap().containsKey("var2"));
+		assertTrue(s.getHeap().containsKey("var3"));
 	}
 
 	@Test
@@ -57,19 +59,19 @@ public class ControlStatementTest {
 		Block b2 = new Block();
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
 		ControlStatement c1 = new ControlStatement(b1.copy(), b2.copy(), "true");
-		assert(!c1.statementDone());
+		assertFalse(c1.statementDone());
 		c1.execute(s);
-		assert(!c1.statementDone());
+		assertFalse(c1.statementDone());
 		c1.execute(s);
-		assert(c1.statementDone());
+		assertTrue(c1.statementDone());
 		ControlStatement c2 = new ControlStatement(b1.copy(), b2.copy(), "false");
-		assert(!c2.statementDone());
+		assertFalse(c2.statementDone());
 		c2.execute(s);
-		assert(c2.statementDone());
+		assertTrue(c2.statementDone());
 		ControlStatement c3 = new ControlStatement(null, null, "false");
-		assert(!c3.statementDone());
+		assertFalse(c3.statementDone());
 		c3.execute(s);
-		assert(c3.statementDone());
+		assertTrue(c3.statementDone());
 		
 		
 	}
@@ -80,17 +82,17 @@ public class ControlStatementTest {
 		Statement s2 = new VariableDeclarationStatement("var2", Boolean.class);
 		ControlStatement orig = new ControlStatement(s1, s2, "true");
 		ControlStatement copy = (ControlStatement) orig.copy();
-		assert(orig != copy);
-		assert(orig.getCondition() != copy.getCondition());
-		assert(orig.getCondition().equals(copy.getCondition()));
-		assert(orig.getTrueBranch() != copy.getTrueBranch());
-		assert(((VariableDeclarationStatement) orig.getTrueBranch()).getName().equals(
+		assertNotSame(orig, copy);
+		assertNotSame(orig.getCondition(), copy.getCondition());
+		assertTrue(orig.getCondition().equals(copy.getCondition()));
+		assertNotSame(orig.getTrueBranch(), copy.getTrueBranch());
+		assertTrue(((VariableDeclarationStatement) orig.getTrueBranch()).getName().equals(
 				((VariableDeclarationStatement) copy.getTrueBranch()).getName()));
-		assert(((VariableDeclarationStatement) orig.getTrueBranch()).getType() ==
+		assertEquals(((VariableDeclarationStatement) orig.getTrueBranch()).getType(), 
 				((VariableDeclarationStatement) copy.getTrueBranch()).getType());
-		assert(((VariableDeclarationStatement) orig.getFalseBranch()).getName().equals(
+		assertTrue(((VariableDeclarationStatement) orig.getFalseBranch()).getName().equals(
 				((VariableDeclarationStatement) copy.getFalseBranch()).getName()));
-		assert(((VariableDeclarationStatement) orig.getFalseBranch()).getType() ==
+		assertEquals(((VariableDeclarationStatement) orig.getFalseBranch()).getType(), 
 				((VariableDeclarationStatement) copy.getFalseBranch()).getType());
 	}
 

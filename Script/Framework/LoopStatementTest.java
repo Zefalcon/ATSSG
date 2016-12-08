@@ -1,5 +1,7 @@
 package ATSSG.Script.Framework;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,20 +24,20 @@ public class LoopStatementTest {
 		Block b = new Block();
 		b.addAtEnd(new SetVariableStatement("var1", "var1+1"));
 		LoopStatement l1 = new LoopStatement(b.copy(), "var1 < 3");
-		assert(((Double) s.getHeap().get("var1")) == 1);
+		assertEquals((Double) 1.0, (Double) s.getHeap().get("var1"));
 		l1.execute(s);
-		assert(((Double) s.getHeap().get("var1")) == 3);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 3.0);
 		b.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		LoopStatement l2 = new LoopStatement(b.copy(), "var1 < 5");
 		l2.execute(s);
-		assert(((Double) s.getHeap().get("var1")) == 4);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 4.0);
 		l2.execute(s);
-		assert(((Double) s.getHeap().get("var1")) == 5);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 5.0);
 		l2.execute(s);
-		assert(((Double) s.getHeap().get("var1")) == 5);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 5.0);
 		LoopStatement l3 = new LoopStatement(b.copy(), "var1 < 5");
 		l3.execute(s);
-		assert(((Double) s.getHeap().get("var1")) == 5);
+		assertEquals((Double) s.getHeap().get("var1"), (Double) 5.0);
 	}
 
 	@Test
@@ -47,18 +49,18 @@ public class LoopStatementTest {
 		Block b = new Block();
 		b.addAtEnd(new SetVariableStatement("var1", "var1+1"));
 		LoopStatement l1 = new LoopStatement(b.copy(), "var1 < 3");
-		assert(!l1.statementDone());
+		assertFalse(l1.statementDone());
 		l1.execute(s);
-		assert(l1.statementDone());
+		assertTrue(l1.statementDone());
 		b.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		LoopStatement l2 = new LoopStatement(b.copy(), "var1 < 5");
-		assert(!l2.statementDone());
+		assertFalse(l2.statementDone());
 		l2.execute(s);
-		assert(!l2.statementDone());
+		assertFalse(l2.statementDone());
 		l2.execute(s);
-		assert(!l2.statementDone());
+		assertFalse(l2.statementDone());
 		l2.execute(s);
-		assert(l2.statementDone());
+		assertTrue(l2.statementDone());
 	}
 
 	@Test
@@ -68,11 +70,11 @@ public class LoopStatementTest {
 		b.addStatement(s1, 0);
 		LoopStatement l1 = new LoopStatement(b, "true");
 		LoopStatement l2 = (LoopStatement) l1.copy();
-		assert(l1 != l2);
-		assert(l1.getOriginalbody() != l2.getOriginalbody());
-		assert(l1.getOriginalbody().getClass() == l2.getOriginalbody().getClass());
-		assert(l1.getCondition() != l2.getCondition());
-		assert(l1.getCondition().equals(l2.getCondition()));
+		assertNotSame(l1, l2);
+		assertNotSame(l1.getOriginalbody(), l2.getOriginalbody());
+		assertEquals(l1.getOriginalbody().getClass(), l2.getOriginalbody().getClass());
+		assertNotSame(l1.getCondition(), l2.getCondition());
+		assertTrue(l1.getCondition().equals(l2.getCondition()));
 	}
 
 }

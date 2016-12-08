@@ -17,9 +17,7 @@ public class HumanPlayer extends Player {
 	protected int stX, stY;
 	
 	public HumanPlayer(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map) {
-		resources = startingResources;
-		owned_entities = starting_entities;
-		containing_map = map;
+		super(startingResources, starting_entities, map);
 		stX = 9;
 		stY = 9; //Flag: arbitrary numbers
 		try {colors = ImageIO.read(new File(Paths.get("src/ATSSG/Art/HumanColorsDefault.png").toString()));} catch (IOException e) {}

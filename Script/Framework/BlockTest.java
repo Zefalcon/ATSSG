@@ -24,8 +24,8 @@ public class BlockTest {
 		b1.addAtEnd(new VariableDeclarationStatement("var1", Double.class));
 		b1.addAtEnd(new VariableDeclarationStatement("var2", Double.class));
 		b1.execute(s);
-		assert(s.getHeap().containsKey("var1"));
-		assert(s.getHeap().containsKey("var2"));
+		assertTrue(s.getHeap().containsKey("var1"));
+		assertTrue(s.getHeap().containsKey("var2"));
 		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
 		Block b2 = new Block();
@@ -33,13 +33,13 @@ public class BlockTest {
 		b2.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b2.addAtEnd(new VariableDeclarationStatement("var4", Double.class));
 		b2.execute(s);
-		assert(!s.getHeap().containsKey("var3"));
-		assert(!s.getHeap().containsKey("var4"));
+		assertFalse(s.getHeap().containsKey("var3"));
+		assertFalse(s.getHeap().containsKey("var4"));
 		b2.execute(s);
-		assert(s.getHeap().containsKey("var3"));
-		assert(!s.getHeap().containsKey("var4"));
+		assertTrue(s.getHeap().containsKey("var3"));
+		assertFalse(s.getHeap().containsKey("var4"));
 		b2.execute(s);
-		assert(s.getHeap().containsKey("var4"));
+		assertTrue(s.getHeap().containsKey("var4"));
 	}
 
 	@Test
@@ -47,14 +47,14 @@ public class BlockTest {
 		Unit u = new Unit(UnitType.Soldier, null, new Cell(TerrainType.GRASS, null, null, 0, 0));
 		Script s = new Script(u);
 		Block b1 = new Block();
-		assert(b1.statementDone());
+		assertTrue(b1.statementDone());
 		b1.addAtEnd(new VariableDeclarationStatement("var1", Double.class));
 		b1.addAtEnd(new VariableDeclarationStatement("var2", Double.class));
 		b1.execute(s);
-		assert(b1.statementDone());
+		assertTrue(b1.statementDone());
 		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.execute(s);
-		assert(b1.statementDone());
+		assertTrue(b1.statementDone());
 		b1.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b1.addAtEnd(new VariableDeclarationStatement("var3", Double.class));
 		Block b2 = new Block();
@@ -62,13 +62,13 @@ public class BlockTest {
 		b2.addAtEnd(new ActionStatement(CommandType.IDLE, new ArrayList<String>()));
 		b2.addAtEnd(new VariableDeclarationStatement("var4", Double.class));
 		b2.execute(s);
-		assert(!b1.statementDone());
-		assert(!b2.statementDone());
+		assertFalse(b1.statementDone());
+		assertFalse(b2.statementDone());
 		b2.execute(s);
-		assert(b1.statementDone());
-		assert(!b2.statementDone());
+		assertTrue(b1.statementDone());
+		assertFalse(b2.statementDone());
 		b2.execute(s);
-		assert(b2.statementDone());
+		assertTrue(b2.statementDone());
 	}
 
 	@Test
@@ -79,18 +79,18 @@ public class BlockTest {
 		b1.addStatement(s1, 0);
 		b1.addAtEnd(s2);
 		Block b2 = (Block) b1.copy();
-		assert(b1 != b2);
-		assert(b1.getLines() != b2.getLines());
-		assert(b1.getLines().get(0) != b2.getLines().get(0));
-		assert(((VariableDeclarationStatement) b1.getLines().get(0)).getName().equals(
+		assertNotSame(b1, b2);
+		assertNotSame(b1.getLines(), b2.getLines());
+		assertNotSame(b1.getLines().get(0), b2.getLines().get(0));
+		assertTrue(((VariableDeclarationStatement) b1.getLines().get(0)).getName().equals(
 				((VariableDeclarationStatement) b2.getLines().get(0)).getName()));
-		assert(((VariableDeclarationStatement) b1.getLines().get(0)).getType() == 
+		assertEquals(((VariableDeclarationStatement) b1.getLines().get(0)).getType(), 
 				((VariableDeclarationStatement) b2.getLines().get(0)).getType());
-		assert(b1.getLines().get(1) != b2.getLines().get(1));
-		assert(((VariableDeclarationStatement) b1.getLines().get(1)).getName().equals(
+		assertNotSame(b1.getLines().get(1), b2.getLines().get(1));
+		assertTrue(((VariableDeclarationStatement) b1.getLines().get(1)).getName().equals(
 				((VariableDeclarationStatement) b2.getLines().get(1)).getName()));
-		assert(((VariableDeclarationStatement) b1.getLines().get(1)).getType() 
-				== ((VariableDeclarationStatement) b2.getLines().get(1)).getType());
+		assertEquals(((VariableDeclarationStatement) b1.getLines().get(1)).getType(),  
+				((VariableDeclarationStatement) b2.getLines().get(1)).getType());
 	}
 
 	@Test

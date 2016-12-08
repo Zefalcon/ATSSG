@@ -34,7 +34,7 @@ public class TestGameMap {
 	
 	@Test
 	public void checkPlayers(){
-		assertEquals(testMap.getPlayers().size(), 2);
+		assertEquals(testMap.getPlayers().size(), 1);
 	}
 	
 	@Test
