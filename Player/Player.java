@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.Collection;
 
@@ -19,6 +20,7 @@ public abstract class Player {
 	protected List<Entity> owned_entities;
 	protected GameMap containing_map;
 	protected Image colors;
+	protected Color visID;
 	
 	//Constructors
 	public Player(Map<RCommodityType, Integer> startingResources, List<Entity> starting_entities, GameMap map) {
@@ -68,5 +70,8 @@ public abstract class Player {
 		e.setCardIcon(new ImageIcon(UnitType.resizeCard(e.getImage())));
 		owned_entities.add(e);
 	}
-
+	
+	public Color getVisID() {
+		return visID;
+	}
 }

@@ -19,6 +19,7 @@ import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIConfig;
 import ATSSG.Player.AI.AIPlayer;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -29,6 +30,7 @@ public class GameMap{
 	protected Cell[][] all_cells;
 	protected List<Player> players;
 	protected int size_x, size_y;
+	protected Color[] aiColorTable = {Color.YELLOW, Color.RED, Color.BLUE, Color.ORANGE, Color.MAGENTA};
 	
 	private static Map<Character, TerrainType> terrain_lookup = new InlineMap<Character, TerrainType>()
 		.returnPut(new Character('v'), TerrainType.VOID)
@@ -75,6 +77,7 @@ public class GameMap{
 				new Hashtable<RCommodityType, Integer>(),
 				new ArrayList<Entity>(),
 				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
+				aiColorTable[i],
 				this, 
 				new AIConfig(1.0, -0.5, 0.1));
 		}
@@ -303,14 +306,14 @@ public class GameMap{
 				new Hashtable<RCommodityType, Integer>(),
 				new ArrayList<Entity>(),
 				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
+				Color.YELLOW,
 				gm, 
 				new AIConfig(1.0, -0.5, 0.1)
-			);
+			); //Flag Question: what if more than one computer? And why are we building an ai but not doing anything with it?
 			//gm.players.add(cp);
 		}catch(Exception x){
 			//Silently drop.
 		}
-		
 		
 		int offset = x_bytes.length + y_bytes.length + u_bytes.length;
 		for(int x = 0; x < gm.all_cells.length; x++){

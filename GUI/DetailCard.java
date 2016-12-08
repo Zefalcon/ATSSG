@@ -18,7 +18,7 @@ public class DetailCard extends UIContainer<Entity> {
 	protected EntityCard entCard;
 	
 	//Constructors
-	public DetailCard(Collection<Entity> occupiers, TerrainType terrain, final int width, final int height, 
+	public DetailCard(Collection<Entity> occupiers, final int width, final int height, 
 			MainMap mainMap, ScriptInterface si) {
 		super(occupiers, width, height);
 		
@@ -37,13 +37,13 @@ public class DetailCard extends UIContainer<Entity> {
 	
 	//This update is called by turn ending functionality, just in case the units you selected die horribly.
 	public void update() {
-		entCard.update(content);
+		entCard.update();
 	}
 	
 	public void update(Cell cell) {
 		terrCard.update(cell);
 		content = cell.getOccupyingEntities();
-		entCard.update(content);
+		entCard.update(cell);
 		
 	}
 }

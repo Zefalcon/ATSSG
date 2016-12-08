@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.swing.JPanel;
 
+import ATSSG.Cell;
 import ATSSG.Entities.Building;
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
@@ -17,6 +18,8 @@ public class EntityCard extends UIContainer<Entity> {
 	protected UnitButton[] entities;
 	
 	protected MainMap mainMap;
+	
+	protected Cell lastCell = null;
 	
 	//Constructors
 	
@@ -40,15 +43,16 @@ public class EntityCard extends UIContainer<Entity> {
 		}
 	}
 	
-	public void update(Collection<Entity> occupiers) {
-		this.content = occupiers;
+	public void update(Cell cell) {
+		lastCell = cell;
+		this.content = cell.getOccupyingEntities();
 		for (UnitButton ub : entities) {
 			ub.reset();
 		}
-		if (occupiers.size() == 0) {
+		if (content.size() == 0) {
 			return;
-		} else if (occupiers.size() == 1) {
-			Entity ent = occupiers.iterator().next();
+		} else if (content.size() == 1) {
+			Entity ent = content.iterator().next();
 			if (ent instanceof Unit) {
 				entities[0].setEntity(ent);
 			} else if (ent instanceof Building) {
@@ -59,11 +63,23 @@ public class EntityCard extends UIContainer<Entity> {
 			}
 		} else { //Flag I have here assumed that buildings cannot multiply occupy with any other entities
 			int index = 0;
-			for (Entity e : occupiers) { //Flag possible aberrant behavior if occupiers.size() > available spaces
+			for (Entity e : content) { //Flag possible aberrant behavior if occupiers.size() > available spaces
 				entities[index].setEntity(e);
 				index++;
 			}
 			entities[0].setBorderPainted(true);
 		}
+	}
+	
+	public void update() {
+		if (lastCell == null) {return;}
+		update(lastCell);
+		if (content != null && content.size() > 0) {
+			mainMap.updateCCard(content.iterator().next());
+		} else {
+			mainMap.updateCCard(null);
+		}
+		view.revalidate();
+		view.repaint();
 	}
 }

@@ -1,5 +1,6 @@
 package ATSSG.Enums;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +13,19 @@ import javax.imageio.ImageIO;
 
 public enum TerrainType {
 	
-	VOID	("Void", "", Arrays.asList(Paths.get("src/ATSSG/Art/DemoVoid.png").toString())),
-	GRASS	("Grass", "An open, grassy area.", Arrays.asList(Paths.get("src/ATSSG/Art/DemoGrass.png").toString())),
-	ROUGH_TERRAIN ("Rough Terrain", "A rocky, hilly area that is hard to traverse", 
-			Arrays.asList(Paths.get("src/ATSSG/Art/DemoRocks.png").toString())),
-	MOUNTAIN ("Mountain", "An area impassable to units", Arrays.asList(Paths.get("src/ATSSG/Art/DemoMountain.png").toString()));
+	VOID	("Void", "", Color.BLACK, Arrays.asList(Paths.get("src/ATSSG/Art/DemoVoid.png").toString())),
+	GRASS	("Grass", "An open, grassy area.", new Color(10, 100, 10), Arrays.asList(
+			Paths.get("src/ATSSG/Art/DemoGrass.png").toString(),
+			Paths.get("src/ATSSG/Art/DemoGrass2.png").toString(),
+			Paths.get("src/ATSSG/Art/DemoGrass3.png").toString())),
+	ROUGH_TERRAIN ("Rough Terrain", "A rocky, hilly area that is hard to traverse", new Color(180, 130, 90), Arrays.asList(
+			Paths.get("src/ATSSG/Art/DemoRocks.png").toString(),
+			Paths.get("src/ATSSG/Art/DemoRocks2.png").toString(),
+			Paths.get("src/ATSSG/Art/DemoRocks3.png").toString())),
+	MOUNTAIN ("Mountain", "An area impassable to units", Color.DARK_GRAY, Arrays.asList(
+			Paths.get("src/ATSSG/Art/DemoMountain.png").toString(),
+			Paths.get("src/ATSSG/Art/DemoMountain2.png").toString(),
+			Paths.get("src/ATSSG/Art/DemoMountain3.png").toString()));
 	
 	
 	public String name;
@@ -25,12 +34,14 @@ public enum TerrainType {
 	public List<Image> cellImages;
 	public List<Image> cardImages;
 	public List<Image> images;
+	public Color visID;
 	public static int cardW, cardH;
 	
-	TerrainType(String NAME, String DESCRIPTION, List<String> paths) {
+	TerrainType(String NAME, String DESCRIPTION, Color visID, List<String> paths) {
 		name = NAME;
 		description = DESCRIPTION;
 		this.paths = paths;
+		this.visID = visID;
 		cellImages = new ArrayList<Image>(4);
 		cardImages = new ArrayList<Image>(4);
 		images = new ArrayList<Image>(4);
@@ -94,4 +105,5 @@ public enum TerrainType {
 		return ret;
 	}
 	public String getDescription() {return description;}
+	public Color getVisID() {return visID;}
 }
