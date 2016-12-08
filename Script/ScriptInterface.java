@@ -5,7 +5,6 @@ import ATSSG.Script.Framework.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.plaf.nimbus.State;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
