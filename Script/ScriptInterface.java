@@ -152,7 +152,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			}
 		}
 		else if(e.getSource().equals(updateButton)){
-			//TODO: Update script
+			updateScript();
 			setVisible(false);
 		}
 		/*else if(e.getSource().equals(expandButton)){
