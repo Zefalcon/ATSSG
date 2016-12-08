@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public enum TerrainType {
 	
 	VOID	("Void", "", Arrays.asList(Paths.get("src/ATSSG/Art/DemoVoid.png").toString())),
-	GRASS	("Grass", "An open, grassy area.", Arrays.asList(Paths.get("src/ATSSG/Art/DemoTerrain.png").toString())),
+	GRASS	("Grass", "An open, grassy area.", Arrays.asList(Paths.get("src/ATSSG/Art/DemoGrass.png").toString())),
 	ROUGH_TERRAIN ("Rough Terrain", "A rocky, hilly area that is hard to traverse", 
 			Arrays.asList(Paths.get("src/ATSSG/Art/DemoRocks.png").toString())),
 	MOUNTAIN ("Mountain", "An area impassable to units", Arrays.asList(Paths.get("src/ATSSG/Art/DemoMountain.png").toString()));
