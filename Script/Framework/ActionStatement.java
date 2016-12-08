@@ -37,6 +37,8 @@ public class ActionStatement extends Statement {
 			action = new MoveAction(1, (Unit) environment.getOwner(), 
 					environment.getOwner().getOwner().getContaining_map().getCell(xVal, yVal));
 			break;
+		default:
+			return false;
 		}
 		environment.getOwner().setAction(action);
 		try {
