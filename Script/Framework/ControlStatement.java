@@ -81,20 +81,20 @@ public class ControlStatement extends Statement {
 	
 	@Override
 	public String saveString(int d){
-		String estring;
+		/*String estring;
 		if(evaluation == null){
 			estring = "n";
 		}else if(evaluation == Boolean.FALSE){
 			estring = "f";
 		}else{
 			estring = "t";
-		}
+		}*/
 		
 		return
 			"con:" + 
 			trueBranch.saveString(d + 1) + "," +
 			falseBranch.saveString(d + 1) + "," +
-			condition + "," + estring
+			condition //+ "," + estring
 		;
 	}
 }

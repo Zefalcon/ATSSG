@@ -65,7 +65,6 @@ public class LoopStatement extends Statement {
 		return 
 			"loop:" +
 			originalbody.saveString(d + 1) +
-			"," + progressbody.saveString(d + 1) +
 			"," + condition
 		;
 	}
