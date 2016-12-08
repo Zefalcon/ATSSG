@@ -69,7 +69,7 @@ public abstract class Entity {
 	}
 	
 	public boolean scripted(){
-		return currentScript != null;
+		return (currentScript != null) && (currentScript.getLines().getLines().size() != 0);
 	}
 	
 	public boolean actionQueued(){
