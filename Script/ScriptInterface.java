@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -31,10 +32,13 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	Script environment;
 
 	public ScriptInterface(Entity thisEntity){
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent we){
-				setVisible(false);
-			}});
+		this.addWindowListener(
+			new WindowAdapter() {
+				public void windowClosing(WindowEvent we){
+					setVisible(false);
+				}
+			}
+		);
 
 		addButton = new Button("Add new statement");
 		addButton.addActionListener(this);
@@ -59,6 +63,8 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		options.add("Set Variable");
 		options.add("Declare Variable");
 		options.add("Access Data");
+		
+		statementList = new ArrayList<Statement>();
 
 		actor = thisEntity;
 		if(actor != null) {
@@ -155,6 +161,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	}
 
 	public void addAtPointer(Statement toAdd){
+		System.out.println(toAdd.toString() + "");
 		String selected = script.getSelectedValue();
 		if(model.getElementAt(0).equals("No statements")) { //No statements yet.  Clear, then add to end.
 			model.removeAllElements();
