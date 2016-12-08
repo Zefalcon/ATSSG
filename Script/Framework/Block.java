@@ -24,7 +24,7 @@ public class Block extends Statement {
 			int tag_loc = wad.indexOf(tag);
 			while(tag_loc != -1){
 				String line = w_cut.substring(0, tag_loc);
-				lines.add(Statement.make(line));
+				lines.add(Statement.make(line, d));
 				w_cut = w_cut.substring(tag_loc + wad.length());
 				tag_loc = wad.indexOf(tag);
 			}

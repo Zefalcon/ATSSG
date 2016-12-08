@@ -19,8 +19,16 @@ public abstract class Statement {
 	
 	public abstract String saveString(int depth);
 	
-	public static Statement make(String line){
+	public static Statement make(String line, int d){
 		System.out.println("Making from " + line);
-		return null;
+		if(line.charAt(0) == '('){
+			System.out.println("Making a new block.");//TODO
+			return null;
+		}
+		else{
+			String tag = line.substring(0, line.indexOf(':'));
+			System.out.println("Collected tag " + tag);//TODO
+			return null;
+		}
 	}
 }
