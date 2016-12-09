@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JButton;
@@ -38,7 +37,7 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected Entity selectedEntity;
 	
-	protected ArrayList<GooeyJButton> lastClicked = new ArrayList<GooeyJButton>(2);
+	protected final GooeyJButton[] lastClicked = new GooeyJButton[2];
 	
 	protected GooeyJButton clickedButton;
 	
@@ -182,10 +181,9 @@ public class MainMap extends UIContainer<Cell> {
 							} catch (RuntimeException error) {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
 							} finally {
-								if (! clickedCell.getOccupyingEntities().contains(selectedEntity)) {
-									clickedCell.getView().setBorderPainted(true);
-									lastClicked.add(clickedCell.getView());
-								}
+								clickedCell.getView().setBorderPainted(true);
+								if (lastClicked[1] != null) {lastClicked[1].setBorderPainted(false);}
+								lastClicked[1] = clickedCell.getView();
 								clearHeld();
 							}
 						} else if (heldCommand == CommandType.ATTACK) {
@@ -200,16 +198,16 @@ public class MainMap extends UIContainer<Cell> {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
 							} finally {
 								clickedCell.getView().setBorderPainted(true);
-								lastClicked.add(clickedCell.getView());
+								if (lastClicked[1] != null) {lastClicked[1].setBorderPainted(false);}
+								lastClicked[1] = clickedCell.getView();
 								clearHeld();
 							}
 						} else {
 							//Indicate selected Cell, storing the last one for performance speed
-							if (clickedButton != null) {lastClicked.add(clickedButton);}
+							if (clickedButton != null) {lastClicked[0] = clickedButton;}
 							clickedButton = gjb;
-							for (GooeyJButton b : lastClicked) {
-								b.setBorderPainted(false);
-							}
+							if (lastClicked[0] != null) {lastClicked[0].setBorderPainted(false);}
+							if (lastClicked[1] != null) {lastClicked[1].setBorderPainted(false);}
 							clickedButton.setBorderPainted(true);
 							//Update DetailCard
 							dCard.update(clickedCell);
@@ -274,6 +272,7 @@ public class MainMap extends UIContainer<Cell> {
 				mapView.add(viewableArea[i][j].getView());
 			}
 		}
+		
 		view.revalidate();
 		view.repaint();
 	}
