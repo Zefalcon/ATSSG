@@ -46,6 +46,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 		updateButton = new Button("Update script");
 		updateButton.addActionListener(this);
 		deleteButton = new Button("Delete selected statement");
+		deleteButton.addActionListener(this);
 
 		addAction = new ActionPopup(this);
 		addAction.setLocation(250,0);
