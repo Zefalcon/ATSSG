@@ -101,8 +101,7 @@ public class Gooey {
 			
 			minimap = new Minimap(null, miniW, miniH, gm, mainMap);
 			
-			unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
-			//unitQueue = mainMap.getUQ(); /TODO
+			unitQueue = new UnitQueue(null, uqW, uqH, mainMap, scriptInt);
 			
 			menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher, scriptInt);
 			
@@ -173,7 +172,9 @@ public class Gooey {
 		mainMap.updateView();
 		//Minimap
 		minimap.endTurnUpdate();
-		//UnitQueue & ResourceCard
+		//UnitQueue
+		unitQueue.addAll();
+		//ResourceCard
 		////May Not Exist
 		//EntityCard and CommandCard
 		detailCard.update();
@@ -189,6 +190,7 @@ public class Gooey {
 		
 		mainMap.updateGameMap(gm);
 		minimap.updateAll();
+		unitQueue.addAll();
 		
 		etButton.endTurn();
 	}

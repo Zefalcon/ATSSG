@@ -24,9 +24,10 @@ public class CommandListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		//if (si.getView().isVisible() == true) {return;}
+		if (si.isVisible() == true) {return;}
 		if (cmd == CommandType.IDLE) {
 			entity.setAction(new IdleAction());
+			mainMap.clearHeld();
 		} else {
 			mainMap.setHeldCommand(cmd);
 			mainMap.setHeldEntity(entity);

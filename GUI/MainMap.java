@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JButton;
@@ -37,7 +38,7 @@ public class MainMap extends UIContainer<Cell> {
 	
 	protected Entity selectedEntity;
 	
-	protected GooeyJButton lastClicked;
+	protected ArrayList<GooeyJButton> lastClicked = new ArrayList<GooeyJButton>(2);
 	
 	protected GooeyJButton clickedButton;
 	
@@ -167,10 +168,12 @@ public class MainMap extends UIContainer<Cell> {
 						Collection<Entity> occupiers = clickedCell.getOccupyingEntities();
 						if (occupiers.isEmpty()) {
 							selectedEntity = null;
+							cCard.resetStatLabel();
 						} else {
 							selectedEntity = occupiers.iterator().next(); //This checks the ownership of the first unit
-							if (selectedEntity.getOwner() != owner) { 	//It only works because units owned by different
-								selectedEntity = null;					//players cannot occupy the same space
+							if (selectedEntity.getOwner() != owner) {     //It works because units owned by different
+								cCard.setStatLabel(selectedEntity);       //players cannot occupy the same space
+								selectedEntity = null;
 							}
 						}
 						if (heldCommand == CommandType.MOVE) {
@@ -179,6 +182,10 @@ public class MainMap extends UIContainer<Cell> {
 							} catch (RuntimeException error) {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
 							} finally {
+								if (! clickedCell.getOccupyingEntities().contains(selectedEntity)) {
+									clickedCell.getView().setBorderPainted(true);
+									lastClicked.add(clickedCell.getView());
+								}
 								clearHeld();
 							}
 						} else if (heldCommand == CommandType.ATTACK) {
@@ -192,14 +199,18 @@ public class MainMap extends UIContainer<Cell> {
 							} catch (RuntimeException error) {
 								holder.getPrompts().createMessagePrompt("Illegal Command", error.getMessage(), null);
 							} finally {
+								clickedCell.getView().setBorderPainted(true);
+								lastClicked.add(clickedCell.getView());
 								clearHeld();
 							}
 						} else {
 							//Indicate selected Cell, storing the last one for performance speed
-							lastClicked = clickedButton;
+							if (clickedButton != null) {lastClicked.add(clickedButton);}
 							clickedButton = gjb;
-							if (lastClicked != null) {lastClicked.toggleSelected();}
-							clickedButton.toggleSelected();
+							for (GooeyJButton b : lastClicked) {
+								b.setBorderPainted(false);
+							}
+							clickedButton.setBorderPainted(true);
 							//Update DetailCard
 							dCard.update(clickedCell);
 							if (selectedEntity == null) {
@@ -210,11 +221,12 @@ public class MainMap extends UIContainer<Cell> {
 								//Update the CommandCard
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
-									if (index < 9) {
+									if (index < 8) {
 										cCard.getCmdButton(index).setParams(cmdt, new CommandListener(selectedEntity, cmdt, MainMap.this, si));
 										index++;
 									}
 								}
+								cCard.setStatLabel(selectedEntity);
 								//and update the ScriptInterface
 								si.update(selectedEntity);
 								sibtn.setEnabled(true);
@@ -304,6 +316,7 @@ public class MainMap extends UIContainer<Cell> {
 	public DetailCard getDCard() {return dCard;}
 	public int getCameraWidth() {return cameraConstants[2];}
 	public int getCameraHeight() {return cameraConstants[3];}
+	public Gooey getGooey() {return holder;}
 	public static int getDefaultCameraWidth() {return MainMap.defaultCameraWidth;}
 	public static int getDefaultCameraHeight() {return MainMap.defaultCameraHeight;}
 }

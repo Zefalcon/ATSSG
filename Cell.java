@@ -12,7 +12,6 @@ import java.util.Iterator;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 public class Cell implements Comparable<Cell> {
 	
@@ -38,6 +37,7 @@ public class Cell implements Comparable<Cell> {
 		
 		this.occupyingEntities = new ArrayList<Entity>(8);
 		this.view = new GooeyJButton(null, this);
+		
 	}
 	
 	//Methods
@@ -75,14 +75,13 @@ public class Cell implements Comparable<Cell> {
 	}
 	
 	public void setActionListener(ActionListener actlis) {
-		ActionListener[] ala = view.getActionListeners();
-		for (ActionListener al : ala) {
+		for (ActionListener al : view.getActionListeners()) {
 			view.removeActionListener(al);
 		}
 		view.addActionListener(actlis);
 	}
 	
-	public JButton getView() {
+	public GooeyJButton getView() {
 		return view;
 	}
 	

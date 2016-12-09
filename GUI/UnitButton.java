@@ -1,5 +1,6 @@
 package ATSSG.GUI;
 
+import ATSSG.Cell;
 import ATSSG.Entities.Entity;
 import ATSSG.Enums.UnitType;
 
@@ -23,10 +24,10 @@ public class UnitButton extends JButton {
 	protected static ImageIcon blank = new ImageIcon(UnitType.resizeCard(UnitType.Void.getImage()));
 	protected ScriptInterface si;
 	protected MainMap mainMap;
-	protected EntityCard holder;
+	protected UIContainer<?> holder;
 
 	//Methods
-	public UnitButton(MainMap mainMap, ScriptInterface si, EntityCard holder) {
+	public UnitButton(MainMap mainMap, ScriptInterface si, UIContainer<?> holder) {
 		super(blank);
 		this.mainMap = mainMap;
 		this.si = si;
@@ -49,7 +50,21 @@ public class UnitButton extends JButton {
 				public void actionPerformed(ActionEvent e) {
 					if (si.isVisible() == true) {return;}
 					//update dCard
-					holder.removeBorders();
+					if (holder instanceof EntityCard) {
+						((EntityCard) holder).removeBorders();
+					} else if (holder instanceof UnitQueue) {
+						((UnitQueue) holder).removeBorders();
+						//also recenter map
+						Cell loc = reference.getContainingCell();
+						int xLoc = loc.getX() - mainMap.getCameraWidth() / 2;
+						int yLoc = loc.getY() - mainMap.getCameraHeight() / 2;
+						mainMap.updateView(xLoc, yLoc);
+						//and highlight on MainMap and in EntityCard
+						
+						//Also figure out how to link 'giving orders' to 'removal' from this, then this is done.
+					} else {
+						System.out.println("How did you get here?");
+					}
 					setBorderPainted(true);
 					//update cCard
 					mainMap.updateCCard(reference);

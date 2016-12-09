@@ -46,8 +46,4 @@ public class GooeyJButton extends JButton {
 	public Cell getCell() {
 		return locus;
 	}
-	
-	public void toggleSelected() {
-		setBorderPainted(!isBorderPainted());
-	}
 }
