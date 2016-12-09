@@ -44,11 +44,18 @@ public class Cell implements Comparable<Cell> {
 	public void updateView(int iconW, int iconH) {
 		this.terrIcons = terrainType.getImages(terrainFlavor);
 		Icon icon;
-		if (getOccupyingEntities().isEmpty()) {
+		Collection<Entity> occs = getOccupyingEntities();
+		if (occs == null || occs.isEmpty()) {
 			icon = new ImageIcon(terrIcons[0]);
+		} else if (occs.size() == 1) {
+			Entity ent = occs.iterator().next();
+			ent.updateHealthyImage();
+			Image background = terrIcons[2];
+			background.getGraphics().drawImage(ent.getHealthyImage(), 0, 0, null);
+			icon = new ImageIcon(background.getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
 		} else {
-			Image[] entities = new Image[getOccupyingEntities().size()];
-			Iterator<Entity> itr = getOccupyingEntities().iterator();
+			Image[] entities = new Image[occs.size()];
+			Iterator<Entity> itr = occs.iterator();
 			for (int i = 0; i < entities.length; i++) {
 				entities[i] = itr.next().getImage();
 			}

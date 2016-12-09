@@ -6,7 +6,6 @@ import ATSSG.Enums.UnitType;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
@@ -43,14 +42,15 @@ public class UnitButton extends JButton {
 		if (reference == null) {
 			this.setIcon(blank);
 		} else {
-			this.setIcon(reference.getCardIcon());
+			reference.updateHealthyImage();
+			this.setIcon(new ImageIcon(reference.getHealthyImage()));
 			this.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					if (si.isVisible() == true) {return;}
-					//simulate selecting that cell - update dCard
+					//update dCard
 					holder.removeBorders();
 					setBorderPainted(true);
-					//simulate selecting that unit - update cCard
+					//update cCard
 					mainMap.updateCCard(reference);
 				}
 			});
