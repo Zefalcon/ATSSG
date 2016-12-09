@@ -161,5 +161,6 @@ public abstract class Entity {
 	public void setScript(String wad){
 		this.currentScript = new Script(this, wad);
 	}
+	public static void reset_id(){next_id = 0;}
 
 }

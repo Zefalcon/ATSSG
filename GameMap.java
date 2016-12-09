@@ -302,7 +302,7 @@ public class GameMap{
 		human.setGameMap(gm);
 		gm.players.add(human);
 		try{
-			Player cp = new AIPlayer(
+			new AIPlayer(
 				new Hashtable<RCommodityType, Integer>(),
 				new ArrayList<Entity>(),
 				ImageIO.read(new File((Paths.get("src/ATSSG/Art/AIColors1.png").toString()))),
@@ -335,6 +335,8 @@ public class GameMap{
 				);
 			}
 		}
+		
+		Entity.reset_id();
 		
 		offset = offset + gm.all_cells.length * gm.all_cells[0].length * Saveable.ict;
 		for(int i = offset; i < offset + (uc * Saveable.ict * 5); i = i + (Saveable.ict * 5)){
