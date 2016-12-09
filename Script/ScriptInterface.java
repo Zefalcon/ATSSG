@@ -18,6 +18,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 	JList<String> script;
 	Button addButton;
 	Button updateButton;
+	Button deleteButton;
 	List<Statement> statementList;
 	Choice options;
 	DefaultListModel<String> model;
@@ -44,6 +45,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 		addButton.addActionListener(this);
 		updateButton = new Button("Update script");
 		updateButton.addActionListener(this);
+		deleteButton = new Button("Delete selected statement");
 
 		addAction = new ActionPopup(this);
 		addAction.setLocation(250,0);
@@ -95,6 +97,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 		add(addButton);
 		add(options);
 		add(updateButton);
+		add(deleteButton);
 
 		setTitle("Script");
 		setSize(250, 500);
@@ -150,6 +153,92 @@ public class ScriptInterface extends JFrame implements ActionListener{
 		else if(e.getSource().equals(updateButton)){
 			updateScript();
 			setVisible(false);
+		}
+		else if(e.getSource().equals(deleteButton)){
+			if(!script.isSelectionEmpty()){
+				remove(script.getSelectedIndex());
+			}
+		}
+	}
+
+	public void remove(int index){
+		//Removes statement at given index in model
+		String line = model.get(index);
+		String loopcheck = line.substring(0, 4);
+		String ifcheck = line.substring(0, 2);
+		if(line.equals("Else") || line.equals("End If") || line.equals("End Loop")){
+			//Bring up prompt telling user they can't do that.
+			throw new RuntimeException("Selected statement cannot be removed.  Please remove at the base (If (condition) or Loop (condition))");
+		}
+		else if(ifcheck.equals("If")){
+			//If statement being removed.  Must remove matching Else and End If.
+			int flag = 0;
+			for(int i=index;i<model.size();i++){
+				ifcheck = model.get(i).substring(0, 2);
+				if(ifcheck.equals("If")){
+					//Nested if, set flag.
+					flag++;
+				}
+				else if(model.get(i).equals("Else")){
+					if(flag>0){
+						//Belongs to nested if.  Leave be.
+					}
+					else{
+						//Belongs to if being removed.  Remove.
+						model.remove(i);
+						i--; //Indices shift down, so current i must be checked again.
+					}
+				}
+				else if(model.get(i).equals("end If")){
+					if(flag>0){
+						//Belongs to nested if.  Nested if is done, decrement flag
+						flag--;
+					}
+					else {
+						//Belongs to if being removed.  Remove and exit.
+						model.remove(i);
+						break;
+					}
+				}
+			}
+		}
+		else if(loopcheck.equals("Loop")){
+			//Loop statement being removed.  Must remove matching End Loop.
+			int flag = 0;
+			for(int i=index;i<model.size();i++){
+				loopcheck = model.get(i).substring(0, 4);
+				if(loopcheck.equals("Loop")){
+					//Nested loop, set flag.
+					flag++;
+				}
+				else if(model.get(i).equals("End If")){
+					if(flag>0){
+						//Belongs to nested loop, decrement flag.
+						flag--;
+					}
+					else{
+						//Belongs to loop being removed.  Remove and exit.
+						model.remove(i);
+						break;
+					}
+				}
+			}
+		}
+		else{
+			//Regular statement.  Find index for statementList and remove from there as well.
+			int remove = index;
+			for(int i=0;i<index;i++){
+				ifcheck = model.get(i).substring(0, 2);
+				loopcheck = model.get(i).substring(0, 4);
+				if(ifcheck.equals("If") || loopcheck.equals("Loop") || model.get(i).equals("Else") ||
+						model.get(i).equals("End If") || model.get(i).equals("End Loop")){
+					//Not listed in statementList.  Decrement index
+					remove--;
+				}
+			}
+			//Remove at specified index
+			System.out.println(statementList.get(remove)); //To ensure correct statement is being removed.  TODO: Remove this.
+			statementList.remove(remove);
 		}
 	}
 
