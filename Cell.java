@@ -47,12 +47,14 @@ public class Cell implements Comparable<Cell> {
 		Collection<Entity> occs = getOccupyingEntities();
 		if (occs == null || occs.isEmpty()) {
 			icon = new ImageIcon(terrIcons[0]);
+			this.view.setToolTipText(null);
 		} else if (occs.size() == 1) {
 			Entity ent = occs.iterator().next();
 			ent.updateHealthyImage();
 			Image background = terrIcons[2];
 			background.getGraphics().drawImage(ent.getHealthyImage(), 0, 0, null);
 			icon = new ImageIcon(background.getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
+			this.view.setToolTipText(ent.toString());
 		} else {
 			Image[] entities = new Image[occs.size()];
 			Iterator<Entity> itr = occs.iterator();
@@ -67,6 +69,7 @@ public class Cell implements Comparable<Cell> {
 						(int)(iW-iW/Math.pow(1.3, j)), (int)(iH-iH/Math.pow(1.3, j)), null);
 			}
 			icon = new ImageIcon(background.getScaledInstance(iconW, iconH, Image.SCALE_SMOOTH));
+			this.view.setToolTipText("Deathball: Magnitude " + occs.size());
 		}
 		this.view.setIcon(icon);
 	}
