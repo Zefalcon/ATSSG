@@ -164,7 +164,8 @@ public class ScriptInterface extends JFrame implements ActionListener{
 
 	public void remove(int index){
 		//Removes statement at given index in model
-		String line = model.get(index);
+		String line = model.removeElementAt(index);
+		index--; //Since the lines will have moved up.
 		String loopcheck = line.substring(0, 4);
 		String ifcheck = line.substring(0, 2);
 		if(line.equals("Else") || line.equals("End If") || line.equals("End Loop")){
@@ -186,7 +187,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 					}
 					else{
 						//Belongs to if being removed.  Remove.
-						model.remove(i);
+						model.removeElementAt(i);
 						i--; //Indices shift down, so current i must be checked again.
 					}
 				}
@@ -197,7 +198,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 					}
 					else {
 						//Belongs to if being removed.  Remove and exit.
-						model.remove(i);
+						model.removeElementAt(i);
 						break;
 					}
 				}
@@ -219,7 +220,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 					}
 					else{
 						//Belongs to loop being removed.  Remove and exit.
-						model.remove(i);
+						model.removeElementAt(i);
 						break;
 					}
 				}
