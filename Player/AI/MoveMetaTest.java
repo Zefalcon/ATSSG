@@ -1,6 +1,7 @@
 package ATSSG.Player.AI;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +12,6 @@ import ATSSG.Cell;
 import ATSSG.GameMap;
 import ATSSG.Actions.MoveAction;
 import ATSSG.Entities.Unit;
-import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 
 public class MoveMetaTest {

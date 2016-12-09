@@ -1,9 +1,10 @@
 package ATSSG.Script;
 
-import ATSSG.Script.Framework.SetVariableStatement;
-import ATSSG.Script.Framework.Statement;
-
-import java.awt.*;
+import java.awt.Button;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.Label;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -12,6 +13,7 @@ import java.awt.event.WindowEvent;
 /**
  * Created by Evelyn Moss on 12/8/2016.
  */
+@SuppressWarnings("serial")
 public class LoopPopup extends Dialog implements ActionListener {
 
 	ScriptInterface inter;

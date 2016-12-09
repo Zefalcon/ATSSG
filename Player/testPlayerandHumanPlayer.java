@@ -1,8 +1,10 @@
 package ATSSG.Player;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +19,6 @@ import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
 import ATSSG.Enums.RCommodityType;
 import ATSSG.Enums.UnitType;
-import ATSSG.Player.AI.AIConfig;
-import ATSSG.Player.AI.AIPlayer;
 
 public class testPlayerandHumanPlayer {
 

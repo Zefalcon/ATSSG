@@ -1,16 +1,14 @@
 package ATSSG.Player;
 
+import java.awt.Color;
+import java.awt.Image;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Collection;
-
+import ATSSG.GameMap;
 import ATSSG.Entities.Entity;
 import ATSSG.Enums.RCommodityType;
-import ATSSG.GameMap;
 
 public abstract class Player {
 	
