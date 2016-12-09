@@ -263,6 +263,8 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			model.addElement("");
 		}
 		else{ //Populate with lines from script
+			model.removeAllElements();
+			statementList.clear();
 			List<Statement> lines = environment.getLines().getLines();
 			populateInterface(lines);
 		}
