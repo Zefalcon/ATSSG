@@ -228,7 +228,7 @@ public class GameMap{
 				String tmp = Integer.toString(i) + ":" + u.getCurrentScript().saveString(); 
 				scriptstrings.add(tmp);
 				tbs = tbs + Saveable.ict + tmp.getBytes().length;
-				System.out.println(tmp);
+				//System.out.println(tmp);
 			}
 		}
 		

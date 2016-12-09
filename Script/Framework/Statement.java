@@ -26,27 +26,27 @@ public abstract class Statement {
 	public abstract String saveString(int depth);
 	
 	public static Statement make(String line, int d){
-		System.out.println("Making from " + line);
+		//System.out.println("Making from " + line);
 		if(line.charAt(0) == '('){
 			int d_prime = Integer.parseInt(line.substring(line.indexOf('('), line.indexOf(')') - 1));
-			System.out.println("Making a new block at depth " + d_prime + " with string " + line.substring(3, line.length() - 3));
+			//System.out.println("Making a new block at depth " + d_prime + " with string " + line.substring(3, line.length() - 3));
 			return new Block(line.substring(3, line.length() - 3), d_prime);
 		}
 		else{
 			String tag = line.substring(0, line.indexOf(':'));
 			String rest = line.substring(line.indexOf(':') + 1);
-			System.out.println("Collected tag " + tag);
+			//System.out.println("Collected tag " + tag);
 			switch(tag){
 				case "set":
 					String name_found = rest.substring(0, rest.indexOf(','));
 					String valu_found = rest.substring(rest.indexOf(',')+1);
-					System.out.println("Creating variable setter with name " + name_found + " and value " + valu_found);
+					//System.out.println("Creating variable setter with name " + name_found + " and value " + valu_found);
 					return new SetVariableStatement(name_found, valu_found);
 					
 				case "dec":
 					String name_found_2 = rest.substring(0, rest.indexOf(','));
 					String type_found = rest.substring(rest.indexOf(',')+1);
-					System.out.println("Creating variable declaration with name " + name_found_2 + " and value " + type_found);
+					//System.out.println("Creating variable declaration with name " + name_found_2 + " and value " + type_found);
 					try{
 						return new VariableDeclarationStatement(name_found_2, Class.forName(type_found));
 					}catch(ScriptError | ClassNotFoundException x){
@@ -59,7 +59,7 @@ public abstract class Statement {
 					String args_string = rest_cut.substring(0, rest_cut.indexOf(','));
 					String vn_string = rest_cut.substring(rest_cut.indexOf(',') + 1);
 					
-					System.out.println("Making data assigner with ordinal " + ord_string + " and arguments " + args_string + " and varname " + vn_string);
+					//System.out.println("Making data assigner with ordinal " + ord_string + " and arguments " + args_string + " and varname " + vn_string);
 					
 					List<String> args = new ArrayList<String>();
 					int scp = args_string.indexOf(';');
@@ -73,11 +73,11 @@ public abstract class Statement {
 				case "act":
 					String enu_string = rest.substring(0, rest.indexOf(','));
 					String arg_string = rest.substring(rest.indexOf(',') + 1);
-					System.out.println("Making action with ordinal " + enu_string + " and arguments " + arg_string);
+					//System.out.println("Making action with ordinal " + enu_string + " and arguments " + arg_string);
 					
 					List<String> args_prime = new ArrayList<String>();
 					int scp_prime = arg_string.indexOf(';');
-					System.out.println("Argflag is " + scp_prime);
+					//System.out.println("Argflag is " + scp_prime);
 					while(scp_prime != -1){
 						args_prime.add(arg_string.substring(0, scp_prime));
 						arg_string = arg_string.substring(scp_prime + 1);
@@ -94,7 +94,7 @@ public abstract class Statement {
 					rest = rest.substring(rest.indexOf(deep_tag) + deep_tag.length());
 					String condition_string = rest.substring(rest.indexOf(deep_tag) + deep_tag.length() + 1);
 					
-					System.out.println("Creating loop with obody " + obody_string + " and condition " + condition_string);
+					//System.out.println("Creating loop with obody " + obody_string + " and condition " + condition_string);
 					return new LoopStatement(Statement.make(obody_string, depth_prime), condition_string);
 					
 				case "con":
@@ -107,7 +107,7 @@ public abstract class Statement {
 					rest = rest.substring(rest.indexOf(deep_tag_) + deep_tag_.length());
 					String condition = rest.substring(1);
 					
-					System.out.println("Creating if with true " + true_string + "false " + false_string +  " and condition " + condition);
+					//System.out.println("Creating if with true " + true_string + "false " + false_string +  " and condition " + condition);
 					
 					return new ControlStatement(
 						Statement.make(true_string, depth_prime_),
