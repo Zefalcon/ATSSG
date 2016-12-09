@@ -77,7 +77,7 @@ public class MainMap extends UIContainer<Cell> {
 		//interactable map setup
 		
 		try {
-			this.cCard = new CommandCard(null, cCardW, cCardH, this);
+			this.cCard = new CommandCard(null, cCardW, cCardH, this, si);
 			this.dCard = new DetailCard(null, dCardW, dCardH, this, si);
 		} catch (IOException ioe) {
 			System.out.println("Images not found for cards");

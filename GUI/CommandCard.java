@@ -16,22 +16,25 @@ import javax.swing.JPanel;
 
 import ATSSG.Entities.Entity;
 import ATSSG.Entities.Unit;
+import ATSSG.Script.ScriptInterface;
 
 public class CommandCard extends UIContainer<CommandButton> {
 
 	//Variables
 	
-	protected CommandButton[] buttons;
-	protected ImageIcon blankIcon;
-	protected ImageIcon statIcon;
-	protected JButton statButton;
-	protected MainMap holder;
+	protected final CommandButton[] buttons;
+	protected final ImageIcon blankIcon;
+	protected final ImageIcon statIcon;
+	protected final JButton statButton;
+	protected final MainMap holder;
+	protected final ScriptInterface si;
 	
 	//Constructors
 	
-	public CommandCard(Collection<CommandButton> content, int width, int height, MainMap holder) throws IOException {
+	public CommandCard(Collection<CommandButton> content, int width, int height, final MainMap holder, final ScriptInterface si) throws IOException {
 		super(content, width, height);
 		this.holder = holder;
+		this.si = si;
 		view = new JPanel();
 		view.setLayout(new GridLayout(3,3));
 		buttons = new CommandButton[8];
@@ -70,6 +73,7 @@ public class CommandCard extends UIContainer<CommandButton> {
 			final Unit u = (Unit) e;
 			statButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					if (si.isVisible()) {return;}
 					holder.getGooey().getPrompts().createMessagePrompt("Unit Information", u.toString() + "\nOwner: " + 
 				u.getOwner().toString() + "\nCurrent HP: " + u.getHitPoints() + "\nMaximum HP: " + u.getType().maxHP + 
 				"\nAttack Range: " + u.getType().aRange + "\nAttack Damage: " + u.getType().aDamage + "\nMove Range: " + 
