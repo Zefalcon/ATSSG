@@ -3,8 +3,6 @@ import ATSSG.Entities.Entity;
 import ATSSG.Script.Framework.*;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,11 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class ScriptInterface extends JFrame implements ActionListener, ListSelectionListener{
+public class ScriptInterface extends JFrame implements ActionListener{
 
 	JList<String> script;
 	Button addButton;
-	//Button expandButton;
 	Button updateButton;
 	List<Statement> statementList;
 	Choice options;
@@ -28,6 +25,8 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 	SetVarPopup setVar;
 	DeclareVarPopup declareVar;
 	AccessDataPopup accessData;
+	IfPopup ifState;
+	LoopPopup loop;
 	Entity actor;
 	Script environment;
 
@@ -42,8 +41,6 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 
 		addButton = new Button("Add new statement");
 		addButton.addActionListener(this);
-		//expandButton = new Button("Expand block");
-		//expandButton.addActionListener(this);
 		updateButton = new Button("Update script");
 		updateButton.addActionListener(this);
 
@@ -55,11 +52,15 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		declareVar.setLocation(250,0);
 		accessData = new AccessDataPopup(this);
 		accessData.setLocation(250,0);
+		ifState = new IfPopup(this);
+		ifState.setLocation(250,0);
+		loop = new LoopPopup(this);
+		loop.setLocation(250, 0);
 
 		options = new Choice();
 		options.add("Action");
-		//options.add("If Statement");
-		//options.add("Loop");
+		options.add("If Statement");
+		options.add("Loop");
 		options.add("Set Variable");
 		options.add("Declare Variable");
 		options.add("Access Data");
@@ -89,9 +90,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		script.setFixedCellWidth(200);
 		script.setFixedCellHeight(15);
 		add(script);
-		script.addListSelectionListener(this);
 
-		//add(expandButton);
 		add(addButton);
 		add(options);
 		add(updateButton);
@@ -103,10 +102,6 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 		setVisible(false);
 	}
 
-	/*public static void main(String[] args){
-		ScriptInterface si = new ScriptInterface(null, null);
-	}*/
-
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource().equals(addButton)){
 			//Add current statement to block
@@ -117,16 +112,16 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 					addAction.setVisible(true);
 					break;
 				}
-				/*case "IfStatement":{
+				case "IfStatement":{
 					//Open Add If Statement window
-					//toAdd = window.getStatement(); or something
+					ifState.setVisible(true);
 					break;
-				}*/
-				/*case "Loop":{
+				}
+				case "Loop":{
 					//Open Add Loop window
-					//toAdd = window.getStatement(); or something
+					loop.setVisible(true);
 					break;
-				}*/
+				}
 				case "Set Variable":{
 					//Open Set Variable window
 					setVar.setVisible(true);
@@ -155,9 +150,6 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			updateScript();
 			setVisible(false);
 		}
-		/*else if(e.getSource().equals(expandButton)){
-			//Expand currently chosen block
-		}*/
 	}
 
 	public void addAtPointer(Statement toAdd){
@@ -177,7 +169,7 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			}
 			else { //Add after selected value
 				model.add(script.getSelectedIndex() + 1, toAdd.toString());
-				//environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //TODO: Hack, pls fix
+				//environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //Hack, pls fix
 				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
 				statementList.add(script.getSelectedIndex()+1, toAdd);
 			}
@@ -305,9 +297,4 @@ public class ScriptInterface extends JFrame implements ActionListener, ListSelec
 			}
 		}
 	}
-
-	public void valueChanged(ListSelectionEvent e){
-		//Specifically for drag-and-drop.  Probably not needed beforehand.
-	}
-
 }
