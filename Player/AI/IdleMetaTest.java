@@ -15,7 +15,7 @@ public class IdleMetaTest {
 	@Test
 	public void testIsDone() {
 		MetaAction idle = new IdleMeta();
-		assert(idle.isDone());
+		assertTrue(idle.isDone());
 	}
 
 }

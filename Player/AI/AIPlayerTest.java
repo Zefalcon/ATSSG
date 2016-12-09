@@ -3,6 +3,7 @@ package ATSSG.Player.AI;
 import static org.junit.Assert.*;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,6 +73,22 @@ public class AIPlayerTest {
 		testPlayer.planAttack(u, Arrays.asList(enemy1, enemy2));
 		assertTrue(actions.keySet().contains(u));		
 		assertEquals(u, ((AttackMeta)actions.get(u)).getAttacker());
+	}
+	
+	@Test
+	public void integratedTest() throws IOException {
+		GameMap gm = new GameMap(new File("src/ATSSG/Maps/empty.map"));
+		Player ai = new AIPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), 
+				new BufferedImage(1,1, 1), null, gm, new AIConfig(1, 1, 1));
+		Player enem = new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), gm);
+		new Unit(UnitType.Soldier, ai, gm.getCell(8, 8));
+		new Unit(UnitType.Soldier, ai, gm.getCell(7, 8));
+		new Unit(UnitType.Soldier, enem, gm.getCell(1, 1));
+		new Unit(UnitType.Soldier, enem, gm.getCell(1, 2));
+		for (int i=0; i<10; i++) {
+			ai.executeAll();
+		}
+		assertEquals(0,enem.getEntities().size());
 	}
 
 }
