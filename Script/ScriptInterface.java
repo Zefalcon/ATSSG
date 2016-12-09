@@ -189,15 +189,14 @@ public class ScriptInterface extends JFrame implements ActionListener{
 
 	public void updateScript(){
 		//Updates script on entity
-		Block unitBlock = internalBlock(null);
-		environment.setLines(unitBlock);
+		environment.setLines(internalBlock(null));
 	}
 
 	public Block internalBlock(String end){
 		//Creates internal block, can be used recursively.
 		Block block = new Block();
-		for(int mIndex = 0; mIndex < model.size(); mIndex++){
-			String line = model.remove(mIndex);
+		while(!model.isEmpty()){
+			String line = model.remove(0);
 			String loopcheck = line.substring(0, 4);
 			String ifcheck = loopcheck.substring(0, 2);
 			//Check for further blocks
@@ -217,7 +216,9 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			}
 			else{
 				//Normal statement, add
-				block.addAtEnd(statementList.remove(0));
+				if(!statementList.isEmpty()){
+					block.addAtEnd(statementList.remove(0));
+				}
 			}
 		}
 		return block;
