@@ -164,7 +164,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 
 	public void remove(int index){
 		//Removes statement at given index in model
-		String line = model.removeElementAt(index);
+		String line = model.remove(index);
 		index--; //Since the lines will have moved up.
 		String loopcheck = line.substring(0, 4);
 		String ifcheck = line.substring(0, 2);
