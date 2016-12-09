@@ -34,6 +34,7 @@ public abstract class Entity {
 
 	//Constructor
 	public Entity(int hp, Player player, Cell currentCell, Image image){
+		System.out.println("Constructor call.");
 		hitPoints = hp;
 		owner = player;
 		containingCell = currentCell;
@@ -56,6 +57,7 @@ public abstract class Entity {
 	}
 	
 	public void kill(){
+		System.out.println("KILL CALLED");
 		hitPoints = 0;
 		if(containingCell != null){
 			containingCell.removeEntity(this);
@@ -83,6 +85,7 @@ public abstract class Entity {
 	}
 	
 	public void executeScript(){
+		System.out.println("Entering execution with " + currentScript.getLines().getLines());
 		if (currentScript != null) {
 			try {
 				currentScript.execute();
@@ -91,6 +94,7 @@ public abstract class Entity {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Exiting execution with " + currentScript.getLines().getLines());
 	}
 	
 	public void executeAction() throws IOException{
@@ -123,6 +127,7 @@ public abstract class Entity {
 	
 	public void setHitPoints(int h){this.hitPoints = h;}
 	public Script getCurrentScript(){
+		//System.out.println("Pre-gcs " + currentScript.getLines().getLines());
 		return currentScript;
 	}
 	public void setScript(String wad){

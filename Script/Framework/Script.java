@@ -16,7 +16,9 @@ public class Script {
 	}
 
 	public void setLines(Block newLines){
+		System.out.println("Before setlines " + lines.getLines());
 		lines = newLines;
+		System.out.println("After setlines " + lines.getLines());
 	}
 
 	public HashMap<String, Object> getHeap() {
