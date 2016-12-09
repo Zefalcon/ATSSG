@@ -28,10 +28,5 @@ public class BuildBuildingAction extends UnitAction {
 	public void setBuildingType(BuildingType building){
 		toBuild = building;
 	}
-	
-	@Override
-	public String saveString(){
-		return null;//Not used
-	}
 
 }

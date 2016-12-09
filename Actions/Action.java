@@ -26,6 +26,4 @@ public abstract class Action {
 	public CommandType getType() {
 		return type;
 	}
-	
-	public abstract String saveString();
 }

@@ -28,10 +28,5 @@ public class DepositAction extends UnitAction {
 	public void setDropZone(Building building){
 		dropZone = building;
 	}
-	
-	@Override
-	public String saveString(){
-		return null;//Not used.
-	}
 
 }

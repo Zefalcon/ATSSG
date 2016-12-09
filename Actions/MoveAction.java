@@ -1,10 +1,7 @@
 package ATSSG.Actions;
-import ATSSG.Entities.Entity;
+
 import ATSSG.Entities.Unit;
 import ATSSG.Enums.CommandType;
-
-import java.util.List;
-
 import ATSSG.Cell;
 
 public class MoveAction extends UnitAction {
@@ -39,17 +36,5 @@ public class MoveAction extends UnitAction {
 	}
 	
 	public Cell getEndPoint() {return destination;}
-	
-	@Override
-	public String saveString(){
-		List<Entity> master_list = performer.getOwner().getContaining_map().getEntities();
-		return
-			"-mov:" + Integer.toString(master_list.indexOf(performer))
-			+ "," + Integer.toString(turnsToComplete)
-			+ "," + Integer.toString(destination.getX())
-			+ "," + Integer.toString(destination.getY())
-			+ "-"
-		;
-	}
 
 }
