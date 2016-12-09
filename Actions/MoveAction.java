@@ -38,6 +38,8 @@ public class MoveAction extends UnitAction {
 		destination = end;
 	}
 	
+	public Cell getEndPoint() {return destination;}
+	
 	@Override
 	public String saveString(){
 		List<Entity> master_list = performer.getOwner().getContaining_map().getEntities();

@@ -14,7 +14,7 @@ import ATSSG.Enums.TerrainType;
 import ATSSG.Enums.UnitType;
 import ATSSG.Player.HumanPlayer;
 
-public class testAttackMeta {
+public class AttackMetaTest {
 
 	public HumanPlayer setUpHuman() {
 		return new HumanPlayer(new Hashtable<RCommodityType, Integer>(), new ArrayList<Entity>(), null);

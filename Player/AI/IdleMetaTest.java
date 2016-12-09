@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class testIdleMeta {
+public class IdleMetaTest {
 
 	@Test
 	public void testNextAction() {

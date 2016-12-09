@@ -62,7 +62,7 @@ public class MoveMeta extends MetaAction {
 		if (pathInvalid()) return null;
 		int movesLeft = actor.getType().maxMoves;
 		Cell next = path.get(0);
-		while (!path.isEmpty() && movesLeft > actor.getType().passableTerrain.get(path.get(0).getTerrainType())) {
+		while (!path.isEmpty() && movesLeft >= actor.getType().passableTerrain.get(path.get(0).getTerrainType())) {
 			next = path.remove(0);
 			movesLeft -= actor.getType().passableTerrain.get(next.getTerrainType());
 			
