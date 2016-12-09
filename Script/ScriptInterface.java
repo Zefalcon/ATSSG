@@ -192,7 +192,9 @@ public class ScriptInterface extends JFrame implements ActionListener{
 	public void updateScript(){
 		//Updates script on entity
 		System.out.println("before uds " + actor.getCurrentScript().getLines().getLines());
-		environment.setLines(internalBlock(null));
+		Block blocky = internalBlock(null);
+		environment.setLines(blocky);//Flag does this actually do anything independent of setting the actor's?
+		actor.getCurrentScript().setLines(blocky);
 		System.out.println("after uds " + actor.getCurrentScript().getLines().getLines());
 	}
 
