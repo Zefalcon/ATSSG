@@ -73,7 +73,15 @@ public class EndTurnButton extends JButton {
 		});
 	}
 	
-	protected void automaticEndTurn() {
-		this.doClick();
+	protected static void automaticEndTurn(GameMap gameMap) {
+		final Collection<Player> players = gameMap.getPlayers();
+		GameMap.getHuman().executeAll();
+		if (players != null) {
+			for (Player ai : players) {
+				if (ai instanceof AIPlayer) {
+					ai.executeAll();
+				}
+			}
+		}
 	}
 }
