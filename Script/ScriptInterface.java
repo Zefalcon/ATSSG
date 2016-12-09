@@ -158,19 +158,19 @@ public class ScriptInterface extends JFrame implements ActionListener{
 		if(model.getElementAt(0).equals("No statements")) { //No statements yet.  Clear, then add to end.
 			model.removeAllElements();
 			model.addElement(toAdd.toString());
-			//environment.getLines().addAtEnd(toAdd);
+			//environment.getLines().addAtEnd(toAdd); TODO
 			statementList.add(toAdd);
 		}
 		else { //Add after selected value
 			if (selected == null) { //Nothing selected, add to end.
 				model.addElement(toAdd.toString());
-				//environment.getLines().addAtEnd(toAdd);
+				//environment.getLines().addAtEnd(toAdd); TODO
 				statementList.add(toAdd);
 			}
 			else { //Add after selected value
 				model.add(script.getSelectedIndex() + 1, toAdd.toString());
-				//environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //Hack, pls fix
-				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen
+				//environment.getLines().addStatement(toAdd, script.getSelectedIndex()+1); //Hack, pls fix TODO
+				//environment.getLines().addAfter(toAdd, selected); //This is approximately the line that needs to happen TODO
 				statementList.add(script.getSelectedIndex()+1, toAdd);
 			}
 		}
@@ -234,7 +234,7 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			setTitle(actor.toString() + "Script");
 		}
 
-		if(environment == null /*|| environment.getLines().statementDone()*/){
+		if(environment == null || environment.getLines().statementDone()){
 			model.removeAllElements();
 			model.addElement("No statements");
 			model.addElement("");
