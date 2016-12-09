@@ -302,6 +302,8 @@ public class MainMap extends UIContainer<Cell> {
 	//getter methods to get references to Gooey
 	public CommandCard getCCard() {return cCard;}
 	public DetailCard getDCard() {return dCard;}
+	public int getCameraWidth() {return cameraConstants[2];}
+	public int getCameraHeight() {return cameraConstants[3];}
 	public static int getDefaultCameraWidth() {return MainMap.defaultCameraWidth;}
 	public static int getDefaultCameraHeight() {return MainMap.defaultCameraHeight;}
 }

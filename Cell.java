@@ -24,13 +24,15 @@ public class Cell implements Comparable<Cell> {
 	protected int x, y; //location, may want to turn into an inner class or something
 	protected GooeyJButton view;
 	protected Image[] terrIcons;
+	protected int terrainFlavor;
 	
 	//Constructors
 	public Cell(TerrainType t, ResourceItem r, GameMap m, int x_in, int y_in){
 		this.x = x_in;
 		this.y = y_in;
 		this.terrainType = t;
-		this.terrIcons = terrainType.getImages();
+		this.terrainFlavor = terrainType.getTerrainFlavor();
+		this.terrIcons = terrainType.getImages(terrainFlavor);
 		this.occupyingResource = r;
 		this.containingMap = m;
 		
@@ -40,7 +42,7 @@ public class Cell implements Comparable<Cell> {
 	
 	//Methods
 	public void updateView(int iconW, int iconH) {
-		this.terrIcons = terrainType.getImages();
+		this.terrIcons = terrainType.getImages(terrainFlavor);
 		Icon icon;
 		if (getOccupyingEntities().isEmpty()) {
 			icon = new ImageIcon(terrIcons[0]);

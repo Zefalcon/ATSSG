@@ -1,6 +1,8 @@
 package ATSSG.GUI;
 
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,12 +31,31 @@ public class Minimap extends UIContainer<Cell> {
 	
 	//Constructors
 	
-	public Minimap(Collection<Cell> content, int width, int height, GameMap gm) {
+	public Minimap(Collection<Cell> content, int width, int height, GameMap gm, MainMap mainMap) {
 		super(content, width, height);
 		this.gm = gm;
 		view = new JPanel();
 		ImageIcon blank = new ImageIcon(Paths.get("src/ATSSG/Art/BigBlankLabel.png").toString());
 		map = new JLabel(blank);
+		map.addMouseListener(new MouseListener() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() != MouseEvent.BUTTON1) {return;}
+				int xLoc = e.getX();
+				int yLoc = e.getY();
+				int cellX = (int)((300 * xLoc) / (xRes * getSize().getWidth()));
+				int cellY = (int)((300 * yLoc) / (yRes * getSize().getWidth()));
+				mainMap.updateView(cellX - mainMap.getCameraWidth() / 2, cellY - mainMap.getCameraHeight() / 2);
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {	}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+		});
 		view.add(map);
 		view.setPreferredSize(getSize());
 		view.setVisible(true);

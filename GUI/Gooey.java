@@ -29,12 +29,12 @@ public class Gooey {
 	protected GlobalMap globalMap;
 	
 	protected Menu menu;
-	protected Minimap minimap;
 	protected MapButton mapButton;
 	protected JButton lastPromptButton;
 	protected ResourceCard resourceCard;
 	protected ScriptInterfaceButton scriptInterfaceButton;
 	protected MainMap mainMap;
+	protected Minimap minimap;
 	protected UnitQueue unitQueue;
 	protected MenuButton menuButton;
 	protected EndTurnButton etButton;
@@ -82,8 +82,6 @@ public class Gooey {
 		
 		try {
 			menu = new Menu(new ArrayList<MenuElement>(6), screenWidth, screenHeight, paneSwitcher, gm, this);
-			
-			minimap = new Minimap(null, miniW, miniH, gm);
 		
 			mapButton = new MapButton(brH, brH, globalMap);
 			
@@ -100,6 +98,8 @@ public class Gooey {
 			scriptInterfaceButton = new ScriptInterfaceButton(buttonWidth, brH, scriptInt);
 		
 			mainMap = new MainMap(screenWidth, mainH, owner, cCardW, cCardH, dCardW, dCardH, this, scriptInt, scriptInterfaceButton);
+			
+			minimap = new Minimap(null, miniW, miniH, gm, mainMap);
 			
 			unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
 			//unitQueue = mainMap.getUQ(); /TODO

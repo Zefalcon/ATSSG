@@ -96,12 +96,14 @@ public enum TerrainType {
 	}
 	
 	public String getName() {return name;}
-	public Image[] getImages() {
-		int rand = (int) (Math.random() * images.size());
+	public int getTerrainFlavor() {
+		return (int) (Math.random() * images.size());
+	}
+	public Image[] getImages(int flavor) {
 		Image[] ret = new Image[3];
-		ret[0] = cellImages.get(rand);
-		ret[1] = cardImages.get(rand);
-		try {ret[2] = ImageIO.read(new File(paths.get(rand)));} catch (IOException ioe) {ret[2] = null;}
+		ret[0] = cellImages.get(flavor);
+		ret[1] = cardImages.get(flavor);
+		try {ret[2] = ImageIO.read(new File(paths.get(flavor)));} catch (IOException ioe) {ret[2] = null;}
 		return ret;
 	}
 	public String getDescription() {return description;}
