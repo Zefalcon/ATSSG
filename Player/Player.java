@@ -1,8 +1,7 @@
 package ATSSG.Player;
+
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -10,7 +9,6 @@ import java.util.Collection;
 
 import ATSSG.Entities.Entity;
 import ATSSG.Enums.RCommodityType;
-import ATSSG.Enums.UnitType;
 import ATSSG.GameMap;
 
 public abstract class Player {
@@ -67,7 +65,7 @@ public abstract class Player {
 	
 	public void addEntity(Entity e) {
 		e.getImage().getGraphics().drawImage(colors, 40, 40, null);
-		e.setCardIcon(new ImageIcon(UnitType.resizeCard(e.getImage())));
+		e.getHealthyImage().getGraphics().drawImage(colors, 40, 40, null);
 		owned_entities.add(e);
 	}
 	

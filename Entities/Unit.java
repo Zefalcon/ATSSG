@@ -21,7 +21,7 @@ public class Unit extends Entity {
 	
 	//Constructors
 	public Unit(UnitType t, Player player, Cell current) throws IOException {
-		super(t.maxHP, player, current, t.getImage());
+		super(t.maxHP, player, current, t.getPath());
 		type = t;
 		allowedCommands.add(CommandType.IDLE);
 		allowedCommands.add(CommandType.MOVE);

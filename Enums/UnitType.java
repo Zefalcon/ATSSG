@@ -2,6 +2,7 @@ package ATSSG.Enums;
 
 import java.util.HashMap;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -83,8 +84,7 @@ public enum UnitType {
 		1,
 		6
 	);
-	//Archer("Archer", "A ranged unit.", null, 5, new InlineMap<TerrainType,Double>().returnPut(TerrainType.GRASS, 1.0), 1, AttackType.SHOOTING, 3, 1);
-
+	
 	HashMap<TerrainType,Double> warriorPassage = new HashMap<>();//flag what does this do?
 	
 	public String name;
@@ -95,9 +95,6 @@ public enum UnitType {
 	public int maxMoves;
 	public int aRange;
 	public int aDamage;
-	public Image image;
-	public static int smallW = 0;
-	public static int smallH = 0;
 	public static int cardW;
 	public static int cardH;
 	
@@ -122,7 +119,7 @@ public enum UnitType {
 		else return i;
 	}
 	
-	public Image getImage() {
+	public BufferedImage getImage() {
 		try {
 			return ImageIO.read(new File(path));
 		} catch (IOException e) {
@@ -130,5 +127,6 @@ public enum UnitType {
 			return null;
 		}
 	}
-
+	
+	public String getPath() {return path;}
 }

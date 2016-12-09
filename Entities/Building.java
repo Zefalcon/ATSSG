@@ -20,7 +20,7 @@ public class Building extends Entity {
 	
 	//Constructors
 	public Building(BuildingType type, Player player, Cell location){
-		super(type.maxHP, player, location, type.getImage());
+		super(type.maxHP, player, location, type.getPath());
 		this.type = type;
 		buildable = new ArrayList<UnitType>();
 		//allowedCommands.add(new ConstructButton(null, "Construct"));

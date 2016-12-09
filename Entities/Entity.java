@@ -1,4 +1,5 @@
 package ATSSG.Entities;
+
 import ATSSG.Cell;
 import ATSSG.Player.Player;
 import ATSSG.Script.Framework.Script;
@@ -6,40 +7,47 @@ import ATSSG.Script.Framework.ScriptError;
 import ATSSG.Actions.*;
 import ATSSG.Enums.CommandType;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 
 public abstract class Entity {
 	
 	//Variables
 	protected int hitPoints;
-	public int getHitPoints() {
-		return hitPoints;
-	}
 	protected Player owner;
 	protected Cell containingCell;
 	protected Script currentScript = null;
 	protected Action currentAction = null;
 	protected List<CommandType> allowedCommands;
-	protected Image image;
+	protected BufferedImage image;
+	protected BufferedImage hImage;
 	protected Icon icon;
-	protected Icon cardIcon;
+	protected String path;
 	protected final int entity_id;
 	protected static int next_id = 0;
 
 	//Constructor
-	public Entity(int hp, Player player, Cell currentCell, Image image){
+	public Entity(int hp, Player player, Cell currentCell, String path){
 		hitPoints = hp;
 		owner = player;
 		containingCell = currentCell;
 		currentScript = new Script(this);
 		currentAction = null;
-		this.image = image;
+		this.path = path;
+		try {
+			this.image = ImageIO.read(new File(path));
+			this.hImage = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			System.out.println("Error fetching an entity image");
+		}
 		icon = null;
 		allowedCommands = new ArrayList<CommandType>();
 		if (player != null) player.addEntity(this);
@@ -109,17 +117,37 @@ public abstract class Entity {
 		currentAction = act;
 	}
 	
+	public void updateHealthyImage() {
+		BufferedImage background = getHealthyImage();
+		try {
+			BufferedImage healthBlank = ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoHealthbarBlank.png").toString()));
+			BufferedImage health = ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoHealthbar.png").toString()));
+			background.getGraphics().drawImage(healthBlank, 19, 80, null);
+			if (this instanceof Unit) {
+				Unit unit = (Unit) this;
+				double healthFrac = (double) unit.getHitPoints() / (double) unit.getType().maxHP;
+				int healthWidth = (int) (healthFrac * health.getWidth());
+				background.getGraphics().drawImage(health, 19, 80, 19 + healthWidth, 80 + health.getHeight(),
+						0, 0, healthWidth, health.getHeight(), null);
+			} else {
+				//reference is a building, which is not implemented currently
+			}
+		} catch (IOException e) {
+			System.out.println("Error fetching the healthbar image.");
+		}
+	}
+	
 	public Cell getContainingCell() {return containingCell;}
 	public void setContainingCell(Cell location) {containingCell = location;}
 	public Player getOwner() {return owner;}
 	public Collection<CommandType> getAllowedCommands(){return allowedCommands;}
-	public Image getImage() {return image;}
+	public BufferedImage getImage() {return image;}
+	public BufferedImage getHealthyImage() {return hImage;}
 	public void setIcon(Icon icon) {this.icon = icon;}
 	public Icon getIcon() {return icon;}
-	public void setCardIcon(Icon cicon) {this.cardIcon = cicon;}
-	public Icon getCardIcon() {return cardIcon;}
 	public int getId() {return entity_id;}
 	public static int getNextId() {return next_id;}
+	public int getHitPoints() {return hitPoints;}
 	
 	public void setHitPoints(int h){this.hitPoints = h;}
 	public Script getCurrentScript(){
