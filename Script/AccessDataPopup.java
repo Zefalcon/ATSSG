@@ -84,7 +84,7 @@ public class AccessDataPopup extends Dialog implements ActionListener, ItemListe
 		add(addButton);
 
 		setTitle("Access Data");
-		setSize(250, 100);
+		setSize(250, 200);
 	}
 
 	public void actionPerformed(ActionEvent e){

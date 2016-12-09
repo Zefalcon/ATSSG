@@ -310,6 +310,9 @@ public class GameMap{
 				gm, 
 				new AIConfig(1.0, -0.5, 0.1)
 			); //Flag Question: what if more than one computer? And why are we building an ai but not doing anything with it?
+			//Flag Answer: at the moment there is no way to have more than one computer, nor do I expect one to be added.
+			//And AI automatically adds itself to the list in its constructor-
+			//uncomment that line, and watch multiple instances of the same AI appear each time the game is loaded.
 			//gm.players.add(cp);
 		}catch(Exception x){
 			//Silently drop.

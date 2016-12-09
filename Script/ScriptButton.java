@@ -7,6 +7,8 @@ import ATSSG.Actions.*;
 
 public class ScriptButton extends JButton {
 
+	//TODO: FLAG Unused class probably.  Confirm with UI.
+
 	/**
 	 * 
 	 */

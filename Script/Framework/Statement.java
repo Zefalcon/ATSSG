@@ -39,13 +39,13 @@ public abstract class Statement {
 			switch(tag){
 				case "set":
 					String name_found = rest.substring(0, rest.indexOf(','));
-					String valu_found = rest.substring(rest.indexOf(','));
+					String valu_found = rest.substring(rest.indexOf(',')+1);
 					System.out.println("Creating variable setter with name " + name_found + " and value " + valu_found);
 					return new SetVariableStatement(name_found, valu_found);
 					
 				case "dec":
 					String name_found_2 = rest.substring(0, rest.indexOf(','));
-					String type_found = rest.substring(rest.indexOf(','));
+					String type_found = rest.substring(rest.indexOf(',')+1);
 					System.out.println("Creating variable declaration with name " + name_found_2 + " and value " + type_found);
 					try{
 						return new VariableDeclarationStatement(name_found_2, Class.forName(type_found));
@@ -72,17 +72,18 @@ public abstract class Statement {
 					
 				case "act":
 					String enu_string = rest.substring(0, rest.indexOf(','));
-					String arg_string = rest.substring(rest.indexOf(','));
-					
+					String arg_string = rest.substring(rest.indexOf(',') + 1);
 					System.out.println("Making action with ordinal " + enu_string + " and arguments " + arg_string);
 					
 					List<String> args_prime = new ArrayList<String>();
 					int scp_prime = arg_string.indexOf(';');
+					System.out.println("Argflag is " + scp_prime);
 					while(scp_prime != -1){
 						args_prime.add(arg_string.substring(0, scp_prime));
 						arg_string = arg_string.substring(scp_prime + 1);
 						scp_prime = arg_string.indexOf(';');
 					}
+					
 					return new ActionStatement(CommandType.values()[Integer.parseInt(enu_string)], args_prime);
 					
 				case "loop":

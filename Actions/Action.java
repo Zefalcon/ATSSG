@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import ATSSG.Enums.CommandType;
 
-public abstract class Action { //Flag we should totally make one or two ActionType enums instead of all these subclasses.
+public abstract class Action {
 	
 	//Variables
 	protected int turnsToComplete;

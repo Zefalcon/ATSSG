@@ -36,7 +36,6 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 		super(owner);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we){
-				//resetWindow();
 				we.getWindow().setVisible(false);
 			}});
 		inter = owner;
@@ -104,7 +103,6 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 		}
 		//Add statement to block
 		inter.addAtPointer(toAdd);
-		//resetWindow();
 		this.setVisible(false);
 	}
 
@@ -151,18 +149,4 @@ public class ActionPopup extends Dialog implements ActionListener, ItemListener{
 		}
 		this.pack();
 	}
-
-	public void resetWindow(){
-		typeLabel = new Label("Target");
-		x = new TextField("Type x coordinate");
-		y = new TextField("Type y coordinate");
-		target = new TextField("Type in target's id");
-		typeLabel.setVisible(false);
-		target.setVisible(false);
-		x.setVisible(false);
-		y.setVisible(false);
-		options.select(0);
-		this.pack();
-	}
-
 }

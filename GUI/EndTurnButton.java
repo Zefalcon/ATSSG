@@ -72,4 +72,8 @@ public class EndTurnButton extends JButton {
 			}
 		});
 	}
+	
+	protected void automaticEndTurn() {
+		this.doClick();
+	}
 }

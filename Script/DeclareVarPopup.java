@@ -61,7 +61,7 @@ public class DeclareVarPopup extends Dialog implements ActionListener{
 			chosenType = Boolean.class;
 		}
 		else{
-			//Should NOT get here.  Default to double?
+			//Should NOT get here.  Default to double
 			chosenType = Double.class;
 		}
 		Statement toAdd;
@@ -69,7 +69,7 @@ public class DeclareVarPopup extends Dialog implements ActionListener{
 			toAdd = new VariableDeclarationStatement(var.getText(), chosenType);
 		}
 		catch(ScriptError se){
-			//Throw a thing?
+			System.out.println(se.getStackTrace());
 			return;
 		}
 		inter.addAtPointer(toAdd);
