@@ -24,9 +24,12 @@ public class Block extends Statement {
 			int tag_loc = wad.indexOf(tag);
 			while(tag_loc != -1){
 				String line = w_cut.substring(0, tag_loc);
+				System.out.println("Creating new line " + line);
 				lines.add(Statement.make(line, d));
-				w_cut = w_cut.substring(tag_loc + wad.length());
-				tag_loc = wad.indexOf(tag);
+				System.out.println("Done with make.");
+				w_cut = w_cut.substring(tag_loc + tag.length());
+				tag_loc = w_cut.indexOf(tag);
+				System.out.println("new loc is " + tag_loc);
 			}
 		}
 	}
