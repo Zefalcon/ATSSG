@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import ATSSG.GameMap;
 import ATSSG.Player.Player;
 import ATSSG.Player.AI.AIPlayer;
+import ATSSG.Script.ScriptInterface;
 
 public class EndTurnButton extends JButton {
 
@@ -29,14 +30,16 @@ public class EndTurnButton extends JButton {
 	protected Gooey holder;
 	protected final GameMap gameMap;
 	protected final UnitQueue uq;
+	protected final ScriptInterface si;
 	protected final Boolean[] prompted = {false};
 	
 	//Constructors
 	
-	public EndTurnButton(int width, int height, final Gooey holder, final GameMap gameMap, final UnitQueue uq) throws IOException {
+	public EndTurnButton(int width, int height, final Gooey holder, final GameMap gameMap, final UnitQueue uq, final ScriptInterface si) throws IOException {
 		super(new ImageIcon(ImageIO.read(new File(Paths.get("src/ATSSG/Art/DemoEndTurn.png").toString())).getScaledInstance(width, height, Image.SCALE_SMOOTH)));
 		this.holder = holder;
 		this.uq = uq;
+		this.si = si;
 		this.gameMap = gameMap;
 		this.setPreferredSize(new Dimension(width, height));
 	}
@@ -50,6 +53,7 @@ public class EndTurnButton extends JButton {
 		final Collection<Player> players = gameMap.getPlayers();
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (si.isVisible()) {return;}
 				if (uq.isEmpty() || prompted[0] == true) {
 					GameMap.getHuman().executeAll();
 					if (players != null) {
