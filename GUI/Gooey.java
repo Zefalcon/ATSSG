@@ -104,9 +104,9 @@ public class Gooey {
 			unitQueue = new UnitQueue(new ArrayList<UnitButton>(0), uqW, uqH);
 			//unitQueue = mainMap.getUQ(); /TODO
 			
-			menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher);
+			menuButton = new MenuButton(2 * buttonWidth / 3, brH, paneSwitcher, scriptInt);
 			
-			etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue);
+			etButton = new EndTurnButton(buttonWidth, brH, this, gm, unitQueue, scriptInt);
 		} catch (IOException ioe) {
 			System.out.println("Image files not found for game buttons.");
 		}

@@ -27,6 +27,7 @@ public class ScriptInterfaceButton extends JButton {
 		this.setPreferredSize(new Dimension(width, height));
 		this.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				if (si.isVisible()) {return;}
 				si.update(); //TODO: Check if needs Entity or if this is good enough.
 				si.setVisible(true);
 			}
