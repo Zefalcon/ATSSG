@@ -41,6 +41,7 @@ public class UnitButton extends JButton {
 		}
 		if (reference == null) {
 			this.setIcon(blank);
+			this.setToolTipText(null);
 		} else {
 			reference.updateHealthyImage();
 			this.setIcon(new ImageIcon(reference.getHealthyImage()));
@@ -54,6 +55,7 @@ public class UnitButton extends JButton {
 					mainMap.updateCCard(reference);
 				}
 			});
+			this.setToolTipText(reference.toString());
 		}
 	}
 	

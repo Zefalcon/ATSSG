@@ -211,7 +211,7 @@ public class MainMap extends UIContainer<Cell> {
 								int index = 0;
 								for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
 									if (index < 9) {
-										cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+										cCard.getCmdButton(index).setParams(cmdt, new CommandListener(selectedEntity, cmdt, MainMap.this, si));
 										index++;
 									}
 								}
@@ -288,7 +288,7 @@ public class MainMap extends UIContainer<Cell> {
 		int index = 0;
 			for (CommandType cmdt : selectedEntity.getAllowedCommands()) {
 				if (index < 9) {
-					cCard.getCmdButton(index).setParams(cmdt.getIcon(), "", new CommandListener(selectedEntity, cmdt, MainMap.this, si));
+					cCard.getCmdButton(index).setParams(cmdt, new CommandListener(selectedEntity, cmdt, MainMap.this, si));
 					index++;
 				}
 			}
