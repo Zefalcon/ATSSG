@@ -31,7 +31,7 @@ public class Minimap extends UIContainer<Cell> {
 	
 	//Constructors
 	
-	public Minimap(Collection<Cell> content, int width, int height, GameMap gm, MainMap mainMap) {
+	public Minimap(Collection<Cell> content, int width, int height, GameMap gm, final MainMap mainMap) {
 		super(content, width, height);
 		this.gm = gm;
 		view = new JPanel();
