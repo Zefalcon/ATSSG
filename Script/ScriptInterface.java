@@ -104,7 +104,6 @@ public class ScriptInterface extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
-		System.out.println("Before aperformed " + actor.getCurrentScript().getLines().getLines());
 		if(e.getSource().equals(addButton)){
 			//Add current statement to block
 			String choice = options.getSelectedItem();
@@ -152,7 +151,6 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			updateScript();
 			setVisible(false);
 		}
-		System.out.println("after aperformed " + actor.getCurrentScript().getLines().getLines());
 	}
 
 	public void addAtPointer(Statement toAdd){
@@ -191,11 +189,9 @@ public class ScriptInterface extends JFrame implements ActionListener{
 
 	public void updateScript(){
 		//Updates script on entity
-		System.out.println("before uds " + actor.getCurrentScript().getLines().getLines());
 		Block blocky = internalBlock(null);
 		//environment.setLines(blocky);//Flag does this actually do anything independent of setting the actor's?
 		actor.getCurrentScript().setLines(blocky);
-		System.out.println("after uds " + actor.getCurrentScript().getLines().getLines());
 	}
 
 	public Block internalBlock(String end){
@@ -235,8 +231,6 @@ public class ScriptInterface extends JFrame implements ActionListener{
 	}
 
 	public void update(Entity newEntity){
-
-		if(environment != null)System.out.println("Pre-update " + actor.getCurrentScript().getLines().getLines().size());
 		actor = newEntity;
 		if(actor != null) {
 			environment = newEntity.getCurrentScript();
@@ -268,8 +262,6 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			List<Statement> lines = environment.getLines().getLines();
 			populateInterface(lines);
 		}
-
-		System.out.println("Post-update " + actor.getCurrentScript().getLines().getLines().size());
 	}
 
 	public void populateInterface(List<Statement> lines){
