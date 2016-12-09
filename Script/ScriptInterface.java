@@ -243,7 +243,12 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			setTitle(actor.toString() + "Script");
 		}
 
-		if(environment == null || environment.getLines().statementDone()){
+		if(environment == null){
+			//Should NOT happen
+			System.out.println("Entity's script never assigned");
+			return;
+		}
+		else if(environment.getLines().statementDone()){
 			model.removeAllElements();
 			model.addElement("No statements");
 			model.addElement("");
@@ -256,7 +261,6 @@ public class ScriptInterface extends JFrame implements ActionListener{
 			model.addElement("");
 			model.addElement("");
 			model.addElement("");
-			environment = new Script(actor);
 		}
 		else{ //Populate with lines from script
 			List<Statement> lines = environment.getLines().getLines();
